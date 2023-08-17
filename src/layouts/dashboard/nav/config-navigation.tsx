@@ -241,7 +241,7 @@ const navConfig = [
     items: [
       { title: 'dashboard', path: PATH_DASHBOARD.general.app, icon: ICONS.dashboard },
       { title: 'role', path: PATH_DASHBOARD.general.ecommerce, icon: ICONS.ecommerce },
-      { title: 'user', path: PATH_DASHBOARD.general.analytics, icon: ICONS.user },
+      { title: 'user', path: PATH_DASHBOARD.userList, icon: ICONS.user },
       { title: 'access control', path: PATH_DASHBOARD.general.banking, icon: ICONS.banking },
       { title: 'sensor variable', path: PATH_DASHBOARD.general.booking, icon: ICONS.booking },
       { title: 'sensor setting', path: PATH_DASHBOARD.general.file, icon: ICONS.file },

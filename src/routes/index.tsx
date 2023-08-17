@@ -126,6 +126,7 @@ import {
   DemoTextMaxLinePage,
   DemoUploadPage,
   DemoMarkdownPage,
+  UserListingPage,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -193,6 +194,7 @@ export default function Router() {
             { path: 'checkout', element: <EcommerceCheckoutPage /> },
           ],
         },
+        { path: 'userList', element: <UserListingPage /> },
         {
           path: 'user',
           children: [

@@ -1,3 +1,4 @@
+import { Radio } from '@mui/material';
 import _mock from '../_mock';
 import { randomNumberRange, randomInArray } from '../utils';
 
@@ -120,6 +121,23 @@ export const _userInvoices = [...Array(10)].map((_, index) => ({
 }));
 
 export const _userList = [...Array(24)].map((_, index) => ({
+  id: _mock.id(index),
+  avatarUrl: _mock.image.avatar(index),
+  name: _mock.name.fullName(index),
+  email: _mock.email(index),
+  phoneNumber: _mock.phoneNumber(index),
+  address: '908 Jack Locks',
+  country: _mock.address.country(index),
+  state: 'Virginia',
+  city: 'Rancho Cordova',
+  zipCode: '85807',
+  company: _mock.company(index),
+  isVerified: _mock.boolean(index),
+  status: randomInArray(['active', 'banned']),
+  role: _mock.role(index),
+}));
+
+export const _userListData = [...Array(24)].map((_, index) => ({
   id: _mock.id(index),
   avatarUrl: _mock.image.avatar(index),
   name: _mock.name.fullName(index),
