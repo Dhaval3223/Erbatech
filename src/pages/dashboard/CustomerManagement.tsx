@@ -18,8 +18,13 @@ import {
   Radio,
   TableCell,
   TableRow,
+  MenuItem,
+  Drawer,
+  Modal,
 } from '@mui/material';
 // routes
+import MenuPopover from 'src/components/menu-popover/MenuPopover';
+import CustomerNewEditForm from 'src/sections/@dashboard/user/CustomerNewEditForm';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -62,8 +67,9 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'User Name', align: 'left' },
-  { id: 'role', label: 'Role Name', align: 'left' },
+  { id: 'name', label: 'Cutomer Name', align: 'left' },
+  { id: 'role', label: 'User ID', align: 'left' },
+  { id: 'select' },
   { id: 'action' },
 ];
 
@@ -103,6 +109,10 @@ export default function UserListing() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const dataFiltered = applyFilter({
     inputData:  tableData,
     comparator: getComparator(order, orderBy),
@@ -110,7 +120,6 @@ export default function UserListing() {
     filterRole,
     filterStatus,
   });
-
 
   console.log("date", dataFiltered);
 
@@ -187,6 +196,22 @@ export default function UserListing() {
     setFilterStatus('all');
   };
 
+  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
+    setOpenPopover(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setOpenPopover(null);
+  };
+
+  const handleOpenDrawer = () => {
+    setOpenDrawer(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false);
+  };
+
   return (
     <>
       <Helmet>
@@ -194,8 +219,7 @@ export default function UserListing() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-       
-        <Card>
+        <Card sx={{ mb: '20px' }}>
           <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
@@ -204,6 +228,9 @@ export default function UserListing() {
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
+            createButtonLable="+ add customer"
+            handleCreateClick={handleOpenDrawer}
+            isCreateButton
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -235,7 +262,7 @@ export default function UserListing() {
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
                   onSort={onSort}
-                 /*  onSelectAllRows={(checked) =>
+                /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
@@ -251,15 +278,15 @@ export default function UserListing() {
                             {row.name}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
+                            {row.id}
                           </TableCell>
                           <TableCell>
-                              <span>
-                          <Iconify icon="eva:trash-2-outline" />
-                          </span>
-                          <span>
-                          <Iconify icon="eva:edit-fill" />
-                          </span>
+                            <Radio />
+                          </TableCell>
+                          <TableCell>
+                            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
+                              <Iconify icon="eva:more-vertical-fill" />
+                            </IconButton>
                           </TableCell>
                         </TableRow>
                     ))}
@@ -286,25 +313,51 @@ export default function UserListing() {
           />
         </Card>
       </Container>
+      <Modal
+        open={openDrawer}
+        onClose={handleCloseDrawer}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+        >
+        <CustomerNewEditForm />
+      </Modal>
+
+      <MenuPopover
+        open={openPopover}
+        onClose={handleClosePopover}
+        arrow="right-top"
+        sx={{ width: 140 }}
+      >
+        <MenuItem
+          onClick={() => {
+            handleOpenConfirm();
+            handleClosePopover();
+          }}
+          sx={{ color: 'error.main' }}
+        >
+          <Iconify icon="eva:trash-2-outline" />
+          Delete
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            // onEditRow();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="eva:edit-fill" />
+          Edit
+        </MenuItem>
+      </MenuPopover>
 
       <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
         title="Delete"
-        content={
-          <>
-            Are you sure want to delete <strong> {selected.length} </strong> items?
-          </>
-        }
+        content="Are you sure want to delete?"
         action={
-          <Button
-            variant="contained"
-            color="error"
-            onClick={() => {
-              handleDeleteRows(selected);
-              handleCloseConfirm();
-            }}
-          >
+          // <Button variant="contained" color="error" onClick={onDeleteRow}>
+          <Button variant="contained" color="error" >
             Delete
           </Button>
         }

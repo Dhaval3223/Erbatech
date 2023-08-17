@@ -127,6 +127,7 @@ import {
   DemoUploadPage,
   DemoMarkdownPage,
   UserListingPage,
+  CustomerManagement,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -177,6 +178,13 @@ export default function Router() {
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralAppPage /> },
+        { path: 'dashboard', element: <GeneralAppPage /> },
+        { path: 'dashboard', element: <GeneralAppPage /> },
+        { path: 'roles', element: <UserListingPage /> },
+        { path: 'user-management', element: <UserListingPage /> },
+        { path: 'customer-management', element: <CustomerManagement /> },
+        { path: 'userList', element: <UserListingPage /> },
+        { path: 'profile', element: <UserProfilePage /> },
         { path: 'ecommerce', element: <GeneralEcommercePage /> },
         { path: 'analytics', element: <GeneralAnalyticsPage /> },
         { path: 'banking', element: <GeneralBankingPage /> },

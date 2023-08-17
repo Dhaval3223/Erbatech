@@ -9,10 +9,13 @@ type Props = {
   filterName: string;
   filterRole: string;
   isFiltered: boolean;
+  createButtonLable?: string;
+  isCreateButton?: boolean;
   optionsRole: string[];
   onResetFilter: VoidFunction;
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleCreateClick?: any;
 };
 
 export default function UserTableToolbar({
@@ -23,11 +26,15 @@ export default function UserTableToolbar({
   onFilterName,
   onFilterRole,
   onResetFilter,
+  isCreateButton,
+  createButtonLable,
+  handleCreateClick,
 }: Props) {
   return (
     <Stack
       spacing={2}
       alignItems="center"
+      justifyContent="space-between"
       direction={{
         xs: 'column',
         sm: 'row',
@@ -35,7 +42,7 @@ export default function UserTableToolbar({
       sx={{ px: 2.5, py: 3 }}
     >
       <TextField
-        fullWidth
+        fullWidth={!isCreateButton}
         value={filterName}
         onChange={onFilterName}
         placeholder="Search..."
@@ -56,6 +63,16 @@ export default function UserTableToolbar({
           startIcon={<Iconify icon="eva:trash-2-outline" />}
         >
           Clear
+        </Button>
+      )}
+      {isCreateButton && (
+        <Button
+          variant="contained"
+          sx={{ flexShrink: 0 }}
+          onClick={handleCreateClick}
+          // startIcon={<Iconify icon="eva:trash-2-outline" />}
+        >
+          {createButtonLable}
         </Button>
       )}
     </Stack>
