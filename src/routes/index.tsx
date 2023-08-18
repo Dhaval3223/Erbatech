@@ -128,6 +128,7 @@ import {
   DemoMarkdownPage,
   UserListingPage,
   CustomerManagement,
+  AccessControl,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -183,6 +184,7 @@ export default function Router() {
         { path: 'roles', element: <UserListingPage /> },
         { path: 'user-management', element: <UserListingPage /> },
         { path: 'customer-management', element: <CustomerManagement /> },
+        { path: 'access-control', element: <AccessControl /> },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },
         { path: 'ecommerce', element: <GeneralEcommercePage /> },
