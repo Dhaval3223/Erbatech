@@ -129,6 +129,7 @@ import {
   UserListingPage,
   CustomerManagement,
   AccessControl,
+  RolesPage,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -181,7 +182,7 @@ export default function Router() {
         { path: 'app', element: <GeneralAppPage /> },
         { path: 'dashboard', element: <GeneralAppPage /> },
         { path: 'dashboard', element: <GeneralAppPage /> },
-        { path: 'roles', element: <UserListingPage /> },
+        { path: 'roles', element: <RolesPage /> },
         { path: 'user-management', element: <UserListingPage /> },
         { path: 'customer-management', element: <CustomerManagement /> },
         { path: 'access-control', element: <AccessControl /> },
