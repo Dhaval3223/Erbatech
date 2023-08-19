@@ -18,18 +18,17 @@ import {
   Radio,
   TableCell,
   TableRow,
+  Dialog,
   MenuItem,
-  Drawer,
-  Modal,
 } from '@mui/material';
 // routes
-import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import CustomerNewEditForm from 'src/sections/@dashboard/user/CustomerNewEditForm';
+import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
-import { _userList, _userListData } from '../../_mock/arrays';
+import { _userListData } from '../../_mock/arrays';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
@@ -67,9 +66,8 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Cutomer Name', align: 'left' },
-  { id: 'role', label: 'User ID', align: 'left' },
-  { id: 'select' },
+  { id: 'name', label: 'User Name', align: 'left' },
+  { id: 'role', label: 'Role Name', align: 'left' },
   { id: 'action' },
 ];
 
@@ -109,9 +107,9 @@ export default function UserListing() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
-
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const dataFiltered = applyFilter({
     inputData:  tableData,
@@ -120,6 +118,7 @@ export default function UserListing() {
     filterRole,
     filterStatus,
   });
+
 
   console.log("date", dataFiltered);
 
@@ -196,20 +195,20 @@ export default function UserListing() {
     setFilterStatus('all');
   };
 
-  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
-    setOpenPopover(event.currentTarget);
-  };
-
-  const handleClosePopover = () => {
-    setOpenPopover(null);
-  };
-
   const handleOpenDrawer = () => {
     setOpenDrawer(true);
   };
 
   const handleCloseDrawer = () => {
     setOpenDrawer(false);
+  };
+
+  const handleClosePopover = () => {
+    setOpenPopover(null);
+  };
+
+  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
+    setOpenPopover(event.currentTarget);
   };
 
   return (
@@ -219,7 +218,7 @@ export default function UserListing() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <Card sx={{ mb: '20px' }}>
+        <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
@@ -278,12 +277,9 @@ export default function UserListing() {
                             {row.name}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.id}
+                            {row.role}
                           </TableCell>
-                          <TableCell>
-                            <Radio />
-                          </TableCell>
-                          <TableCell>
+                          <TableCell align="left">
                             <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
                               <Iconify icon="eva:more-vertical-fill" />
                             </IconButton>
@@ -313,14 +309,15 @@ export default function UserListing() {
           />
         </Card>
       </Container>
-      <Modal
+
+      <Dialog
         open={openDrawer}
         onClose={handleCloseDrawer}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
+        // aria-labelledby="parent-modal-title"
+        // aria-describedby="parent-modal-description"
         >
         <CustomerNewEditForm />
-      </Modal>
+      </Dialog>
 
       <MenuPopover
         open={openPopover}
@@ -354,10 +351,20 @@ export default function UserListing() {
         open={openConfirm}
         onClose={handleCloseConfirm}
         title="Delete"
-        content="Are you sure want to delete?"
+        content={
+          <>
+            Are you sure want to delete <strong> {selected.length} </strong> items?
+          </>
+        }
         action={
-          // <Button variant="contained" color="error" onClick={onDeleteRow}>
-          <Button variant="contained" color="error" >
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              handleDeleteRows(selected);
+              handleCloseConfirm();
+            }}
+          >
             Delete
           </Button>
         }
