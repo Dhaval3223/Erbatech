@@ -2,7 +2,6 @@
 import { Stack, InputAdornment, TextField, MenuItem, Button } from '@mui/material';
 // components
 import { IconButtonAnimate } from 'src/components/animate';
-import { Box } from '@mui/system';
 import Iconify from '../../components/iconify';
 
 // ----------------------------------------------------------------------
