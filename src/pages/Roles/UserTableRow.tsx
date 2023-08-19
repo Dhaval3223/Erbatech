@@ -35,7 +35,8 @@ export default function UserTableRow({
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { name, avatarUrl, company, role, isVerified, status } = row;
+  console.log(row);
+  const { name, avatarUrl, role } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -60,8 +61,12 @@ export default function UserTableRow({
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox checked={selected} onClick={onSelectRow} />
+        </TableCell> */}
+
+        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+          {role}
         </TableCell>
 
         <TableCell>
@@ -74,35 +79,7 @@ export default function UserTableRow({
           </Stack>
         </TableCell>
 
-        <TableCell align="left">{company}</TableCell>
-
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {role}
-        </TableCell>
-
-        {/* <TableCell align="center">
-          <Iconify
-            icon={isVerified ? 'eva:checkmark-circle-fill' : 'eva:clock-outline'}
-            sx={{
-              width: 20,
-              height: 20,
-              color: 'success.main',
-              ...(!isVerified && { color: 'warning.main' }),
-            }}
-          />
-        </TableCell> */}
-
-        {/* <TableCell align="left">
-          <Label
-            variant="soft"
-            color={(status === 'banned' && 'error') || 'success'}
-            sx={{ textTransform: 'capitalize' }}
-          >
-            {status}
-          </Label>
-        </TableCell> */}
-
-        <TableCell align="right">
+        <TableCell>
           <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>

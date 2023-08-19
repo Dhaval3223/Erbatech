@@ -12,6 +12,7 @@ type Props = {
   isFiltered: boolean;
   optionsRole: string[];
   onResetFilter: VoidFunction;
+  handleCreateClick: VoidFunction;
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
@@ -24,40 +25,29 @@ export default function UserTableToolbar({
   onFilterName,
   onFilterRole,
   onResetFilter,
+  handleCreateClick,
 }: Props) {
+
   return (
-    <>
-      <Stack
+    <Stack
         spacing={2}
         alignItems="center"
+        justifyContent="space-between"
         direction={{
           xs: 'column',
           sm: 'row',
         }}
         sx={{ px: 2.5, py: 3 }}
       >
-        <TextField
-          fullWidth
-          name="Role"
-          label="Role Name"
-          sx={{
-            maxWidth: { sm: 240 },
-            textTransform: 'capitalize',
+        <Stack 
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+          direction={{
+            xs: 'column',
+            sm: 'row',
           }}
-        />
-        <IconButtonAnimate color="primary" size="large">
-          <Iconify icon="eva:plus-fill" width={24} />
-        </IconButtonAnimate>
-      </Stack>
-      <Stack
-        spacing={2}
-        alignItems="center"
-        direction={{
-          xs: 'column',
-          sm: 'row',
-        }}
-        sx={{ px: 2.5, py: 3 }}
-      >
+        >
           <TextField
             fullWidth
             select
@@ -117,7 +107,37 @@ export default function UserTableToolbar({
               Clear
             </Button>
           )}
+        </Stack>
+        <Stack 
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+        >
+          <TextField
+            fullWidth
+            name="Role"
+            label="Create New Role"
+            sx={{
+              maxWidth: { sm: 240 },
+              textTransform: 'capitalize',
+            }}
+          />
+          <IconButtonAnimate color="primary" size="large">
+            <Iconify icon="eva:plus-fill" width={24} />
+          </IconButtonAnimate>
+        </Stack>
+
+        {/* <Button
+          variant="contained"
+          sx={{ flexShrink: 0 }}
+          onClick={handleCreateClick}
+        >
+          + create new role
+        </Button> */}
       </Stack>
-    </>
   );
 }
