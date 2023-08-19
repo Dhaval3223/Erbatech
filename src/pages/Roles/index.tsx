@@ -15,8 +15,11 @@ import {
   Container,
   IconButton,
   TableContainer,
+  Dialog,
+  TextField,
 } from '@mui/material';
 // routes
+import { IconButtonAnimate } from 'src/components/animate';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -59,11 +62,8 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'Name', align: 'left' },
-  { id: 'company', label: 'Company', align: 'left' },
   { id: 'role', label: 'Role', align: 'left' },
-  // { id: 'isVerified', label: 'Verified', align: 'center' },
-  // { id: 'status', label: 'Status', align: 'left' },
+  { id: 'name', label: 'Name', align: 'left' },
   { id: '' },
 ];
 
@@ -103,12 +103,13 @@ export default function UserListPage() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(order, orderBy),
     filterRole,
     filterName,
-    filterStatus,
   });
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
@@ -184,6 +185,14 @@ export default function UserListPage() {
     setFilterStatus('all');
   };
 
+  const handleCreateRoleClick = () => {
+    setOpenDrawer(true);
+  }
+
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false);
+  };
+
   return (
     <>
       <Helmet>
@@ -191,27 +200,27 @@ export default function UserListPage() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <CustomBreadcrumbs
+        {/* <CustomBreadcrumbs
           heading="Role List"
           links={[
             { name: 'Dashboard', href: PATH_DASHBOARD.root },
             { name: 'Role', href: PATH_DASHBOARD.user.root },
             { name: 'List' },
           ]}
-          // action={
-          //   <Button
-          //     component={RouterLink}
-          //     to={PATH_DASHBOARD.user.new}
-          //     variant="contained"
-          //     startIcon={<Iconify icon="eva:plus-fill" />}
-          //   >
-          //     New User
-          //   </Button>
-          // }
-        />
+          action={
+            <Button
+              component={RouterLink}
+              to={PATH_DASHBOARD.user.new}
+              variant="contained"
+              startIcon={<Iconify icon="eva:plus-fill" />}
+            >
+              New User
+            </Button>
+          }
+        /> */}
 
         <Card>
-          <Tabs
+          {/* <Tabs
             value={filterStatus}
             onChange={handleFilterStatus}
             sx={{
@@ -222,7 +231,7 @@ export default function UserListPage() {
             {STATUS_OPTIONS.map((tab) => (
               <Tab key={tab} label={tab} value={tab} />
             ))}
-          </Tabs>
+          </Tabs> */}
 
           <Divider />
 
@@ -234,6 +243,7 @@ export default function UserListPage() {
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
+            handleCreateClick={handleCreateRoleClick}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -265,12 +275,12 @@ export default function UserListPage() {
                   rowCount={tableData.length}
                   numSelected={selected.length}
                   onSort={onSort}
-                  onSelectAllRows={(checked) =>
-                    onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
-                  }
+                  // onSelectAllRows={(checked) =>
+                  //   onSelectAllRows(
+                  //     checked,
+                  //     tableData.map((row) => row.id)
+                  //   )
+                  // }
                 />
 
                 <TableBody>
@@ -311,6 +321,28 @@ export default function UserListPage() {
         </Card>
       </Container>
 
+      <Dialog
+        open={openDrawer}
+        onClose={handleCloseDrawer}
+        // aria-labelledby="parent-modal-title"
+        // aria-describedby="parent-modal-description"
+        >
+        <Card sx={{ p: 3 }}>
+          <TextField
+            fullWidth
+            name="Role"
+            label="Role Name"
+            sx={{
+              maxWidth: { sm: 240 },
+              textTransform: 'capitalize',
+            }}
+          />
+          <IconButtonAnimate color="primary" size="large">
+            <Iconify icon="eva:plus-fill" width={24} />
+          </IconButtonAnimate>
+        </Card>
+      </Dialog>
+
       <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
@@ -343,13 +375,11 @@ function applyFilter({
   inputData,
   comparator,
   filterName,
-  filterStatus,
   filterRole,
 }: {
   inputData: IUserAccountGeneral[];
   comparator: (a: any, b: any) => number;
   filterName: string;
-  filterStatus: string;
   filterRole: string;
 }) {
   const stabilizedThis = inputData.map((el, index) => [el, index] as const);
@@ -368,9 +398,9 @@ function applyFilter({
     );
   }
 
-  if (filterStatus !== 'all') {
-    inputData = inputData.filter((user) => user.status === filterStatus);
-  }
+  // if (filterStatus !== 'all') {
+  //   inputData = inputData.filter((user) => user.status === filterStatus);
+  // }
 
   if (filterRole !== 'all') {
     inputData = inputData.filter((user) => user.role === filterRole);
