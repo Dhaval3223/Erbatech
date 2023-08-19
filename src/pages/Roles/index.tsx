@@ -15,16 +15,13 @@ import {
   Container,
   IconButton,
   TableContainer,
-  Radio,
-  TableCell,
-  TableRow,
 } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
-import { _userListData } from '../../_mock/arrays';
+import { _userList } from '../../_mock/arrays';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
@@ -42,7 +39,7 @@ import {
   TablePaginationCustom,
 } from '../../components/table';
 // sections
-import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { UserTableToolbar, UserTableRow } from './exports';
 
 // ----------------------------------------------------------------------
 
@@ -62,15 +59,17 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'User Name', align: 'left' },
-  { id: 'role', label: 'Role Name', align: 'left' },
-  { id: 'select', label: 'Select', align: 'left' },
-  { id: 'action' },
+  { id: 'name', label: 'Name', align: 'left' },
+  { id: 'company', label: 'Company', align: 'left' },
+  { id: 'role', label: 'Role', align: 'left' },
+  // { id: 'isVerified', label: 'Verified', align: 'center' },
+  // { id: 'status', label: 'Status', align: 'left' },
+  { id: '' },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function UserListing() {
+export default function UserListPage() {
   const {
     dense,
     page,
@@ -94,7 +93,7 @@ export default function UserListing() {
 
   const navigate = useNavigate();
 
-  const [tableData, setTableData] = useState(_userListData);
+  const [tableData, setTableData] = useState(_userList);
 
   const [filterName, setFilterName] = useState('');
 
@@ -105,15 +104,12 @@ export default function UserListing() {
   const [filterStatus, setFilterStatus] = useState('all');
 
   const dataFiltered = applyFilter({
-    inputData:  tableData,
+    inputData: tableData,
     comparator: getComparator(order, orderBy),
-    filterName,
     filterRole,
+    filterName,
     filterStatus,
   });
-
-
-  console.log("date", dataFiltered);
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -191,12 +187,45 @@ export default function UserListing() {
   return (
     <>
       <Helmet>
-        <title> User: List | Minimal UI</title>
+        <title> Role: List | Minimal UI</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-       
+        <CustomBreadcrumbs
+          heading="Role List"
+          links={[
+            { name: 'Dashboard', href: PATH_DASHBOARD.root },
+            { name: 'Role', href: PATH_DASHBOARD.user.root },
+            { name: 'List' },
+          ]}
+          // action={
+          //   <Button
+          //     component={RouterLink}
+          //     to={PATH_DASHBOARD.user.new}
+          //     variant="contained"
+          //     startIcon={<Iconify icon="eva:plus-fill" />}
+          //   >
+          //     New User
+          //   </Button>
+          // }
+        />
+
         <Card>
+          <Tabs
+            value={filterStatus}
+            onChange={handleFilterStatus}
+            sx={{
+              px: 2,
+              bgcolor: 'background.neutral',
+            }}
+          >
+            {STATUS_OPTIONS.map((tab) => (
+              <Tab key={tab} label={tab} value={tab} />
+            ))}
+          </Tabs>
+
+          <Divider />
+
           <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
@@ -233,40 +262,31 @@ export default function UserListing() {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={dataFiltered.length}
+                  rowCount={tableData.length}
                   numSelected={selected.length}
                   onSort={onSort}
-                 /*  onSelectAllRows={(checked) =>
+                  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
                     )
-                  } */
+                  }
                 />
+
                 <TableBody>
                   {dataFiltered
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
-                        <TableRow hover>
-                          <TableCell>
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
-                          </TableCell>
-                          <TableCell>
-                            <Radio/>
-                          </TableCell>
-                          <TableCell>
-                              <span>
-                          <Iconify icon="eva:trash-2-outline" />
-                          </span>
-                          <span>
-                          <Iconify icon="eva:edit-fill" />
-                          </span>
-                          </TableCell>
-                        </TableRow>
+                      <UserTableRow
+                        key={row.id}
+                        row={row}
+                        selected={selected.includes(row.id)}
+                        onSelectRow={() => onSelectRow(row.id)}
+                        onDeleteRow={() => handleDeleteRow(row.id)}
+                        onEditRow={() => handleEditRow(row.name)}
+                      />
                     ))}
+
                   <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
@@ -284,7 +304,7 @@ export default function UserListing() {
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
-            
+            //
             dense={dense}
             onChangeDense={onChangeDense}
           />
@@ -348,9 +368,9 @@ function applyFilter({
     );
   }
 
- /*  if (filterStatus !== 'all') {
+  if (filterStatus !== 'all') {
     inputData = inputData.filter((user) => user.status === filterStatus);
-  } */
+  }
 
   if (filterRole !== 'all') {
     inputData = inputData.filter((user) => user.role === filterRole);
