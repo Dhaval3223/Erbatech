@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 // utils
-import axios from 'src/utils/axios';
+import axios from 'src/utils/axiosInstance';
 
 import { 
 CREATE_USER,
@@ -11,11 +11,18 @@ GET_ALL_USERS
 } from './action_type';
 
 import { slice } from '.';
-export function getAllUsers() {
+
+export function getAllUsers(params: {
+  searchValue: string;
+  userTypeCode: string;
+  userRoleId: string;
+  page: string;
+  limit: string;
+}) {
     return async (dispatch: Dispatch) => {
       dispatch(slice.actions.startLoading());
       try {
-        const response = await axios.post(GET_ALL_USERS);
+        const response = await axios.post(GET_ALL_USERS, params);
         dispatch(slice.actions.getUserRecords(response.data.events));
       } catch (error) {
         dispatch(slice.actions.hasError(error));
@@ -48,11 +55,11 @@ export function getAllUsers() {
     };
   }
 
-  export function deleteUserById(id: string) {
+  export function deleteUserById(userId: string) {
     return async (dispatch: Dispatch) => {
       try {
         const response = await axios.post(DELETE_USER, {
-            userId: id
+            userId
         });
         dispatch(slice.actions.deleteUser(response.data));
       } catch (error) {
