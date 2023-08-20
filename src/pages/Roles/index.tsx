@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 // routes
 import { IconButtonAnimate } from 'src/components/animate';
+import { useDispatch, useSelector } from '../../redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -43,6 +44,7 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from './exports';
+import { getAllRoles } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -91,6 +93,12 @@ export default function UserListPage() {
 
   const { themeStretch } = useSettingsContext();
 
+  const dispatch = useDispatch();
+
+  const { rolesData } = useSelector(
+    (state) => state.roles
+  );
+
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState(_userList);
@@ -104,6 +112,12 @@ export default function UserListPage() {
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
+
+  console.log('rolesData', rolesData);
+
+  useEffect(() => {
+    dispatch(getAllRoles())
+  }, [dispatch])
 
   const dataFiltered = applyFilter({
     inputData: tableData,
