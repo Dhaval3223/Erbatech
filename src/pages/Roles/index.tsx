@@ -44,7 +44,7 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from './exports';
-import { getAllRoles } from './slice/action';
+import { createNewRole, deleteRoleById, getAllRoles } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -113,11 +113,21 @@ export default function UserListPage() {
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  console.log('rolesData', rolesData);
+  const [roleError, setRoleError] = useState(false);
+
+  const [rolesDropdownData, setRolesDropdownData] = useState<any[]>([]);
+
+  const [role, setRole] = useState({
+    RoleName: ''
+  });
 
   useEffect(() => {
     dispatch(getAllRoles())
   }, [dispatch])
+
+  useEffect(() => {
+    setRolesDropdownData(rolesData);
+  }, [rolesData])
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -161,6 +171,7 @@ export default function UserListPage() {
   };
 
   const handleDeleteRow = (id: string) => {
+    dispatch(deleteRoleById(id));
     const deleteRow = tableData.filter((row) => row.id !== id);
     setSelected([]);
     setTableData(deleteRow);
@@ -207,6 +218,14 @@ export default function UserListPage() {
     setOpenDrawer(false);
   };
 
+  const handleCreateRoleAPI = () => {
+    if (role.RoleName === '') {
+      setRoleError(true);
+      return;
+    }
+    dispatch(createNewRole(role));
+  }
+
   return (
     <>
       <Helmet>
@@ -214,52 +233,22 @@ export default function UserListPage() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        {/* <CustomBreadcrumbs
-          heading="Role List"
-          links={[
-            { name: 'Dashboard', href: PATH_DASHBOARD.root },
-            { name: 'Role', href: PATH_DASHBOARD.user.root },
-            { name: 'List' },
-          ]}
-          action={
-            <Button
-              component={RouterLink}
-              to={PATH_DASHBOARD.user.new}
-              variant="contained"
-              startIcon={<Iconify icon="eva:plus-fill" />}
-            >
-              New User
-            </Button>
-          }
-        /> */}
-
         <Card>
-          {/* <Tabs
-            value={filterStatus}
-            onChange={handleFilterStatus}
-            sx={{
-              px: 2,
-              bgcolor: 'background.neutral',
-            }}
-          >
-            {STATUS_OPTIONS.map((tab) => (
-              <Tab key={tab} label={tab} value={tab} />
-            ))}
-          </Tabs> */}
-
           <Divider />
-
           <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
             filterRole={filterRole}
-            optionsRole={ROLE_OPTIONS}
+            optionsRole={rolesDropdownData}
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
             handleCreateClick={handleCreateRoleClick}
+            setRole={setRole}
+            handleCreateRoleAPI={handleCreateRoleAPI}
+            roleError={roleError}
+            setRoleError={setRoleError}
           />
-
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
               dense={dense}
@@ -321,7 +310,6 @@ export default function UserListPage() {
               </Table>
             </Scrollbar>
           </TableContainer>
-
           <TablePaginationCustom
             count={dataFiltered.length}
             page={page}
@@ -334,7 +322,6 @@ export default function UserListPage() {
           />
         </Card>
       </Container>
-
       <Dialog
         open={openDrawer}
         onClose={handleCloseDrawer}
@@ -350,8 +337,19 @@ export default function UserListPage() {
               maxWidth: { sm: 240 },
               textTransform: 'capitalize',
             }}
+            onChange={e => {
+              setRole({
+              RoleName: e.target.value
+            })
+          }}
           />
-          <IconButtonAnimate color="primary" size="large">
+          <IconButtonAnimate 
+            color="primary"
+            size="large" 
+            onClick={() => {
+              dispatch(createNewRole(role))
+            }}
+          >
             <Iconify icon="eva:plus-fill" width={24} />
           </IconButtonAnimate>
         </Card>
@@ -371,6 +369,7 @@ export default function UserListPage() {
             variant="contained"
             color="error"
             onClick={() => {
+              console.log(selected, 'ddd')
               handleDeleteRows(selected);
               handleCloseConfirm();
             }}
