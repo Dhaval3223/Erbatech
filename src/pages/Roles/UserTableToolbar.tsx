@@ -1,3 +1,4 @@
+import { ChangeEvent } from 'react';
 // @mui
 import { Stack, InputAdornment, TextField, MenuItem, Button } from '@mui/material';
 // components
@@ -10,11 +11,15 @@ type Props = {
   filterName: string;
   filterRole: string;
   isFiltered: boolean;
-  optionsRole: string[];
+  optionsRole: any[];
   onResetFilter: VoidFunction;
   handleCreateClick: VoidFunction;
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  setRole?: any;
+  setRoleError?: any;
+  handleCreateRoleAPI?: VoidFunction;
+  roleError?: boolean;
 };
 
 export default function UserTableToolbar({
@@ -26,7 +31,18 @@ export default function UserTableToolbar({
   onFilterRole,
   onResetFilter,
   handleCreateClick,
+  setRole,
+  handleCreateRoleAPI,
+  roleError,
+  setRoleError,
 }: Props) {
+
+  const handleRoles = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (roleError) setRoleError(false);
+    setRole({
+      RoleName: e.target.value
+    })
+  }
 
   return (
     <Stack
@@ -68,10 +84,10 @@ export default function UserTableToolbar({
               textTransform: 'capitalize',
             }}
           >
-            {optionsRole.map((option) => (
+            {optionsRole?.map((option) => (
               <MenuItem
                 key={option}
-                value={option}
+                value={option?.RoleId}
                 sx={{
                   mx: 1,
                   borderRadius: 0.75,
@@ -79,7 +95,7 @@ export default function UserTableToolbar({
                   textTransform: 'capitalize',
                 }}
               >
-                {option}
+                {option?.RoleName}
               </MenuItem>
             ))}
           </TextField>
@@ -120,13 +136,19 @@ export default function UserTableToolbar({
           <TextField
             fullWidth
             name="Role"
+            error={roleError}
             label="Create New Role"
             sx={{
               maxWidth: { sm: 240 },
               textTransform: 'capitalize',
             }}
+            onChange={e =>  handleRoles(e)}
           />
-          <IconButtonAnimate color="primary" size="large">
+          <IconButtonAnimate 
+            color="primary" 
+            size="large"
+            onClick={handleCreateRoleAPI}
+            >
             <Iconify icon="eva:plus-fill" width={24} />
           </IconButtonAnimate>
         </Stack>

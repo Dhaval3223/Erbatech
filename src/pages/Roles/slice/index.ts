@@ -43,7 +43,7 @@ const slice = createSlice({
     },
 
     // CREATE EVENT
-    createEventSuccess(state, action) {
+    createRoleSuccess(state, action) {
       const newEvent = action.payload;
       state.isRolesLoading = false;
       state.events = [...state.events, newEvent];
@@ -63,7 +63,7 @@ const slice = createSlice({
     // DELETE EVENT
     deleteEventSuccess(state, action) {
       const eventId = action.payload;
-      state.events = state.events.filter((event) => event.id !== eventId);
+      state.rolesData = state.rolesData.filter((event) => event.RoleId !== eventId);
     },
   },
 });

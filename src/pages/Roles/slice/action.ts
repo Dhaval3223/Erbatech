@@ -1,6 +1,6 @@
 import { Dispatch } from '@reduxjs/toolkit';
 // utils
-import axios from 'src/utils/axios';
+import axios from 'src/utils/axiosInstance';
 
 import { slice } from '.';
 import { 
@@ -39,12 +39,16 @@ export function getRoleById() {
 
 // ----------------------------------------------------------------------
 
-export function createNewRole(newEvent: any) {
+export function createNewRole(newRole: {
+  RoleName: string
+}) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.post(CREATE_ROLE, newEvent);
-      dispatch(slice.actions.createEventSuccess(response.data.event));
+      const response = await axios.post(CREATE_ROLE, newRole);
+      console.log(response.data.event);
+      console.log('response', response);
+      dispatch(slice.actions.createRoleSuccess(response.data.event));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -77,12 +81,14 @@ export function updateRoleById(
 
 // ----------------------------------------------------------------------
 
-export function deleteRoleById(eventId: string) {
+export function deleteRoleById(roleId: string) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      await axios.post(DELETE_ROLE_BY_ID, { eventId });
-      dispatch(slice.actions.deleteEventSuccess(eventId));
+      await axios.post(DELETE_ROLE_BY_ID, {
+        roleId
+    });
+      dispatch(slice.actions.deleteEventSuccess(roleId));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
