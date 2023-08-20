@@ -1,6 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useEffect } from 'react';
 // @mui
 import { Alert, Tooltip, Stack, Typography, Link, Box } from '@mui/material';
+import { getAllRoles } from 'src/pages/Roles/slice/action';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
 // routes
@@ -10,11 +12,22 @@ import LoginLayout from '../../layouts/login';
 //
 import AuthLoginForm from './AuthLoginForm';
 import AuthWithSocial from './AuthWithSocial';
+import { useDispatch, useSelector } from '../../redux/store';
 
 // ----------------------------------------------------------------------
 
 export default function Login() {
   const { method } = useAuthContext();
+  const dispatch = useDispatch();
+
+  const { rolesData } = useSelector(
+    (state) => state.roles
+  );
+  console.log('rolesData', rolesData);
+
+  useEffect(() => {
+    dispatch(getAllRoles())
+  }, [dispatch])
 
   return (
     <LoginLayout>

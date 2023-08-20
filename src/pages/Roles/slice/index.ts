@@ -6,9 +6,19 @@ import { IRolesState } from './types';
 // ----------------------------------------------------------------------
 
 const initialState: IRolesState = {
-  isLoading: false,
+  isRolesLoading: false,
   error: null,
   events: [],
+  rolesData: [{
+    "RoleId": "2",
+    "RoleName": "Admin",
+    "RoleStatus": true,
+    "RoleCreatedBy": "1",
+    "RoleModifiedBy": "1",
+    "createdAt": "2023-08-16T18:15:56.558Z",
+    "updatedAt": "2023-08-16T18:15:56.558Z",
+    "deletedAt": null
+  }]
 };
 
 const slice = createSlice({
@@ -17,31 +27,31 @@ const slice = createSlice({
   reducers: {
     // START LOADING
     startLoading(state) {
-      state.isLoading = true;
+      state.isRolesLoading = true;
     },
 
     // HAS ERROR
     hasError(state, action) {
-      state.isLoading = false;
+      state.isRolesLoading = false;
       state.error = action.payload;
     },
 
     // GET EVENTS
-    getEventsSuccess(state, action) {
-      state.isLoading = false;
-      state.events = action.payload;
+    getRolesSuccess(state, action) {
+      state.isRolesLoading = false;
+      state.rolesData = action.payload.data.data;
     },
 
     // CREATE EVENT
     createEventSuccess(state, action) {
       const newEvent = action.payload;
-      state.isLoading = false;
+      state.isRolesLoading = false;
       state.events = [...state.events, newEvent];
     },
 
     // UPDATE EVENT
     updateEventSuccess(state, action) {
-      state.isLoading = false;
+      state.isRolesLoading = false;
       state.events = state.events.map((event) => {
         if (event.id === action.payload.id) {
           return action.payload;
