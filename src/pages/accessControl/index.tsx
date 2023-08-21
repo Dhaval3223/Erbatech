@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -24,6 +24,7 @@ import {
   Stack,
 } from '@mui/material';
 // routes
+import { useDispatch } from 'react-redux';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -47,6 +48,7 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { updateRoleById } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -112,6 +114,8 @@ export default function UserListing() {
 
   const navigate = useNavigate();
 
+  const dispatch = useDispatch();
+
   const [tableData, setTableData] = useState(_userListData);
 
   const [filterName, setFilterName] = useState('');
@@ -121,6 +125,34 @@ export default function UserListing() {
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [filterStatus, setFilterStatus] = useState('all');
+
+  const [updateRole, setUpdateRole] = useState<{
+    RoleId: string;
+    data: {
+        ProgramCode: string;
+        RolePrivilege: string;
+    }[];
+}>({
+    "RoleId": "2",
+    "data": [
+        {
+            "ProgramCode": "PG003",
+            "RolePrivilege": "AMDVR"
+        },
+        {
+            "ProgramCode": "PG004",
+            "RolePrivilege": "AMDVR"
+        },
+        {
+            "ProgramCode": "PG005",
+            "RolePrivilege": "AMDVR"
+        },
+        {
+            "ProgramCode": "PG006",
+            "RolePrivilege": "AMDVR"
+        }
+    ]
+});
 
   const dataFiltered = [
     {
@@ -152,9 +184,6 @@ export default function UserListing() {
     delete: true,
   }
 ]
-
-
-  console.log("date", dataFiltered);
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -188,6 +217,10 @@ export default function UserListing() {
   const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setFilterRole(event.target.value);
+    setUpdateRole({
+      ...updateRole,
+      RoleId: event.target.value
+    });
   };
 
   const handleDeleteRow = (id: string) => {
@@ -229,6 +262,13 @@ export default function UserListing() {
     setFilterStatus('all');
   };
 
+  const handleUpdateRole = (checked: any, row: any, letter: string) => {}
+
+  const handleSave = () => {
+    console.log('hello')
+    // dispatch(updateRoleById({ ...updateRole }))
+  }
+
   return (
     <>
       <Helmet>
@@ -236,16 +276,16 @@ export default function UserListing() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-       
         <Card>
         <Stack
-        spacing={2}
-        alignItems="center"
-        direction={{
-          xs: 'column',
-          sm: 'row',
-        }}
-        sx={{ px: 2.5, py: 3 }}
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+          sx={{ px: 2.5, py: 3 }}
       >
         <TextField
             fullWidth
@@ -281,42 +321,15 @@ export default function UserListing() {
                 {option}
               </MenuItem>
             ))}
-          </TextField>
-          <TextField
-            fullWidth
-            select
-            label="Username"
-            value={filterRole}
-            onChange={handleFilterRole}
-            SelectProps={{
-              MenuProps: {
-                PaperProps: {
-                  sx: {
-                    maxHeight: 260,
-                  },
-                },
-              },
-            }}
-            sx={{
-              maxWidth: { sm: 240 },
-              textTransform: 'capitalize',
-            }}
-          >
-            {UserList.map((option) => (
-              <MenuItem
-                key={option}
-                value={option}
-                sx={{
-                  mx: 1,
-                  borderRadius: 0.75,
-                  typography: 'body2',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
+        </TextField>
+        <Button
+          variant="contained"
+          sx={{ flexShrink: 0 }}
+          onClick={handleSave}
+          // startIcon={<Iconify icon="eva:trash-2-outline" />}
+        >
+          Save Changes
+        </Button>
           </Stack>
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -347,7 +360,7 @@ export default function UserListing() {
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
                   onSort={onSort}
-                 /*  onSelectAllRows={(checked) =>
+                /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
@@ -363,16 +376,16 @@ export default function UserListing() {
                             {row.module}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.create}/>
+                            <Checkbox checked={row.create} onChange={(e) => handleUpdateRole(e, row, "A")} />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.view}/>
+                            <Checkbox checked={row.view} onChange={(e) => handleUpdateRole(e, row, "v")} />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.edit}/>
+                            <Checkbox checked={row.edit} onChange={(e) => handleUpdateRole(e, row, "M")} />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.delete}/>
+                            <Checkbox checked={row.delete} onChange={(e) => handleUpdateRole(e, row, "D")} />
                           </TableCell>
                         </TableRow>
                     ))}
