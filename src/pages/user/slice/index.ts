@@ -51,7 +51,7 @@ const slice = createSlice({
       getUserRecords(state, action) {
         state.viewSuccess = true
         state.isUserLoading = false;
-        state.users = action.payload.data.data;
+        state.users = action.payload;
       },
       hasError(state, action) {
         state.isUserLoading = false;

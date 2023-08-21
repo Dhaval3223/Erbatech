@@ -14,7 +14,7 @@ import { slice } from '.';
 
 export function getAllUsers(params: {
   searchValue: string;
-  userTypeCode: string;
+  userType: string;
   userRoleId: string;
   page: string;
   limit: string;
@@ -23,7 +23,7 @@ export function getAllUsers(params: {
       dispatch(slice.actions.startLoading());
       try {
         const response = await axios.post(GET_ALL_USERS, params);
-        dispatch(slice.actions.getUserRecords(response.data.events));
+        dispatch(slice.actions.getUserRecords(response.data.data));
       } catch (error) {
         dispatch(slice.actions.hasError(error));
       }

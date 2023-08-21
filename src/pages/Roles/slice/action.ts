@@ -18,7 +18,7 @@ export function getAllRoles() {
     try {
       const response = await axios.post(GET_ALL_ROLES);
       console.log('response', response);
-      dispatch(slice.actions.getRolesSuccess(response.data.events));
+      dispatch(slice.actions.getRolesSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

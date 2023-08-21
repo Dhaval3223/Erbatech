@@ -38,8 +38,9 @@ const slice = createSlice({
 
     // GET EVENTS
     getRolesSuccess(state, action) {
+      console.log(action, 'actionn');
       state.isRolesLoading = false;
-      state.rolesData = action.payload.data.data;
+      state.rolesData = action.payload;
     },
 
     // CREATE EVENT

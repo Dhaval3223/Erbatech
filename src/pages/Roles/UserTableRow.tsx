@@ -21,7 +21,7 @@ import ConfirmDialog from '../../components/confirm-dialog';
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: IUserAccountGeneral;
+  row: any;
   selected: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
@@ -36,7 +36,8 @@ export default function UserTableRow({
   onDeleteRow,
 }: Props) {
   console.log(row);
-  const { name, avatarUrl, role } = row;
+  const { FirstName, LastName, Role } = row || {};
+  const { RoleName } = Role || {};
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -66,15 +67,15 @@ export default function UserTableRow({
         </TableCell> */}
 
         <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {role}
+          {RoleName}
         </TableCell>
 
         <TableCell>
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={FirstName} src='' />
 
             <Typography variant="subtitle2" noWrap>
-              {name}
+              {`${FirstName} ${LastName}`}
             </Typography>
           </Stack>
         </TableCell>

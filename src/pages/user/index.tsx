@@ -135,7 +135,7 @@ export default function UserListing() {
   useEffect(() => {
     dispatch(getAllUsers({
       "searchValue": "",
-      "userTypeCode": "",
+      "userType": "",
       "userRoleId": "",
       "page": "1",
       "limit": "5"
