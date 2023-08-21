@@ -20,6 +20,7 @@ import {
 } from '@mui/material';
 // routes
 import { IconButtonAnimate } from 'src/components/animate';
+import { debounce } from 'lodash';
 import { useDispatch, useSelector } from '../../redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
@@ -165,6 +166,8 @@ export default function UserListPage() {
     setFilterName(event.target.value);
   };
 
+  const debouncedOnChange = debounce(handleFilterName, 500);
+
   const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setFilterRole(event.target.value);
@@ -240,7 +243,7 @@ export default function UserListPage() {
             filterName={filterName}
             filterRole={filterRole}
             optionsRole={rolesDropdownData}
-            onFilterName={handleFilterName}
+            onFilterName={debouncedOnChange}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
             handleCreateClick={handleCreateRoleClick}
