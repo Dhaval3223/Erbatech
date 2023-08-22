@@ -24,7 +24,8 @@ import {
   Stack,
 } from '@mui/material';
 // routes
-import { useDispatch } from 'react-redux';
+import UserRolesDropDown from 'src/components/userRolesDropdown';
+import { useDispatch, useSelector } from 'src/redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -48,7 +49,8 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
-import { updateRoleById } from './slice/action';
+import { getAllMenuByRoleId, updateMenuById } from './slice/action';
+import { getAllMenus } from '../Menu/slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -112,6 +114,10 @@ export default function UserListing() {
 
   const { themeStretch } = useSettingsContext();
 
+  const { allMenus } = useSelector(state => state.menu);
+
+  const { accessControlData } = useSelector(state => state.accesControl);
+
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -120,39 +126,39 @@ export default function UserListing() {
 
   const [filterName, setFilterName] = useState('');
 
-  const [filterRole, setFilterRole] = useState('all');
+  const [filterRole, setFilterRole] = useState('');
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const [updateRole, setUpdateRole] = useState<{
-    RoleId: string;
-    data: {
-        ProgramCode: string;
-        RolePrivilege: string;
-    }[];
-}>({
-    "RoleId": "2",
-    "data": [
-        {
-            "ProgramCode": "PG003",
-            "RolePrivilege": "AMDVR"
-        },
-        {
-            "ProgramCode": "PG004",
-            "RolePrivilege": "AMDVR"
-        },
-        {
-            "ProgramCode": "PG005",
-            "RolePrivilege": "AMDVR"
-        },
-        {
-            "ProgramCode": "PG006",
-            "RolePrivilege": "AMDVR"
-        }
-    ]
-});
+  const [checkedMenus, setCheckedMenus] = useState<any[]>([]);
+
+  const [programCodesArr, setProgramCodesArr] = useState<any[]>([]);
+
+  useEffect(() => {
+    dispatch(getAllMenus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (filterRole !== '' && filterRole !== undefined) 
+      dispatch(getAllMenuByRoleId(filterRole));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterRole]);
+
+  useEffect(() => {
+    const tempArr: any[] = [];
+    const program = accessControlData?.map(item => {
+      const { ProgramCode, ProgramPrivilege } = item?.Program || {};
+      tempArr.push(ProgramCode);
+      return {
+        ProgramCode,
+        RolePrivilege: ProgramPrivilege,
+      }
+    });
+    setCheckedMenus(program);
+    setProgramCodesArr(tempArr);
+  }, [accessControlData])
 
   const dataFiltered = [
     {
@@ -217,10 +223,6 @@ export default function UserListing() {
   const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setFilterRole(event.target.value);
-    setUpdateRole({
-      ...updateRole,
-      RoleId: event.target.value
-    });
   };
 
   const handleDeleteRow = (id: string) => {
@@ -265,8 +267,14 @@ export default function UserListing() {
   const handleUpdateRole = (checked: any, row: any, letter: string) => {}
 
   const handleSave = () => {
-    console.log('hello')
-    // dispatch(updateRoleById({ ...updateRole }))
+    dispatch(updateMenuById({
+        RoleId: filterRole,
+        data: checkedMenus
+     }));
+  }
+
+  const handleChacked = (ProgramCode: string, operation: string) => {
+    
   }
 
   return (
@@ -287,41 +295,12 @@ export default function UserListing() {
           }}
           sx={{ px: 2.5, py: 3 }}
       >
-        <TextField
-            fullWidth
-            select
-            label="Role"
-            value={filterRole}
-            onChange={handleFilterRole}
-            SelectProps={{
-              MenuProps: {
-                PaperProps: {
-                  sx: {
-                    maxHeight: 260,
-                  },
-                },
-              },
-            }}
-            sx={{
-              maxWidth: { sm: 240 },
-              textTransform: 'capitalize',
-            }}
-          >
-            {ROLE_OPTIONS.map((option) => (
-              <MenuItem
-                key={option}
-                value={option}
-                sx={{
-                  mx: 1,
-                  borderRadius: 0.75,
-                  typography: 'body2',
-                  textTransform: 'capitalize',
-                }}
-              >
-                {option}
-              </MenuItem>
-            ))}
-        </TextField>
+        <UserRolesDropDown 
+          onFilterRole={handleFilterRole} 
+          setFilterRole={setFilterRole}
+          filterRole={filterRole}
+          addAllRole={false}
+        />
         <Button
           variant="contained"
           sx={{ flexShrink: 0 }}
@@ -359,7 +338,7 @@ export default function UserListing() {
                   headLabel={TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                  onSort={onSort}
+                  // onSort={onSort}
                 /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
@@ -368,33 +347,32 @@ export default function UserListing() {
                   } */
                 />
                 <TableBody>
-                  {dataFiltered
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
+                  {allMenus?.map((row) => (
                         <TableRow hover>
                           <TableCell>
-                            {row.module}
+                            {row.ProgramName}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.create} onChange={(e) => handleUpdateRole(e, row, "A")} />
+                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "A")} />
+                            {/* <Checkbox checked={handleChacked(row.ProgramCode, 'A')} onChange={(e) => handleUpdateRole(e, row, "A")} /> */}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.view} onChange={(e) => handleUpdateRole(e, row, "v")} />
+                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "v")} />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.edit} onChange={(e) => handleUpdateRole(e, row, "M")} />
+                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "M")} />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox checked={row.delete} onChange={(e) => handleUpdateRole(e, row, "D")} />
+                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "D")} />
                           </TableCell>
                         </TableRow>
                     ))}
-                  <TableEmptyRows
+                  {/* <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
-                  />
+                  /> */}
 
-                  <TableNoData isNotFound={isNotFound} />
+                  {/* <TableNoData isNotFound={isNotFound} /> */}
                 </TableBody>
               </Table>
             </Scrollbar>

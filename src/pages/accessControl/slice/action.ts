@@ -7,7 +7,7 @@ import { GET_MENUS, UPDATE_ROLE_PRIVILEGES } from './action_types';
 
 // ----------------------------------------------------------------------
 
-export function getAllRoles(id: string) {
+export function getAllMenuByRoleId(id: string) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startRolesLoading());
     try {
@@ -15,7 +15,7 @@ export function getAllRoles(id: string) {
         "RoleId": id,
     });
       console.log('response', response);
-      dispatch(slice.actions.getRolesSuccess(response.data.events));
+      dispatch(slice.actions.getRolesSuccess(response.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
@@ -24,7 +24,7 @@ export function getAllRoles(id: string) {
 
 // ----------------------------------------------------------------------
 
-export function updateRoleById(data: {
+export function updateMenuById(data: {
   RoleId: string,
   data: {
           ProgramCode: string;

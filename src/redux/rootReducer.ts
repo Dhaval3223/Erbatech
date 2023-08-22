@@ -4,6 +4,8 @@ import storage from 'redux-persist/lib/storage';
 // slices
 import rolesReducer from 'src/pages/Roles/slice';
 import userReducer from 'src/pages/user/slice';
+import menuReducer from 'src/pages/Menu/slice';
+import accesControlReducer from 'src/pages/accessControl/slice';
 import mailReducer from './slices/mail';
 import chatReducer from './slices/chat';
 import productReducer from './slices/product';
@@ -32,7 +34,9 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   kanban: kanbanReducer,
   roles: rolesReducer,
-  user:userReducer,
+  user: userReducer,
+  menu: menuReducer,
+  accesControl: accesControlReducer,
   product: persistReducer(productPersistConfig, productReducer),
 });
 
