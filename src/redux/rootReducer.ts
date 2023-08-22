@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 // slices
 import rolesReducer from 'src/pages/Roles/slice';
+import userReducer from 'src/pages/user/slice';
 import mailReducer from './slices/mail';
 import chatReducer from './slices/chat';
 import productReducer from './slices/product';
@@ -31,6 +32,7 @@ const rootReducer = combineReducers({
   calendar: calendarReducer,
   kanban: kanbanReducer,
   roles: rolesReducer,
+  user:userReducer,
   product: persistReducer(productPersistConfig, productReducer),
 });
 

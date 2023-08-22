@@ -46,6 +46,7 @@ import {
 // sections
 import { UserTableToolbar, UserTableRow } from './exports';
 import { createNewRole, deleteRoleById, getAllRoles } from './slice/action';
+import { getAllUsers } from '../user/slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -100,6 +101,12 @@ export default function UserListPage() {
     (state) => state.roles
   );
 
+  const { users } = useSelector(
+    (state) => state.user
+  );
+
+  console.log('users', users);
+
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState(_userList);
@@ -118,17 +125,39 @@ export default function UserListPage() {
 
   const [rolesDropdownData, setRolesDropdownData] = useState<any[]>([]);
 
+  const [getAllRolesData, setGetAllRolesData] = useState({
+    searchValue: "",
+    userType: "",
+    userRoleId: "",
+  });
+
   const [role, setRole] = useState({
     RoleName: ''
   });
 
   useEffect(() => {
     dispatch(getAllRoles())
+    dispatch(getAllUsers({
+      searchValue: "",
+      userType: "",
+      userRoleId: "",
+      page: "1",
+      limit: "5"
+    }));
   }, [dispatch])
 
   useEffect(() => {
     setRolesDropdownData(rolesData);
   }, [rolesData])
+
+  useEffect(() => {
+    dispatch(getAllUsers({
+      ...getAllRolesData,
+      page: String(page + 1),
+      limit: String(rowsPerPage),
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, rowsPerPage])
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -165,8 +194,9 @@ export default function UserListPage() {
     setPage(0);
     setFilterName(event.target.value);
   };
+  
+  // const debouncedOnChange = debounce(handleFilterName, 500);
 
-  const debouncedOnChange = debounce(handleFilterName, 500);
 
   const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
@@ -290,16 +320,14 @@ export default function UserListPage() {
                 />
 
                 <TableBody>
-                  {dataFiltered
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
+                  {users?.rows?.map((row, index) => (
                       <UserTableRow
-                        key={row.id}
+                        key={index}
                         row={row}
-                        selected={selected.includes(row.id)}
-                        onSelectRow={() => onSelectRow(row.id)}
-                        onDeleteRow={() => handleDeleteRow(row.id)}
-                        onEditRow={() => handleEditRow(row.name)}
+                        selected={selected.includes('1')}
+                        onSelectRow={() => onSelectRow('1')}
+                        onDeleteRow={() => handleDeleteRow('1')}
+                        onEditRow={() => handleEditRow('1')}
                       />
                     ))}
 
@@ -314,7 +342,7 @@ export default function UserListPage() {
             </Scrollbar>
           </TableContainer>
           <TablePaginationCustom
-            count={dataFiltered.length}
+            count={users.count}
             page={page}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}

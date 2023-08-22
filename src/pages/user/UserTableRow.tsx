@@ -21,7 +21,7 @@ import ConfirmDialog from '../../components/confirm-dialog';
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: any;
+  row: IUserAccountGeneral;
   selected: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
@@ -36,8 +36,7 @@ export default function UserTableRow({
   onDeleteRow,
 }: Props) {
   console.log(row);
-  const { FirstName, LastName, Role } = row || {};
-  const { RoleName } = Role || {};
+  const { name, avatarUrl, role } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -66,25 +65,19 @@ export default function UserTableRow({
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell> */}
 
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {RoleName}
-        </TableCell>
-
-        <TableCell>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={FirstName} src='' />
-
-            <Typography variant="subtitle2" noWrap>
-              {`${FirstName} ${LastName}`}
-            </Typography>
-          </Stack>
-        </TableCell>
-
-        <TableCell>
-          <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
-        </TableCell>
+            {/* <TableRow hover> */}
+                          <TableCell>
+                            {row.name}
+                          </TableCell>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            {row.role}
+                          </TableCell>
+                          <TableCell align="left">
+                            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
+                              <Iconify icon="eva:more-vertical-fill" />
+                            </IconButton>
+                          </TableCell>
+                        {/* </TableRow> */}
       </TableRow>
 
       <MenuPopover

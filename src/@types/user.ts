@@ -114,6 +114,44 @@ export type IUserAccountGeneral = {
   role: string;
 };
 
+// ----------------------------------------------------------------------
+
+export type IRoleAccountGeneral = {
+  "UserId": "3",
+  "UserTypeCode": "AD",
+  "UserCode": null,
+  "FirstName": "admin",
+  "MiddleName": "",
+  "LastName": "user",
+  "Address": "",
+  "UserPassword": "$2b$10$LN9aq1XU6YT8VYuspcFjJub9iKuDPKXcLlLpRvAVli3p05BqW.iW6",
+  "UserEmail": "admin@gmail.com",
+  "UserGender": "M",
+  "DateOfBirth": "2023-08-19T16:36:41.078Z",
+  "DateOfJoin": "2023-08-19T16:36:41.078Z",
+  "Mobile": "",
+  "UserRoleId": "2",
+  "UserCountryId": "2",
+  "UserStateId": "1",
+  "UserCity": "Bernau",
+  "UserStatus": true,
+  "UserCreatedBy": "1",
+  "UserModifiedBy": "1",
+  "createdAt": "2023-08-20T19:20:04.041Z",
+  "updatedAt": "2023-08-20T19:20:04.042Z",
+  "deletedAt": null,
+  "Role": {
+      "RoleId": "2",
+      "RoleName": "Admin",
+      "RoleStatus": true,
+      "RoleCreatedBy": "1",
+      "RoleModifiedBy": "1",
+      "createdAt": "2023-08-16T18:15:56.558Z",
+      "updatedAt": "2023-08-16T18:15:56.558Z",
+      "deletedAt": null
+  }
+};
+
 export type IUserAccountBillingCreditCard = {
   id: string;
   cardNumber: string;

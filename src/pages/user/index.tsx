@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -24,6 +24,7 @@ import {
 // routes
 import CustomerNewEditForm from 'src/sections/@dashboard/user/CustomerNewEditForm';
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
+import { dispatch } from 'src/redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -46,7 +47,9 @@ import {
   TablePaginationCustom,
 } from '../../components/table';
 // sections
-import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { UserTableToolbar } from '../../sections/@dashboard/user/list';
+import UserTableRow  from './UserTableRow';
+import { deleteUserById, getAllUsers } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -116,11 +119,7 @@ export default function UserListing() {
     comparator: getComparator(order, orderBy),
     filterName,
     filterRole,
-    filterStatus,
   });
-
-
-  console.log("date", dataFiltered);
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -132,6 +131,16 @@ export default function UserListing() {
     (!dataFiltered.length && !!filterName) ||
     (!dataFiltered.length && !!filterRole) ||
     (!dataFiltered.length && !!filterStatus);
+
+  useEffect(() => {
+    dispatch(getAllUsers({
+      "searchValue": "",
+      "userType": "",
+      "userRoleId": "",
+      "page": "1",
+      "limit": "5"
+  }));
+  }, [])
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -157,6 +166,7 @@ export default function UserListing() {
   };
 
   const handleDeleteRow = (id: string) => {
+    dispatch(deleteUserById(id));
     const deleteRow = tableData.filter((row) => row.id !== id);
     setSelected([]);
     setTableData(deleteRow);
@@ -272,19 +282,14 @@ export default function UserListing() {
                   {dataFiltered
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
-                        <TableRow hover>
-                          <TableCell>
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
-                          </TableCell>
-                          <TableCell align="left">
-                            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
-                              <Iconify icon="eva:more-vertical-fill" />
-                            </IconButton>
-                          </TableCell>
-                        </TableRow>
+                      <UserTableRow
+                      key={row.id}
+                      row={row}
+                      selected={selected.includes(row.id)}
+                      onSelectRow={() => onSelectRow(row.id)}
+                      onDeleteRow={() => handleDeleteRow(row.id)}
+                      onEditRow={() => handleEditRow(row.name)}
+                    />
                     ))}
                   <TableEmptyRows
                     height={denseHeight}
@@ -361,6 +366,8 @@ export default function UserListing() {
             variant="contained"
             color="error"
             onClick={() => {
+              console.log('selected', selected);
+              // dispatch(deleteUserById(id));
               handleDeleteRows(selected);
               handleCloseConfirm();
             }}
@@ -379,13 +386,11 @@ function applyFilter({
   inputData,
   comparator,
   filterName,
-  filterStatus,
   filterRole,
 }: {
   inputData: IUserAccountGeneral[];
   comparator: (a: any, b: any) => number;
   filterName: string;
-  filterStatus: string;
   filterRole: string;
 }) {
   const stabilizedThis = inputData.map((el, index) => [el, index] as const);
