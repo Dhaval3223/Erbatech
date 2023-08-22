@@ -194,8 +194,9 @@ export default function UserListPage() {
     setPage(0);
     setFilterName(event.target.value);
   };
-
+  
   // const debouncedOnChange = debounce(handleFilterName, 500);
+
 
   const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
@@ -272,7 +273,7 @@ export default function UserListPage() {
             filterName={filterName}
             filterRole={filterRole}
             optionsRole={rolesDropdownData}
-            onFilterName={handleFilterName}
+            onFilterName={debouncedOnChange}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
             handleCreateClick={handleCreateRoleClick}
