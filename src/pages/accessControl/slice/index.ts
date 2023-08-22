@@ -16,7 +16,7 @@ const initialState: IAccessControlState = {
 };
 
 const slice = createSlice({
-  name: 'roles',
+  name: 'accesControl',
   initialState,
   reducers: {
     // START LOADING
@@ -33,7 +33,7 @@ const slice = createSlice({
     // GET EVENTS
     getRolesSuccess(state, action) {
       state.isAccessControlLoading = false;
-      state.accessControlData = action.payload.data.data;
+      state.accessControlData = action.payload.data;
     },
 
     // UPDATE EVENT
