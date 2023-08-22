@@ -43,14 +43,14 @@ export function createNewRole(newRole: {
   RoleName: string
 }) {
   return async (dispatch: Dispatch) => {
-    dispatch(slice.actions.startLoading());
+    dispatch(slice.actions.startCreateRoleLoading());
     try {
       const response = await axios.post(CREATE_ROLE, newRole);
       console.log(response.data.event);
       console.log('response', response);
       dispatch(slice.actions.createRoleSuccess(response.data.event));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasCreateRoleError(error));
     }
   };
 }

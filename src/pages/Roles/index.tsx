@@ -21,6 +21,7 @@ import {
 // routes
 import { IconButtonAnimate } from 'src/components/animate';
 import { debounce } from 'lodash';
+import { LoadingButton } from '@mui/lab';
 import { useDispatch, useSelector } from '../../redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
@@ -97,7 +98,7 @@ export default function UserListPage() {
 
   const dispatch = useDispatch();
 
-  const { rolesData } = useSelector(
+  const { rolesData, isCreateRoleLoading } = useSelector(
     (state) => state.roles
   );
 
@@ -105,18 +106,16 @@ export default function UserListPage() {
     (state) => state.user
   );
 
-  console.log('users', users);
-
   const navigate = useNavigate();
 
   const [tableData, setTableData] = useState(_userList);
 
   const [filterName, setFilterName] = useState('');
-
-  const [filterRole, setFilterRole] = useState('all');
-
+  
+  const [filterRole, setFilterRole] = useState('');
+  
   const [openConfirm, setOpenConfirm] = useState(false);
-
+  
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -124,12 +123,6 @@ export default function UserListPage() {
   const [roleError, setRoleError] = useState(false);
 
   const [rolesDropdownData, setRolesDropdownData] = useState<any[]>([]);
-
-  const [getAllRolesData, setGetAllRolesData] = useState({
-    searchValue: "",
-    userType: "",
-    userRoleId: "",
-  });
 
   const [role, setRole] = useState({
     RoleName: ''
@@ -141,8 +134,8 @@ export default function UserListPage() {
       searchValue: "",
       userType: "",
       userRoleId: "",
-      page: "1",
-      limit: "5"
+      page: "0",
+      limit: "5",
     }));
   }, [dispatch])
 
@@ -152,12 +145,14 @@ export default function UserListPage() {
 
   useEffect(() => {
     dispatch(getAllUsers({
-      ...getAllRolesData,
-      page: String(page + 1),
+      searchValue: filterName,
+      userType: filterStatus,
+      userRoleId: filterRole,
+      page: String(page),
       limit: String(rowsPerPage),
     }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage])
+  }, [page, rowsPerPage, filterName, filterStatus, filterRole])
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -170,12 +165,12 @@ export default function UserListPage() {
 
   const denseHeight = dense ? 52 : 72;
 
-  const isFiltered = filterName !== '' || filterRole !== 'all' || filterStatus !== 'all';
+  const isFiltered = filterName !== '' || filterRole !== '' || filterStatus !== 'all';
 
-  const isNotFound =
-    (!dataFiltered.length && !!filterName) ||
-    (!dataFiltered.length && !!filterRole) ||
-    (!dataFiltered.length && !!filterStatus);
+  // const isNotFound =
+  //   (!dataFiltered.length && !!filterName) ||
+  //   (!dataFiltered.length && !!filterRole) ||
+  //   (!dataFiltered.length && !!filterStatus);
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -239,7 +234,7 @@ export default function UserListPage() {
 
   const handleResetFilter = () => {
     setFilterName('');
-    setFilterRole('all');
+    setFilterRole('');
     setFilterStatus('all');
   };
 
@@ -257,6 +252,9 @@ export default function UserListPage() {
       return;
     }
     dispatch(createNewRole(role));
+    setRole({
+      RoleName: ''
+    });
   }
 
   return (
@@ -310,7 +308,7 @@ export default function UserListPage() {
                   headLabel={TABLE_HEAD}
                   rowCount={tableData.length}
                   numSelected={selected.length}
-                  onSort={onSort}
+                  // onSort={onSort}
                   // onSelectAllRows={(checked) =>
                   //   onSelectAllRows(
                   //     checked,
@@ -336,13 +334,13 @@ export default function UserListPage() {
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   />
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData isNotFound={users?.rows?.length === 0} />
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
           <TablePaginationCustom
-            count={users.count}
+            count={users?.count}
             page={page}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
@@ -374,15 +372,26 @@ export default function UserListPage() {
             })
           }}
           />
-          <IconButtonAnimate 
+          {/* <IconButtonAnimate 
             color="primary"
             size="large" 
             onClick={() => {
               dispatch(createNewRole(role))
             }}
-          >
-            <Iconify icon="eva:plus-fill" width={24} />
-          </IconButtonAnimate>
+          > */}
+            <LoadingButton
+              fullWidth
+              type="submit"
+              variant="contained"
+              size="large"
+              loading={isCreateRoleLoading}
+              onClick={() => {
+                dispatch(createNewRole(role))
+              }}
+            >
+              <Iconify icon="eva:plus-fill" width={24} />
+            </LoadingButton>
+          {/* </IconButtonAnimate> */}
         </Card>
       </Dialog>
 

@@ -22,7 +22,7 @@ export function getAllUsers(params: {
     return async (dispatch: Dispatch) => {
       dispatch(slice.actions.startLoading());
       try {
-        const response = await axios.post(GET_ALL_USERS, params);
+        const response = await axios.post(GET_ALL_USERS, { ...params, page: String(Number(params.page + 1))});
         dispatch(slice.actions.getUserRecords(response.data.data));
       } catch (error) {
         dispatch(slice.actions.hasError(error));

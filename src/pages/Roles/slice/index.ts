@@ -7,7 +7,9 @@ import { IRolesState } from './types';
 
 const initialState: IRolesState = {
   isRolesLoading: false,
+  isCreateRoleLoading: false,
   error: null,
+  createRoleError: null,
   events: [],
   rolesData: [{
     "RoleId": "2",
@@ -29,11 +31,18 @@ const slice = createSlice({
     startLoading(state) {
       state.isRolesLoading = true;
     },
+    startCreateRoleLoading(state) {
+      state.isCreateRoleLoading = true;
+    },
 
     // HAS ERROR
     hasError(state, action) {
       state.isRolesLoading = false;
       state.error = action.payload;
+    },
+    hasCreateRoleError(state, action) {
+      state.isCreateRoleLoading = false;
+      state.createRoleError = action.payload;
     },
 
     // GET EVENTS
@@ -46,7 +55,7 @@ const slice = createSlice({
     // CREATE EVENT
     createRoleSuccess(state, action) {
       const newEvent = action.payload;
-      state.isRolesLoading = false;
+      state.isCreateRoleLoading = false;
       state.events = [...state.events, newEvent];
     },
 

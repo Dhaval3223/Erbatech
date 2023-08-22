@@ -3,6 +3,8 @@ import { ChangeEvent } from 'react';
 import { Stack, InputAdornment, TextField, MenuItem, Button } from '@mui/material';
 // components
 import { IconButtonAnimate } from 'src/components/animate';
+import { LoadingButton } from '@mui/lab';
+import { useSelector } from '../../redux/store';
 import Iconify from '../../components/iconify';
 
 // ----------------------------------------------------------------------
@@ -36,7 +38,9 @@ export default function UserTableToolbar({
   roleError,
   setRoleError,
 }: Props) {
-
+  const { isCreateRoleLoading } = useSelector(
+    (state) => state.roles
+  )
   const handleRoles = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (roleError) setRoleError(false);
     setRole({
@@ -144,13 +148,23 @@ export default function UserTableToolbar({
             }}
             onChange={e =>  handleRoles(e)}
           />
-          <IconButtonAnimate 
+          <LoadingButton
+              // fullWidth
+              type="submit"
+              // variant="contained"
+              // size="large"
+              loading={isCreateRoleLoading}
+              onClick={handleCreateRoleAPI}
+            >
+              <Iconify icon="eva:plus-fill" width={24} />
+            </LoadingButton>
+          {/* <IconButtonAnimate 
             color="primary" 
             size="large"
             onClick={handleCreateRoleAPI}
             >
             <Iconify icon="eva:plus-fill" width={24} />
-          </IconButtonAnimate>
+          </IconButtonAnimate> */}
         </Stack>
 
         {/* <Button
