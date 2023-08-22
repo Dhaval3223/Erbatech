@@ -273,7 +273,7 @@ export default function UserListPage() {
             filterName={filterName}
             filterRole={filterRole}
             optionsRole={rolesDropdownData}
-            onFilterName={debouncedOnChange}
+            onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
             handleCreateClick={handleCreateRoleClick}
