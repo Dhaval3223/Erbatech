@@ -23,6 +23,7 @@ import { IconButtonAnimate } from 'src/components/animate';
 import { debounce } from 'lodash';
 import { LoadingButton } from '@mui/lab';
 import TableSkeleton from 'src/components/table-skeleton';
+import { useSnackbar } from 'src/components/snackbar';
 import { useDispatch, useSelector } from '../../redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
@@ -49,6 +50,7 @@ import {
 import { UserTableToolbar, UserTableRow } from './exports';
 import { createNewRole, deleteRoleById, getAllRoles } from './slice/action';
 import { getAllUsers } from '../user/slice/action';
+import { slice } from './slice';
 
 // ----------------------------------------------------------------------
 
@@ -99,7 +101,7 @@ export default function UserListPage() {
 
   const dispatch = useDispatch();
 
-  const { rolesData, isCreateRoleLoading } = useSelector(
+  const { rolesData, isCreateRoleLoading, isDeleteRoleError, isDeleteRoleSuccess, isDeleteRoleMsg, isCreateRoleError, isCreateRoleSuccess, createRoleMsg } = useSelector(
     (state) => state.roles
   );
 
@@ -108,6 +110,8 @@ export default function UserListPage() {
   );
 
   const navigate = useNavigate();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [tableData, setTableData] = useState(_userList);
 
@@ -143,6 +147,41 @@ export default function UserListPage() {
   useEffect(() => {
     setRolesDropdownData(rolesData);
   }, [rolesData])
+
+  useEffect(() => {
+    if (isDeleteRoleSuccess) {
+      enqueueSnackbar(isDeleteRoleMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetDeleteRoleEventError());
+      dispatch(getAllUsers({
+        searchValue: filterName,
+        userType: filterStatus,
+        userRoleId: filterRole,
+        page: String(page),
+        limit: String(rowsPerPage),
+      }));
+    } 
+    if (isDeleteRoleError) {
+      enqueueSnackbar(isDeleteRoleMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetDeleteRoleEventError());
+    }
+    if (isCreateRoleSuccess) {
+      enqueueSnackbar(createRoleMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetCreateRoleState());
+    }
+    if (isCreateRoleError) {
+      enqueueSnackbar(createRoleMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetCreateRoleState());
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleteRoleError, isDeleteRoleSuccess, isCreateRoleError, isCreateRoleSuccess])
 
   useEffect(() => {
     dispatch(getAllUsers({
