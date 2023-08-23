@@ -3,6 +3,9 @@ export interface IRolesState {
   isCreateRoleLoading: boolean;
   error: null;
   createRoleError: any;
+  isCreateRoleError: boolean;
+  isCreateRoleSuccess: boolean;
+  createRoleMsg: string;
   events: any[];
   rolesData: {
     RoleId: string;

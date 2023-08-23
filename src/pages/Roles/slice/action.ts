@@ -88,9 +88,9 @@ export function deleteRoleById(roleId: string) {
       await axios.post(DELETE_ROLE_BY_ID, {
         roleId
     });
-      dispatch(slice.actions.deleteEventSuccess(roleId));
+      dispatch(slice.actions.deleteRoleEventSuccess(roleId));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.deleteRoleEventError(error));
     }
   };
 }
