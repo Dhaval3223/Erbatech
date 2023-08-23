@@ -22,6 +22,7 @@ import {
 import { IconButtonAnimate } from 'src/components/animate';
 import { debounce } from 'lodash';
 import { LoadingButton } from '@mui/lab';
+import TableSkeleton from 'src/components/table-skeleton';
 import { useDispatch, useSelector } from '../../redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
@@ -102,7 +103,7 @@ export default function UserListPage() {
     (state) => state.roles
   );
 
-  const { users } = useSelector(
+  const { users, isUserLoading } = useSelector(
     (state) => state.user
   );
 
@@ -318,7 +319,8 @@ export default function UserListPage() {
                 />
 
                 <TableBody>
-                  {users?.rows?.map((row, index) => (
+                  {isUserLoading && <TableSkeleton colums={3}/>}
+                  {!isUserLoading && users?.rows?.map((row, index) => (
                       <UserTableRow
                         key={index}
                         row={row}
@@ -328,12 +330,10 @@ export default function UserListPage() {
                         onEditRow={() => handleEditRow('1')}
                       />
                     ))}
-
-                  <TableEmptyRows
+                  {/* <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
-                  />
-
+                  /> */}
                   <TableNoData isNotFound={users?.rows?.length === 0} />
                 </TableBody>
               </Table>
