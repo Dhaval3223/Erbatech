@@ -23,6 +23,7 @@ import ConfirmDialog from '../../components/confirm-dialog';
 type Props = {
   row: any;
   selected: boolean;
+  user?: boolean;
   onEditRow: VoidFunction;
   onSelectRow?: VoidFunction;
   onDeleteRow?: VoidFunction;
@@ -31,6 +32,7 @@ type Props = {
 export default function UserTableRow({
   row,
   selected,
+  user,
   onEditRow,
   onSelectRow,
   onDeleteRow,
@@ -70,7 +72,7 @@ export default function UserTableRow({
                             {FirstName} {LastName}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {Role?.RoleName}
+                            {user ? Role?.RoleName : row?.UserId}
                           </TableCell>
                           <TableCell align="left">
                             <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
