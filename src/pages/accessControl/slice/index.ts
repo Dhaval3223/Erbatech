@@ -28,7 +28,14 @@ const slice = createSlice({
     },
 
     // HAS ERROR
-    hasError(state, action) {},
+    hasGetRoleError(state, action) {
+      state.isUpdateRoleLoading = false;
+      state.accessControlData = action.payload.data;
+    },
+    hasUpdateRoleError(state, action) {
+      state.isUpdateRoleLoading = false;
+      state.updateRoleData = action.payload.data;
+    },
 
     // GET EVENTS
     getRolesSuccess(state, action) {

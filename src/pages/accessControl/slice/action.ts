@@ -17,7 +17,7 @@ export function getAllMenuByRoleId(id: string) {
       console.log('response', response);
       dispatch(slice.actions.getRolesSuccess(response.data));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasGetRoleError(error));
     }
   };
 }
@@ -37,7 +37,7 @@ export function updateMenuById(data: {
       const response = await axios.post(UPDATE_ROLE_PRIVILEGES, data);
       dispatch(slice.actions.updateEventSuccess(response.data.event));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasUpdateRoleError(error));
     }
   };
 }

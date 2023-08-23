@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -26,6 +26,7 @@ import {
 // routes
 import UserRolesDropDown from 'src/components/userRolesDropdown';
 import { useDispatch, useSelector } from 'src/redux/store';
+import { LoadingButton } from '@mui/lab';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -116,7 +117,7 @@ export default function UserListing() {
 
   const { allMenus } = useSelector(state => state.menu);
 
-  const { accessControlData } = useSelector(state => state.accesControl);
+  const { accessControlData, isUpdateRoleLoading } = useSelector(state => state.accesControl);
 
   const navigate = useNavigate();
 
@@ -132,7 +133,7 @@ export default function UserListing() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const [checkedMenus, setCheckedMenus] = useState<any[]>([]);
+  const [allMenusData, setAllMenusData] = useState<any[]>([]);
 
   const [programCodesArr, setProgramCodesArr] = useState<any[]>([]);
 
@@ -146,18 +147,30 @@ export default function UserListing() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filterRole]);
 
+  // useEffect(() => {
+  //   const tempArr: any[] = [];
+  //   const program = accessControlData?.map(item => {
+  //     const { ProgramCode, ProgramPrivilege } = item?.Program || {};
+  //     tempArr.push(ProgramCode);
+  //     return {
+  //       ProgramCode,
+  //       RolePrivilege: ProgramPrivilege,
+  //     }
+  //   });
+  //   setCheckedMenus(program);
+  //   setProgramCodesArr(tempArr);
+  // }, [accessControlData])
+
   useEffect(() => {
-    const tempArr: any[] = [];
-    const program = accessControlData?.map(item => {
-      const { ProgramCode, ProgramPrivilege } = item?.Program || {};
-      tempArr.push(ProgramCode);
-      return {
-        ProgramCode,
-        RolePrivilege: ProgramPrivilege,
-      }
-    });
-    setCheckedMenus(program);
-    setProgramCodesArr(tempArr);
+    // const tempData = accessControlData?.map(item => {
+    //   // const {  } = item || {};
+    //   return {
+    //     ProgramCode: '',
+    //     RolePrivilege: '',
+    //   }
+    // })
+    // setAllMenusData(tempData);
+    console.log('accessControlData', accessControlData);
   }, [accessControlData])
 
   const dataFiltered = [
@@ -264,13 +277,21 @@ export default function UserListing() {
     setFilterStatus('all');
   };
 
-  const handleUpdateRole = (checked: any, row: any, letter: string) => {}
+  const handleUpdateRole = (e: ChangeEvent<HTMLInputElement>, index: number) => {
+    console.log('hhhhhhh', e.target.value);
+    console.log('hhhhhhh', e.target.checked);
+    // if (e.target.value) {
+
+    // } else {
+
+    // }
+  }
 
   const handleSave = () => {
-    dispatch(updateMenuById({
-        RoleId: filterRole,
-        data: checkedMenus
-     }));
+    // dispatch(updateMenuById({
+    //     RoleId: filterRole,
+    //     data: checkedMenus
+    //  }));
   }
 
   const handleChacked = (ProgramCode: string, operation: string) => {
@@ -301,14 +322,15 @@ export default function UserListing() {
           filterRole={filterRole}
           addAllRole={false}
         />
-        <Button
+        <LoadingButton
           variant="contained"
           sx={{ flexShrink: 0 }}
           onClick={handleSave}
+          loading={isUpdateRoleLoading}
           // startIcon={<Iconify icon="eva:trash-2-outline" />}
         >
           Save Changes
-        </Button>
+        </LoadingButton>
           </Stack>
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
@@ -347,23 +369,34 @@ export default function UserListing() {
                   } */
                 />
                 <TableBody>
-                  {allMenus?.map((row) => (
+                  {allMenus?.map((row, i) => (
                         <TableRow hover>
                           <TableCell>
                             {row.ProgramName}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "A")} />
-                            {/* <Checkbox checked={handleChacked(row.ProgramCode, 'A')} onChange={(e) => handleUpdateRole(e, row, "A")} /> */}
+                            <Checkbox 
+                              value="A"
+                              onChange={(e) => handleUpdateRole(e, i)} 
+                            />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "v")} />
+                            <Checkbox 
+                              value="v" 
+                              onChange={(e) => handleUpdateRole(e, i)} 
+                            />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "M")} />
+                            <Checkbox
+                              value="M" 
+                              onChange={(e) => handleUpdateRole(e, i)} 
+                            />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            <Checkbox onChange={(e) => handleUpdateRole(e, row, "D")} />
+                            <Checkbox 
+                              value="E"
+                              onChange={(e) => handleUpdateRole(e, i)}
+                            />
                           </TableCell>
                         </TableRow>
                     ))}
