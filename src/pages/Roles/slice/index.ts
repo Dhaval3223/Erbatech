@@ -10,6 +10,9 @@ const initialState: IRolesState = {
   isCreateRoleLoading: false,
   error: null,
   createRoleError: null,
+  isCreateRoleError: false,
+  isCreateRoleSuccess: false,
+  createRoleMsg: '',
   events: [],
   rolesData: [{
     "RoleId": "2",
@@ -44,8 +47,12 @@ const slice = createSlice({
       state.error = action.payload;
     },
     hasCreateRoleError(state, action) {
-      state.isCreateRoleLoading = false;
-      state.createRoleError = action.payload;
+      return {
+        ...state,
+        isCreateRoleError: true,
+        isCreateRoleSuccess: false,
+        createRoleMsg: 'Failed to create role.',
+      }
     },
 
     // GET EVENTS
@@ -57,9 +64,21 @@ const slice = createSlice({
 
     // CREATE EVENT
     createRoleSuccess(state, action) {
-      const newEvent = action.payload;
-      state.isCreateRoleLoading = false;
-      state.events = [...state.events, newEvent];
+      return {
+        ...state,
+        isCreateRoleError: false,
+        isCreateRoleSuccess: true,
+        createRoleMsg: 'Role created successfully!!',
+      }
+    },
+    resetCreateRoleState(state) {
+      return {
+        ...state,
+        isCreateRoleLoading: false,
+        isCreateRoleError: false,
+        isCreateRoleSuccess: false,
+        createRoleMsg: '',
+      }
     },
 
     // UPDATE EVENT
@@ -75,8 +94,24 @@ const slice = createSlice({
 
     // DELETE EVENT
     deleteEventSuccess(state, action) {
+      state.isDeleteRoleSuccess = true;
+    },
+    deleteEventError(state, action) {
       const eventId = action.payload;
       state.rolesData = state.rolesData.filter((event) => event.RoleId !== eventId);
+    },
+    deleteRoleEventSuccess(state, action) {
+      state.isDeleteRoleSuccess = true;
+      state.isDeleteRoleMsg = 'Role deleted successfully';
+    },
+    deleteRoleEventError(state, action) {
+      state.isDeleteRoleError = true;
+      state.isDeleteRoleMsg = 'OOPS!! failed to delete role';
+    },
+    resetDeleteRoleEventError(state) {
+      state.isDeleteRoleError = false;
+      state.isDeleteRoleSuccess = false;
+      state.isDeleteRoleMsg = '';
     },
   },
 });
