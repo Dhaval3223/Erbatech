@@ -82,8 +82,9 @@ const slice = createSlice({
         state.deleteUserMsg = action.payload.data.message;
       },
       viewUser(state, action) {
+        console.log("view", action.payload.data)
         state.viewUserLoading = false
-        state.viewUserData = action.payload.data.data;
+        state.viewUserData = action.payload.data;
       },
       viewUserError(state, action) {
         state.viewUserLoading = false

@@ -21,11 +21,11 @@ import ConfirmDialog from '../../components/confirm-dialog';
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: IUserAccountGeneral;
+  row: any;
   selected: boolean;
   onEditRow: VoidFunction;
-  onSelectRow: VoidFunction;
-  onDeleteRow: VoidFunction;
+  onSelectRow?: VoidFunction;
+  onDeleteRow?: VoidFunction;
 };
 
 export default function UserTableRow({
@@ -36,7 +36,7 @@ export default function UserTableRow({
   onDeleteRow,
 }: Props) {
   console.log(row);
-  const { name, avatarUrl, role } = row;
+  const { FirstName, LastName, Role } = row || {};
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -67,10 +67,10 @@ export default function UserTableRow({
 
             {/* <TableRow hover> */}
                           <TableCell>
-                            {row.name}
+                            {FirstName} {LastName}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
+                            {Role?.RoleName}
                           </TableCell>
                           <TableCell align="left">
                             <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>

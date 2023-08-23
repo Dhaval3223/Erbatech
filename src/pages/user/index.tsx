@@ -22,9 +22,9 @@ import {
   MenuItem,
 } from '@mui/material';
 // routes
-import CustomerNewEditForm from 'src/sections/@dashboard/user/CustomerNewEditForm';
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
-import { dispatch } from 'src/redux/store';
+import { useDispatch, useSelector } from 'src/redux/store';
+import TableSkeleton from 'src/components/table-skeleton';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -47,9 +47,10 @@ import {
   TablePaginationCustom,
 } from '../../components/table';
 // sections
-import { UserTableToolbar } from '../../sections/@dashboard/user/list';
-import UserTableRow  from './UserTableRow';
-import { deleteUserById, getAllUsers } from './slice/action';
+import UserTableRow from './UserTableRow';
+import { deleteUserById, getAllUsers, viewUserById } from './slice/action';
+import UserTableToolbar from './UserTableToolbar';
+import CustomerNewEditForm from './CustomerNewEditForm';
 
 // ----------------------------------------------------------------------
 
@@ -96,6 +97,8 @@ export default function UserListing() {
     onChangeRowsPerPage,
   } = useTable();
 
+  const dispatch = useDispatch();
+  const { users, isUserLoading, viewUserData, viewUserLoading } = useSelector((state) => state.user);
   const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
@@ -103,6 +106,7 @@ export default function UserListing() {
   const [tableData, setTableData] = useState(_userListData);
 
   const [filterName, setFilterName] = useState('');
+  const [isEdit,setIsEdit] = useState(false);
 
   const [filterRole, setFilterRole] = useState('all');
 
@@ -115,7 +119,7 @@ export default function UserListing() {
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const dataFiltered = applyFilter({
-    inputData:  tableData,
+    inputData: tableData,
     comparator: getComparator(order, orderBy),
     filterName,
     filterRole,
@@ -133,14 +137,16 @@ export default function UserListing() {
     (!dataFiltered.length && !!filterStatus);
 
   useEffect(() => {
-    dispatch(getAllUsers({
-      "searchValue": "",
-      "userType": "",
-      "userRoleId": "",
-      "page": "1",
-      "limit": "5"
-  }));
-  }, [])
+    dispatch(
+      getAllUsers({
+        searchValue: filterName,
+        userType: 'user',
+        userRoleId: '',
+        page: String(page),
+        limit: String(rowsPerPage),
+      })
+    );
+  }, [page, rowsPerPage, dispatch, filterName]);
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -167,7 +173,14 @@ export default function UserListing() {
 
   const handleDeleteRow = (id: string) => {
     dispatch(deleteUserById(id));
-    const deleteRow = tableData.filter((row) => row.id !== id);
+    dispatch(getAllUsers({
+      searchValue:filterName,
+      userRoleId: '',
+      userType:'user',
+      limit:String(rowsPerPage),
+      page: String(page)
+    }))
+    /* const deleteRow = tableData.filter((row) => row.id !== id);
     setSelected([]);
     setTableData(deleteRow);
 
@@ -175,12 +188,13 @@ export default function UserListing() {
       if (dataInPage.length < 2) {
         setPage(page - 1);
       }
-    }
+    } */
   };
 
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
-    setSelected([]);
+    
+    /* setSelected([]);
     setTableData(deleteRows);
 
     if (page > 0) {
@@ -192,11 +206,16 @@ export default function UserListing() {
         const newPage = Math.ceil((tableData.length - selectedRows.length) / rowsPerPage) - 1;
         setPage(newPage);
       }
-    }
+    } */
   };
-
+useEffect(() => {
+if(viewUserLoading === false) {
+handleOpenDrawer();
+setIsEdit(true);
+}
+},[viewUserLoading, viewUserData])
   const handleEditRow = (id: string) => {
-    navigate(PATH_DASHBOARD.user.edit(paramCase(id)));
+    dispatch(viewUserById(id))
   };
 
   const handleResetFilter = () => {
@@ -237,7 +256,7 @@ export default function UserListing() {
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
-            createButtonLable="+ add customer"
+            createButtonLable="+ add user"
             handleCreateClick={handleOpenDrawer}
             isCreateButton
           />
@@ -271,7 +290,7 @@ export default function UserListing() {
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
                   onSort={onSort}
-                /*  onSelectAllRows={(checked) =>
+                  /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
@@ -279,36 +298,37 @@ export default function UserListing() {
                   } */
                 />
                 <TableBody>
-                  {dataFiltered
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
+                  {isUserLoading ? (
+                    <TableSkeleton colums={3} />
+                  ) : (
+                    users?.rows?.map((row) => (
                       <UserTableRow
-                      key={row.id}
-                      row={row}
-                      selected={selected.includes(row.id)}
-                      onSelectRow={() => onSelectRow(row.id)}
-                      onDeleteRow={() => handleDeleteRow(row.id)}
-                      onEditRow={() => handleEditRow(row.name)}
-                    />
-                    ))}
-                  <TableEmptyRows
+                        key={row.UserId}
+                        row={row}
+                        selected={selected.includes(row.UserId)}
+                        onSelectRow={() => onSelectRow(row.UserId)}
+                        onEditRow={() => handleEditRow(row.UserId)}
+                        onDeleteRow={() => handleDeleteRow(row.UserId)}
+                      />
+                    ))
+                  )}
+                  {/* <TableEmptyRows
                     height={denseHeight}
-                    emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
-                  />
+                    emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
+                  /> */}
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData isNotFound={users?.rows?.length === 0} />
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
+            count={users?.rows?.length}
             page={page}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
-            
             dense={dense}
             onChangeDense={onChangeDense}
           />
@@ -320,8 +340,8 @@ export default function UserListing() {
         onClose={handleCloseDrawer}
         // aria-labelledby="parent-modal-title"
         // aria-describedby="parent-modal-description"
-        >
-        <CustomerNewEditForm />
+      >
+        <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData}/>
       </Dialog>
 
       <MenuPopover
@@ -366,7 +386,6 @@ export default function UserListing() {
             variant="contained"
             color="error"
             onClick={() => {
-              console.log('selected', selected);
               // dispatch(deleteUserById(id));
               handleDeleteRows(selected);
               handleCloseConfirm();
@@ -409,7 +428,7 @@ function applyFilter({
     );
   }
 
- /*  if (filterStatus !== 'all') {
+  /*  if (filterStatus !== 'all') {
     inputData = inputData.filter((user) => user.status === filterStatus);
   } */
 
