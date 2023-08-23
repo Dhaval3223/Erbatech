@@ -164,14 +164,14 @@ export default function UserListing() {
     const tempData = accessControlData?.map((item: {
       ProgramCode: string,
       ProgramName: string,
-      ProgramPrivilege: string,
+      RolePrivilege: string,
       ProgramParentCode: any,
       ProgramOrder: number
     }) => {
-      const { ProgramName, ProgramCode, ProgramPrivilege } = item || {};
+      const { ProgramName, ProgramCode, RolePrivilege } = item || {};
       return {
         ProgramCode,
-        RolePrivilege: ProgramPrivilege,
+        RolePrivilege,
         ProgramName
       }
     })
