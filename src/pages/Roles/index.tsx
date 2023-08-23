@@ -199,17 +199,18 @@ export default function UserListPage() {
     setFilterRole(event.target.value);
   };
 
-  const handleDeleteRow = (id: string) => {
-    dispatch(deleteRoleById(id));
-    const deleteRow = tableData.filter((row) => row.id !== id);
-    setSelected([]);
-    setTableData(deleteRow);
+  const handleDeleteRow = (data: any) => {
+    console.log(data?.Role?.RoleId);
+    dispatch(deleteRoleById(data?.Role?.RoleId));
+    // const deleteRow = tableData.filter((row) => row.id !== id);
+    // setSelected([]);
+    // setTableData(deleteRow);
 
-    if (page > 0) {
-      if (dataInPage.length < 2) {
-        setPage(page - 1);
-      }
-    }
+    // if (page > 0) {
+    //   if (dataInPage.length < 2) {
+    //     setPage(page - 1);
+    //   }
+    // }
   };
 
   const handleDeleteRows = (selectedRows: string[]) => {
@@ -326,7 +327,7 @@ export default function UserListPage() {
                         row={row}
                         selected={selected.includes('1')}
                         onSelectRow={() => onSelectRow('1')}
-                        onDeleteRow={() => handleDeleteRow('1')}
+                        onDeleteRow={() => handleDeleteRow(row)}
                         onEditRow={() => handleEditRow('1')}
                       />
                     ))}
