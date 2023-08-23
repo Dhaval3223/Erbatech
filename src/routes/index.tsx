@@ -138,6 +138,19 @@ export default function Router() {
   return useRoutes([
     // Auth
     {
+      path: '',
+      children: [
+        {
+          path: '/',
+          element: (
+            <GuestGuard>
+              <LoginPage />
+            </GuestGuard>
+          ),
+        },
+      ],
+    },
+    {
       path: 'auth',
       children: [
         {
@@ -183,8 +196,9 @@ export default function Router() {
         { path: 'dashboard', element: <GeneralAppPage /> },
         { path: 'dashboard', element: <GeneralAppPage /> },
         { path: 'roles', element: <RolesPage /> },
-        { path: 'user-management', element: <UserListingPage /> },
-        { path: 'customer-management', element: <CustomerManagement /> },
+        { path: 'user-management', element: <UserListingPage user /> },
+        { path: 'customer-management', element: <UserListingPage /> },
+        // { path: 'customer-management', element: <CustomerManagement /> },
         { path: 'access-control', element: <AccessControl /> },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },
@@ -267,7 +281,9 @@ export default function Router() {
     {
       element: <MainLayout />,
       children: [
-        { element: <HomePage />, index: true },
+        { element: <GuestGuard>
+          <LoginPage />
+        </GuestGuard>, index: true },
         { path: 'about-us', element: <AboutPage /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <FaqsPage /> },

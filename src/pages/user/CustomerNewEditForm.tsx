@@ -38,9 +38,10 @@ interface FormValuesProps extends Omit<IUserAccountGeneral, 'avatarUrl'> {
 type Props = {
   isEdit?: boolean;
   currentUser?: any;
+  user?: boolean;
 };
 
-export default function CustomerNewEditForm({ isEdit = false, currentUser }: Props) {
+export default function CustomerNewEditForm({ isEdit = false, currentUser, user }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { rolesData, isCreateRoleLoading } = useSelector(
@@ -110,7 +111,7 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser }: Pro
       if(isEdit === false) {
         dispatch(createUser({
             ...data,
-            UserTypeCode: 'ST',
+            UserTypeCode: user ? 'ST' : 'CU',
             MiddleName: '',
             Address: '',
             UserGender: 'M',
@@ -161,7 +162,7 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser }: Pro
 
         <Stack alignItems="flex-end" sx={{ mt: 3 }}>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-             {!isEdit ? 'Create User' : 'Save Changes'}
+             {!isEdit ? `${user ? 'Create user' : 'Create customer'}`: 'Save Changes'}
             {/* Save Changes */}
           </LoadingButton>
         </Stack>

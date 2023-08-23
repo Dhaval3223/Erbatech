@@ -75,9 +75,19 @@ const TABLE_HEAD = [
   { id: 'action' },
 ];
 
+const CUSTOMER_TABLE_HEAD = [
+  { id: 'name', label: 'Cutomer Name', align: 'left' },
+  { id: 'role', label: 'User ID', align: 'left' },
+  { id: 'action', align: 'left' },
+];
+
 // ----------------------------------------------------------------------
 
-export default function UserListing() {
+export default function UserListing({
+  user
+}: {
+  user?: boolean;
+}) {
   const {
     dense,
     page,
@@ -137,16 +147,20 @@ export default function UserListing() {
     (!dataFiltered.length && !!filterStatus);
 
   useEffect(() => {
+    setOpenDrawer(false);
+  }, [])
+
+  useEffect(() => {
     dispatch(
       getAllUsers({
         searchValue: filterName,
-        userType: 'user',
+        userType: user ? 'user' : 'customer',
         userRoleId: '',
         page: String(page),
         limit: String(rowsPerPage),
       })
     );
-  }, [page, rowsPerPage, dispatch, filterName]);
+  }, [page, rowsPerPage, dispatch, filterName, user]);
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -176,8 +190,8 @@ export default function UserListing() {
     dispatch(getAllUsers({
       searchValue:filterName,
       userRoleId: '',
-      userType:'user',
-      limit:String(rowsPerPage),
+      userType: user ? 'user' : 'customer',
+      limit: String(rowsPerPage),
       page: String(page)
     }))
     /* const deleteRow = tableData.filter((row) => row.id !== id);
@@ -256,7 +270,7 @@ setIsEdit(true);
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
-            createButtonLable="+ add user"
+            createButtonLable={user ? "+ add user" : '+ add customer'}
             handleCreateClick={handleOpenDrawer}
             isCreateButton
           />
@@ -286,7 +300,7 @@ setIsEdit(true);
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
+                  headLabel={user ? TABLE_HEAD : CUSTOMER_TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
                   // onSort={onSort}
@@ -309,6 +323,7 @@ setIsEdit(true);
                         onSelectRow={() => onSelectRow(row.UserId)}
                         onEditRow={() => handleEditRow(row.UserId)}
                         onDeleteRow={() => handleDeleteRow(row.UserId)}
+                        user={user}
                       />
                     ))
                   )}
@@ -341,7 +356,7 @@ setIsEdit(true);
         // aria-labelledby="parent-modal-title"
         // aria-describedby="parent-modal-description"
       >
-        <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData}/>
+        <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} />
       </Dialog>
 
       <MenuPopover
