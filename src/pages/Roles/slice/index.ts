@@ -20,7 +20,10 @@ const initialState: IRolesState = {
     "createdAt": "2023-08-16T18:15:56.558Z",
     "updatedAt": "2023-08-16T18:15:56.558Z",
     "deletedAt": null
-  }]
+  }],
+  isDeleteRoleSuccess: false,
+  isDeleteRoleError: false,
+  isDeleteRoleMsg: '',
 };
 
 const slice = createSlice({

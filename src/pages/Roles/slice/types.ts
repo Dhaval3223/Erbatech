@@ -13,5 +13,8 @@ export interface IRolesState {
     createdAt: string;
     updatedAt: string;
     deletedAt: null;
-  }[]
+  }[];
+  isDeleteRoleSuccess: boolean;
+  isDeleteRoleError: boolean;
+  isDeleteRoleMsg: string;
 }

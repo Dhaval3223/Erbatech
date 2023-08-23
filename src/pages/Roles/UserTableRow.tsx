@@ -104,7 +104,7 @@ export default function UserTableRow({
           Delete
         </MenuItem>
 
-        <MenuItem
+        {/* <MenuItem
           onClick={() => {
             onEditRow();
             handleClosePopover();
@@ -112,7 +112,7 @@ export default function UserTableRow({
         >
           <Iconify icon="eva:edit-fill" />
           Edit
-        </MenuItem>
+        </MenuItem> */}
       </MenuPopover>
 
       <ConfirmDialog
@@ -121,7 +121,13 @@ export default function UserTableRow({
         title="Delete"
         content="Are you sure want to delete?"
         action={
-          <Button variant="contained" color="error" onClick={onDeleteRow}>
+          <Button 
+            variant="contained" 
+            color="error" 
+            onClick={() => {
+              onDeleteRow();
+              handleCloseConfirm();
+            }}>
             Delete
           </Button>
         }
