@@ -25,6 +25,7 @@ import {
 } from '@mui/material';
 // routes
 import UserRolesDropDown from 'src/components/userRolesDropdown';
+import TableSkeleton from 'src/components/table-skeleton';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { LoadingButton } from '@mui/lab';
 import { PATH_DASHBOARD } from '../../routes/paths';
@@ -115,9 +116,7 @@ export default function UserListing() {
 
   const { themeStretch } = useSettingsContext();
 
-  const { allMenus } = useSelector(state => state.menu);
-
-  const { accessControlData, isUpdateRoleLoading } = useSelector(state => state.accesControl);
+  const { accessControlData, isUpdateRoleLoading, isAccessControlLoading } = useSelector(state => state.accesControl);
 
   const navigate = useNavigate();
 
@@ -162,15 +161,23 @@ export default function UserListing() {
   // }, [accessControlData])
 
   useEffect(() => {
-    // const tempData = accessControlData?.map(item => {
-    //   // const {  } = item || {};
-    //   return {
-    //     ProgramCode: '',
-    //     RolePrivilege: '',
-    //   }
-    // })
-    // setAllMenusData(tempData);
+    const tempData = accessControlData?.map((item: {
+      ProgramCode: string,
+      ProgramName: string,
+      ProgramPrivilege: string,
+      ProgramParentCode: any,
+      ProgramOrder: number
+    }) => {
+      const { ProgramName, ProgramCode, ProgramPrivilege } = item || {};
+      return {
+        ProgramCode,
+        RolePrivilege: ProgramPrivilege,
+        ProgramName
+      }
+    })
+    setAllMenusData(tempData);
     console.log('accessControlData', accessControlData);
+    console.log('accessControlData', tempData);
   }, [accessControlData])
 
   const dataFiltered = [
@@ -277,21 +284,46 @@ export default function UserListing() {
     setFilterStatus('all');
   };
 
-  const handleUpdateRole = (e: ChangeEvent<HTMLInputElement>, index: number) => {
-    console.log('hhhhhhh', e.target.value);
-    console.log('hhhhhhh', e.target.checked);
-    // if (e.target.value) {
-
-    // } else {
-
-    // }
+  const handleUpdateRole = (
+    e: ChangeEvent<HTMLInputElement>, 
+    index: number
+    ) => {
+      if (e.target.checked) {
+        const tempArr = [...allMenusData];
+        tempArr[index].RolePrivilege += e.target.value;
+        setAllMenusData([...tempArr]);
+      } else {
+        const tempArr = [...allMenusData];
+        const regex = new RegExp(e.target.value, 'g')
+        tempArr[index].RolePrivilege = 
+          tempArr[index].RolePrivilege.replace(regex, '');
+        setAllMenusData([...tempArr]);
+      }
   }
 
   const handleSave = () => {
-    // dispatch(updateMenuById({
-    //     RoleId: filterRole,
-    //     data: checkedMenus
-    //  }));
+    console.log('allMenusData', allMenusData?.map(item => {
+      const { ProgramCode, ProgramPrivilege } = item || {};
+      return {
+        ProgramCode,
+        RolePrivilege: ProgramPrivilege
+      }
+    }));
+    const tempData: {
+      ProgramCode: string;
+      RolePrivilege: string;
+    }[] = allMenusData?.map(item => {
+      const { ProgramCode, RolePrivilege } = item || {};
+      return {
+        ProgramCode,
+        RolePrivilege
+      }
+    })
+    console.log(tempData);
+    dispatch(updateMenuById({
+        RoleId: filterRole,
+        data: tempData
+     }));
   }
 
   const handleChacked = (ProgramCode: string, operation: string) => {
@@ -369,7 +401,8 @@ export default function UserListing() {
                   } */
                 />
                 <TableBody>
-                  {allMenus?.map((row, i) => (
+                  {isAccessControlLoading ? <TableSkeleton colums={5} /> : 
+                    allMenusData?.map((row, i) => (
                         <TableRow hover>
                           <TableCell>
                             {row.ProgramName}
@@ -377,24 +410,28 @@ export default function UserListing() {
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
                             <Checkbox 
                               value="A"
+                              checked={allMenusData[i].RolePrivilege.includes('A')}
                               onChange={(e) => handleUpdateRole(e, i)} 
                             />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
                             <Checkbox 
-                              value="v" 
+                              value="V"
+                              checked={allMenusData[i].RolePrivilege.includes('V')} 
                               onChange={(e) => handleUpdateRole(e, i)} 
                             />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
                             <Checkbox
                               value="M" 
+                              checked={allMenusData[i].RolePrivilege.includes('M')}
                               onChange={(e) => handleUpdateRole(e, i)} 
                             />
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
                             <Checkbox 
-                              value="E"
+                              value="D"
+                              checked={allMenusData[i].RolePrivilege.includes('D')}
                               onChange={(e) => handleUpdateRole(e, i)}
                             />
                           </TableCell>
