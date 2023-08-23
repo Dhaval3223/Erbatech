@@ -289,7 +289,7 @@ setIsEdit(true);
                   headLabel={TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                  onSort={onSort}
+                  // onSort={onSort}
                   /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,

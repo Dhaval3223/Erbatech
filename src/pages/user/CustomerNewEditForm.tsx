@@ -105,7 +105,7 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser }: Pro
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'Create success!' : 'Update success!');
+      enqueueSnackbar(!isEdit ? 'User Created successfully!' : 'Updated successfully!');
       navigate(PATH_DASHBOARD.general.userManagement);
       if(isEdit === false) {
         dispatch(createUser({
