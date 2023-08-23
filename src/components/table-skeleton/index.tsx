@@ -8,11 +8,12 @@ const TableSkeleton = ({
     <>
     {[1, 2, 3, 4, 5].map((row) => (
       <TableRow hover>
-        {Array(3).fill('_').map((item) => (
+        {Array(colums).fill('_').map((item) => (
         <TableCell>
           <Skeleton />
         </TableCell>))}
-      </TableRow>))}
+      </TableRow>
+      ))}
     </>             
 )
 
