@@ -32,6 +32,10 @@ const slice = createSlice({
       state.isUpdateRoleLoading = false;
       state.accessControlData = action.payload.data;
     },
+    hasAcessControlError(state, action) {
+      state.isAccessControlLoading = false;
+      state.accessControlData = action.payload.data;
+    },
     hasUpdateRoleError(state, action) {
       state.isUpdateRoleLoading = false;
       state.updateRoleData = action.payload.data;
