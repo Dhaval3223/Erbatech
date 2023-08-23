@@ -22,7 +22,7 @@ export function getAllUsers(params: {
     return async (dispatch: Dispatch) => {
       dispatch(slice.actions.startLoading());
       try {
-        const response = await axios.post(GET_ALL_USERS, { ...params, page: String(Number(params.page + 1))});
+        const response = await axios.post(GET_ALL_USERS, { ...params, page: String(Number(params.page) + 1)});
         dispatch(slice.actions.getUserRecords(response.data.data));
       } catch (error) {
         dispatch(slice.actions.hasError(error));
@@ -41,13 +41,10 @@ export function getAllUsers(params: {
     };
   }
 
-  export function updateUserById(id: string, name: string) {
+  export function updateUserById(data:any) {
     return async (dispatch: Dispatch) => {
       try {
-        const response = await axios.post(EDIT_USER, {
-            UserId:id,
-            FirstName: name, 
-        });
+        const response = await axios.post(EDIT_USER, data);
         dispatch(slice.actions.updateUser(response.data));
       } catch (error) {
         dispatch(slice.actions.updateUserError(error));
