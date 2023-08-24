@@ -19,6 +19,7 @@ type Props = {
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
   setRole?: any;
+  role?: any;
   setRoleError?: any;
   handleCreateRoleAPI?: VoidFunction;
   roleError?: boolean;
@@ -34,6 +35,7 @@ export default function UserTableToolbar({
   onResetFilter,
   handleCreateClick,
   setRole,
+  role,
   handleCreateRoleAPI,
   roleError,
   setRoleError,
@@ -68,7 +70,7 @@ export default function UserTableToolbar({
             sm: 'row',
           }}
         >
-          <TextField
+          {/* <TextField
             fullWidth
             select
             label="Role"
@@ -102,7 +104,7 @@ export default function UserTableToolbar({
                 {option?.RoleName}
               </MenuItem>
             ))}
-          </TextField>
+          </TextField> */}
 
           <TextField
             fullWidth
@@ -146,6 +148,7 @@ export default function UserTableToolbar({
               maxWidth: { sm: 240 },
               textTransform: 'capitalize',
             }}
+            value={role.RoleName}
             onChange={e =>  handleRoles(e)}
           />
           <LoadingButton

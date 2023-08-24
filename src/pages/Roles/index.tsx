@@ -101,7 +101,7 @@ export default function UserListPage() {
 
   const dispatch = useDispatch();
 
-  const { rolesData, isCreateRoleLoading, isDeleteRoleError, isDeleteRoleSuccess, isDeleteRoleMsg, isCreateRoleError, isCreateRoleSuccess, createRoleMsg } = useSelector(
+  const { rolesData, isRolesLoading, isCreateRoleLoading, isDeleteRoleError, isDeleteRoleSuccess, isDeleteRoleMsg, isCreateRoleError, isCreateRoleSuccess, createRoleMsg } = useSelector(
     (state) => state.roles
   );
 
@@ -134,18 +134,19 @@ export default function UserListPage() {
   });
 
   useEffect(() => {
-    dispatch(getAllRoles())
-    dispatch(getAllUsers({
+    // dispatch(getAllRoles())
+    dispatch(getAllRoles({
       searchValue: "",
-      userType: "",
-      userRoleId: "",
+      type: '',
+      // userType: "",
+      // userRoleId: "",
       page: "0",
       limit: "5",
     }));
   }, [dispatch])
 
   useEffect(() => {
-    setRolesDropdownData(rolesData);
+    setRolesDropdownData(rolesData?.row);
   }, [rolesData])
 
   useEffect(() => {
@@ -154,10 +155,11 @@ export default function UserListPage() {
         variant: 'success',
       });
       dispatch(slice.actions.resetDeleteRoleEventError());
-      dispatch(getAllUsers({
+      dispatch(getAllRoles({
         searchValue: filterName,
-        userType: filterStatus,
-        userRoleId: filterRole,
+        type: '',
+        // userType: filterStatus,
+        // userRoleId: filterRole,
         page: String(page),
         limit: String(rowsPerPage),
       }));
@@ -173,6 +175,16 @@ export default function UserListPage() {
         variant: 'success',
       });
       dispatch(slice.actions.resetCreateRoleState());
+      setRole({
+        RoleName: ''
+      });
+      dispatch(getAllRoles({
+        searchValue: filterName,
+        type: '',
+        // userRoleId: filterRole,
+        page: String(page),
+        limit: String(rowsPerPage),
+      }));
     }
     if (isCreateRoleError) {
       enqueueSnackbar(createRoleMsg, {
@@ -184,10 +196,10 @@ export default function UserListPage() {
   }, [isDeleteRoleError, isDeleteRoleSuccess, isCreateRoleError, isCreateRoleSuccess])
 
   useEffect(() => {
-    dispatch(getAllUsers({
+    dispatch(getAllRoles({
       searchValue: filterName,
-      userType: filterStatus,
-      userRoleId: filterRole,
+      type: '',
+      // userRoleId: filterRole,
       page: String(page),
       limit: String(rowsPerPage),
     }));
@@ -293,9 +305,6 @@ export default function UserListPage() {
       return;
     }
     dispatch(createNewRole(role));
-    setRole({
-      RoleName: ''
-    });
   }
 
   return (
@@ -317,6 +326,7 @@ export default function UserListPage() {
             onResetFilter={handleResetFilter}
             handleCreateClick={handleCreateRoleClick}
             setRole={setRole}
+            role={role}
             handleCreateRoleAPI={handleCreateRoleAPI}
             roleError={roleError}
             setRoleError={setRoleError}
@@ -359,8 +369,8 @@ export default function UserListPage() {
                 />
 
                 <TableBody>
-                  {isUserLoading && <TableSkeleton colums={3}/>}
-                  {!isUserLoading && users?.rows?.map((row, index) => (
+                  {isRolesLoading && <TableSkeleton colums={3}/>}
+                  {!isRolesLoading && rolesData?.row?.map((row, index) => (
                       <UserTableRow
                         key={index}
                         row={row}
@@ -374,13 +384,13 @@ export default function UserListPage() {
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   /> */}
-                  <TableNoData isNotFound={users?.rows?.length === 0} />
+                  <TableNoData isNotFound={rolesData?.row?.length === 0} />
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
           <TablePaginationCustom
-            count={users?.count}
+            count={rolesData?.count}
             page={page}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}

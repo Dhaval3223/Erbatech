@@ -442,7 +442,9 @@ export default function UserListing() {
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   /> */}
 
-                  {/* <TableNoData isNotFound={isNotFound} /> */}
+                  <TableNoData 
+                    isNotFound={allMenusData?.length === 0 && !isAccessControlLoading} 
+                  />
                 </TableBody>
               </Table>
             </Scrollbar>

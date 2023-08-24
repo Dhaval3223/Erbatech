@@ -24,15 +24,21 @@ const UserRolesDropDown = ({
   );
 
   useEffect(() => {
-    dispatch(getAllRoles());
+    dispatch(getAllRoles({
+      searchValue: "",
+      type: "all",
+      page: "1",
+      limit: "10"
+  }));
   }, [dispatch])
 
   useEffect(() => {
     if (addAllRole) {
-      setRoles([{ RoleId: '', RoleName: 'All' }, ...rolesData])
+      // eslint-disable-next-line no-unsafe-optional-chaining
+      setRoles([{ RoleId: '', RoleName: 'All' }, ...rolesData?.row])
     } else {
-      setRoles(rolesData);
-      setFilterRole(rolesData?.[0]?.RoleId);
+      setRoles(rolesData?.row);
+      setFilterRole(rolesData?.row?.[0]?.RoleId);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolesData])

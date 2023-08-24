@@ -36,8 +36,7 @@ export default function UserTableRow({
   onDeleteRow,
 }: Props) {
   console.log(row);
-  const { FirstName, LastName, Role } = row || {};
-  const { RoleName } = Role || {};
+  const { RoleId, RoleName } = row || {};
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -72,10 +71,10 @@ export default function UserTableRow({
 
         <TableCell>
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={FirstName} src='' />
+            {/* <Avatar alt={FirstName} src='' /> */}
 
             <Typography variant="subtitle2" noWrap>
-              {`${FirstName} ${LastName}`}
+              {RoleId}
             </Typography>
           </Stack>
         </TableCell>
