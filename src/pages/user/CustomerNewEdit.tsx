@@ -41,13 +41,12 @@ type Props = {
   user?: boolean;
 };
 
-export default function CustomerNewEditForm({ isEdit = false, currentUser, user }: Props) {
+export default function CustomerNewEdit({ isEdit = false, currentUser, user }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { rolesData, isCreateRoleLoading } = useSelector(
     (state) => state.roles
   );
-  console.log("rolesData", rolesData)
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -56,6 +55,11 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
     LastName: Yup.string().required('LastName is required'),
     UserEmail: Yup.string().required('Email is required').email('Email must be a valid email address'),
     Mobile: Yup.string().required('Phone number is required'),
+    UserCountryId:  Yup.string().required('Country is required'),
+    UserStateId:  Yup.string().required('State is required'),
+    UserCity:  Yup.string().required('City is required'),
+    Address:  Yup.string().required('Address is required'),
+    Location:  Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
     UserRoleId: Yup.string().required('Role is required'),
   });
@@ -66,6 +70,11 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
     LastName: currentUser?.LastName || '',
     UserEmail: currentUser?.UserEmail || '',
     Mobile: currentUser?.Mobile || '',
+    UserCountryId:   currentUser?.UserCountryId || '',
+    UserStateId:   currentUser?.UserStateId || '',
+    UserCity:   currentUser?.UserCity || '',
+    Address:   currentUser?.Address || '',
+    Location:   currentUser?.Location || '',
     UserPassword: currentUser?.UserPassword || '',
     UserRoleId: currentUser?.UserRoleId || '',
     }),
@@ -112,11 +121,9 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
       if(isEdit === false) {
         dispatch(createUser({
             ...data,
-            UserTypeCode: user ? 'ST' : 'CU',
+            UserTypeCode: 'CU',
             MiddleName: '',
-            Address: '',
             UserGender: 'M',
-            UserCountryId: 1,
             UserStateId: 1,
             UserCity: '',
             UserCreatedBy: 1,
@@ -149,6 +156,18 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
               <RHFTextField name="LastName" label="Last Name" />
               <RHFTextField name="UserEmail" label="Email Address" />
               <RHFTextField name="Mobile" label="Phone Number" />
+              <RHFSelect native name="UserCountryId" label="Country" placeholder="Country">
+                <option value="" />
+                {countries.map((country) => (
+                  <option key={country.code} value={country.phone}>
+                    {country.label}
+                  </option>
+                ))}
+              </RHFSelect>
+              <RHFTextField name="UserStateId" label="State" />
+              <RHFTextField name="UserCity" label="City" />
+              <RHFTextField name="Address" label="Address" />
+              <RHFTextField name="Location" label="Location" />
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />

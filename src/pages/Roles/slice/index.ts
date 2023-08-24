@@ -57,9 +57,8 @@ const slice = createSlice({
 
     // GET EVENTS
     getRolesSuccess(state, action) {
-      console.log(action, 'actionn');
       state.isRolesLoading = false;
-      state.rolesData = action.payload;
+      state.rolesData = action.payload?.rows;
     },
 
     // CREATE EVENT
