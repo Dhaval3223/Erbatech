@@ -140,7 +140,7 @@ export default function UserListPage() {
       type: '',
       // userType: "",
       // userRoleId: "",
-      page: "0",
+      page: "1",
       limit: "5",
     }));
   }, [dispatch])
@@ -160,7 +160,7 @@ export default function UserListPage() {
         type: '',
         // userType: filterStatus,
         // userRoleId: filterRole,
-        page: String(page),
+        page: String(page + 1),
         limit: String(rowsPerPage),
       }));
     } 
@@ -182,7 +182,7 @@ export default function UserListPage() {
         searchValue: filterName,
         type: '',
         // userRoleId: filterRole,
-        page: String(page),
+        page: String(page + 1),
         limit: String(rowsPerPage),
       }));
     }
@@ -200,7 +200,7 @@ export default function UserListPage() {
       searchValue: filterName,
       type: '',
       // userRoleId: filterRole,
-      page: String(page),
+      page: String(page + 1),
       limit: String(rowsPerPage),
     }));
   // eslint-disable-next-line react-hooks/exhaustive-deps
