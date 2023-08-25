@@ -122,8 +122,8 @@ console.log("rolesData",rolesData)
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'User Created successfully!' : 'Updated successfully!');
-      navigate(PATH_DASHBOARD.general.userManagement);
+      enqueueSnackbar(!isEdit ? 'Customer Created successfully!' : 'Updated successfully!');
+      navigate(PATH_DASHBOARD.general.customerManagement);
       if(isEdit === false) {
         dispatch(createUser({
             ...data,

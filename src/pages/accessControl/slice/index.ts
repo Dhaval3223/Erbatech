@@ -13,6 +13,9 @@ const initialState: IAccessControlState = {
     success: false,
     message: '',
   },
+  updateRoleDataSuccess: false,
+  updateRoleDataError: false,
+  updateRoleDataMsg: '',
 };
 
 const slice = createSlice({
@@ -38,7 +41,9 @@ const slice = createSlice({
     },
     hasUpdateRoleError(state, action) {
       state.isUpdateRoleLoading = false;
-      state.updateRoleData = action.payload.data;
+      state.updateRoleDataSuccess = false;
+      state.updateRoleDataError = true;
+      state.updateRoleDataMsg = 'Failed to save changes!!'
     },
 
     // GET EVENTS
@@ -50,8 +55,16 @@ const slice = createSlice({
     // UPDATE EVENT
     updateEventSuccess(state, action) {
       state.isUpdateRoleLoading = false;
-      state.accessControlData = action.payload.data.data;
+      state.updateRoleDataSuccess = true;
+      state.updateRoleDataError = false;
+      state.updateRoleDataMsg = 'Changes save successfully!!'
     },
+
+    resetUpdatRoleData(state) {
+      state.updateRoleDataSuccess = false;
+      state.updateRoleDataError = false;
+      state.updateRoleDataMsg = '';
+    }
   },
 });
 
