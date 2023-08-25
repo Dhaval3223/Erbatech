@@ -67,10 +67,13 @@ export const InvoiceCreatePage = Loadable(
 export const InvoiceEditPage = Loadable(lazy(() => import('../pages/dashboard/InvoiceEditPage')));
 
 // DASHBOARD: USER
+export const RolesPage = Loadable(lazy(() => import('../pages/Roles')));
 export const UserProfilePage = Loadable(lazy(() => import('../pages/dashboard/UserProfilePage')));
 export const UserCardsPage = Loadable(lazy(() => import('../pages/dashboard/UserCardsPage')));
 export const UserListPage = Loadable(lazy(() => import('../pages/dashboard/UserListPage')));
-export const UserListingPage = Loadable(lazy(() => import('../pages/dashboard/UserListing')));
+export const UserListingPage = Loadable(lazy(() => import('../pages/user')));
+export const CustomerManagement = Loadable(lazy(() => import('../pages/customerManagement')));
+export const AccessControl = Loadable(lazy(() => import('../pages/accessControl')));
 export const UserAccountPage = Loadable(lazy(() => import('../pages/dashboard/UserAccountPage')));
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -18,8 +18,13 @@ import {
   Radio,
   TableCell,
   TableRow,
+  Dialog,
+  MenuItem,
 } from '@mui/material';
 // routes
+import MenuPopover from 'src/components/menu-popover/MenuPopover';
+import { useDispatch, useSelector } from 'src/redux/store';
+import TableSkeleton from 'src/components/table-skeleton';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -42,7 +47,11 @@ import {
   TablePaginationCustom,
 } from '../../components/table';
 // sections
-import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import UserTableRow from './UserTableRow';
+import { deleteUserById, getAllUsers, viewUserById } from './slice/action';
+import UserTableToolbar from './UserTableToolbar';
+import CustomerNewEditForm from './CustomerNewEditForm';
+import CustomerNewEdit from './CustomerNewEdit';
 
 // ----------------------------------------------------------------------
 
@@ -64,13 +73,27 @@ const ROLE_OPTIONS = [
 const TABLE_HEAD = [
   { id: 'name', label: 'User Name', align: 'left' },
   { id: 'role', label: 'Role Name', align: 'left' },
-  { id: 'select', label: 'Select', align: 'left' },
+  { id: 'mobile', label: 'Phone Number', align: 'left' },
+  { id: 'email', label: 'Email Id', align: 'left' },
   { id: 'action' },
+];
+
+const CUSTOMER_TABLE_HEAD = [
+  { id: 'name', label: 'Cutomer Name', align: 'left' },
+  { id: 'role', label: 'User ID', align: 'left' },
+  { id: 'mobile', label: 'Phone Number', align: 'left' },
+  { id: 'email', label: 'Email Id', align: 'left' },
+  { id: 'city', label: 'City', align: 'left' },
+  { id: 'action', align: 'left' },
 ];
 
 // ----------------------------------------------------------------------
 
-export default function UserListing() {
+export default function UserListing({
+  user
+}: {
+  user?: boolean;
+}) {
   const {
     dense,
     page,
@@ -90,6 +113,8 @@ export default function UserListing() {
     onChangeRowsPerPage,
   } = useTable();
 
+  const dispatch = useDispatch();
+  const { users, isUserLoading, viewUserData, viewUserLoading } = useSelector((state) => state.user);
   const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
@@ -97,6 +122,7 @@ export default function UserListing() {
   const [tableData, setTableData] = useState(_userListData);
 
   const [filterName, setFilterName] = useState('');
+  const [isEdit,setIsEdit] = useState(false);
 
   const [filterRole, setFilterRole] = useState('all');
 
@@ -104,16 +130,16 @@ export default function UserListing() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
   const dataFiltered = applyFilter({
-    inputData:  tableData,
+    inputData: tableData,
     comparator: getComparator(order, orderBy),
     filterName,
     filterRole,
-    filterStatus,
   });
-
-
-  console.log("date", dataFiltered);
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -125,6 +151,22 @@ export default function UserListing() {
     (!dataFiltered.length && !!filterName) ||
     (!dataFiltered.length && !!filterRole) ||
     (!dataFiltered.length && !!filterStatus);
+
+  useEffect(() => {
+    setOpenDrawer(false);
+  }, [])
+
+  useEffect(() => {
+    dispatch(
+      getAllUsers({
+        searchValue: filterName,
+        userType: user ? 'user' : 'customer',
+        userRoleId: '',
+        page: String(page),
+        limit: String(rowsPerPage),
+      })
+    );
+  }, [page, rowsPerPage, dispatch, filterName, user]);
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -150,7 +192,15 @@ export default function UserListing() {
   };
 
   const handleDeleteRow = (id: string) => {
-    const deleteRow = tableData.filter((row) => row.id !== id);
+    dispatch(deleteUserById(id));
+    dispatch(getAllUsers({
+      searchValue:filterName,
+      userRoleId: '',
+      userType: user ? 'user' : 'customer',
+      limit: String(rowsPerPage),
+      page: String(page)
+    }))
+    /* const deleteRow = tableData.filter((row) => row.id !== id);
     setSelected([]);
     setTableData(deleteRow);
 
@@ -158,12 +208,13 @@ export default function UserListing() {
       if (dataInPage.length < 2) {
         setPage(page - 1);
       }
-    }
+    } */
   };
 
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
-    setSelected([]);
+    
+    /* setSelected([]);
     setTableData(deleteRows);
 
     if (page > 0) {
@@ -175,17 +226,38 @@ export default function UserListing() {
         const newPage = Math.ceil((tableData.length - selectedRows.length) / rowsPerPage) - 1;
         setPage(newPage);
       }
-    }
+    } */
   };
-
+useEffect(() => {
+if(viewUserLoading === false) {
+handleOpenDrawer();
+setIsEdit(true);
+}
+},[viewUserLoading, viewUserData])
   const handleEditRow = (id: string) => {
-    navigate(PATH_DASHBOARD.user.edit(paramCase(id)));
+    dispatch(viewUserById(id))
   };
 
   const handleResetFilter = () => {
     setFilterName('');
     setFilterRole('all');
     setFilterStatus('all');
+  };
+
+  const handleOpenDrawer = () => {
+    setOpenDrawer(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setOpenDrawer(false);
+  };
+
+  const handleClosePopover = () => {
+    setOpenPopover(null);
+  };
+
+  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
+    setOpenPopover(event.currentTarget);
   };
 
   return (
@@ -195,7 +267,6 @@ export default function UserListing() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-       
         <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
@@ -205,6 +276,9 @@ export default function UserListing() {
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
+            createButtonLable={user ? "+ add user" : '+ add customer'}
+            handleCreateClick={handleOpenDrawer}
+            isCreateButton
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -232,11 +306,11 @@ export default function UserListing() {
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
+                  headLabel={user ? TABLE_HEAD : CUSTOMER_TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                  onSort={onSort}
-                 /*  onSelectAllRows={(checked) =>
+                  // onSort={onSort}
+                  /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
@@ -244,52 +318,88 @@ export default function UserListing() {
                   } */
                 />
                 <TableBody>
-                  {dataFiltered
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
-                        <TableRow hover>
-                          <TableCell>
-                            {row.name}
-                          </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
-                          </TableCell>
-                          <TableCell>
-                            <Radio/>
-                          </TableCell>
-                          <TableCell>
-                              <span>
-                          <Iconify icon="eva:trash-2-outline" />
-                          </span>
-                          <span>
-                          <Iconify icon="eva:edit-fill" />
-                          </span>
-                          </TableCell>
-                        </TableRow>
-                    ))}
-                  <TableEmptyRows
+                  {isUserLoading ? (
+                    <TableSkeleton colums={3} />
+                  ) : (
+                    users?.rows?.map((row) => (
+                      <UserTableRow
+                        key={row.UserId}
+                        row={row}
+                        selected={selected.includes(row.UserId)}
+                        onSelectRow={() => onSelectRow(row.UserId)}
+                        onEditRow={() => handleEditRow(row.UserId)}
+                        onDeleteRow={() => handleDeleteRow(row.UserId)}
+                        user={user}
+                      />
+                    ))
+                  )}
+                  {/* <TableEmptyRows
                     height={denseHeight}
-                    emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
-                  />
-
-                  <TableNoData isNotFound={isNotFound} />
+                    emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
+                  /> */}
+                  {
+                    !isUserLoading &&<TableNoData isNotFound={users?.rows?.length === 0} />
+                  }
+                  
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
+            count={users?.rows?.length}
             page={page}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
-            
             dense={dense}
             onChangeDense={onChangeDense}
           />
         </Card>
       </Container>
+
+{
+  openDrawer && <Dialog
+  open={openDrawer}
+  onClose={handleCloseDrawer}
+  // aria-labelledby="parent-modal-title"
+  // aria-describedby="parent-modal-description"
+>
+  {
+    user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} onClose={handleCloseDrawer} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} onClose={handleCloseDrawer}/>
+  }
+  
+</Dialog>
+
+}
+     
+      <MenuPopover
+        open={openPopover}
+        onClose={handleClosePopover}
+        arrow="right-top"
+        sx={{ width: 140 }}
+      >
+        <MenuItem
+          onClick={() => {
+            handleOpenConfirm();
+            handleClosePopover();
+          }}
+          sx={{ color: 'error.main' }}
+        >
+          <Iconify icon="eva:trash-2-outline" />
+          Delete
+        </MenuItem>
+
+        <MenuItem
+          onClick={() => {
+            // onEditRow();
+            handleClosePopover();
+          }}
+        >
+          <Iconify icon="eva:edit-fill" />
+          Edit
+        </MenuItem>
+      </MenuPopover>
 
       <ConfirmDialog
         open={openConfirm}
@@ -305,6 +415,7 @@ export default function UserListing() {
             variant="contained"
             color="error"
             onClick={() => {
+              // dispatch(deleteUserById(id));
               handleDeleteRows(selected);
               handleCloseConfirm();
             }}
@@ -323,13 +434,11 @@ function applyFilter({
   inputData,
   comparator,
   filterName,
-  filterStatus,
   filterRole,
 }: {
   inputData: IUserAccountGeneral[];
   comparator: (a: any, b: any) => number;
   filterName: string;
-  filterStatus: string;
   filterRole: string;
 }) {
   const stabilizedThis = inputData.map((el, index) => [el, index] as const);
@@ -348,7 +457,7 @@ function applyFilter({
     );
   }
 
- /*  if (filterStatus !== 'all') {
+  /*  if (filterStatus !== 'all') {
     inputData = inputData.filter((user) => user.status === filterStatus);
   } */
 

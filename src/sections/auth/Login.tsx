@@ -1,6 +1,8 @@
 import { Link as RouterLink } from 'react-router-dom';
+import { useEffect } from 'react';
 // @mui
 import { Alert, Tooltip, Stack, Typography, Link, Box } from '@mui/material';
+import { getAllRoles } from 'src/pages/Roles/slice/action';
 // auth
 import { useAuthContext } from '../../auth/useAuthContext';
 // routes
@@ -10,24 +12,40 @@ import LoginLayout from '../../layouts/login';
 //
 import AuthLoginForm from './AuthLoginForm';
 import AuthWithSocial from './AuthWithSocial';
+import { useDispatch, useSelector } from '../../redux/store';
 
 // ----------------------------------------------------------------------
 
 export default function Login() {
   const { method } = useAuthContext();
+  const dispatch = useDispatch();
+
+  const { rolesData } = useSelector(
+    (state) => state.roles
+  );
+  console.log('rolesData', rolesData);
+
+  useEffect(() => {
+    dispatch(getAllRoles({
+      searchValue: "",
+      type: "all",
+      page: "1",
+      limit: "10"
+    }))
+  }, [dispatch])
 
   return (
     <LoginLayout>
       <Stack spacing={2} sx={{ mb: 5, position: 'relative' }}>
-        <Typography variant="h4">Sign in to Minimal</Typography>
+        <Typography variant="h4">Sign in </Typography>
 
-        <Stack direction="row" spacing={0.5}>
+        {/* <Stack direction="row" spacing={0.5}>
           <Typography variant="body2">New user?</Typography>
 
           <Link component={RouterLink} to={PATH_AUTH.register} variant="subtitle2">
             Create an account
           </Link>
-        </Stack>
+        </Stack> */}
 
         <Tooltip title={method} placement="left">
           <Box
@@ -45,7 +63,7 @@ export default function Login() {
 
       <AuthLoginForm />
 
-      <AuthWithSocial />
+      {/* <AuthWithSocial /> */}
     </LoginLayout>
   );
 }

@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -18,13 +18,21 @@ import {
   Radio,
   TableCell,
   TableRow,
+  Checkbox,
+  MenuItem,
+  TextField,
+  Stack,
 } from '@mui/material';
 // routes
+import UserRolesDropDown from 'src/components/userRolesDropdown';
+import TableSkeleton from 'src/components/table-skeleton';
+import { useDispatch, useSelector } from 'src/redux/store';
+import { LoadingButton } from '@mui/lab';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
-import { _userListData } from '../../_mock/arrays';
+import { _userList, _userListData } from '../../_mock/arrays';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
@@ -43,6 +51,8 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { getAllMenuByRoleId, updateMenuById } from './slice/action';
+import { getAllMenus } from '../Menu/slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -60,12 +70,26 @@ const ROLE_OPTIONS = [
   'front end developer',
   'full stack developer',
 ];
+const UserList = [
+    'all',
+    'Jayvion Simon',
+    'Lucian Obrien',
+    'Deja Brady',
+    'Harrison Stein',
+    'Reece Chung',
+    'Lainey Davidson',
+    'Cristopher Cardenas',
+    'Melanie Noble',
+    'Chase Day',
+    'Shawn Manning',
+  ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'User Name', align: 'left' },
-  { id: 'role', label: 'Role Name', align: 'left' },
-  { id: 'select', label: 'Select', align: 'left' },
-  { id: 'action' },
+  { id: 'module', label: 'Module', align: 'left' },
+  { id: 'create', label: 'Create', align: 'left' },
+  { id: 'view', label: 'View', align: 'left' },
+  { id: 'edit', label: 'Edit', align: 'left' },
+  { id: 'delete', label: 'Delete', align: 'left' },
 ];
 
 // ----------------------------------------------------------------------
@@ -92,28 +116,100 @@ export default function UserListing() {
 
   const { themeStretch } = useSettingsContext();
 
+  const { accessControlData, isUpdateRoleLoading, isAccessControlLoading } = useSelector(state => state.accesControl);
+
   const navigate = useNavigate();
+
+  const dispatch = useDispatch();
 
   const [tableData, setTableData] = useState(_userListData);
 
   const [filterName, setFilterName] = useState('');
 
-  const [filterRole, setFilterRole] = useState('all');
+  const [filterRole, setFilterRole] = useState('');
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const dataFiltered = applyFilter({
-    inputData:  tableData,
-    comparator: getComparator(order, orderBy),
-    filterName,
-    filterRole,
-    filterStatus,
-  });
+  const [allMenusData, setAllMenusData] = useState<any[]>([]);
 
+  const [programCodesArr, setProgramCodesArr] = useState<any[]>([]);
 
-  console.log("date", dataFiltered);
+  useEffect(() => {
+    dispatch(getAllMenus());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (filterRole !== '' && filterRole !== undefined) 
+      dispatch(getAllMenuByRoleId(filterRole));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterRole]);
+
+  // useEffect(() => {
+  //   const tempArr: any[] = [];
+  //   const program = accessControlData?.map(item => {
+  //     const { ProgramCode, ProgramPrivilege } = item?.Program || {};
+  //     tempArr.push(ProgramCode);
+  //     return {
+  //       ProgramCode,
+  //       RolePrivilege: ProgramPrivilege,
+  //     }
+  //   });
+  //   setCheckedMenus(program);
+  //   setProgramCodesArr(tempArr);
+  // }, [accessControlData])
+
+  useEffect(() => {
+    const tempData = accessControlData?.map((item: {
+      ProgramCode: string,
+      ProgramName: string,
+      RolePrivilege: string,
+      ProgramParentCode: any,
+      ProgramOrder: number
+    }) => {
+      const { ProgramName, ProgramCode, RolePrivilege } = item || {};
+      return {
+        ProgramCode,
+        RolePrivilege,
+        ProgramName
+      }
+    })
+    setAllMenusData(tempData);
+    console.log('accessControlData', accessControlData);
+    console.log('accessControlData', tempData);
+  }, [accessControlData])
+
+  const dataFiltered = [
+    {
+    module:'Dashboard',
+    create: true,
+    view:false,
+    edit: true,
+    delete: false,
+  },
+  {
+    module:'Role',
+    create: false,
+    view:true,
+    edit: false,
+    delete: true,
+  },
+  {
+    module:'User',
+    create: true,
+    view:false,
+    edit: true,
+    delete: false,
+  },
+  {
+    module:'Access Control',
+    create: false,
+    view:true,
+    edit: false,
+    delete: true,
+  }
+]
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 
@@ -188,6 +284,52 @@ export default function UserListing() {
     setFilterStatus('all');
   };
 
+  const handleUpdateRole = (
+    e: ChangeEvent<HTMLInputElement>, 
+    index: number
+    ) => {
+      if (e.target.checked) {
+        const tempArr = [...allMenusData];
+        tempArr[index].RolePrivilege += e.target.value;
+        setAllMenusData([...tempArr]);
+      } else {
+        const tempArr = [...allMenusData];
+        const regex = new RegExp(e.target.value, 'g')
+        tempArr[index].RolePrivilege = 
+          tempArr[index].RolePrivilege.replace(regex, '');
+        setAllMenusData([...tempArr]);
+      }
+  }
+
+  const handleSave = () => {
+    console.log('allMenusData', allMenusData?.map(item => {
+      const { ProgramCode, ProgramPrivilege } = item || {};
+      return {
+        ProgramCode,
+        RolePrivilege: ProgramPrivilege
+      }
+    }));
+    const tempData: {
+      ProgramCode: string;
+      RolePrivilege: string;
+    }[] = allMenusData?.map(item => {
+      const { ProgramCode, RolePrivilege } = item || {};
+      return {
+        ProgramCode,
+        RolePrivilege
+      }
+    })
+    console.log(tempData);
+    dispatch(updateMenuById({
+        RoleId: filterRole,
+        data: tempData
+     }));
+  }
+
+  const handleChacked = (ProgramCode: string, operation: string) => {
+    
+  }
+
   return (
     <>
       <Helmet>
@@ -195,18 +337,33 @@ export default function UserListing() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-       
         <Card>
-          <UserTableToolbar
-            isFiltered={isFiltered}
-            filterName={filterName}
-            filterRole={filterRole}
-            optionsRole={ROLE_OPTIONS}
-            onFilterName={handleFilterName}
-            onFilterRole={handleFilterRole}
-            onResetFilter={handleResetFilter}
-          />
-
+        <Stack
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+          sx={{ px: 2.5, py: 3 }}
+      >
+        <UserRolesDropDown 
+          onFilterRole={handleFilterRole} 
+          setFilterRole={setFilterRole}
+          filterRole={filterRole}
+          addAllRole={false}
+        />
+        <LoadingButton
+          variant="contained"
+          sx={{ flexShrink: 0 }}
+          onClick={handleSave}
+          loading={isUpdateRoleLoading}
+          // startIcon={<Iconify icon="eva:trash-2-outline" />}
+        >
+          Save Changes
+        </LoadingButton>
+          </Stack>
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
               dense={dense}
@@ -235,8 +392,8 @@ export default function UserListing() {
                   headLabel={TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                  onSort={onSort}
-                 /*  onSelectAllRows={(checked) =>
+                  // onSort={onSort}
+                /*  onSelectAllRows={(checked) =>
                     onSelectAllRows(
                       checked,
                       tableData.map((row) => row.id)
@@ -244,41 +401,56 @@ export default function UserListing() {
                   } */
                 />
                 <TableBody>
-                  {dataFiltered
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
+                  {isAccessControlLoading ? <TableSkeleton colums={5} /> : 
+                    allMenusData?.map((row, i) => (
                         <TableRow hover>
                           <TableCell>
-                            {row.name}
+                            {row.ProgramName}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
+                            <Checkbox 
+                              value="A"
+                              checked={allMenusData[i].RolePrivilege.includes('A')}
+                              onChange={(e) => handleUpdateRole(e, i)} 
+                            />
                           </TableCell>
-                          <TableCell>
-                            <Radio/>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            <Checkbox 
+                              value="V"
+                              checked={allMenusData[i].RolePrivilege.includes('V')} 
+                              onChange={(e) => handleUpdateRole(e, i)} 
+                            />
                           </TableCell>
-                          <TableCell>
-                              <span>
-                          <Iconify icon="eva:trash-2-outline" />
-                          </span>
-                          <span>
-                          <Iconify icon="eva:edit-fill" />
-                          </span>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            <Checkbox
+                              value="M" 
+                              checked={allMenusData[i].RolePrivilege.includes('M')}
+                              onChange={(e) => handleUpdateRole(e, i)} 
+                            />
+                          </TableCell>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            <Checkbox 
+                              value="D"
+                              checked={allMenusData[i].RolePrivilege.includes('D')}
+                              onChange={(e) => handleUpdateRole(e, i)}
+                            />
                           </TableCell>
                         </TableRow>
                     ))}
-                  <TableEmptyRows
+                  {/* <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
-                  />
+                  /> */}
 
-                  <TableNoData isNotFound={isNotFound} />
+                  <TableNoData 
+                    isNotFound={allMenusData?.length === 0 && !isAccessControlLoading} 
+                  />
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
 
-          <TablePaginationCustom
+          {/* <TablePaginationCustom
             count={dataFiltered.length}
             page={page}
             rowsPerPage={rowsPerPage}
@@ -287,7 +459,7 @@ export default function UserListing() {
             
             dense={dense}
             onChangeDense={onChangeDense}
-          />
+          /> */}
         </Card>
       </Container>
 

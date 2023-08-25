@@ -127,6 +127,9 @@ import {
   DemoUploadPage,
   DemoMarkdownPage,
   UserListingPage,
+  CustomerManagement,
+  AccessControl,
+  RolesPage,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -134,6 +137,19 @@ import {
 export default function Router() {
   return useRoutes([
     // Auth
+    {
+      path: '',
+      children: [
+        {
+          path: '/',
+          element: (
+            <GuestGuard>
+              <LoginPage />
+            </GuestGuard>
+          ),
+        },
+      ],
+    },
     {
       path: 'auth',
       children: [
@@ -177,6 +193,15 @@ export default function Router() {
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
         { path: 'app', element: <GeneralAppPage /> },
+        { path: 'dashboard', element: <GeneralAppPage /> },
+        { path: 'dashboard', element: <GeneralAppPage /> },
+        { path: 'roles', element: <RolesPage /> },
+        { path: 'user-management', element: <UserListingPage user /> },
+        { path: 'customer-management', element: <UserListingPage /> },
+        // { path: 'customer-management', element: <CustomerManagement /> },
+        { path: 'access-control', element: <AccessControl /> },
+        { path: 'userList', element: <UserListingPage /> },
+        { path: 'profile', element: <UserProfilePage /> },
         { path: 'ecommerce', element: <GeneralEcommercePage /> },
         { path: 'analytics', element: <GeneralAnalyticsPage /> },
         { path: 'banking', element: <GeneralBankingPage /> },
@@ -256,7 +281,9 @@ export default function Router() {
     {
       element: <MainLayout />,
       children: [
-        { element: <HomePage />, index: true },
+        { element: <GuestGuard>
+          <LoginPage />
+        </GuestGuard>, index: true },
         { path: 'about-us', element: <AboutPage /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <FaqsPage /> },

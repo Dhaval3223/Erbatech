@@ -18,13 +18,17 @@ import {
   Radio,
   TableCell,
   TableRow,
+  Checkbox,
+  MenuItem,
+  TextField,
+  Stack,
 } from '@mui/material';
 // routes
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
-import { _userListData } from '../../_mock/arrays';
+import { _userList, _userListData } from '../../_mock/arrays';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
@@ -60,12 +64,26 @@ const ROLE_OPTIONS = [
   'front end developer',
   'full stack developer',
 ];
+const UserList = [
+    'all',
+    'Jayvion Simon',
+    'Lucian Obrien',
+    'Deja Brady',
+    'Harrison Stein',
+    'Reece Chung',
+    'Lainey Davidson',
+    'Cristopher Cardenas',
+    'Melanie Noble',
+    'Chase Day',
+    'Shawn Manning',
+  ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'User Name', align: 'left' },
-  { id: 'role', label: 'Role Name', align: 'left' },
-  { id: 'select', label: 'Select', align: 'left' },
-  { id: 'action' },
+  { id: 'module', label: 'Module', align: 'left' },
+  { id: 'create', label: 'Create', align: 'left' },
+  { id: 'view', label: 'View', align: 'left' },
+  { id: 'edit', label: 'Edit', align: 'left' },
+  { id: 'delete', label: 'Delete', align: 'left' },
 ];
 
 // ----------------------------------------------------------------------
@@ -104,13 +122,36 @@ export default function UserListing() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
-  const dataFiltered = applyFilter({
-    inputData:  tableData,
-    comparator: getComparator(order, orderBy),
-    filterName,
-    filterRole,
-    filterStatus,
-  });
+  const dataFiltered = [
+    {
+    module:'Dashboard',
+    create: true,
+    view:false,
+    edit: true,
+    delete: false,
+  },
+  {
+    module:'Role',
+    create: false,
+    view:true,
+    edit: false,
+    delete: true,
+  },
+  {
+    module:'User',
+    create: true,
+    view:false,
+    edit: true,
+    delete: false,
+  },
+  {
+    module:'Access Control',
+    create: false,
+    view:true,
+    edit: false,
+    delete: true,
+  }
+]
 
 
   console.log("date", dataFiltered);
@@ -197,16 +238,86 @@ export default function UserListing() {
       <Container maxWidth={themeStretch ? false : 'lg'}>
        
         <Card>
-          <UserTableToolbar
-            isFiltered={isFiltered}
-            filterName={filterName}
-            filterRole={filterRole}
-            optionsRole={ROLE_OPTIONS}
-            onFilterName={handleFilterName}
-            onFilterRole={handleFilterRole}
-            onResetFilter={handleResetFilter}
-          />
-
+        <Stack
+        spacing={2}
+        alignItems="center"
+        direction={{
+          xs: 'column',
+          sm: 'row',
+        }}
+        sx={{ px: 2.5, py: 3 }}
+      >
+        <TextField
+            fullWidth
+            select
+            label="Role"
+            value={filterRole}
+            onChange={handleFilterRole}
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  sx: {
+                    maxHeight: 260,
+                  },
+                },
+              },
+            }}
+            sx={{
+              maxWidth: { sm: 240 },
+              textTransform: 'capitalize',
+            }}
+          >
+            {ROLE_OPTIONS.map((option) => (
+              <MenuItem
+                key={option}
+                value={option}
+                sx={{
+                  mx: 1,
+                  borderRadius: 0.75,
+                  typography: 'body2',
+                  textTransform: 'capitalize',
+                }}
+              >
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            fullWidth
+            select
+            label="Username"
+            value={filterRole}
+            onChange={handleFilterRole}
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  sx: {
+                    maxHeight: 260,
+                  },
+                },
+              },
+            }}
+            sx={{
+              maxWidth: { sm: 240 },
+              textTransform: 'capitalize',
+            }}
+          >
+            {UserList.map((option) => (
+              <MenuItem
+                key={option}
+                value={option}
+                sx={{
+                  mx: 1,
+                  borderRadius: 0.75,
+                  typography: 'body2',
+                  textTransform: 'capitalize',
+                }}
+              >
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          </Stack>
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
               dense={dense}
@@ -249,21 +360,19 @@ export default function UserListing() {
                     .map((row) => (
                         <TableRow hover>
                           <TableCell>
-                            {row.name}
+                            {row.module}
                           </TableCell>
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {row.role}
+                            <Checkbox checked={row.create}/>
                           </TableCell>
-                          <TableCell>
-                            <Radio/>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            <Checkbox checked={row.view}/>
                           </TableCell>
-                          <TableCell>
-                              <span>
-                          <Iconify icon="eva:trash-2-outline" />
-                          </span>
-                          <span>
-                          <Iconify icon="eva:edit-fill" />
-                          </span>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            <Checkbox checked={row.edit}/>
+                          </TableCell>
+                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                            <Checkbox checked={row.delete}/>
                           </TableCell>
                         </TableRow>
                     ))}
