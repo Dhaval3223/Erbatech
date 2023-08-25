@@ -27,9 +27,9 @@ export function getAllMenuByRoleId(id: string) {
 export function updateMenuById(data: {
   RoleId: string,
   data: {
-          ProgramCode: string;
-          RolePrivilege: string;
-      }[]
+      ProgramCode: string;
+      RolePrivilege: string;
+    }[]
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startUpdateRoleLoading());

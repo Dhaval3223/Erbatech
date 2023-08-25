@@ -130,11 +130,9 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
   const onSubmit = async (data:any) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
-      reset(defaultValues);
+      reset();
       enqueueSnackbar(!isEdit ? 'Customer Created successfully!' : 'Updated successfully!');
       navigate(PATH_DASHBOARD.general.customerManagement);
-      reset(defaultValues);
-      onClose();
       if(isEdit === false) {
         dispatch(createUser({
             ...data,
