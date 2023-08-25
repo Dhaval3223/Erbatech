@@ -74,8 +74,14 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
   );
 
   useEffect(() => {
-    dispatch(getAllRoles());
+    dispatch(getAllRoles({
+      searchValue: "",
+      type: "all",
+      page: "1",
+      limit: "10"
+  }));
   },[dispatch])
+
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
     defaultValues,
@@ -152,7 +158,7 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />
-                {rolesData.map((role) => (
+                {rolesData?.row?.map((role) => (
                   <option key={role.RoleId} value={role.RoleId}>
                     {role.RoleName}
                   </option>

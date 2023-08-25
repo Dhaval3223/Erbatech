@@ -12,11 +12,17 @@ import {
 } from './action_type';
 // ----------------------------------------------------------------------
 
-export function getAllRoles() {
+export function getAllRoles(params: {
+  searchValue?: string;
+  type: string;
+  // userRoleId: string;
+  page?: string;
+  limit?: string;
+}) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.post(GET_ALL_ROLES);
+      const response = await axios.post(GET_ALL_ROLES, params);
       console.log('response', response);
       dispatch(slice.actions.getRolesSuccess(response.data.data));
     } catch (error) {

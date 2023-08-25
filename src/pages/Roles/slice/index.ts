@@ -14,7 +14,9 @@ const initialState: IRolesState = {
   isCreateRoleSuccess: false,
   createRoleMsg: '',
   events: [],
-  rolesData: [{
+  rolesData: {
+    count: 0,
+    row: [{
     "RoleId": "2",
     "RoleName": "Admin",
     "RoleStatus": true,
@@ -23,7 +25,7 @@ const initialState: IRolesState = {
     "createdAt": "2023-08-16T18:15:56.558Z",
     "updatedAt": "2023-08-16T18:15:56.558Z",
     "deletedAt": null
-  }],
+  }]},
   isDeleteRoleSuccess: false,
   isDeleteRoleError: false,
   isDeleteRoleMsg: '',
@@ -97,7 +99,7 @@ const slice = createSlice({
     },
     deleteEventError(state, action) {
       const eventId = action.payload;
-      state.rolesData = state.rolesData.filter((event) => event.RoleId !== eventId);
+      // state.rolesData = state.rolesData.filter((event) => event.RoleId !== eventId);
     },
     deleteRoleEventSuccess(state, action) {
       state.isDeleteRoleSuccess = true;

@@ -26,7 +26,12 @@ export default function Login() {
   console.log('rolesData', rolesData);
 
   useEffect(() => {
-    dispatch(getAllRoles())
+    dispatch(getAllRoles({
+      searchValue: "",
+      type: "all",
+      page: "1",
+      limit: "10"
+    }))
   }, [dispatch])
 
   return (
