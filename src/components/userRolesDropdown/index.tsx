@@ -35,10 +35,10 @@ const UserRolesDropDown = ({
   useEffect(() => {
     if (addAllRole) {
       // eslint-disable-next-line no-unsafe-optional-chaining
-      setRoles([{ RoleId: '', RoleName: 'All' }, ...rolesData?.row])
+      setRoles([{ RoleId: '', RoleName: 'All' }, ...rolesData?.rows])
     } else {
-      setRoles(rolesData?.row);
-      setFilterRole(rolesData?.row?.[0]?.RoleId);
+      setRoles(rolesData?.rows);
+      setFilterRole(rolesData?.rows?.[0]?.RoleId);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rolesData])

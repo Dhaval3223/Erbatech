@@ -51,6 +51,7 @@ import UserTableRow from './UserTableRow';
 import { deleteUserById, getAllUsers, viewUserById } from './slice/action';
 import UserTableToolbar from './UserTableToolbar';
 import CustomerNewEditForm from './CustomerNewEditForm';
+import CustomerNewEdit from './CustomerNewEdit';
 
 // ----------------------------------------------------------------------
 
@@ -331,8 +332,10 @@ setIsEdit(true);
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
                   /> */}
-
-                  <TableNoData isNotFound={users?.rows?.length === 0} />
+                  {
+                    !isUserLoading &&<TableNoData isNotFound={users?.rows?.length === 0} />
+                  }
+                  
                 </TableBody>
               </Table>
             </Scrollbar>
@@ -356,7 +359,10 @@ setIsEdit(true);
         // aria-labelledby="parent-modal-title"
         // aria-describedby="parent-modal-description"
       >
-        <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} />
+        {
+          user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} />
+        }
+        
       </Dialog>
 
       <MenuPopover

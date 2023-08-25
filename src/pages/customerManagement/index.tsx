@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -26,6 +26,7 @@ import {
 // routes
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import CustomerNewEditForm from 'src/sections/@dashboard/user/CustomerNewEditForm';
+import { useDispatch, useSelector } from 'src/redux/store';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -49,6 +50,7 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
+import { getAllUsers } from '../user/slice/action'
 
 // ----------------------------------------------------------------------
 
@@ -75,7 +77,11 @@ const TABLE_HEAD = [
 
 // ----------------------------------------------------------------------
 
-export default function UserListing() {
+export default function UserListing({
+  customer
+}: {
+  customer?: boolean;
+}) {
   const {
     dense,
     page,
@@ -95,6 +101,8 @@ export default function UserListing() {
     onChangeRowsPerPage,
   } = useTable();
 
+  const dispatch = useDispatch();
+  const { users, isUserLoading, viewUserData, viewUserLoading } = useSelector((state) => state.user);
   const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
@@ -122,6 +130,16 @@ export default function UserListing() {
   });
 
   console.log("date", dataFiltered);
+/*   useEffect(() => {
+    dispatch(
+      getAllUsers({
+        searchValue: filterName,
+        userType: customer ? 'customer' : 'user',
+        userRoleId: '',
+        page: String(page),
+        limit: String(rowsPerPage),
+      }))
+  },[dispatch,filterName, rowsPerPage, page, customer]) */
 
   const dataInPage = dataFiltered.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
 

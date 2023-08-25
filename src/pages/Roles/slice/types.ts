@@ -9,7 +9,7 @@ export interface IRolesState {
   events: any[];
   rolesData: {
       count: number;
-      row: {
+      rows: {
       RoleId: string;
       RoleName: string;
       RoleStatus?: boolean;
