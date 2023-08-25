@@ -13,6 +13,7 @@ export interface IRolesState {
       RoleId: string;
       RoleName: string;
       RoleStatus?: boolean;
+      Users?: any;
       RoleCreatedBy?: string;
       RoleModifiedBy?: string;
       createdAt: string;

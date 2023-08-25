@@ -11,6 +11,7 @@ import chatReducer from './slices/chat';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
+import CommonReducer from './slices/index';
 
 // ----------------------------------------------------------------------
 
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   menu: menuReducer,
   accesControl: accesControlReducer,
+  common: CommonReducer,
   product: persistReducer(productPersistConfig, productReducer),
 });
 

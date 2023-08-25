@@ -71,7 +71,6 @@ const ROLE_OPTIONS = [
 
 const TABLE_HEAD = [
   { id: 'role', label: 'Role', align: 'left' },
-  { id: 'name', label: 'Name', align: 'left' },
   { id: '' },
 ];
 
@@ -150,6 +149,7 @@ export default function UserListPage() {
   }, [rolesData])
 
   useEffect(() => {
+    console.log("page", page)
     if (isDeleteRoleSuccess) {
       enqueueSnackbar(isDeleteRoleMsg, {
         variant: 'success',
@@ -251,8 +251,7 @@ export default function UserListPage() {
   };
 
   const handleDeleteRow = (data: any) => {
-    console.log(data?.Role?.RoleId);
-    dispatch(deleteRoleById(data?.Role?.RoleId));
+    dispatch(deleteRoleById(data));
     // const deleteRow = tableData.filter((row) => row.id !== id);
     // setSelected([]);
     // setTableData(deleteRow);
@@ -376,7 +375,7 @@ export default function UserListPage() {
                         row={row}
                         selected={selected.includes('1')}
                         onSelectRow={() => onSelectRow('1')}
-                        onDeleteRow={() => handleDeleteRow(row)}
+                        onDeleteRow={() => handleDeleteRow(row?.RoleId)}
                         onEditRow={() => handleEditRow('1')}
                       />
                     ))}
@@ -459,7 +458,6 @@ export default function UserListPage() {
             variant="contained"
             color="error"
             onClick={() => {
-              console.log(selected, 'ddd')
               handleDeleteRows(selected);
               handleCloseConfirm();
             }}

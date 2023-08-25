@@ -20,6 +20,7 @@ const initialState: IRolesState = {
     "RoleId": "2",
     "RoleName": "Admin",
     "RoleStatus": true,
+    Users: [],
     "RoleCreatedBy": "1",
     "RoleModifiedBy": "1",
     "createdAt": "2023-08-16T18:15:56.558Z",

@@ -36,7 +36,7 @@ export default function UserTableRow({
   onDeleteRow,
 }: Props) {
   console.log(row);
-  const { RoleId, RoleName } = row || {};
+  const { RoleId, RoleName, Users } = row || {};
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -70,16 +70,6 @@ export default function UserTableRow({
         </TableCell>
 
         <TableCell>
-          <Stack direction="row" alignItems="center" spacing={2}>
-            {/* <Avatar alt={FirstName} src='' /> */}
-
-            <Typography variant="subtitle2" noWrap>
-              {RoleId}
-            </Typography>
-          </Stack>
-        </TableCell>
-
-        <TableCell>
           <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
@@ -97,6 +87,7 @@ export default function UserTableRow({
             handleOpenConfirm();
             handleClosePopover();
           }}
+          disabled={Users?.length > 0}
           sx={{ color: 'error.main' }}
         >
           <Iconify icon="eva:trash-2-outline" />

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import * as Yup from 'yup';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +16,6 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 // @types
 import { IUserAccountGeneral } from 'src/@types/user';
 // assets
-import { countries } from 'src/assets/data';
 // components
 import Label from 'src/components/label/index';
 import { CustomFile } from 'src/components/upload';
@@ -26,6 +27,7 @@ import FormProvider, {
   RHFUploadAvatar,
 } from 'src/components/hook-form';
 import { useDispatch, useSelector } from 'src/redux/store';
+import { getCountries, getStateList, getStateByCountry } from 'src/redux/slices/action';
 import { createUser, updateUserById } from './slice/action';
 import { getAllRoles } from '../Roles/slice/action';
 
@@ -39,16 +41,18 @@ type Props = {
   isEdit?: boolean;
   currentUser?: any;
   user?: boolean;
+  onClose?: any;
 };
 
-export default function CustomerNewEdit({ isEdit = false, currentUser, user }: Props) {
+export default function CustomerNewEdit({ isEdit = false, currentUser, user, onClose }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { rolesData, isCreateRoleLoading } = useSelector(
+  const { rolesData } = useSelector(
     (state) => state.roles
   );
-  const [roles, setRoles] = useState<any[]>([]);
-console.log("rolesData",rolesData)
+  const { countryData, stateData, stateDataByCountry , isCountryLoading, isStateLoading, isStateByCountryLoading} = useSelector(
+    (state) => state.common
+  );
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
@@ -60,7 +64,7 @@ console.log("rolesData",rolesData)
     UserStateId:  Yup.string().required('State is required'),
     UserCity:  Yup.string().required('City is required'),
     Address:  Yup.string().required('Address is required'),
-    Location:  Yup.string().required('Location is required'),
+    UserLocation:  Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
     UserRoleId: Yup.string().required('Role is required'),
   });
@@ -75,7 +79,7 @@ console.log("rolesData",rolesData)
     UserStateId:   currentUser?.UserStateId || '',
     UserCity:   currentUser?.UserCity || '',
     Address:   currentUser?.Address || '',
-    Location:   currentUser?.Location || '',
+    UserLocation:   currentUser?.UserLocation || '',
     UserPassword: currentUser?.UserPassword || '',
     UserRoleId: currentUser?.UserRoleId || '',
     }),
@@ -90,6 +94,8 @@ console.log("rolesData",rolesData)
       page: "1",
       limit: "10"
   }));
+  dispatch(getCountries());
+  dispatch(getStateList());
   },[dispatch])
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
@@ -101,11 +107,15 @@ console.log("rolesData",rolesData)
     watch,
     control,
     setValue,
+    getValues,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
   const values = watch();
+  const DataValues = getValues();
+  const countries = watch('UserCountryId');
+  const [state,setState] = useState<any>([]);
 
   useEffect(() => {
     if (isEdit && currentUser) {
@@ -118,7 +128,6 @@ console.log("rolesData",rolesData)
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data:any) => {
-    console.log("data", data)
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
@@ -130,8 +139,6 @@ console.log("rolesData",rolesData)
             UserTypeCode: 'CU',
             MiddleName: '',
             UserGender: 'M',
-            UserStateId: 1,
-            UserCountryId: 1,
             UserCreatedBy: 1,
             UserModifiedBy: 1,
           }))
@@ -146,6 +153,41 @@ console.log("rolesData",rolesData)
     }
   };
 
+  useEffect(() => {
+    const data = [] as any;
+    if(DataValues?.UserCountryId !== '') {
+      const getName = countryData?.find(item => item?.CountryId === DataValues.UserCountryId);
+      if(isStateByCountryLoading) {
+      dispatch(getStateByCountry(getName?.CountryName))
+      }
+      stateDataByCountry?.map((item) => (
+        data.push({
+          StateId: item?.StateId,
+          StateName: item?.StateName,
+          StateCountryName: item?.StateCountryName
+        })
+      ))
+      setState(data);
+    }
+  },[countries, stateDataByCountry]);
+
+  useEffect(() => {
+    const data = [] as any;
+    if(isEdit) {
+      const getName = countryData?.find(item => item?.CountryId === DataValues.UserCountryId);
+      if(!isCountryLoading) {
+        dispatch(getStateByCountry(getName?.CountryName))
+      }
+         stateData?.map((item) => (
+        data.push({
+          StateId: item?.StateId,
+          StateName: item?.StateName,
+          StateCountryName: item?.StateCountryName
+        })
+      ))
+      setState(data);
+    }
+  },[isEdit, isCountryLoading, isStateLoading])
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
@@ -163,17 +205,24 @@ console.log("rolesData",rolesData)
               <RHFTextField name="UserEmail" label="Email Address" />
               <RHFTextField name="Mobile" label="Phone Number" />
               <RHFSelect native name="UserCountryId" label="Country" placeholder="Country">
-                <option value="" />
-                {countries.map((country) => (
-                  <option key={country.code} value={country.phone}>
-                    {country.label}
+              <option value=""/>
+                {countryData.map((country) => (
+                  <option key={country.CountryId} value={country.CountryId}>
+                    {country.CountryName}
                   </option>
                 ))}
               </RHFSelect>
-              <RHFTextField name="UserStateId" label="State" />
+              <RHFSelect native name="UserStateId" label="State" placeholder="State">
+                <option value=""/>
+                {state.map((item: any) => (
+                  <option key={item.StateId} value={item.StateId}>
+                    {item.StateName}
+                  </option>
+                ))}
+              </RHFSelect>
               <RHFTextField name="UserCity" label="City" />
               <RHFTextField name="Address" label="Address" />
-              <RHFTextField name="Location" label="Location" />
+              <RHFTextField name="UserLocation" label="Location" />
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />
@@ -183,14 +232,26 @@ console.log("rolesData",rolesData)
                   </option>
                 ))}
               </RHFSelect>
-              <RHFTextField name="UserPassword" label="Password" />
+              {
+                !isEdit && <RHFTextField name="UserPassword" label="Password" />
+              }
         </Box>
 
-        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+        <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
+          <Box>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
              {!isEdit ? `${user ? 'Create user' : 'Create customer'}`: 'Save Changes'}
             {/* Save Changes */}
           </LoadingButton>
+          </Box>
+          <Stack direction="row" spacing="10px">
+          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+            reset
+          </LoadingButton>
+          <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
+             Cancel
+          </LoadingButton>
+          </Stack>
         </Stack>
       </Card>
     </FormProvider>
