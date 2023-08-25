@@ -73,12 +73,17 @@ const ROLE_OPTIONS = [
 const TABLE_HEAD = [
   { id: 'name', label: 'User Name', align: 'left' },
   { id: 'role', label: 'Role Name', align: 'left' },
+  { id: 'mobile', label: 'Phone Number', align: 'left' },
+  { id: 'email', label: 'Email Id', align: 'left' },
   { id: 'action' },
 ];
 
 const CUSTOMER_TABLE_HEAD = [
   { id: 'name', label: 'Cutomer Name', align: 'left' },
   { id: 'role', label: 'User ID', align: 'left' },
+  { id: 'mobile', label: 'Phone Number', align: 'left' },
+  { id: 'email', label: 'Email Id', align: 'left' },
+  { id: 'city', label: 'City', align: 'left' },
   { id: 'action', align: 'left' },
 ];
 
@@ -353,18 +358,21 @@ setIsEdit(true);
         </Card>
       </Container>
 
-      <Dialog
-        open={openDrawer}
-        onClose={handleCloseDrawer}
-        // aria-labelledby="parent-modal-title"
-        // aria-describedby="parent-modal-description"
-      >
-        {
-          user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} />
-        }
-        
-      </Dialog>
+{
+  openDrawer && <Dialog
+  open={openDrawer}
+  onClose={handleCloseDrawer}
+  // aria-labelledby="parent-modal-title"
+  // aria-describedby="parent-modal-description"
+>
+  {
+    user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} onClose={handleCloseDrawer} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} onClose={handleCloseDrawer}/>
+  }
+  
+</Dialog>
 
+}
+     
       <MenuPopover
         open={openPopover}
         onClose={handleClosePopover}

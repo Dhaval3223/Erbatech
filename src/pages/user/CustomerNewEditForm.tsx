@@ -39,15 +39,15 @@ type Props = {
   isEdit?: boolean;
   currentUser?: any;
   user?: boolean;
+  onClose?: any;
 };
 
-export default function CustomerNewEditForm({ isEdit = false, currentUser, user }: Props) {
+export default function CustomerNewEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { rolesData, isCreateRoleLoading } = useSelector(
     (state) => state.roles
   );
-  console.log("rolesData", rolesData)
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -109,12 +109,13 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data:any) => {
-    console.log("data", data)
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       enqueueSnackbar(!isEdit ? 'User Created successfully!' : 'Updated successfully!');
+      onClose();
       navigate(PATH_DASHBOARD.general.userManagement);
+      reset(defaultValues);
       if(isEdit === false) {
         dispatch(createUser({
             ...data,
@@ -164,14 +165,27 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
                   </option>
                 ))}
               </RHFSelect>
-              <RHFTextField name="UserPassword" label="Password" />
+              {
+                !isEdit && <RHFTextField name="UserPassword" label="Password" />
+              }
+              
         </Box>
 
-        <Stack alignItems="flex-end" sx={{ mt: 3 }}>
+        <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
+          <Box>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
              {!isEdit ? `${user ? 'Create user' : 'Create customer'}`: 'Save Changes'}
             {/* Save Changes */}
           </LoadingButton>
+          </Box>
+          <Stack direction="row" spacing="10px">
+          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+            reset
+          </LoadingButton>
+          <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
+             Cancel
+          </LoadingButton>
+          </Stack>
         </Stack>
       </Card>
     </FormProvider>
