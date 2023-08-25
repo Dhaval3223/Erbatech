@@ -146,7 +146,7 @@ export default function UserListPage() {
   }, [dispatch])
 
   useEffect(() => {
-    setRolesDropdownData(rolesData?.row);
+    setRolesDropdownData(rolesData?.rows);
   }, [rolesData])
 
   useEffect(() => {
@@ -370,7 +370,7 @@ export default function UserListPage() {
 
                 <TableBody>
                   {isRolesLoading && <TableSkeleton colums={3}/>}
-                  {!isRolesLoading && rolesData?.row?.map((row, index) => (
+                  {!isRolesLoading && rolesData?.rows?.map((row, index) => (
                       <UserTableRow
                         key={index}
                         row={row}
@@ -384,7 +384,7 @@ export default function UserListPage() {
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
                   /> */}
-                  <TableNoData isNotFound={rolesData?.row?.length === 0} />
+                  <TableNoData isNotFound={rolesData?.rows?.length === 0} />
                 </TableBody>
               </Table>
             </Scrollbar>

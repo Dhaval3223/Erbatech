@@ -16,7 +16,7 @@ const initialState: IRolesState = {
   events: [],
   rolesData: {
     count: 0,
-    row: [{
+    rows: [{
     "RoleId": "2",
     "RoleName": "Admin",
     "RoleStatus": true,
@@ -60,7 +60,7 @@ const slice = createSlice({
     // GET EVENTS
     getRolesSuccess(state, action) {
       state.isRolesLoading = false;
-      state.rolesData = action.payload?.rows;
+      state.rolesData = action.payload;
     },
 
     // CREATE EVENT

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // form
 import { useForm, Controller } from 'react-hook-form';
@@ -26,8 +26,8 @@ import FormProvider, {
   RHFUploadAvatar,
 } from 'src/components/hook-form';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { getAllRoles } from '../Roles/slice/action';
 import { createUser, updateUserById } from './slice/action';
+import { getAllRoles } from '../Roles/slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -47,7 +47,8 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user }: P
   const { rolesData, isCreateRoleLoading } = useSelector(
     (state) => state.roles
   );
-
+  const [roles, setRoles] = useState<any[]>([]);
+console.log("rolesData",rolesData)
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
@@ -83,7 +84,12 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user }: P
   );
 
   useEffect(() => {
-    dispatch(getAllRoles());
+    dispatch(getAllRoles({
+      searchValue: "",
+      type: "all",
+      page: "1",
+      limit: "10"
+  }));
   },[dispatch])
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
@@ -125,7 +131,7 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user }: P
             MiddleName: '',
             UserGender: 'M',
             UserStateId: 1,
-            UserCity: '',
+            UserCountryId: 1,
             UserCreatedBy: 1,
             UserModifiedBy: 1,
           }))
@@ -171,7 +177,7 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user }: P
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />
-                {rolesData.map((role) => (
+                {rolesData?.rows?.map((role) => (
                   <option key={role.RoleId} value={role.RoleId}>
                     {role.RoleName}
                   </option>

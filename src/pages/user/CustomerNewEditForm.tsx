@@ -158,7 +158,7 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user 
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />
-                {rolesData?.row?.map((role) => (
+                {rolesData?.rows?.map((role) => (
                   <option key={role.RoleId} value={role.RoleId}>
                     {role.RoleName}
                   </option>
