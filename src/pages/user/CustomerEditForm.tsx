@@ -213,7 +213,7 @@ export default function CustomerEditForm({ isEdit = false, currentUser, user, on
         <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
           <Box>
           <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-             {!isEdit ? `${user ? 'Create user' : 'Create customer'}`: 'Save Changes'}
+             Save Changes
             {/* Save Changes */}
           </LoadingButton>
           </Box>
