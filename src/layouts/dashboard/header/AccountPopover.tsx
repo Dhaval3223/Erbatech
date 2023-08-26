@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
+import { Box, Divider, Typography, Stack, MenuItem, Dialog } from '@mui/material';
 // routes
+import AuthNewPasswordForm from 'src/sections/auth/AuthNewPasswordForm';
 import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
 // auth
 import { useAuthContext } from '../../../auth/useAuthContext';
@@ -36,7 +37,7 @@ export default function AccountPopover() {
   const navigate = useNavigate();
 
   const { user, logout } = useAuthContext();
-  const { FirstName, LastName, UserEmail  } = user || {};
+  const { FirstName, LastName, UserEmail } = user || {};
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -71,6 +72,13 @@ export default function AccountPopover() {
   const handleClickItem = (path: string) => {
     handleClosePopover();
     navigate(path);
+  };
+
+  const handleCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setChangePassModal(false);
   };
 
   return (
@@ -125,6 +133,20 @@ export default function AccountPopover() {
           Logout
         </MenuItem>
       </MenuPopover>
+
+      <Dialog
+        open={changePassModal}
+        onClose={handleCloseDrawer}
+        // aria-labelledby="parent-modal-title"
+        // aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ p: '26px' }}>
+          <Typography variant="h5" textAlign="center" sx={{ mb: '16px' }}>
+            Reset Password
+          </Typography>
+          <AuthNewPasswordForm />
+        </Box>
+      </Dialog>
     </>
   );
 }

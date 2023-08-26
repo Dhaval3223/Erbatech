@@ -142,6 +142,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
+  
   const [EditopenDrawer, setEditOpenDrawer] = useState(false);
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);

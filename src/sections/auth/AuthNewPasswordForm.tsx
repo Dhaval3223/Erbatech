@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
+import axiosInstance from 'src/utils/axiosInstance';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { Stack, IconButton, InputAdornment, FormHelperText } from '@mui/material';
@@ -26,6 +27,7 @@ type FormValuesProps = {
   email: string;
   password: string;
   confirmPassword: string;
+  oldpassword: string;
 };
 
 export default function AuthNewPasswordForm() {
@@ -46,6 +48,7 @@ export default function AuthNewPasswordForm() {
     code5: Yup.string().required('Code is required'),
     code6: Yup.string().required('Code is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    oldpassword: Yup.string().required('Old password is required'),
     password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
@@ -62,6 +65,7 @@ export default function AuthNewPasswordForm() {
     code5: '5',
     code6: '6',
     email: '',
+    oldpassword: '',
     password: '',
     confirmPassword: '',
   };
@@ -78,8 +82,13 @@ export default function AuthNewPasswordForm() {
   } = methods;
 
   const onSubmit = async (data: FormValuesProps) => {
+    console.log('data', data);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await await axiosInstance.post('/users/change-password', {
+        userEmail: data.email,
+        oldPassword: data.oldpassword,
+        newPassword: data.password,
+      });
       console.log('DATA:', {
         email: data.email,
         code: `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`,
@@ -115,6 +124,20 @@ export default function AuthNewPasswordForm() {
             Code is required
           </FormHelperText>
         )} */}
+        <RHFTextField
+          name="oldpassword"
+          label="Old Password"
+          type={showPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
 
         <RHFTextField
           name="password"
