@@ -80,9 +80,9 @@ export default function UserTableRow({
                           <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
                             {user ? row?.UserEmail : row?.UserEmail}
                           </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+                          {!user && <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
                             {user ? row?.UserCity : row?.UserCity}
-                          </TableCell>
+                          </TableCell>}
                           <TableCell align="left">
                             <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
                               <Iconify icon="eva:more-vertical-fill" />

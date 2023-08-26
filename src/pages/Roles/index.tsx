@@ -368,7 +368,7 @@ export default function UserListPage() {
                 />
 
                 <TableBody>
-                  {isRolesLoading && <TableSkeleton colums={3}/>}
+                  {isRolesLoading && <TableSkeleton colums={2}/>}
                   {!isRolesLoading && rolesData?.rows?.map((row, index) => (
                       <UserTableRow
                         key={index}
