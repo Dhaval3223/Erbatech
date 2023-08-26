@@ -165,7 +165,14 @@ export default function UserEditForm({ isEdit = false, currentUser, user, onClos
           </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+          <LoadingButton type="reset" variant="contained" onClick={() => reset({
+            FirstName:  '',
+            LastName:'',
+            UserEmail:'',
+            Mobile:  '',
+            UserPassword:  '',
+            UserRoleId:  '',
+          })}>
             reset
           </LoadingButton>
           <LoadingButton type="button" variant="contained" onClick={() => onClose()}>

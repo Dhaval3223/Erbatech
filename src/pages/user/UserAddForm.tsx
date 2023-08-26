@@ -180,7 +180,14 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
           </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+          <LoadingButton type="reset" variant="contained" onClick={() => reset({
+            FirstName:  '',
+            LastName:'',
+            UserEmail:'',
+            Mobile:  '',
+            UserPassword:  '',
+            UserRoleId:  '',
+          })}>
             reset
           </LoadingButton>
           <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
