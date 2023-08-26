@@ -43,13 +43,17 @@ const slice = createSlice({
       state.isUpdateRoleLoading = false;
       state.updateRoleDataSuccess = false;
       state.updateRoleDataError = true;
-      state.updateRoleDataMsg = 'Failed to save changes!!'
+      state.updateRoleDataMsg = 'Failed to save changes!!';
     },
 
     // GET EVENTS
     getRolesSuccess(state, action) {
-      state.isAccessControlLoading = false;
-      state.accessControlData = action.payload.data;
+      console.log('action', action);
+      return {
+        ...state,
+        isAccessControlLoading: false,
+        accessControlData: action.payload.data,
+      };
     },
 
     // UPDATE EVENT
@@ -57,14 +61,14 @@ const slice = createSlice({
       state.isUpdateRoleLoading = false;
       state.updateRoleDataSuccess = true;
       state.updateRoleDataError = false;
-      state.updateRoleDataMsg = 'Changes save successfully!!'
+      state.updateRoleDataMsg = 'Changes saved successfully!!';
     },
 
     resetUpdatRoleData(state) {
       state.updateRoleDataSuccess = false;
       state.updateRoleDataError = false;
       state.updateRoleDataMsg = '';
-    }
+    },
   },
 });
 

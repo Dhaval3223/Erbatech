@@ -1,11 +1,11 @@
 import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
+import { slice } from 'src/pages/accessControl/slice/index';
 // utils
 import axios from '../utils/axiosInstance';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
 import { isValidToken, setSession } from './utils';
 import { ActionMapType, AuthStateType, AuthUserType, JWTContextType } from './types';
-
 // ----------------------------------------------------------------------
 
 // NOTE:
@@ -35,7 +35,7 @@ type Payload = {
   [Types.LOGOUT]: undefined;
 };
 
-type ActionsType = ActionMapType<Payload>[keyof ActionMapType<Payload>];
+type ActionsType = any;
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +43,7 @@ const initialState: AuthStateType = {
   isInitialized: false,
   isAuthenticated: false,
   user: null,
+  accessControlCRUD: null,
 };
 
 const reducer = (state: AuthStateType, action: ActionsType) => {
@@ -51,6 +52,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
       isInitialized: true,
       isAuthenticated: action.payload.isAuthenticated,
       user: action.payload.user,
+      accessControlCRUD: action.payload.accessControlCRUD,
     };
   }
   if (action.type === Types.LOGIN) {
@@ -103,15 +105,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        // const response = await axios.get('/api/account/my-account');
+        const response = await axios.post('/role-privileges/getProgramsByRole', {
+          RoleId: user?.UserRoleId,
+        });
 
-        // const { user } = response.data;
+        const convertArrayToObject = (array: any[], ProgramCode: string) => {
+          const initialValue = {};
+          return array.reduce(
+            (obj, item) => ({
+              ...obj,
+              [item[ProgramCode]]: {
+                isCreate: item?.RolePrivilege?.includes('A'),
+                isUpdate: item?.RolePrivilege?.includes('M'),
+                isDelete: item?.RolePrivilege?.includes('D'),
+                isView: item?.RolePrivilege?.includes('V'),
+              },
+            }),
+            initialValue
+          );
+        };
+
+        const data = convertArrayToObject(response?.data?.data, 'ProgramCode');
+        // dispatch(slice.actions.getRolesSuccess(response.data));
+        console.log('convertArrayToObject', data);
 
         dispatch({
           type: Types.INITIAL,
           payload: {
             isAuthenticated: true,
             user,
+            accessControlCRUD: data,
           },
         });
       } else {
@@ -146,7 +169,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       password,
     });
     const { accessToken, user } = response.data?.data || {};
-    console.log('accessToken', accessToken, user);
+    // console.log('accessToken', accessToken, user);
 
     localStorage.setItem('user', JSON.stringify(user));
 
@@ -203,8 +226,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       loginWithTwitter: () => {},
       register,
       logout,
+      accessControlCRUD: state?.accessControlCRUD,
     }),
-    [state.isAuthenticated, state.isInitialized, state.user, login, logout, register]
+    [
+      state.isAuthenticated,
+      state.isInitialized,
+      state.user,
+      login,
+      logout,
+      register,
+      state.accessControlCRUD,
+    ]
   );
 
   return <AuthContext.Provider value={memoizedValue}>{children}</AuthContext.Provider>;
