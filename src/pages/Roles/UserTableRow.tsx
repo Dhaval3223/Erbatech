@@ -23,6 +23,8 @@ import ConfirmDialog from '../../components/confirm-dialog';
 type Props = {
   row: any;
   selected: boolean;
+  isDelete: boolean;
+  isUpdate: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
   onDeleteRow: VoidFunction;
@@ -34,6 +36,8 @@ export default function UserTableRow({
   onEditRow,
   onSelectRow,
   onDeleteRow,
+  isUpdate,
+  isDelete,
 }: Props) {
   console.log(row);
   const { RoleId, RoleName, Users } = row || {};
@@ -82,27 +86,31 @@ export default function UserTableRow({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        <MenuItem
-          onClick={() => {
-            handleOpenConfirm();
-            handleClosePopover();
-          }}
-          disabled={Users?.length > 0}
-          sx={{ color: 'error.main' }}
-        >
-          <Iconify icon="eva:trash-2-outline" />
-          Delete
-        </MenuItem>
+        {isDelete && (
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirm();
+              handleClosePopover();
+            }}
+            disabled={Users?.length > 0}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="eva:trash-2-outline" />
+            Delete
+          </MenuItem>
+        )}
 
-        <MenuItem
-          onClick={() => {
-            onEditRow();
-            handleClosePopover();
-          }}
-        >
-          <Iconify icon="eva:edit-fill" />
-          Edit
-        </MenuItem>
+        {isUpdate && (
+          <MenuItem
+            onClick={() => {
+              onEditRow();
+              handleClosePopover();
+            }}
+          >
+            <Iconify icon="eva:edit-fill" />
+            Edit
+          </MenuItem>
+        )}
       </MenuPopover>
 
       <ConfirmDialog
@@ -111,13 +119,14 @@ export default function UserTableRow({
         title="Delete"
         content="Are you sure want to delete?"
         action={
-          <Button 
-            variant="contained" 
-            color="error" 
+          <Button
+            variant="contained"
+            color="error"
             onClick={() => {
               onDeleteRow();
               handleCloseConfirm();
-            }}>
+            }}
+          >
             Delete
           </Button>
         }

@@ -23,6 +23,7 @@ type Props = {
   setRoleError?: any;
   handleCreateRoleAPI?: VoidFunction;
   roleError?: boolean;
+  isCreate?: boolean;
 };
 
 export default function UserTableToolbar({
@@ -39,6 +40,7 @@ export default function UserTableToolbar({
   handleCreateRoleAPI,
   roleError,
   setRoleError,
+  isCreate,
 }: Props) {
   const { isCreateRoleLoading } = useSelector(
     (state) => state.roles
@@ -130,7 +132,7 @@ export default function UserTableToolbar({
             </Button>
           )}
         </Stack>
-        <Stack 
+        {isCreate && <Stack 
           spacing={2}
           alignItems="center"
           justifyContent="space-between"
@@ -168,7 +170,7 @@ export default function UserTableToolbar({
             >
             <Iconify icon="eva:plus-fill" width={24} />
           </IconButtonAnimate> */}
-        </Stack>
+        </Stack>}
 
         {/* <Button
           variant="contained"

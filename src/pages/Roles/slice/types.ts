@@ -24,4 +24,6 @@ export interface IRolesState {
   isDeleteRoleSuccess: boolean;
   isDeleteRoleError: boolean;
   isDeleteRoleMsg: string;
+  roleBasedGuard: any;
+  isRoleBasedGuardLoading: boolean;
 }

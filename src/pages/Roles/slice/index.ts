@@ -30,6 +30,8 @@ const initialState: IRolesState = {
   isDeleteRoleSuccess: false,
   isDeleteRoleError: false,
   isDeleteRoleMsg: '',
+  roleBasedGuard: [],
+  isRoleBasedGuardLoading: false,
 };
 
 const slice = createSlice({
@@ -62,6 +64,13 @@ const slice = createSlice({
     getRolesSuccess(state, action) {
       state.isRolesLoading = false;
       state.rolesData = action.payload;
+    },
+    getRoleBasedGuard(state, action) {
+      state.isRoleBasedGuardLoading = false;
+      state.roleBasedGuard = action?.payload?.data?.data;
+    },
+    getRolesBasedGuardLoading(state) {
+      state.isRoleBasedGuardLoading = true;
     },
 
     // CREATE EVENT
