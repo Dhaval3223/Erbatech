@@ -50,10 +50,12 @@ import {
 import UserTableRow from './UserTableRow';
 import { deleteUserById, getAllUsers, viewUserById } from './slice/action';
 import UserTableToolbar from './UserTableToolbar';
-import CustomerNewEditForm from './CustomerNewEditForm';
-import CustomerNewEdit from './CustomerNewEdit';
+import UserAddForm from './UserAddForm';
+import CustomerAddForm from './CustomerAddForm';
+import CustomerEditForm from './CustomerEditForm';
+import UserEditForm from './UserEditForm';
 import { slice } from './slice';
- // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
 
@@ -89,11 +91,7 @@ const CUSTOMER_TABLE_HEAD = [
 
 // ----------------------------------------------------------------------
 
-export default function UserListing({
-  user
-}: {
-  user?: boolean;
-}) {
+export default function UserListing({ user }: { user?: boolean }) {
   const {
     dense,
     page,
@@ -114,7 +112,9 @@ export default function UserListing({
   } = useTable();
 
   const dispatch = useDispatch();
-  const { users, isUserLoading, viewUserData, createUserSucess } = useSelector((state) => state.user);
+  const { users, isUserLoading, viewUserData, createUserSucess } = useSelector(
+    (state) => state.user
+  );
   const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
@@ -156,7 +156,7 @@ export default function UserListing({
 
   useEffect(() => {
     setOpenDrawer(false);
-  }, [])
+  }, []);
 
   useEffect(() => {
     dispatch(
@@ -195,13 +195,15 @@ export default function UserListing({
 
   const handleDeleteRow = (id: string) => {
     dispatch(deleteUserById(id));
-    dispatch(getAllUsers({
-      searchValue:filterName,
-      userRoleId: '',
-      userType: user ? 'user' : 'customer',
-      limit: String(rowsPerPage),
-      page: String(page)
-    }))
+    dispatch(
+      getAllUsers({
+        searchValue: filterName,
+        userRoleId: '',
+        userType: user ? 'user' : 'customer',
+        limit: String(rowsPerPage),
+        page: String(page),
+      })
+    );
     /* const deleteRow = tableData.filter((row) => row.id !== id);
     setSelected([]);
     setTableData(deleteRow);
@@ -215,7 +217,7 @@ export default function UserListing({
 
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
-    
+
     /* setSelected([]);
     setTableData(deleteRows);
 
@@ -240,7 +242,7 @@ export default function UserListing({
 
   const handleEditRow = (id: string) => {
     setEditOpenDrawer(true);
-    dispatch(viewUserById(id))
+    dispatch(viewUserById(id));
   };
 
   const handleResetFilter = () => {
@@ -255,14 +257,14 @@ export default function UserListing({
   };
 
   const handleCloseDrawer = (event: any, reason: any) => {
-    if(reason && reason === 'backdropClick') {
+    if (reason && reason === 'backdropClick') {
       return;
     }
     setOpenDrawer(false);
   };
 
   const handleEditCloseDrawer = (event: any, reason: any) => {
-    if(reason && reason === 'backdropClick') {
+    if (reason && reason === 'backdropClick') {
       return;
     }
     setEditOpenDrawer(false);
@@ -289,8 +291,8 @@ export default function UserListing({
       );
       dispatch(slice.actions.resetCreateUserState());
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createUserSucess])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createUserSucess]);
 
   return (
     <>
@@ -308,7 +310,7 @@ export default function UserListing({
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
-            createButtonLable={user ? "+ add user" : '+ add customer'}
+            createButtonLable={user ? '+ add user' : '+ add customer'}
             handleCreateClick={handleOpenDrawer}
             isCreateButton
           />
@@ -369,10 +371,7 @@ export default function UserListing({
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
                   /> */}
-                  {
-                    !isUserLoading &&<TableNoData isNotFound={users?.rows?.length === 0} />
-                  }
-                  
+                  {!isUserLoading && <TableNoData isNotFound={users?.rows?.length === 0} />}
                 </TableBody>
               </Table>
             </Scrollbar>
@@ -390,46 +389,45 @@ export default function UserListing({
         </Card>
       </Container>
 
-        {openDrawer && 
-          <Dialog
-            open={openDrawer}
-            onClose={handleCloseDrawer}
-            // disableBackdropClick={true}
-            // BackdropComponent={() => null}
-            // aria-labelledby="parent-modal-title"
-            // aria-describedby="parent-modal-description"
-          >
-            {
-  openDrawer && <Dialog
-  open={openDrawer}
-  onClose={handleCloseDrawer}
-  // aria-labelledby="parent-modal-title"
-  // aria-describedby="parent-modal-description"
->
-  {
-    user ? <CustomerNewEditForm currentUser={viewUserData} user={user} onClose={handleCloseDrawer} /> : <CustomerNewEdit currentUser={viewUserData} onClose={handleCloseDrawer}/>
-  }
-  
-</Dialog>
+      {openDrawer && (
+        <Dialog
+          open={openDrawer}
+          onClose={handleCloseDrawer}
+          // aria-labelledby="parent-modal-title"
+          // aria-describedby="parent-modal-description"
+        >
+          {user ? (
+            <UserAddForm currentUser={viewUserData} user={user} onClose={handleCloseDrawer} />
+          ) : (
+            <CustomerAddForm currentUser={viewUserData} onClose={handleCloseDrawer} />
+          )}
+        </Dialog>
+      )}
 
-}
+      {EditopenDrawer && (
+        <Dialog
+          open={EditopenDrawer}
+          onClose={handleEditCloseDrawer}
+          // aria-labelledby="parent-modal-title"
+          // aria-describedby="parent-modal-description"
+        >
+          {user ? (
+            <UserEditForm
+              isEdit={isEdit}
+              currentUser={viewUserData}
+              user={user}
+              onClose={handleEditCloseDrawer}
+            />
+          ) : (
+            <CustomerEditForm
+              isEdit={isEdit}
+              currentUser={viewUserData}
+              onClose={handleEditCloseDrawer}
+            />
+          )}
+        </Dialog>
+      )}
 
-{
-  EditopenDrawer && <Dialog
-  open={EditopenDrawer}
-  onClose={handleEditCloseDrawer}
-  // aria-labelledby="parent-modal-title"
-  // aria-describedby="parent-modal-description"
->
-  {
-    user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} onClose={handleEditCloseDrawer} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} onClose={handleEditCloseDrawer}/>
-  }
-</Dialog>
-
-}
-          </Dialog>
-        }
-     
       <MenuPopover
         open={openPopover}
         onClose={handleClosePopover}

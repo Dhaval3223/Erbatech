@@ -1,5 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // form
 import { useForm, Controller } from 'react-hook-form';
@@ -14,7 +16,6 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 // @types
 import { IUserAccountGeneral } from 'src/@types/user';
 // assets
-import { countries } from 'src/assets/data';
 // components
 import Label from 'src/components/label/index';
 import { CustomFile } from 'src/components/upload';
@@ -26,8 +27,9 @@ import FormProvider, {
   RHFUploadAvatar,
 } from 'src/components/hook-form';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { getAllRoles } from '../Roles/slice/action';
+import { getCountries, getStateList, getStateByCountry } from 'src/redux/slices/action';
 import { createUser, updateUserById } from './slice/action';
+import { getAllRoles } from '../Roles/slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -42,14 +44,16 @@ type Props = {
   onClose?: any;
 };
 
-export default function CustomerNewEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
+export default function CustomerEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [countryId,setCountryId] = useState<any>(currentUser?.UserCountryId || '');
   const { rolesData } = useSelector(
     (state) => state.roles
   );
-
+  const { countryData, stateData, stateDataByCountry , isCountryLoading, isStateLoading, isStateByCountryLoading} = useSelector(
+    (state) => state.common
+  );
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
@@ -57,6 +61,11 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
     LastName: Yup.string().required('LastName is required'),
     UserEmail: Yup.string().required('Email is required').email('Email must be a valid email address'),
     Mobile: Yup.string().required('Phone number is required'),
+    UserCountryId:  Yup.string().required('Country is required'),
+    UserStateId:  Yup.string().required('State is required'),
+    UserCity:  Yup.string().required('City is required'),
+    Address:  Yup.string().required('Address is required'),
+    UserLocation:  Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
     UserRoleId: Yup.string().required('Role is required'),
   });
@@ -67,6 +76,11 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
     LastName: currentUser?.LastName || '',
     UserEmail: currentUser?.UserEmail || '',
     Mobile: currentUser?.Mobile || '',
+    UserCountryId:   currentUser?.UserCountryId || '',
+    UserStateId:   currentUser?.UserStateId || '',
+    UserCity:   currentUser?.UserCity || '',
+    Address:   currentUser?.Address || '',
+    UserLocation:   currentUser?.UserLocation || '',
     UserPassword: currentUser?.UserPassword || '',
     UserRoleId: currentUser?.UserRoleId || '',
     }),
@@ -81,8 +95,9 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
       page: "1",
       limit: "10"
   }));
+  dispatch(getCountries());
+  dispatch(getStateList());
   },[dispatch])
-
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
     defaultValues,
@@ -93,11 +108,15 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
     watch,
     control,
     setValue,
+    getValues,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
   const values = watch();
+  const DataValues = getValues();
+  const countries = watch('UserCountryId');
+  const [state,setState] = useState<any>([]);
 
   useEffect(() => {
     if (isEdit && currentUser) {
@@ -113,34 +132,32 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'User Created successfully!' : 'Updated successfully!');
+      enqueueSnackbar(!'Customer Updated successfully!');
+      navigate(PATH_DASHBOARD.general.customerManagement);
       onClose();
-      navigate(PATH_DASHBOARD.general.userManagement);
-      reset(defaultValues);
-      if(isEdit === false) {
-        dispatch(createUser({
-            ...data,
-            UserTypeCode: user ? 'ST' : 'CU',
-            MiddleName: '',
-            Address: '',
-            UserGender: 'M',
-            UserCountryId: 1,
-            UserStateId: 1,
-            UserCity: '',
-            UserCreatedBy: 1,
-            UserModifiedBy: 1,
-          }))
-      }else {
         dispatch(updateUserById({
             ...data,
             UserId: currentUser?.UserId
         }))
-      }
     } catch (error) {
       console.error("error",error);
     }
   };
 
+  useEffect(() => {
+    if(DataValues?.UserCountryId !== '') {
+      const getName = countryData?.find(item => item?.CountryId === DataValues.UserCountryId);
+      dispatch(getStateByCountry(getName?.CountryName))
+    }
+  },[countries, countryId, isCountryLoading]);
+
+  useEffect(() => {
+    
+    if(isEdit) {
+      const getName = countryData?.find(item => item?.CountryId === DataValues.UserCountryId);
+        dispatch(getStateByCountry(getName?.CountryName))
+    }
+  },[isEdit, isCountryLoading, countryId])
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
@@ -157,6 +174,30 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
               <RHFTextField name="LastName" label="Last Name" />
               <RHFTextField name="UserEmail" label="Email Address" />
               <RHFTextField name="Mobile" label="Phone Number" />
+              <RHFSelect native name="UserCountryId" label="Country" placeholder="Country" onChange={event => {
+                setValue('UserCountryId',event.target.value);
+                const getName = countryData?.find(item => item?.CountryId === event.target.value)
+                setCountryId(getName?.CountryName || '')
+
+              }}>
+              <option value=""/>
+                {countryData.map((country) => (
+                  <option key={country.CountryId} value={country.CountryId}>
+                    {country.CountryName}
+                  </option>
+                ))}
+              </RHFSelect>
+              <RHFSelect native name="UserStateId" label="State" placeholder="State">
+                <option value=""/>
+                {stateDataByCountry.map((item: any) => (
+                  <option key={item.StateId} value={item.StateId}>
+                    {item.StateName}
+                  </option>
+                ))}
+              </RHFSelect>
+              <RHFTextField name="UserCity" label="City" />
+              <RHFTextField name="Address" label="Address" />
+              <RHFTextField name="UserLocation" label="Location" />
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />
@@ -169,7 +210,6 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
               {
                 !isEdit && <RHFTextField name="UserPassword" label="Password" />
               }
-              
         </Box>
 
         <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
@@ -180,10 +220,24 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
           </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+          <LoadingButton type="reset" variant="contained" onClick={() => reset({
+            Address:'',
+            FirstName:'',
+            LastName:'',
+            Mobile:'',
+            UserCity:'',
+            UserCountryId:'',
+            UserEmail:'',
+            UserLocation:'',
+            UserPassword:'',
+            UserRoleId:'',
+            UserStateId:'',
+          })}>
             reset
           </LoadingButton>
-          <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
+          <LoadingButton type="button" variant="contained" onClick={() => {
+            onClose();
+         }}>
              Cancel
           </LoadingButton>
           </Stack>

@@ -1,7 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 import * as Yup from 'yup';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 // form
 import { useForm, Controller } from 'react-hook-form';
@@ -16,6 +14,7 @@ import { PATH_DASHBOARD } from 'src/routes/paths';
 // @types
 import { IUserAccountGeneral } from 'src/@types/user';
 // assets
+import { countries } from 'src/assets/data';
 // components
 import Label from 'src/components/label/index';
 import { CustomFile } from 'src/components/upload';
@@ -27,9 +26,8 @@ import FormProvider, {
   RHFUploadAvatar,
 } from 'src/components/hook-form';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { getCountries, getStateList, getStateByCountry } from 'src/redux/slices/action';
-import { createUser, updateUserById } from './slice/action';
 import { getAllRoles } from '../Roles/slice/action';
+import { createUser, updateUserById } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -44,15 +42,14 @@ type Props = {
   onClose?: any;
 };
 
-export default function CustomerNewEdit({ isEdit = false, currentUser, user, onClose }: Props) {
+export default function UserAddForm({ isEdit = false, currentUser, user, onClose }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const { rolesData } = useSelector(
     (state) => state.roles
   );
-  const { countryData, stateData, stateDataByCountry , isCountryLoading, isStateLoading, isStateByCountryLoading} = useSelector(
-    (state) => state.common
-  );
+
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
@@ -60,28 +57,18 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
     LastName: Yup.string().required('LastName is required'),
     UserEmail: Yup.string().required('Email is required').email('Email must be a valid email address'),
     Mobile: Yup.string().required('Phone number is required'),
-    UserCountryId:  Yup.string().required('Country is required'),
-    UserStateId:  Yup.string().required('State is required'),
-    UserCity:  Yup.string().required('City is required'),
-    Address:  Yup.string().required('Address is required'),
-    UserLocation:  Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
     UserRoleId: Yup.string().required('Role is required'),
   });
 
   const defaultValues = useMemo(
     () => ({
-    FirstName: currentUser?.FirstName || '',
-    LastName: currentUser?.LastName || '',
-    UserEmail: currentUser?.UserEmail || '',
-    Mobile: currentUser?.Mobile || '',
-    UserCountryId:   currentUser?.UserCountryId || '',
-    UserStateId:   currentUser?.UserStateId || '',
-    UserCity:   currentUser?.UserCity || '',
-    Address:   currentUser?.Address || '',
-    UserLocation:   currentUser?.UserLocation || '',
-    UserPassword: currentUser?.UserPassword || '',
-    UserRoleId: currentUser?.UserRoleId || '',
+    FirstName:  '',
+    LastName:'',
+    UserEmail:'',
+    Mobile:  '',
+    UserPassword:  '',
+    UserRoleId:  '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
@@ -94,9 +81,8 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
       page: "1",
       limit: "10"
   }));
-  dispatch(getCountries());
-  dispatch(getStateList());
   },[dispatch])
+
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
     defaultValues,
@@ -107,15 +93,11 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
     watch,
     control,
     setValue,
-    getValues,
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
 
   const values = watch();
-  const DataValues = getValues();
-  const countries = watch('UserCountryId');
-  const [state,setState] = useState<any>([]);
 
   useEffect(() => {
     if (isEdit && currentUser) {
@@ -131,14 +113,20 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!isEdit ? 'Customer Created successfully!' : 'Updated successfully!');
-      navigate(PATH_DASHBOARD.general.customerManagement);
+      enqueueSnackbar(!isEdit ? 'User Created successfully!' : 'Updated successfully!');
+      onClose();
+      navigate(PATH_DASHBOARD.general.userManagement);
+      reset(defaultValues);
       if(isEdit === false) {
         dispatch(createUser({
             ...data,
-            UserTypeCode: 'CU',
+            UserTypeCode: user ? 'ST' : 'CU',
             MiddleName: '',
+            Address: '',
             UserGender: 'M',
+            UserCountryId: 1,
+            UserStateId: 1,
+            UserCity: '',
             UserCreatedBy: 1,
             UserModifiedBy: 1,
           }))
@@ -153,41 +141,6 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
     }
   };
 
-  useEffect(() => {
-    const data = [] as any;
-    if(DataValues?.UserCountryId !== '') {
-      const getName = countryData?.find(item => item?.CountryId === DataValues.UserCountryId);
-      if(isStateByCountryLoading) {
-      dispatch(getStateByCountry(getName?.CountryName))
-      }
-      stateDataByCountry?.map((item) => (
-        data.push({
-          StateId: item?.StateId,
-          StateName: item?.StateName,
-          StateCountryName: item?.StateCountryName
-        })
-      ))
-      setState(data);
-    }
-  },[countries, stateDataByCountry]);
-
-  useEffect(() => {
-    const data = [] as any;
-    if(isEdit) {
-      const getName = countryData?.find(item => item?.CountryId === DataValues.UserCountryId);
-      if(!isCountryLoading) {
-        dispatch(getStateByCountry(getName?.CountryName))
-      }
-         stateData?.map((item) => (
-        data.push({
-          StateId: item?.StateId,
-          StateName: item?.StateName,
-          StateCountryName: item?.StateCountryName
-        })
-      ))
-      setState(data);
-    }
-  },[isEdit, isCountryLoading, isStateLoading])
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
@@ -204,25 +157,6 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
               <RHFTextField name="LastName" label="Last Name" />
               <RHFTextField name="UserEmail" label="Email Address" />
               <RHFTextField name="Mobile" label="Phone Number" />
-              <RHFSelect native name="UserCountryId" label="Country" placeholder="Country">
-              <option value=""/>
-                {countryData.map((country) => (
-                  <option key={country.CountryId} value={country.CountryId}>
-                    {country.CountryName}
-                  </option>
-                ))}
-              </RHFSelect>
-              <RHFSelect native name="UserStateId" label="State" placeholder="State">
-                <option value=""/>
-                {state.map((item: any) => (
-                  <option key={item.StateId} value={item.StateId}>
-                    {item.StateName}
-                  </option>
-                ))}
-              </RHFSelect>
-              <RHFTextField name="UserCity" label="City" />
-              <RHFTextField name="Address" label="Address" />
-              <RHFTextField name="UserLocation" label="Location" />
 
               <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
                 <option value="" />
@@ -235,6 +169,7 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
               {
                 !isEdit && <RHFTextField name="UserPassword" label="Password" />
               }
+              
         </Box>
 
         <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
@@ -245,24 +180,10 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
           </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset({
-            Address:'',
-            FirstName:'',
-            LastName:'',
-            Mobile:'',
-            UserCity:'',
-            UserCountryId:'',
-            UserEmail:'',
-            UserLocation:'',
-            UserPassword:'',
-            UserRoleId:'',
-            UserStateId:'',
-          })}>
+          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
             reset
           </LoadingButton>
-          <LoadingButton type="button" variant="contained" onClick={() => {
-            onClose();
-         }}>
+          <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
              Cancel
           </LoadingButton>
           </Stack>
