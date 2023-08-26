@@ -131,6 +131,7 @@ export default function UserListing({
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [EditopenDrawer, setEditOpenDrawer] = useState(false);
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -235,6 +236,7 @@ setIsEdit(true);
 }
 },[viewUserLoading, viewUserData])
   const handleEditRow = (id: string) => {
+    setEditOpenDrawer(true);
     dispatch(viewUserById(id))
   };
 
@@ -248,8 +250,18 @@ setIsEdit(true);
     setOpenDrawer(true);
   };
 
-  const handleCloseDrawer = () => {
+  const handleCloseDrawer = (event: any, reason: any) => {
+    if(reason && reason === 'backdropClick') {
+      return;
+    }
     setOpenDrawer(false);
+  };
+
+  const handleEditCloseDrawer = (event: any, reason: any) => {
+    if(reason && reason === 'backdropClick') {
+      return;
+    }
+    setEditOpenDrawer(false);
   };
 
   const handleClosePopover = () => {
@@ -347,7 +359,7 @@ setIsEdit(true);
           </TableContainer>
 
           <TablePaginationCustom
-            count={users?.rows?.length}
+            count={users?.count}
             page={page}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
@@ -366,7 +378,22 @@ setIsEdit(true);
   // aria-describedby="parent-modal-description"
 >
   {
-    user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} onClose={handleCloseDrawer} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} onClose={handleCloseDrawer}/>
+    user ? <CustomerNewEditForm currentUser={viewUserData} user={user} onClose={handleCloseDrawer} /> : <CustomerNewEdit currentUser={viewUserData} onClose={handleCloseDrawer}/>
+  }
+  
+</Dialog>
+
+}
+
+{
+  EditopenDrawer && <Dialog
+  open={EditopenDrawer}
+  onClose={handleEditCloseDrawer}
+  // aria-labelledby="parent-modal-title"
+  // aria-describedby="parent-modal-description"
+>
+  {
+    user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} onClose={handleEditCloseDrawer} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} onClose={handleEditCloseDrawer}/>
   }
   
 </Dialog>

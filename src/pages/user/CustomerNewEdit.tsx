@@ -247,10 +247,24 @@ export default function CustomerNewEdit({ isEdit = false, currentUser, user, onC
           </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+          <LoadingButton type="reset" variant="contained" onClick={() => reset({
+            Address:'',
+            FirstName:'',
+            LastName:'',
+            Mobile:'',
+            UserCity:'',
+            UserCountryId:'',
+            UserEmail:'',
+            UserLocation:'',
+            UserPassword:'',
+            UserRoleId:'',
+            UserStateId:'',
+          })}>
             reset
           </LoadingButton>
-          <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
+          <LoadingButton type="button" variant="contained" onClick={() => {
+            onClose();
+         }}>
              Cancel
           </LoadingButton>
           </Stack>
