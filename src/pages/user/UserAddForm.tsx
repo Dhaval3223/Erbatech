@@ -166,9 +166,8 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
                   </option>
                 ))}
               </RHFSelect>
-              {
-                !isEdit && <RHFTextField name="UserPassword" label="Password" />
-              }
+                <RHFTextField name="UserPassword" label="Password" />
+              
               
         </Box>
 

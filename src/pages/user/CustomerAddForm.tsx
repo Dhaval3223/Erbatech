@@ -224,9 +224,8 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
                   </option>
                 ))}
               </RHFSelect>
-              {
-                !isEdit && <RHFTextField name="UserPassword" label="Password" />
-              }
+             <RHFTextField name="UserPassword" label="Password" />
+              
         </Box>
 
         <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
