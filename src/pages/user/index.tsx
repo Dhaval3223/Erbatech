@@ -2,6 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useAuthContext } from 'src/auth/useAuthContext';
+import * as types from 'src/pages/Roles/slice/action_type';
 // @mui
 import {
   Tab,
@@ -55,6 +57,7 @@ import CustomerAddForm from './CustomerAddForm';
 import CustomerEditForm from './CustomerEditForm';
 import UserEditForm from './UserEditForm';
 import { slice } from './slice';
+
 // ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
@@ -89,9 +92,16 @@ const CUSTOMER_TABLE_HEAD = [
   { id: 'action', align: 'left' },
 ];
 
+interface IUserListing {
+  user?: boolean;
+  isUpdateRights: boolean;
+  isDeleteRights: boolean;
+  isCreateRights: boolean;
+}
+
 // ----------------------------------------------------------------------
 
-export default function UserListing({ user }: { user?: boolean }) {
+function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: IUserListing) {
   const {
     dense,
     page,
@@ -112,12 +122,12 @@ export default function UserListing({ user }: { user?: boolean }) {
   } = useTable();
 
   const dispatch = useDispatch();
+
   const { users, isUserLoading, viewUserData, createUserSucess, updateUserSuccess } = useSelector(
     (state) => state.user
   );
-  const { themeStretch } = useSettingsContext();
 
-  const navigate = useNavigate();
+  const { themeStretch } = useSettingsContext();
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -316,7 +326,7 @@ export default function UserListing({ user }: { user?: boolean }) {
         limit: String(rowsPerPage),
       })
     );
-  }
+  };
 
   return (
     <>
@@ -337,6 +347,7 @@ export default function UserListing({ user }: { user?: boolean }) {
             createButtonLable={user ? '+ add user' : '+ add customer'}
             handleCreateClick={handleOpenDrawer}
             isCreateButton
+            isCreateRights={isCreateRights}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -388,6 +399,8 @@ export default function UserListing({ user }: { user?: boolean }) {
                         onEditRow={() => handleEditRow(row.UserId)}
                         onDeleteRow={() => handleDeleteRow(row.UserId)}
                         user={user}
+                        isDeleteRights={isDeleteRights}
+                        isUpdateRights={isUpdateRights}
                       />
                     ))
                   )}
@@ -506,6 +519,47 @@ export default function UserListing({ user }: { user?: boolean }) {
         }
       />
     </>
+  );
+}
+
+export default function UserListinge({ user = false }: { user?: boolean }) {
+  const { accessControlCRUD } = useAuthContext();
+
+  const {
+    isView: isUserView,
+    isCreate: isUserCreate,
+    isDelete: isUserDelete,
+    isUpdate: isUserUpdate,
+  } = accessControlCRUD[types.PG003] || {};
+
+  const {
+    isView: isCustomerView,
+    isCreate: isCustomerCreate,
+    isDelete: isCustomerDelete,
+    isUpdate: isCustomerUpdate,
+  } = accessControlCRUD[types.PG004] || {};
+
+  if (user) {
+    return isUserView ? (
+      <UserListing
+        user={user}
+        isUpdateRights={isUserUpdate}
+        isDeleteRights={isUserDelete}
+        isCreateRights={isUserCreate}
+      />
+    ) : (
+      <h1> You Do Not Have Access To This Page </h1>
+    );
+  }
+  return isCustomerView ? (
+    <UserListing
+      user={user}
+      isUpdateRights={isCustomerUpdate}
+      isDeleteRights={isCustomerDelete}
+      isCreateRights={isCustomerCreate}
+    />
+  ) : (
+    <h1> You Do Not Have Access To This Page </h1>
   );
 }
 

@@ -27,6 +27,8 @@ type Props = {
   onEditRow: VoidFunction;
   onSelectRow?: VoidFunction;
   onDeleteRow?: VoidFunction;
+  isDeleteRights: boolean;
+  isUpdateRights: boolean;
 };
 
 export default function UserTableRow({
@@ -36,6 +38,8 @@ export default function UserTableRow({
   onEditRow,
   onSelectRow,
   onDeleteRow,
+  isDeleteRights,
+  isUpdateRights,
 }: Props) {
   console.log(user);
   const { FirstName, LastName, Role } = row || {};
@@ -67,28 +71,30 @@ export default function UserTableRow({
           <Checkbox checked={selected} onClick={onSelectRow} />
         </TableCell> */}
 
-            {/* <TableRow hover> */}
-                          <TableCell>
-                            {FirstName} {LastName}
-                          </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {user ? Role?.RoleName : row?.UserId}
-                          </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {user ? row?.Mobile : row?.Mobile}
-                          </TableCell>
-                          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {user ? row?.UserEmail : row?.UserEmail}
-                          </TableCell>
-                          {!user && <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-                            {user ? row?.UserCity : row?.UserCity}
-                          </TableCell>}
-                          <TableCell align="left">
-                            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
-                              <Iconify icon="eva:more-vertical-fill" />
-                            </IconButton>
-                          </TableCell>
-                        {/* </TableRow> */}
+        {/* <TableRow hover> */}
+        <TableCell>
+          {FirstName} {LastName}
+        </TableCell>
+        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+          {user ? Role?.RoleName : row?.UserId}
+        </TableCell>
+        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+          {user ? row?.Mobile : row?.Mobile}
+        </TableCell>
+        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+          {user ? row?.UserEmail : row?.UserEmail}
+        </TableCell>
+        {!user && (
+          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
+            {user ? row?.UserCity : row?.UserCity}
+          </TableCell>
+        )}
+        <TableCell align="left">
+          <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
+            <Iconify icon="eva:more-vertical-fill" />
+          </IconButton>
+        </TableCell>
+        {/* </TableRow> */}
       </TableRow>
 
       <MenuPopover
@@ -97,26 +103,30 @@ export default function UserTableRow({
         arrow="right-top"
         sx={{ width: 140 }}
       >
-        <MenuItem
-          onClick={() => {
-            handleOpenConfirm();
-            handleClosePopover();
-          }}
-          sx={{ color: 'error.main' }}
-        >
-          <Iconify icon="eva:trash-2-outline" />
-          Delete
-        </MenuItem>
+        {isDeleteRights && (
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirm();
+              handleClosePopover();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="eva:trash-2-outline" />
+            Delete
+          </MenuItem>
+        )}
 
-        <MenuItem
-          onClick={() => {
-            onEditRow();
-            handleClosePopover();
-          }}
-        >
-          <Iconify icon="eva:edit-fill" />
-          Edit
-        </MenuItem>
+        {isUpdateRights && (
+          <MenuItem
+            onClick={() => {
+              onEditRow();
+              handleClosePopover();
+            }}
+          >
+            <Iconify icon="eva:edit-fill" />
+            Edit
+          </MenuItem>
+        )}
       </MenuPopover>
 
       <ConfirmDialog

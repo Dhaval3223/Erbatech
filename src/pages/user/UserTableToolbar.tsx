@@ -16,6 +16,7 @@ type Props = {
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCreateClick?: any;
+  isCreateRights: boolean;
 };
 
 export default function UserTableToolbar({
@@ -29,7 +30,9 @@ export default function UserTableToolbar({
   isCreateButton,
   createButtonLable,
   handleCreateClick,
+  isCreateRights,
 }: Props) {
+  console.log(isCreateRights, 'isCreateRights');
   return (
     <Stack
       spacing={2}
@@ -65,7 +68,7 @@ export default function UserTableToolbar({
           Clear
         </Button>
       )}
-      {isCreateButton && (
+      {isCreateButton && isCreateRights && (
         <Button
           variant="contained"
           sx={{ flexShrink: 0 }}
