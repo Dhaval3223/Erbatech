@@ -112,7 +112,7 @@ export default function UserListing({ user }: { user?: boolean }) {
   } = useTable();
 
   const dispatch = useDispatch();
-  const { users, isUserLoading, viewUserData, createUserSucess } = useSelector(
+  const { users, isUserLoading, viewUserData, createUserSucess, updateUserSuccess } = useSelector(
     (state) => state.user
   );
   const { themeStretch } = useSettingsContext();
@@ -291,8 +291,32 @@ export default function UserListing({ user }: { user?: boolean }) {
       );
       dispatch(slice.actions.resetCreateUserState());
     }
+    if (updateUserSuccess) {
+      dispatch(
+        getAllUsers({
+          searchValue: filterName,
+          userType: user ? 'user' : 'customer',
+          userRoleId: '',
+          page: String(page),
+          limit: String(rowsPerPage),
+        })
+      );
+      dispatch(slice.actions.resetUpdateUserState());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createUserSucess]);
+  }, [createUserSucess, updateUserSuccess]);
+
+  const handleUpdateSubmit = () => {
+    dispatch(
+      getAllUsers({
+        searchValue: filterName,
+        userType: user ? 'user' : 'customer',
+        userRoleId: '',
+        page: String(page),
+        limit: String(rowsPerPage),
+      })
+    );
+  }
 
   return (
     <>
@@ -417,12 +441,14 @@ export default function UserListing({ user }: { user?: boolean }) {
               currentUser={viewUserData}
               user={user}
               onClose={handleEditCloseDrawer}
+              handleUpdateSubmit={handleUpdateSubmit}
             />
           ) : (
             <CustomerEditForm
               isEdit={isEdit}
               currentUser={viewUserData}
               onClose={handleEditCloseDrawer}
+              handleUpdateSubmit={handleUpdateSubmit}
             />
           )}
         </Dialog>
