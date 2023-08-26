@@ -52,8 +52,8 @@ import { deleteUserById, getAllUsers, viewUserById } from './slice/action';
 import UserTableToolbar from './UserTableToolbar';
 import CustomerNewEditForm from './CustomerNewEditForm';
 import CustomerNewEdit from './CustomerNewEdit';
-
-// ----------------------------------------------------------------------
+import { slice } from './slice';
+ // ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
 
@@ -114,7 +114,7 @@ export default function UserListing({
   } = useTable();
 
   const dispatch = useDispatch();
-  const { users, isUserLoading, viewUserData, viewUserLoading } = useSelector((state) => state.user);
+  const { users, isUserLoading, viewUserData, createUserSucess } = useSelector((state) => state.user);
   const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
@@ -122,7 +122,8 @@ export default function UserListing({
   const [tableData, setTableData] = useState(_userListData);
 
   const [filterName, setFilterName] = useState('');
-  const [isEdit,setIsEdit] = useState(false);
+
+  const [isEdit, setIsEdit] = useState(false);
 
   const [filterRole, setFilterRole] = useState('all');
 
@@ -229,12 +230,14 @@ export default function UserListing({
       }
     } */
   };
-useEffect(() => {
-if(viewUserLoading === false) {
-handleOpenDrawer();
-setIsEdit(true);
-}
-},[viewUserLoading, viewUserData])
+
+  // useEffect(() => {
+  //   if(viewUserLoading === false) {
+  //     handleOpenDrawer();
+  //     setIsEdit(true);
+  //   }
+  // },[viewUserLoading, viewUserData])
+
   const handleEditRow = (id: string) => {
     setEditOpenDrawer(true);
     dispatch(viewUserById(id))
@@ -247,6 +250,7 @@ setIsEdit(true);
   };
 
   const handleOpenDrawer = () => {
+    setIsEdit(false);
     setOpenDrawer(true);
   };
 
@@ -271,6 +275,22 @@ setIsEdit(true);
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);
   };
+
+  useEffect(() => {
+    if (createUserSucess) {
+      dispatch(
+        getAllUsers({
+          searchValue: filterName,
+          userType: user ? 'user' : 'customer',
+          userRoleId: '',
+          page: String(page),
+          limit: String(rowsPerPage),
+        })
+      );
+      dispatch(slice.actions.resetCreateUserState());
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createUserSucess])
 
   return (
     <>
@@ -331,7 +351,7 @@ setIsEdit(true);
                 />
                 <TableBody>
                   {isUserLoading ? (
-                    <TableSkeleton colums={3} />
+                    <TableSkeleton colums={6} />
                   ) : (
                     users?.rows?.map((row) => (
                       <UserTableRow
@@ -370,7 +390,16 @@ setIsEdit(true);
         </Card>
       </Container>
 
-{
+        {openDrawer && 
+          <Dialog
+            open={openDrawer}
+            onClose={handleCloseDrawer}
+            // disableBackdropClick={true}
+            // BackdropComponent={() => null}
+            // aria-labelledby="parent-modal-title"
+            // aria-describedby="parent-modal-description"
+          >
+            {
   openDrawer && <Dialog
   open={openDrawer}
   onClose={handleCloseDrawer}
@@ -395,10 +424,11 @@ setIsEdit(true);
   {
     user ? <CustomerNewEditForm isEdit={isEdit} currentUser={viewUserData} user={user} onClose={handleEditCloseDrawer} /> : <CustomerNewEdit isEdit={isEdit} currentUser={viewUserData} onClose={handleEditCloseDrawer}/>
   }
-  
 </Dialog>
 
 }
+          </Dialog>
+        }
      
       <MenuPopover
         open={openPopover}

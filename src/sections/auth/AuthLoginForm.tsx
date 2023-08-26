@@ -34,8 +34,8 @@ export default function AuthLoginForm() {
   });
 
   const defaultValues = {
-    email: 'demo@minimals.cc',
-    password: 'demo1234',
+    email: '',
+    password: '',
   };
 
   const methods = useForm<FormValuesProps>({
@@ -49,6 +49,7 @@ export default function AuthLoginForm() {
     handleSubmit,
     formState: { errors, isSubmitting, isSubmitSuccessful },
   } = methods;
+  console.log('errors', errors);
 
   const onSubmit = async (data: FormValuesProps) => {
     try {
@@ -66,7 +67,7 @@ export default function AuthLoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>}
+        {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit?.message}</Alert>}
 
         <RHFTextField name="email" label="Email address" />
 

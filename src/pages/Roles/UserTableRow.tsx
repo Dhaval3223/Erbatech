@@ -94,7 +94,7 @@ export default function UserTableRow({
           Delete
         </MenuItem>
 
-        {/* <MenuItem
+        <MenuItem
           onClick={() => {
             onEditRow();
             handleClosePopover();
@@ -102,7 +102,7 @@ export default function UserTableRow({
         >
           <Iconify icon="eva:edit-fill" />
           Edit
-        </MenuItem> */}
+        </MenuItem>
       </MenuPopover>
 
       <ConfirmDialog

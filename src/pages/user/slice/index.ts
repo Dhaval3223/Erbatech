@@ -65,6 +65,11 @@ const slice = createSlice({
         state.createUserError = true
         state.createUserMsg = action.payload.data.message;
       },
+      resetCreateUserState(state) {
+        state.createUserMsg = '';
+        state.createUserError = false;
+        state.createUserSucess = false;
+      },
       updateUser(state, action) {
         state.updateUserSuccess = true
         state.updateUserMsg = action.payload.data.message;

@@ -45,7 +45,8 @@ type Props = {
 export default function CustomerNewEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { rolesData, isCreateRoleLoading } = useSelector(
+
+  const { rolesData } = useSelector(
     (state) => state.roles
   );
 
