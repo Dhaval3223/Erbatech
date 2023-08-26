@@ -42,7 +42,7 @@ type Props = {
   onClose?: any;
 };
 
-export default function CustomerNewEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
+export default function UserAddForm({ isEdit = false, currentUser, user, onClose }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -63,12 +63,12 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
 
   const defaultValues = useMemo(
     () => ({
-    FirstName: currentUser?.FirstName || '',
-    LastName: currentUser?.LastName || '',
-    UserEmail: currentUser?.UserEmail || '',
-    Mobile: currentUser?.Mobile || '',
-    UserPassword: currentUser?.UserPassword || '',
-    UserRoleId: currentUser?.UserRoleId || '',
+    FirstName:  '',
+    LastName:'',
+    UserEmail:'',
+    Mobile:  '',
+    UserPassword:  '',
+    UserRoleId:  '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
@@ -166,9 +166,8 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
                   </option>
                 ))}
               </RHFSelect>
-              {
-                !isEdit && <RHFTextField name="UserPassword" label="Password" />
-              }
+                <RHFTextField name="UserPassword" label="Password" />
+              
               
         </Box>
 
@@ -180,7 +179,14 @@ export default function CustomerNewEditForm({ isEdit = false, currentUser, user,
           </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+          <LoadingButton type="reset" variant="contained" onClick={() => reset({
+            FirstName:  '',
+            LastName:'',
+            UserEmail:'',
+            Mobile:  '',
+            UserPassword:  '',
+            UserRoleId:  '',
+          })}>
             reset
           </LoadingButton>
           <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
