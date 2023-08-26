@@ -42,6 +42,8 @@ export default function AccountPopover() {
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
+  const [changePassModal, setChangePassModal] = useState(false);
+
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);
   };
@@ -59,6 +61,11 @@ export default function AccountPopover() {
       console.error(error);
       enqueueSnackbar('Unable to logout!', { variant: 'error' });
     }
+  };
+
+  const handleChangePassword = () => {
+    setChangePassModal(true);
+    handleClosePopover();
   };
 
   const handleClickItem = (path: string) => {
@@ -111,6 +118,9 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
+        <MenuItem onClick={handleChangePassword} sx={{ m: 1 }}>
+          Change Password
+        </MenuItem>
         <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>

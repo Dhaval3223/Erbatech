@@ -55,13 +55,13 @@ export default function AuthNewPasswordForm() {
   });
 
   const defaultValues = {
-    code1: '',
-    code2: '',
-    code3: '',
-    code4: '',
-    code5: '',
-    code6: '',
-    email: emailRecovery || '',
+    code1: '1',
+    code2: '2',
+    code3: '3',
+    code4: '4',
+    code5: '5',
+    code6: '6',
+    email: '',
     password: '',
     confirmPassword: '',
   };
@@ -103,7 +103,7 @@ export default function AuthNewPasswordForm() {
           InputLabelProps={{ shrink: true }}
         />
 
-        <RHFCodes keyName="code" inputs={['code1', 'code2', 'code3', 'code4', 'code5', 'code6']} />
+        {/* <RHFCodes keyName="code" inputs={['code1', 'code2', 'code3', 'code4', 'code5', 'code6']} />
 
         {(!!errors.code1 ||
           !!errors.code2 ||
@@ -114,7 +114,7 @@ export default function AuthNewPasswordForm() {
           <FormHelperText error sx={{ px: 2 }}>
             Code is required
           </FormHelperText>
-        )}
+        )} */}
 
         <RHFTextField
           name="password"
