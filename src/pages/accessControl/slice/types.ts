@@ -6,4 +6,7 @@ export interface IAccessControlState {
     success: boolean;
     message: string;
   };
+  updateRoleDataSuccess: boolean;
+  updateRoleDataError: boolean;
+  updateRoleDataMsg: string;
 };

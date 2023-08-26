@@ -28,6 +28,8 @@ import UserRolesDropDown from 'src/components/userRolesDropdown';
 import TableSkeleton from 'src/components/table-skeleton';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { LoadingButton } from '@mui/lab';
+import { useSnackbar } from 'src/components/snackbar/index';
+
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -53,6 +55,7 @@ import {
 import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/list';
 import { getAllMenuByRoleId, updateMenuById } from './slice/action';
 import { getAllMenus } from '../Menu/slice/action';
+import { slice } from './slice';
 
 // ----------------------------------------------------------------------
 
@@ -116,7 +119,9 @@ export default function UserListing() {
 
   const { themeStretch } = useSettingsContext();
 
-  const { accessControlData, isUpdateRoleLoading, isAccessControlLoading } = useSelector(state => state.accesControl);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { accessControlData, isUpdateRoleLoading, isAccessControlLoading, updateRoleDataSuccess, updateRoleDataError, updateRoleDataMsg } = useSelector(state => state.accesControl);
 
   const navigate = useNavigate();
 
@@ -179,6 +184,22 @@ export default function UserListing() {
     console.log('accessControlData', accessControlData);
     console.log('accessControlData', tempData);
   }, [accessControlData])
+
+  useEffect(() => {
+    if (updateRoleDataSuccess) {
+      enqueueSnackbar(updateRoleDataMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetUpdatRoleData());
+    } 
+    if (updateRoleDataError) {
+      enqueueSnackbar(updateRoleDataMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetUpdatRoleData());
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [updateRoleDataError, updateRoleDataSuccess])
 
   const dataFiltered = [
     {
