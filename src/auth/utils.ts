@@ -69,6 +69,7 @@ export const setSession = (accessToken: string | null) => {
     tokenExpired(exp);
   } else {
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
 
     delete axios.defaults.headers.common.Authorization;
   }

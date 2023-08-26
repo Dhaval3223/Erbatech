@@ -1,6 +1,6 @@
 import { createContext, useEffect, useReducer, useCallback, useMemo } from 'react';
 // utils
-import axios from '../utils/axios';
+import axios from '../utils/axiosInstance';
 import localStorageAvailable from '../utils/localStorageAvailable';
 //
 import { isValidToken, setSession } from './utils';
@@ -96,12 +96,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     try {
       const accessToken = storageAvailable ? localStorage.getItem('accessToken') : '';
 
+      const user: AuthUserType = storageAvailable
+        ? JSON.parse(localStorage.getItem('user') || '{}')
+        : '';
+
       if (accessToken && isValidToken(accessToken)) {
         setSession(accessToken);
 
-        const response = await axios.get('/api/account/my-account');
+        // const response = await axios.get('/api/account/my-account');
 
-        const { user } = response.data;
+        // const { user } = response.data;
 
         dispatch({
           type: Types.INITIAL,
@@ -137,11 +141,14 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   // LOGIN
   const login = useCallback(async (email: string, password: string) => {
-    const response = await axios.post('/api/account/login', {
+    const response = await axios.post('/users/login', {
       email,
       password,
     });
-    const { accessToken, user } = response.data;
+    const { accessToken, user } = response.data?.data || {};
+    console.log('accessToken', accessToken, user);
+
+    localStorage.setItem('user', JSON.stringify(user));
 
     setSession(accessToken);
 
