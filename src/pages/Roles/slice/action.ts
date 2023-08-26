@@ -63,24 +63,14 @@ export function createNewRole(newRole: {
 
 // ----------------------------------------------------------------------
 
-export function updateRoleById(
-  eventId: string,
-  event: Partial<{
-    allDay: boolean;
-    start: Date | string | number | null;
-    end: Date | string | number | null;
-  }>
-) {
+export function updateRoleById(params: any) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.post(UPDATE_ROLE_BY_ID, {
-        eventId,
-        event,
-      });
-      dispatch(slice.actions.updateEventSuccess(response.data.event));
+      const response = await axios.post(UPDATE_ROLE_BY_ID, params);
+      dispatch(slice.actions.createRoleSuccess(response.data.event));
     } catch (error) {
-      dispatch(slice.actions.hasError(error));
+      dispatch(slice.actions.hasCreateRoleError(error));
     }
   };
 }

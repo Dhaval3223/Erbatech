@@ -66,6 +66,7 @@ const slice = createSlice({
 
     // CREATE EVENT
     createRoleSuccess(state, action) {
+      console.log(action, 'action')
       return {
         ...state,
         isCreateRoleError: false,

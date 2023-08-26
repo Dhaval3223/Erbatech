@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -17,6 +17,8 @@ import {
   TableContainer,
   Dialog,
   TextField,
+  Stack,
+  Box,
 } from '@mui/material';
 // routes
 import { IconButtonAnimate } from 'src/components/animate';
@@ -48,7 +50,7 @@ import {
 } from '../../components/table';
 // sections
 import { UserTableToolbar, UserTableRow } from './exports';
-import { createNewRole, deleteRoleById, getAllRoles } from './slice/action';
+import { createNewRole, deleteRoleById, getAllRoles, updateRoleById } from './slice/action';
 import { getAllUsers } from '../user/slice/action';
 import { slice } from './slice';
 
@@ -126,11 +128,22 @@ export default function UserListPage() {
 
   const [roleError, setRoleError] = useState(false);
 
+  const [editRoleError, setEditRoleError] = useState(false);
+
+  const [editModal, setEditModal] = useState(false);
+
   const [rolesDropdownData, setRolesDropdownData] = useState<any[]>([]);
 
   const [role, setRole] = useState({
     RoleName: ''
   });
+
+  const [editIndex, setEditIndex] = useState(-1);
+
+  const [editRoleData, setEditRoleData] = useState({
+    RoleId: "",
+    RoleName: ""
+})
 
   useEffect(() => {
     // dispatch(getAllRoles())
@@ -185,12 +198,23 @@ export default function UserListPage() {
         page: String(page + 1),
         limit: String(rowsPerPage),
       }));
+      setEditModal(false);
+      setEditIndex(-1);
     }
     if (isCreateRoleError) {
       enqueueSnackbar(createRoleMsg, {
         variant: 'error',
       });
+      dispatch(getAllRoles({
+        searchValue: filterName,
+        type: '',
+        // userRoleId: filterRole,
+        page: String(page + 1),
+        limit: String(rowsPerPage),
+      }));
       dispatch(slice.actions.resetCreateRoleState());
+      setEditModal(false);
+      setEditIndex(-1);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeleteRoleError, isDeleteRoleSuccess, isCreateRoleError, isCreateRoleSuccess])
@@ -280,8 +304,14 @@ export default function UserListPage() {
     }
   };
 
-  const handleEditRow = (id: string) => {
-    navigate(PATH_DASHBOARD.user.edit(paramCase(id)));
+  const handleEditRow = (row: any, i: any) => {
+    setEditRoleData({
+      RoleId: row?.RoleId,
+      RoleName: row?.RoleName
+    });
+    setEditModal(true);
+    setEditIndex(i);
+    // navigate(PATH_DASHBOARD.user.edit(paramCase(id)));
   };
 
   const handleResetFilter = () => {
@@ -298,12 +328,33 @@ export default function UserListPage() {
     setOpenDrawer(false);
   };
 
+  const handleCloseEdit = () => {
+    setEditModal(false);
+    setEditIndex(-1);
+  };
+
   const handleCreateRoleAPI = () => {
     if (role.RoleName === '') {
       setRoleError(true);
       return;
     }
     dispatch(createNewRole(role));
+  }
+
+  const handleUpdateRoleAPI = () => {
+    if (editRoleData.RoleName === '') {
+      setEditRoleError(true);
+      return;
+    }
+    dispatch(updateRoleById(editRoleData));
+  }
+
+  const handleEditRole = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    if (editRoleError) setRoleError(false);
+    setEditRoleData({
+      ...editRoleData,
+      RoleName: e.target.value
+    })
   }
 
   return (
@@ -366,19 +417,89 @@ export default function UserListPage() {
                   //   )
                   // }
                 />
-
                 <TableBody>
                   {isRolesLoading && <TableSkeleton colums={2}/>}
-                  {!isRolesLoading && rolesData?.rows?.map((row, index) => (
+                  {!isRolesLoading && rolesData?.rows?.map((row, i) => (
+                    <>
                       <UserTableRow
-                        key={index}
+                        key={i}
                         row={row}
                         selected={selected.includes('1')}
                         onSelectRow={() => onSelectRow('1')}
                         onDeleteRow={() => handleDeleteRow(row?.RoleId)}
-                        onEditRow={() => handleEditRow('1')}
+                        onEditRow={() => handleEditRow(row, i)}
                       />
+                      {editModal && editIndex === i && <Dialog
+                      open={editModal}
+                      onClose={handleCloseEdit}
+                      // aria-labelledby="parent-modal-title"
+                      // aria-describedby="parent-modal-description"
+                      >
+                        <Stack 
+                          spacing={2}
+                          alignItems="center"
+                          justifyContent="space-between"
+                          direction={{
+                            xs: 'column',
+                            sm: 'row',
+                          }}
+                          sx={{
+                            padding: '30px'
+                          }}
+                        >
+                          <TextField
+                            fullWidth
+                            name="Role"
+                            error={editRoleError}
+                            label="Edit Role"
+                            sx={{
+                              maxWidth: { sm: 240 },
+                              textTransform: 'capitalize',
+                            }}
+                            value={editRoleData.RoleName}
+                            onChange={e =>  handleEditRole(e)}
+                          />
+                          {/* <LoadingButton
+                              // fullWidth
+                              type="submit"
+                              // variant="contained"
+                              // size="large"
+                              loading={isCreateRoleLoading}
+                              onClick={handleUpdateRoleAPI}
+                            >
+                              <Iconify icon="eva:plus-fill" width={24} />
+                            </LoadingButton> */}
+                          {/* <IconButtonAnimate 
+                            color="primary" 
+                            size="large"
+                            onClick={handleCreateRoleAPI}
+                            >
+                            <Iconify icon="eva:plus-fill" width={24} />
+                          </IconButtonAnimate> */}
+                        </Stack>
+                        <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ padding: '30px', pt: '0' }} spacing="10px">
+                              <Box>
+                              <LoadingButton type="submit" variant="contained" loading={isCreateRoleLoading}
+                              onClick={handleUpdateRoleAPI}>
+                                Save Changes
+                              </LoadingButton>
+                              </Box>
+                              <Stack direction="row" spacing="10px">
+                              {/* <LoadingButton type="reset" variant="contained" onClick={() => reset(defaultValues)}>
+                                reset
+                              </LoadingButton> */}
+                              <LoadingButton type="button" variant="contained" onClick={() => {
+                                setEditModal(false);
+                                setEditIndex(-1);
+                              }}>
+                                Cancel
+                              </LoadingButton>
+                              </Stack>
+                            </Stack>
+                        </Dialog>}
+                    </> 
                     ))}
+                    
                   {/* <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, tableData.length)}
