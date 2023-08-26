@@ -42,9 +42,10 @@ type Props = {
   currentUser?: any;
   user?: boolean;
   onClose?: any;
+  handleUpdateSubmit?: any;
 };
 
-export default function CustomerEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
+export default function CustomerEditForm({ isEdit = false, currentUser, user, onClose, handleUpdateSubmit }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [countryId,setCountryId] = useState<any>(currentUser?.UserCountryId || '');
@@ -132,13 +133,14 @@ export default function CustomerEditForm({ isEdit = false, currentUser, user, on
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
-      enqueueSnackbar(!'Customer Updated successfully!');
+      enqueueSnackbar('Customer Updated successfully!');
       navigate(PATH_DASHBOARD.general.customerManagement);
       onClose();
         dispatch(updateUserById({
             ...data,
             UserId: currentUser?.UserId
-        }))
+        }));
+      handleUpdateSubmit();
     } catch (error) {
       console.error("error",error);
     }

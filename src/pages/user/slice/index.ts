@@ -70,13 +70,18 @@ const slice = createSlice({
         state.createUserError = false;
         state.createUserSucess = false;
       },
+      resetUpdateUserState(state) {
+        state.updateUserMsg = '';
+        state.updateUserError = false;
+        state.updateUserSuccess = false;
+      },
       updateUser(state, action) {
         state.updateUserSuccess = true
         state.updateUserMsg = action.payload.data.message;
       },
       updateUserError(state, action) {
         state.updateUserError = true
-        state.updateUserMsg = action.payload.data.message;
+        state.updateUserMsg = 'Something went wrong';
       },
       deleteUser(state, action) {
         state.deleteUserSuccess = true

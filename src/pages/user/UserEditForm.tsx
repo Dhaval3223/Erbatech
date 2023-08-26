@@ -40,9 +40,10 @@ type Props = {
   currentUser?: any;
   user?: boolean;
   onClose?: any;
+  handleUpdateSubmit?: any;
 };
 
-export default function UserEditForm({ isEdit = false, currentUser, user, onClose }: Props) {
+export default function UserEditForm({ isEdit = false, currentUser, user, onClose, handleUpdateSubmit }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -121,6 +122,7 @@ export default function UserEditForm({ isEdit = false, currentUser, user, onClos
             ...data,
             UserId: currentUser?.UserId
         }))
+        handleUpdateSubmit();
     } catch (error) {
       console.error("error",error);
     }
