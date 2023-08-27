@@ -100,7 +100,7 @@ export default function UserListPage() {
   const { themeStretch } = useSettingsContext();
 
   const { accessControlCRUD } = useAuthContext();
-  const { isView, isCreate, isDelete, isUpdate } = accessControlCRUD[types.PG002] || {};
+  const { isView, isCreate, isDelete, isUpdate } = accessControlCRUD[types?.PG002] || {};
 
   const dispatch = useDispatch();
 

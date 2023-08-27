@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem } from '@mui/material';
+import { Box, Divider, Typography, Stack, MenuItem, Dialog } from '@mui/material';
 // routes
+import AuthNewPasswordForm from 'src/sections/auth/AuthNewPasswordForm';
 import { PATH_DASHBOARD, PATH_AUTH } from '../../../routes/paths';
 // auth
 import { useAuthContext } from '../../../auth/useAuthContext';
@@ -36,11 +37,13 @@ export default function AccountPopover() {
   const navigate = useNavigate();
 
   const { user, logout } = useAuthContext();
-  const { FirstName, LastName, UserEmail  } = user || {};
+  const { FirstName, LastName, UserEmail } = user || {};
 
   const { enqueueSnackbar } = useSnackbar();
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
+  const [changePassModal, setChangePassModal] = useState(false);
 
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);
@@ -61,9 +64,21 @@ export default function AccountPopover() {
     }
   };
 
+  const handleChangePassword = () => {
+    setChangePassModal(true);
+    handleClosePopover();
+  };
+
   const handleClickItem = (path: string) => {
     handleClosePopover();
     navigate(path);
+  };
+
+  const handleCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setChangePassModal(false);
   };
 
   return (
@@ -111,10 +126,27 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} /> */}
 
+        <MenuItem onClick={handleChangePassword} sx={{ m: 1 }}>
+          Change Password
+        </MenuItem>
         <MenuItem onClick={handleLogout} sx={{ m: 1 }}>
           Logout
         </MenuItem>
       </MenuPopover>
+
+      <Dialog
+        open={changePassModal}
+        onClose={handleCloseDrawer}
+        // aria-labelledby="parent-modal-title"
+        // aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ p: '26px' }}>
+          <Typography variant="h5" textAlign="center" sx={{ mb: '16px' }}>
+            Reset Password
+          </Typography>
+          <AuthNewPasswordForm onclose={handleCloseDrawer} />
+        </Box>
+      </Dialog>
     </>
   );
 }

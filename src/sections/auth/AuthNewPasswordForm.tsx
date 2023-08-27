@@ -3,6 +3,7 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 // form
 import { useForm } from 'react-hook-form';
+import axiosInstance from 'src/utils/axiosInstance';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { Stack, IconButton, InputAdornment, FormHelperText } from '@mui/material';
@@ -26,9 +27,10 @@ type FormValuesProps = {
   email: string;
   password: string;
   confirmPassword: string;
+  oldpassword: string;
 };
 
-export default function AuthNewPasswordForm() {
+export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -46,6 +48,7 @@ export default function AuthNewPasswordForm() {
     code5: Yup.string().required('Code is required'),
     code6: Yup.string().required('Code is required'),
     email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    oldpassword: Yup.string().required('Old password is required'),
     password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
@@ -55,13 +58,14 @@ export default function AuthNewPasswordForm() {
   });
 
   const defaultValues = {
-    code1: '',
-    code2: '',
-    code3: '',
-    code4: '',
-    code5: '',
-    code6: '',
-    email: emailRecovery || '',
+    code1: '1',
+    code2: '2',
+    code3: '3',
+    code4: '4',
+    code5: '5',
+    code6: '6',
+    email: '',
+    oldpassword: '',
     password: '',
     confirmPassword: '',
   };
@@ -78,8 +82,13 @@ export default function AuthNewPasswordForm() {
   } = methods;
 
   const onSubmit = async (data: FormValuesProps) => {
+    console.log('data', data);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await await axiosInstance.post('/users/change-password', {
+        userEmail: data.email,
+        oldPassword: data.oldpassword,
+        newPassword: data.password,
+      });
       console.log('DATA:', {
         email: data.email,
         code: `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`,
@@ -103,7 +112,7 @@ export default function AuthNewPasswordForm() {
           InputLabelProps={{ shrink: true }}
         />
 
-        <RHFCodes keyName="code" inputs={['code1', 'code2', 'code3', 'code4', 'code5', 'code6']} />
+        {/* <RHFCodes keyName="code" inputs={['code1', 'code2', 'code3', 'code4', 'code5', 'code6']} />
 
         {(!!errors.code1 ||
           !!errors.code2 ||
@@ -114,7 +123,21 @@ export default function AuthNewPasswordForm() {
           <FormHelperText error sx={{ px: 2 }}>
             Code is required
           </FormHelperText>
-        )}
+        )} */}
+        <RHFTextField
+          name="oldpassword"
+          label="Old Password"
+          type={showPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
 
         <RHFTextField
           name="password"
@@ -145,17 +168,29 @@ export default function AuthNewPasswordForm() {
             ),
           }}
         />
-
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          loading={isSubmitting}
-          sx={{ mt: 3 }}
-        >
-          Update Password
-        </LoadingButton>
+        <Stack sx={{ flexDirection: 'row' }}>
+          <LoadingButton
+            fullWidth
+            size="large"
+            // type="submit"
+            // variant="contained"
+            // loading={isSubmitting}
+            sx={{ mt: 3 }}
+            onClick={() => onclose()}
+          >
+            cancel
+          </LoadingButton>
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            loading={isSubmitting}
+            sx={{ mt: 3 }}
+          >
+            Save
+          </LoadingButton>
+        </Stack>
       </Stack>
     </FormProvider>
   );
