@@ -9,7 +9,7 @@ import SimpleLayout from '../layouts/simple';
 import CompactLayout from '../layouts/compact';
 import DashboardLayout from '../layouts/dashboard';
 // config
-// import { PATH_AFTER_LOGIN } from '../config-global';
+import { PATH_AFTER_LOGIN } from '../config-global';
 //
 import {
   // Auth
@@ -137,9 +137,9 @@ import {
 
 export default function Router() {
 
-  const { pathAfterLogIn } = useAuthContext();
+  // const { pathAfterLogIn } = useAuthContext();
 
-  const PATH_AFTER_LOGIN = pathAfterLogIn;
+  // const PATH_AFTER_LOGIN = pathAfterLogIn;
 
   return useRoutes([
     // Auth

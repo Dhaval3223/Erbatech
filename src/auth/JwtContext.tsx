@@ -134,7 +134,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
           item?.RolePrivilege?.includes('V')
         );
         // dispatch(slice.actions.getRolesSuccess(response.data));
-        console.log('convertArrayToObject', data);
+        console.log('convertArrayToObject', pathAfterLogIn);
 
         dispatch({
           type: Types.INITIAL,
