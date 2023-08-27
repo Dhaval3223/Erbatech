@@ -31,6 +31,7 @@ import { LoadingButton } from '@mui/lab';
 import { useSnackbar } from 'src/components/snackbar/index';
 
 import { useAuthContext } from 'src/auth/useAuthContext';
+import localStorageAvailable from 'src/utils/localStorageAvailable';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -57,6 +58,7 @@ import { UserTableToolbar, UserTableRow } from '../../sections/@dashboard/user/l
 import { getAllMenuByRoleId, updateMenuById } from './slice/action';
 import { getAllMenus } from '../Menu/slice/action';
 import { slice } from './slice';
+import Page403 from '../Page403';
 
 // ----------------------------------------------------------------------
 
@@ -117,6 +119,10 @@ export default function UserListing() {
     onChangePage,
     onChangeRowsPerPage,
   } = useTable();
+
+  const storageAvailable = localStorageAvailable();
+
+  const user = storageAvailable ? JSON.parse(localStorage.getItem('user') || '{}') : '';
 
   const { themeStretch } = useSettingsContext();
 
@@ -362,7 +368,7 @@ export default function UserListing() {
 
   const handleChacked = (ProgramCode: string, operation: string) => {};
 
-  return (
+  return user?.UserTypeCode === 'SA' ? (
     <>
       <Helmet>
         <title> Access control | Soblue</title>
@@ -517,7 +523,7 @@ export default function UserListing() {
         }
       />
     </>
-  );
+  ) : <Page403 />;
 }
 
 // ----------------------------------------------------------------------
