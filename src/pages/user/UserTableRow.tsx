@@ -75,24 +75,18 @@ export default function UserTableRow({
         <TableCell>
           {FirstName} {LastName}
         </TableCell>
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {user ? Role?.RoleName : row?.UserId}
-        </TableCell>
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {user ? row?.Mobile : row?.Mobile}
-        </TableCell>
-        <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-          {user ? row?.UserEmail : row?.UserEmail}
-        </TableCell>
-        {!user && (
-          <TableCell align="left" sx={{ textTransform: 'capitalize' }}>
-            {user ? row?.UserCity : row?.UserCity}
-          </TableCell>
-        )}
+        <TableCell align="left">{user ? Role?.RoleName : row?.UserId}</TableCell>
+        <TableCell align="left">{user ? row?.Mobile : row?.Mobile}</TableCell>
+        <TableCell align="left">{user ? row?.UserEmail : row?.UserEmail}</TableCell>
+        {!user && <TableCell align="left">{user ? row?.UserCity : row?.UserCity}</TableCell>}
         <TableCell align="left">
-          <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
+          {isDeleteRights === false && isUpdateRights === false ? (
+            ''
+          ) : (
+            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          )}
         </TableCell>
         {/* </TableRow> */}
       </TableRow>

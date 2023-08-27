@@ -87,7 +87,7 @@ export default function AuthLoginForm() {
         />
       </Stack>
 
-      <Stack alignItems="flex-end" sx={{ my: 2 }}>
+      {/* <Stack alignItems="flex-end" sx={{ my: 2 }}>
         <Link
           component={RouterLink}
           to={PATH_AUTH.resetPassword}
@@ -97,7 +97,7 @@ export default function AuthLoginForm() {
         >
           Forgot password?
         </Link>
-      </Stack>
+      </Stack> */}
 
       <LoadingButton
         fullWidth
@@ -113,6 +113,7 @@ export default function AuthLoginForm() {
             bgcolor: 'text.primary',
             color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           },
+          my: 2
         }}
       >
         Login

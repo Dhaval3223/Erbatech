@@ -14,7 +14,7 @@ export default function Page403() {
   return (
     <>
       <Helmet>
-        <title> 403 Forbidden | Minimal UI</title>
+        <title> 403 Forbidden | Soblue</title>
       </Helmet>
 
       <MotionContainer>
@@ -36,9 +36,9 @@ export default function Page403() {
           <ForbiddenIllustration sx={{ height: 260, my: { xs: 5, sm: 10 } }} />
         </m.div>
 
-        <Button component={RouterLink} to="/" size="large" variant="contained">
+        {/* <Button component={RouterLink} to="/" size="large" variant="contained">
           Go to Home
-        </Button>
+        </Button> */}
       </MotionContainer>
     </>
   );

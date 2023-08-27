@@ -188,7 +188,7 @@ export default function EcommerceProductListPage() {
   return (
     <>
       <Helmet>
-        <title> Ecommerce: Product List | Minimal UI</title>
+        <title> Ecommerce: Product List | Soblue</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>

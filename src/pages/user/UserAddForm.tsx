@@ -46,16 +46,16 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { rolesData } = useSelector(
-    (state) => state.roles
-  );
+  const { rolesData } = useSelector((state) => state.roles);
 
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
     FirstName: Yup.string().required('FirstName is required'),
     LastName: Yup.string().required('LastName is required'),
-    UserEmail: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    UserEmail: Yup.string()
+      .required('Email is required')
+      .email('Email must be a valid email address'),
     Mobile: Yup.string().required('Phone number is required'),
     UserPassword: Yup.string().required('password is required'),
     UserRoleId: Yup.string().required('Role is required'),
@@ -63,25 +63,27 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
 
   const defaultValues = useMemo(
     () => ({
-    FirstName:  '',
-    LastName:'',
-    UserEmail:'',
-    Mobile:  '',
-    UserPassword:  '',
-    UserRoleId:  '',
+      FirstName: '',
+      LastName: '',
+      UserEmail: '',
+      Mobile: '',
+      UserPassword: '',
+      UserRoleId: '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [currentUser]
   );
 
   useEffect(() => {
-    dispatch(getAllRoles({
-      searchValue: "",
-      type: "all",
-      page: "1",
-      limit: "10"
-  }));
-  },[dispatch])
+    dispatch(
+      getAllRoles({
+        searchValue: '',
+        type: 'all',
+        page: '1',
+        limit: '10',
+      })
+    );
+  }, [dispatch]);
 
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
@@ -109,7 +111,7 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit, currentUser]);
 
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
@@ -117,8 +119,9 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
       onClose();
       navigate(PATH_DASHBOARD.general.userManagement);
       reset(defaultValues);
-      if(isEdit === false) {
-        dispatch(createUser({
+      if (isEdit === false) {
+        dispatch(
+          createUser({
             ...data,
             UserTypeCode: user ? 'ST' : 'CU',
             MiddleName: '',
@@ -129,21 +132,27 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
             UserCity: '',
             UserCreatedBy: 1,
             UserModifiedBy: 1,
-          }))
-      }else {
-        dispatch(updateUserById({
+          })
+        );
+      } else {
+        dispatch(
+          updateUserById({
             ...data,
-            UserId: currentUser?.UserId
-        }))
+            UserId: currentUser?.UserId,
+          })
+        );
       }
     } catch (error) {
-      console.error("error",error);
+      console.error('error', error);
     }
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
+        <Typography variant="h4" sx={{ mb: 3 }} textAlign="center">
+          Add User
+        </Typography>
         <Box
           rowGap={3}
           columnGap={2}
@@ -153,45 +162,54 @@ export default function UserAddForm({ isEdit = false, currentUser, user, onClose
             sm: 'repeat(2, 1fr)',
           }}
         >
-              <RHFTextField name="FirstName" label="First Name" />
-              <RHFTextField name="LastName" label="Last Name" />
-              <RHFTextField name="UserEmail" label="Email Address" />
-              <RHFTextField name="Mobile" label="Phone Number" />
+          <RHFTextField name="FirstName" label="First Name" />
+          <RHFTextField name="LastName" label="Last Name" />
+          <RHFTextField name="UserEmail" label="Email Address" />
+          <RHFTextField name="Mobile" label="Phone Number" />
 
-              <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
-                <option value="" />
-                {rolesData?.rows?.map((role) => (
-                  <option key={role.RoleId} value={role.RoleId}>
-                    {role.RoleName}
-                  </option>
-                ))}
-              </RHFSelect>
-                <RHFTextField name="UserPassword" label="Password" />
-              
-              
+          <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
+            <option value="" />
+            {rolesData?.rows?.map((role) => (
+              <option key={role.RoleId} value={role.RoleId}>
+                {role.RoleName}
+              </option>
+            ))}
+          </RHFSelect>
+          <RHFTextField name="UserPassword" label="Password" />
         </Box>
 
-        <Stack direction="row-reverse" justifyContent="space-between" alignItems="flex-end" sx={{ mt: 3 }} spacing="10px">
+        <Stack
+          direction="row-reverse"
+          justifyContent="space-between"
+          alignItems="flex-end"
+          sx={{ mt: 3 }}
+          spacing="10px"
+        >
           <Box>
-          <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
-             {!isEdit ? `${user ? 'Create user' : 'Create customer'}`: 'Save Changes'}
-            {/* Save Changes */}
-          </LoadingButton>
+            <LoadingButton type="submit" variant="contained" loading={isSubmitting}>
+              {/* {!isEdit ? `${user ? 'Create user' : 'Create customer'}` : 'Save Changes'} */}
+              Save
+            </LoadingButton>
           </Box>
           <Stack direction="row" spacing="10px">
-          <LoadingButton type="reset" variant="contained" onClick={() => reset({
-            FirstName:  '',
-            LastName:'',
-            UserEmail:'',
-            Mobile:  '',
-            UserPassword:  '',
-            UserRoleId:  '',
-          })}>
-            reset
-          </LoadingButton>
-          <LoadingButton type="button" variant="contained" onClick={() => onClose()}>
-             Cancel
-          </LoadingButton>
+            <LoadingButton
+              type="reset"
+              onClick={() =>
+                reset({
+                  FirstName: '',
+                  LastName: '',
+                  UserEmail: '',
+                  Mobile: '',
+                  UserPassword: '',
+                  UserRoleId: '',
+                })
+              }
+            >
+              reset
+            </LoadingButton>
+            <LoadingButton type="button" onClick={() => onClose()}>
+              Cancel
+            </LoadingButton>
           </Stack>
         </Stack>
       </Card>

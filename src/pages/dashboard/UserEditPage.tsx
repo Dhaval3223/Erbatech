@@ -25,7 +25,7 @@ export default function UserEditPage() {
   return (
     <>
       <Helmet>
-        <title> User: Edit user | Minimal UI</title>
+        <title> User: Edit user | Soblue</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>

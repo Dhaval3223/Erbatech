@@ -19,6 +19,7 @@ import {
   TextField,
   Stack,
   Box,
+  Typography,
 } from '@mui/material';
 import * as types from 'src/pages/Roles/slice/action_type';
 // routes
@@ -56,6 +57,7 @@ import { UserTableToolbar, UserTableRow } from './exports';
 import { createNewRole, deleteRoleById, getAllRoles, updateRoleById } from './slice/action';
 import { getAllUsers } from '../user/slice/action';
 import { slice } from './slice';
+import Page403 from '../Page403';
 // ----------------------------------------------------------------------
 
 const STATUS_OPTIONS = ['all', 'active', 'banned'];
@@ -378,7 +380,7 @@ export default function UserListPage() {
   return isView ? (
     <>
       <Helmet>
-        <title> Role: List</title>
+        <title> Role: List | Soblue</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -458,6 +460,9 @@ export default function UserListPage() {
                             // aria-labelledby="parent-modal-title"
                             // aria-describedby="parent-modal-description"
                           >
+                            <Typography variant="h4" sx={{ mt: 2 }} textAlign="center">
+                                Edit Role
+                              </Typography>
                             <Stack
                               spacing={2}
                               alignItems="center"
@@ -467,7 +472,7 @@ export default function UserListPage() {
                                 sm: 'row',
                               }}
                               sx={{
-                                padding: '30px',
+                                padding: 3,
                               }}
                             >
                               <TextField
@@ -482,23 +487,6 @@ export default function UserListPage() {
                                 value={editRoleData.RoleName}
                                 onChange={(e) => handleEditRole(e)}
                               />
-                              {/* <LoadingButton
-                              // fullWidth
-                              type="submit"
-                              // variant="contained"
-                              // size="large"
-                              loading={isCreateRoleLoading}
-                              onClick={handleUpdateRoleAPI}
-                            >
-                              <Iconify icon="eva:plus-fill" width={24} />
-                            </LoadingButton> */}
-                              {/* <IconButtonAnimate 
-                            color="primary" 
-                            size="large"
-                            onClick={handleCreateRoleAPI}
-                            >
-                            <Iconify icon="eva:plus-fill" width={24} />
-                          </IconButtonAnimate> */}
                             </Stack>
                             <Stack
                               direction="row-reverse"
@@ -514,7 +502,7 @@ export default function UserListPage() {
                                   loading={isCreateRoleLoading}
                                   onClick={handleUpdateRoleAPI}
                                 >
-                                  Save Changes
+                                  Save
                                 </LoadingButton>
                               </Box>
                               <Stack direction="row" spacing="10px">
@@ -523,7 +511,6 @@ export default function UserListPage() {
                               </LoadingButton> */}
                                 <LoadingButton
                                   type="button"
-                                  variant="contained"
                                   onClick={() => {
                                     setEditModal(false);
                                     setEditIndex(-1);
@@ -627,7 +614,7 @@ export default function UserListPage() {
       />
     </>
   ) : (
-    <h1>You Don not have access to this page</h1>
+    <Page403 />
   );
 }
 

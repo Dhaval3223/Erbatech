@@ -228,7 +228,7 @@ export default function InvoiceListPage() {
   return (
     <>
       <Helmet>
-        <title> Invoice: List | Minimal UI</title>
+        <title> Invoice: List | Soblue</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
