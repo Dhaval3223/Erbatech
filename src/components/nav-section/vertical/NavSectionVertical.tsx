@@ -27,7 +27,12 @@ export default function NavSectionVertical({ data, sx, ...other }: NavSectionPro
             )} */}
 
             {group.items
-              .filter((item) => accessControlCRUD[item?.code]?.isView)
+              ?.filter(
+                (item) =>
+                  accessControlCRUD &&
+                  accessControlCRUD !== null &&
+                  accessControlCRUD[item?.code]?.isView
+              )
               .map((list) => (
                 <NavList
                   key={list.title + list.path}
