@@ -30,7 +30,7 @@ type FormValuesProps = {
   oldpassword: string;
 };
 
-export default function AuthNewPasswordForm() {
+export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -168,17 +168,17 @@ export default function AuthNewPasswordForm() {
             ),
           }}
         />
-        <Stack>
+        <Stack sx={{ flexDirection: 'row' }}>
           <LoadingButton
             fullWidth
             size="large"
             // type="submit"
-            variant="contained"
+            // variant="contained"
             // loading={isSubmitting}
             sx={{ mt: 3 }}
-            onClick={() => setShowPassword(false)}
+            onClick={() => onclose()}
           >
-            cacnel
+            cancel
           </LoadingButton>
           <LoadingButton
             fullWidth
@@ -188,7 +188,7 @@ export default function AuthNewPasswordForm() {
             loading={isSubmitting}
             sx={{ mt: 3 }}
           >
-            Update Password
+            Save
           </LoadingButton>
         </Stack>
       </Stack>

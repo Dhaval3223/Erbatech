@@ -144,7 +144,7 @@ export default function AccountPopover() {
           <Typography variant="h5" textAlign="center" sx={{ mb: '16px' }}>
             Reset Password
           </Typography>
-          <AuthNewPasswordForm />
+          <AuthNewPasswordForm onclose={handleCloseDrawer} />
         </Box>
       </Dialog>
     </>
