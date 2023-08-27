@@ -10,11 +10,14 @@ import {
   TableCell,
   IconButton,
   Typography,
+  Dialog,
+  Box,
 } from '@mui/material';
 // @types
 import { IUserAccountGeneral } from 'src/@types/user';
 // components
 import { useAuthContext } from 'src/auth/useAuthContext';
+import AuthNewPasswordForm from 'src/sections/auth/AuthNewPasswordForm';
 import Iconify from '../../components/iconify';
 import MenuPopover from '../../components/menu-popover';
 import ConfirmDialog from '../../components/confirm-dialog';
@@ -50,6 +53,8 @@ export default function UserTableRow({
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
+  const [changePassModal, setChangePassModal] = useState(false);
+
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const handleOpenConfirm = () => {
@@ -67,6 +72,16 @@ export default function UserTableRow({
   const handleClosePopover = () => {
     setOpenPopover(null);
   };
+
+  const handleCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setChangePassModal(false);
+  };
+
+
+  const handleOpenDrawer = () => setChangePassModal(true);
 
   return (
     <>
@@ -104,7 +119,7 @@ export default function UserTableRow({
         {isSuperAdmin && (
           <MenuItem
             onClick={() => {
-              handleOpenConfirm();
+              handleOpenDrawer();
               handleClosePopover();
             }}
             // sx={{ color: 'error.main' }}
@@ -151,6 +166,20 @@ export default function UserTableRow({
           </Button>
         }
       />
+
+      <Dialog
+        open={changePassModal}
+        onClose={handleCloseDrawer}
+        // aria-labelledby="parent-modal-title"
+        // aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ p: '26px' }}>
+          <Typography variant="h5" textAlign="center" sx={{ mb: '16px' }}>
+            Reset Password
+          </Typography>
+          <AuthNewPasswordForm isSuperAdmin email={row?.UserEmail} onclose={handleCloseDrawer} />
+        </Box>
+      </Dialog>
     </>
   );
 }
