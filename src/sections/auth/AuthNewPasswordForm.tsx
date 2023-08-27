@@ -168,17 +168,29 @@ export default function AuthNewPasswordForm() {
             ),
           }}
         />
-
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          loading={isSubmitting}
-          sx={{ mt: 3 }}
-        >
-          Update Password
-        </LoadingButton>
+        <Stack>
+          <LoadingButton
+            fullWidth
+            size="large"
+            // type="submit"
+            variant="contained"
+            // loading={isSubmitting}
+            sx={{ mt: 3 }}
+            onClick={() => setShowPassword(false)}
+          >
+            cacnel
+          </LoadingButton>
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            loading={isSubmitting}
+            sx={{ mt: 3 }}
+          >
+            Update Password
+          </LoadingButton>
+        </Stack>
       </Stack>
     </FormProvider>
   );
