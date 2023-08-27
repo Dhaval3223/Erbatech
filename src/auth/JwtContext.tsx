@@ -45,6 +45,7 @@ const initialState: AuthStateType = {
   isSuperAdmin: false,
   user: null,
   accessControlCRUD: null,
+  pathAfterLogIn: '/',
 };
 
 const reducer = (state: AuthStateType, action: ActionsType) => {
@@ -54,6 +55,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
       isAuthenticated: action.payload.isAuthenticated,
       user: action.payload.user,
       accessControlCRUD: action.payload.accessControlCRUD,
+      pathAfterLogIn: action.payload.pathAfterLogIn,
     };
   }
   if (action.type === Types.LOGIN) {
@@ -127,6 +129,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
         };
 
         const data = convertArrayToObject(response?.data?.data, 'ProgramCode');
+
+        const pathAfterLogIn = response?.data?.data.find((item: any) =>
+          item?.RolePrivilege?.includes('V')
+        );
         // dispatch(slice.actions.getRolesSuccess(response.data));
         console.log('convertArrayToObject', data);
 
@@ -136,6 +142,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             isAuthenticated: true,
             user,
             accessControlCRUD: data,
+            // pathAfterLogIn: pathAfterLogIn,
           },
         });
       } else {
