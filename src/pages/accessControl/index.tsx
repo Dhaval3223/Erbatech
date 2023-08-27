@@ -30,6 +30,7 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { LoadingButton } from '@mui/lab';
 import { useSnackbar } from 'src/components/snackbar/index';
 
+import { useAuthContext } from 'src/auth/useAuthContext';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -119,6 +120,8 @@ export default function UserListing() {
 
   const { themeStretch } = useSettingsContext();
 
+  const { initialize } = useAuthContext();
+
   const { enqueueSnackbar } = useSnackbar();
 
   const { accessControlData, isUpdateRoleLoading, isAccessControlLoading, updateRoleDataSuccess, updateRoleDataError, updateRoleDataMsg } = useSelector(state => state.accesControl);
@@ -191,6 +194,7 @@ export default function UserListing() {
         variant: 'success',
       });
       dispatch(slice.actions.resetUpdatRoleData());
+      initialize();
     } 
     if (updateRoleDataError) {
       enqueueSnackbar(updateRoleDataMsg, {

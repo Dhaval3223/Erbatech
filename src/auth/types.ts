@@ -29,6 +29,7 @@ export type JWTContextType = {
   user: AuthUserType;
   accessControlCRUD?: any;
   login: (email: string, password: string) => Promise<void>;
+  initialize?: any;
   register: (email: string, password: string, firstName: string, lastName: string) => Promise<void>;
   logout: () => void;
   loginWithGoogle?: () => void;

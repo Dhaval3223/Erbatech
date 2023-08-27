@@ -175,13 +175,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     setSession(accessToken);
 
+    initialize();
+
     dispatch({
       type: Types.LOGIN,
       payload: {
         user,
       },
     });
-  }, []);
+  }, [initialize]);
 
   // REGISTER
   const register = useCallback(
@@ -227,6 +229,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       register,
       logout,
       accessControlCRUD: state?.accessControlCRUD,
+      initialize,
     }),
     [
       state.isAuthenticated,
@@ -236,6 +239,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       logout,
       register,
       state.accessControlCRUD,
+      initialize,
     ]
   );
 
