@@ -42,6 +42,7 @@ type ActionsType = any;
 const initialState: AuthStateType = {
   isInitialized: false,
   isAuthenticated: false,
+  isSuperAdmin: false,
   user: null,
   accessControlCRUD: null,
 };
@@ -163,27 +164,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [initialize]);
 
   // LOGIN
-  const login = useCallback(async (email: string, password: string) => {
-    const response = await axios.post('/users/login', {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data?.data || {};
-    // console.log('accessToken', accessToken, user);
+  const login = useCallback(
+    async (email: string, password: string) => {
+      const response = await axios.post('/users/login', {
+        email,
+        password,
+      });
+      const { accessToken, user } = response.data?.data || {};
+      // console.log('accessToken', accessToken, user);
 
-    localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
 
-    setSession(accessToken);
+      setSession(accessToken);
 
-    initialize();
+      initialize();
 
-    dispatch({
-      type: Types.LOGIN,
-      payload: {
-        user,
-      },
-    });
-  }, [initialize]);
+      dispatch({
+        type: Types.LOGIN,
+        payload: {
+          user,
+        },
+      });
+    },
+    [initialize]
+  );
 
   // REGISTER
   const register = useCallback(
@@ -221,6 +225,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isInitialized: state.isInitialized,
       isAuthenticated: state.isAuthenticated,
       user: state.user,
+      isSuperAdmin: state.user?.UserTypeCode === 'SA',
       method: 'jwt',
       login,
       loginWithGoogle: () => {},
@@ -238,7 +243,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       logout,
       register,
-      state.accessControlCRUD,
+      state?.accessControlCRUD,
       initialize,
     ]
   );

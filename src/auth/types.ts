@@ -18,6 +18,7 @@ export type AuthStateType = {
   isInitialized: boolean;
   user: AuthUserType;
   accessControlCRUD?: any;
+  isSuperAdmin?: boolean;
 };
 
 // ----------------------------------------------------------------------
@@ -26,6 +27,7 @@ export type JWTContextType = {
   method: string;
   isAuthenticated: boolean;
   isInitialized: boolean;
+  isSuperAdmin?: boolean;
   user: AuthUserType;
   accessControlCRUD?: any;
   login: (email: string, password: string) => Promise<void>;

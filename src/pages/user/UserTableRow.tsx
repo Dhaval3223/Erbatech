@@ -14,6 +14,7 @@ import {
 // @types
 import { IUserAccountGeneral } from 'src/@types/user';
 // components
+import { useAuthContext } from 'src/auth/useAuthContext';
 import Iconify from '../../components/iconify';
 import MenuPopover from '../../components/menu-popover';
 import ConfirmDialog from '../../components/confirm-dialog';
@@ -43,6 +44,9 @@ export default function UserTableRow({
 }: Props) {
   console.log(user);
   const { FirstName, LastName, Role } = row || {};
+
+  const { isSuperAdmin } = useAuthContext();
+  console.log('isSuperAdmin', isSuperAdmin);
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -95,18 +99,18 @@ export default function UserTableRow({
         open={openPopover}
         onClose={handleClosePopover}
         arrow="right-top"
-        sx={{ width: 140 }}
+        // sx={{ width: 140 }}
       >
-        {isDeleteRights && (
+        {isSuperAdmin && (
           <MenuItem
             onClick={() => {
               handleOpenConfirm();
               handleClosePopover();
             }}
-            sx={{ color: 'error.main' }}
+            // sx={{ color: 'error.main' }}
           >
-            <Iconify icon="eva:trash-2-outline" />
-            Delete
+            <Iconify icon="mdi:password-outline" />
+            Change Password
           </MenuItem>
         )}
 
@@ -119,6 +123,19 @@ export default function UserTableRow({
           >
             <Iconify icon="eva:edit-fill" />
             Edit
+          </MenuItem>
+        )}
+
+        {isDeleteRights && (
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirm();
+              handleClosePopover();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="eva:trash-2-outline" />
+            Delete
           </MenuItem>
         )}
       </MenuPopover>
