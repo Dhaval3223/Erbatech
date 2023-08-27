@@ -11,7 +11,7 @@ export default function MaintenancePage() {
   return (
     <>
       <Helmet>
-        <title> Maintenance | Minimal UI</title>
+        <title> Maintenance | Soblue</title>
       </Helmet>
 
       <Stack sx={{ alignItems: 'center' }}>

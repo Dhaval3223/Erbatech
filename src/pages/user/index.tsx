@@ -57,6 +57,7 @@ import CustomerAddForm from './CustomerAddForm';
 import CustomerEditForm from './CustomerEditForm';
 import UserEditForm from './UserEditForm';
 import { slice } from './slice';
+import Page403 from '../Page403';
 
 // ----------------------------------------------------------------------
 
@@ -142,7 +143,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  
+
   const [EditopenDrawer, setEditOpenDrawer] = useState(false);
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
@@ -332,7 +333,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
   return (
     <>
       <Helmet>
-        <title> User: List | Minimal UI</title>
+        {user ? <title> User: List | Soblue</title> : <title> Customer: List | Soblue</title>}
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -549,7 +550,7 @@ export default function UserListinge({ user = false }: { user?: boolean }) {
         isCreateRights={isUserCreate}
       />
     ) : (
-      <h1> You Do Not Have Access To This Page </h1>
+      <Page403 />
     );
   }
   return isCustomerView ? (
@@ -560,7 +561,7 @@ export default function UserListinge({ user = false }: { user?: boolean }) {
       isCreateRights={isCustomerCreate}
     />
   ) : (
-    <h1> You Do Not Have Access To This Page </h1>
+    <Page403 />
   );
 }
 

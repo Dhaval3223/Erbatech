@@ -9,6 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Stack, IconButton, InputAdornment, FormHelperText } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
+import localStorageAvailable from 'src/utils/localStorageAvailable';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // components
 import Iconify from '../../components/iconify';
@@ -41,13 +42,13 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
     typeof window !== 'undefined' ? sessionStorage.getItem('email-recovery') : '';
 
   const VerifyCodeSchema = Yup.object().shape({
-    code1: Yup.string().required('Code is required'),
-    code2: Yup.string().required('Code is required'),
-    code3: Yup.string().required('Code is required'),
-    code4: Yup.string().required('Code is required'),
-    code5: Yup.string().required('Code is required'),
-    code6: Yup.string().required('Code is required'),
-    email: Yup.string().required('Email is required').email('Email must be a valid email address'),
+    // code1: Yup.string().required('Code is required'),
+    // code2: Yup.string().required('Code is required'),
+    // code3: Yup.string().required('Code is required'),
+    // code4: Yup.string().required('Code is required'),
+    // code5: Yup.string().required('Code is required'),
+    // code6: Yup.string().required('Code is required'),
+    // email: Yup.string().required('Email is required').email('Email must be a valid email address'),
     oldpassword: Yup.string().required('Old password is required'),
     password: Yup.string()
       .min(6, 'Password must be at least 6 characters')
@@ -82,10 +83,15 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
   } = methods;
 
   const onSubmit = async (data: FormValuesProps) => {
-    console.log('data', data);
+    const storageAvailable = localStorageAvailable();
+
+    const user = storageAvailable ? JSON.parse(localStorage.getItem('user') || '{}') : '';
+
+    console.log('useruser', user?.UserEmail);
+
     try {
       await await axiosInstance.post('/users/change-password', {
-        userEmail: data.email,
+        userEmail: user?.UserEmail,
         oldPassword: data.oldpassword,
         newPassword: data.password,
       });
@@ -96,21 +102,23 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
       });
       sessionStorage.removeItem('email-recovery');
       enqueueSnackbar('Change password success!');
-      navigate(PATH_DASHBOARD.root);
+      onclose()
+      // navigate(PATH_DASHBOARD.root);
     } catch (error) {
-      console.error(error);
+      enqueueSnackbar(error?.message, { variant: 'error' });
+      console.error(error, 'xxxxxxxERRORxxxxxx');
     }
   };
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3}>
-        <RHFTextField
+        {/* <RHFTextField
           name="email"
           label="Email"
           disabled={!!emailRecovery}
           InputLabelProps={{ shrink: true }}
-        />
+        /> */}
 
         {/* <RHFCodes keyName="code" inputs={['code1', 'code2', 'code3', 'code4', 'code5', 'code6']} />
 

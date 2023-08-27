@@ -33,7 +33,7 @@ export default function MUIDataGridPage() {
   return (
     <>
       <Helmet>
-        <title> MUI Components: DataGrid | Minimal UI</title>
+        <title> MUI Components: DataGrid | Soblue</title>
       </Helmet>
 
       <Box

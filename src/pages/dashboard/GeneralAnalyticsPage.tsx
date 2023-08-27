@@ -29,12 +29,12 @@ export default function GeneralAnalyticsPage() {
   return (
     <>
       <Helmet>
-        <title> General: Analytics | Minimal UI</title>
+        <title> General: Analytics | Soblue</title>
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'xl'}>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Soblue Sensor Monitoring System
         </Typography>
 
         <Grid container spacing={3}>
