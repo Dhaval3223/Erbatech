@@ -53,7 +53,7 @@ export default function Footer() {
         bgcolor: 'background.default',
       }}
     >
-      <Container>
+      {/* <Container>
         <Logo sx={{ mb: 1, mx: 'auto' }} />
 
         <Typography variant="caption" component="div">
@@ -61,7 +61,7 @@ export default function Footer() {
           <br /> made by &nbsp;
           <Link href="https://minimals.cc/"> minimals.cc </Link>
         </Typography>
-      </Container>
+      </Container> */}
     </Box>
   );
 

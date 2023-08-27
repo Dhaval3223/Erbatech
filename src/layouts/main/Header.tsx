@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <AppBar ref={carouselRef} color="transparent" sx={{ boxShadow: 0 }}>
-      <Toolbar
+      {/* <Toolbar
         disableGutters
         sx={{
           height: {
@@ -74,7 +74,7 @@ export default function Header() {
 
           {!isDesktop && <NavMobile isOffset={isOffset} data={navConfig} />}
         </Container>
-      </Toolbar>
+      </Toolbar> */}
 
       {isOffset && <Shadow />}
     </AppBar>
