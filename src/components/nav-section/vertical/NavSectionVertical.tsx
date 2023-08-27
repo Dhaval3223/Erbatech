@@ -1,6 +1,7 @@
 // @mui
 import { List, Stack } from '@mui/material';
 // locales
+import { useAuthContext } from 'src/auth/useAuthContext';
 import { useLocales } from '../../../locales';
 //
 import { NavSectionProps } from '../types';
@@ -11,6 +12,8 @@ import NavList from './NavList';
 
 export default function NavSectionVertical({ data, sx, ...other }: NavSectionProps) {
   const { translate } = useLocales();
+  const { accessControlCRUD } = useAuthContext();
+  console.log('datadatadata', data);
 
   return (
     <Stack sx={sx} {...other}>
@@ -19,18 +22,20 @@ export default function NavSectionVertical({ data, sx, ...other }: NavSectionPro
 
         return (
           <List key={key} disablePadding sx={{ px: 2 }}>
-           {/*  {group.subheader && (
+            {/*  {group.subheader && (
               <StyledSubheader disableSticky>{`${translate(group.subheader)}`}</StyledSubheader>
             )} */}
 
-            {group.items.map((list) => (
-              <NavList
-                key={list.title + list.path}
-                data={list}
-                depth={1}
-                hasChild={!!list.children}
-              />
-            ))}
+            {group.items
+              .filter((item) => accessControlCRUD[item?.code]?.isView)
+              .map((list) => (
+                <NavList
+                  key={list.title + list.path}
+                  data={list}
+                  depth={1}
+                  hasChild={!!list.children}
+                />
+              ))}
           </List>
         );
       })}

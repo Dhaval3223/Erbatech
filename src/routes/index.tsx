@@ -1,5 +1,6 @@
 import { Navigate, useRoutes } from 'react-router-dom';
 // auth
+import { useAuthContext } from 'src/auth/useAuthContext';
 import AuthGuard from '../auth/AuthGuard';
 import GuestGuard from '../auth/GuestGuard';
 // layouts
@@ -135,6 +136,11 @@ import {
 // ----------------------------------------------------------------------
 
 export default function Router() {
+
+  // const { pathAfterLogIn } = useAuthContext();
+
+  // const PATH_AFTER_LOGIN = pathAfterLogIn;
+
   return useRoutes([
     // Auth
     {

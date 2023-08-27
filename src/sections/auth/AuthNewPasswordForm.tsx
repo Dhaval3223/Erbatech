@@ -31,7 +31,15 @@ type FormValuesProps = {
   oldpassword: string;
 };
 
-export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
+export default function AuthNewPasswordForm({
+  onclose,
+  email,
+  isSuperAdmin,
+}: {
+  onclose?: any;
+  email?: any;
+  isSuperAdmin?: boolean;
+}) {
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -66,7 +74,7 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
     code5: '5',
     code6: '6',
     email: '',
-    oldpassword: '',
+    oldpassword: isSuperAdmin ? '-' : '',
     password: '',
     confirmPassword: '',
   };
@@ -90,11 +98,19 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
     console.log('useruser', user?.UserEmail);
 
     try {
-      await await axiosInstance.post('/users/change-password', {
-        userEmail: user?.UserEmail,
-        oldPassword: data.oldpassword,
-        newPassword: data.password,
-      });
+      await await axiosInstance.post(
+        '/users/change-password',
+        isSuperAdmin
+          ? {
+              userEmail: email,
+              newPassword: data.password,
+            }
+          : {
+              userEmail: user?.UserEmail,
+              oldPassword: data.oldpassword,
+              newPassword: data.password,
+            }
+      );
       console.log('DATA:', {
         email: data.email,
         code: `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`,
@@ -102,7 +118,7 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
       });
       sessionStorage.removeItem('email-recovery');
       enqueueSnackbar('Change password success!');
-      onclose()
+      onclose();
       // navigate(PATH_DASHBOARD.root);
     } catch (error) {
       enqueueSnackbar(error?.message, { variant: 'error' });
@@ -132,20 +148,22 @@ export default function AuthNewPasswordForm({ onclose }: { onclose?: any }) {
             Code is required
           </FormHelperText>
         )} */}
-        <RHFTextField
-          name="oldpassword"
-          label="Old Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+        {!isSuperAdmin && (
+          <RHFTextField
+            name="oldpassword"
+            label="Old Password"
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        )}
 
         <RHFTextField
           name="password"

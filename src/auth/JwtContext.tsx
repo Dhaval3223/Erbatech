@@ -42,8 +42,10 @@ type ActionsType = any;
 const initialState: AuthStateType = {
   isInitialized: false,
   isAuthenticated: false,
+  isSuperAdmin: false,
   user: null,
   accessControlCRUD: null,
+  pathAfterLogIn: '/',
 };
 
 const reducer = (state: AuthStateType, action: ActionsType) => {
@@ -53,6 +55,7 @@ const reducer = (state: AuthStateType, action: ActionsType) => {
       isAuthenticated: action.payload.isAuthenticated,
       user: action.payload.user,
       accessControlCRUD: action.payload.accessControlCRUD,
+      pathAfterLogIn: action.payload.pathAfterLogIn,
     };
   }
   if (action.type === Types.LOGIN) {
@@ -126,8 +129,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         };
 
         const data = convertArrayToObject(response?.data?.data, 'ProgramCode');
+
+        const pathAfterLogIn = response?.data?.data.find((item: any) =>
+          item?.RolePrivilege?.includes('V')
+        );
         // dispatch(slice.actions.getRolesSuccess(response.data));
-        console.log('convertArrayToObject', data);
+        console.log('convertArrayToObject', pathAfterLogIn);
 
         dispatch({
           type: Types.INITIAL,
@@ -135,6 +142,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
             isAuthenticated: true,
             user,
             accessControlCRUD: data,
+            // pathAfterLogIn: pathAfterLogIn,
           },
         });
       } else {
@@ -163,27 +171,30 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [initialize]);
 
   // LOGIN
-  const login = useCallback(async (email: string, password: string) => {
-    const response = await axios.post('/users/login', {
-      email,
-      password,
-    });
-    const { accessToken, user } = response.data?.data || {};
-    // console.log('accessToken', accessToken, user);
+  const login = useCallback(
+    async (email: string, password: string) => {
+      const response = await axios.post('/users/login', {
+        email,
+        password,
+      });
+      const { accessToken, user } = response.data?.data || {};
+      // console.log('accessToken', accessToken, user);
 
-    localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
 
-    setSession(accessToken);
+      setSession(accessToken);
 
-    initialize();
+      initialize();
 
-    dispatch({
-      type: Types.LOGIN,
-      payload: {
-        user,
-      },
-    });
-  }, [initialize]);
+      dispatch({
+        type: Types.LOGIN,
+        payload: {
+          user,
+        },
+      });
+    },
+    [initialize]
+  );
 
   // REGISTER
   const register = useCallback(
@@ -221,6 +232,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       isInitialized: state.isInitialized,
       isAuthenticated: state.isAuthenticated,
       user: state.user,
+      isSuperAdmin: state.user?.UserTypeCode === 'SA',
       method: 'jwt',
       login,
       loginWithGoogle: () => {},
@@ -238,7 +250,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
       login,
       logout,
       register,
-      state.accessControlCRUD,
+      state?.accessControlCRUD,
       initialize,
     ]
   );
