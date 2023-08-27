@@ -25,7 +25,7 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 // ----------------------------------------------------------------------
 
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider as ReduxProvider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
@@ -65,7 +65,7 @@ export default function App() {
           <PersistGate loading={null} persistor={persistor}>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <SettingsProvider>
-                <BrowserRouter>
+                <HashRouter>
                   <ScrollToTop />
                   <MotionLazyContainer>
                     <ThemeProvider>
@@ -79,7 +79,7 @@ export default function App() {
                       </ThemeSettings>
                     </ThemeProvider>
                   </MotionLazyContainer>
-                </BrowserRouter>
+                </HashRouter>
               </SettingsProvider>
             </LocalizationProvider>
           </PersistGate>
