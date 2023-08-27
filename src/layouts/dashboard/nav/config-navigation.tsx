@@ -243,64 +243,42 @@ const user = storageAvailable ? JSON.parse(localStorage.getItem('user') || '{}')
 const navConfig = [
   {
     subheader: 'general',
-    items:
-      user?.UserTypeCode === 'SA'
-        ? [
-            // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard },
-            {
-              title: 'role',
-              path: PATH_DASHBOARD.general.roles,
-              icon: ICONS.ecommerce,
-              code: 'PG002',
-            },
-            {
-              title: 'user',
-              path: PATH_DASHBOARD.general.userManagement,
-              icon: ICONS.user,
-              code: 'PG003',
-            },
-            {
-              title: 'customer management',
-              path: PATH_DASHBOARD.general.customerManagement,
-              icon: ICONS.user,
-              code: 'PG004',
-            },
-            {
-              title: 'access control',
-              path: PATH_DASHBOARD.general.accessControl,
-              icon: ICONS.banking,
-              code: 'PG005',
-            },
-            // { title: 'sensor variable', path: PATH_DASHBOARD.general.sensorVariable, icon: ICONS.booking },
-            // { title: 'sensor setting', path: PATH_DASHBOARD.general.sensorSetting, icon: ICONS.file },
-            // { title: 'sensor custom setting', path: PATH_DASHBOARD.general.sensorCustomSetting, icon: ICONS.file },
-            // { title: 'PLC Alert', path: PATH_DASHBOARD.general.plcAlert, icon: ICONS.file },
-            // { title: 'collector performamce', path: PATH_DASHBOARD.general.collectorPerformance, icon: ICONS.file },
-            // { title: 'Reports', path: PATH_DASHBOARD.general.reports, icon: ICONS.analytics },
-            // { title: 'AWS integration status', path: PATH_DASHBOARD.general.awsIntegrationStatus, icon: ICONS.file },
-            // { title: 'template master', path: PATH_DASHBOARD.general.templateMaster, icon: ICONS.file },
-            // { title: 'template mapping', path: PATH_DASHBOARD.general.templateMapping, icon: ICONS.file },
-          ]
-        : [
-            {
-              title: 'role',
-              path: PATH_DASHBOARD.general.roles,
-              icon: ICONS.ecommerce,
-              code: 'PG002',
-            },
-            {
-              title: 'user',
-              path: PATH_DASHBOARD.general.userManagement,
-              icon: ICONS.user,
-              code: 'PG003',
-            },
-            {
-              title: 'customer management',
-              path: PATH_DASHBOARD.general.customerManagement,
-              icon: ICONS.user,
-              code: 'PG004',
-            },
-          ],
+    items: [
+      // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard },
+      {
+        title: 'role',
+        path: PATH_DASHBOARD.general.roles,
+        icon: ICONS.ecommerce,
+        code: 'PG002',
+      },
+      {
+        title: 'user',
+        path: PATH_DASHBOARD.general.userManagement,
+        icon: ICONS.user,
+        code: 'PG003',
+      },
+      {
+        title: 'customer management',
+        path: PATH_DASHBOARD.general.customerManagement,
+        icon: ICONS.user,
+        code: 'PG004',
+      },
+      {
+        title: 'access control',
+        path: PATH_DASHBOARD.general.accessControl,
+        icon: ICONS.banking,
+        code: 'PG005',
+      },
+      // { title: 'sensor variable', path: PATH_DASHBOARD.general.sensorVariable, icon: ICONS.booking },
+      // { title: 'sensor setting', path: PATH_DASHBOARD.general.sensorSetting, icon: ICONS.file },
+      // { title: 'sensor custom setting', path: PATH_DASHBOARD.general.sensorCustomSetting, icon: ICONS.file },
+      // { title: 'PLC Alert', path: PATH_DASHBOARD.general.plcAlert, icon: ICONS.file },
+      // { title: 'collector performamce', path: PATH_DASHBOARD.general.collectorPerformance, icon: ICONS.file },
+      // { title: 'Reports', path: PATH_DASHBOARD.general.reports, icon: ICONS.analytics },
+      // { title: 'AWS integration status', path: PATH_DASHBOARD.general.awsIntegrationStatus, icon: ICONS.file },
+      // { title: 'template master', path: PATH_DASHBOARD.general.templateMaster, icon: ICONS.file },
+      // { title: 'template mapping', path: PATH_DASHBOARD.general.templateMapping, icon: ICONS.file },
+    ],
   },
 ];
 
