@@ -86,9 +86,10 @@ const TABLE_HEAD = [
 
 const CUSTOMER_TABLE_HEAD = [
   { id: 'name', label: 'Cutomer Name', align: 'left' },
-  { id: 'role', label: 'User ID', align: 'left' },
-  { id: 'mobile', label: 'Phone Number', align: 'left' },
   { id: 'email', label: 'Email Id', align: 'left' },
+  { id: 'mobile', label: 'Phone Number', align: 'left' },
+  { id: 'role', label: 'Country', align: 'left' },
+  { id: 'state', label: 'State', align: 'left' },
   { id: 'city', label: 'City', align: 'left' },
   { id: 'action', align: 'left' },
 ];
@@ -390,7 +391,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
                 />
                 <TableBody>
                   {isUserLoading ? (
-                    <TableSkeleton colums={6} />
+                    <TableSkeleton colums={user ? 5 : 7} />
                   ) : (
                     users?.rows?.map((row) => (
                       <UserTableRow

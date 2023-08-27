@@ -4,7 +4,10 @@ import { REACT_APP_BASE_URL } from '../config-global';
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: REACT_APP_BASE_URL });
+const axiosInstance = axios.create({
+  baseURL: REACT_APP_BASE_URL,
+  timeout: 30 * 1000,
+});
 
 axiosInstance.interceptors.response.use(
   (response) => response,

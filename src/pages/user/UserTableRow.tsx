@@ -80,7 +80,6 @@ export default function UserTableRow({
     setChangePassModal(false);
   };
 
-
   const handleOpenDrawer = () => setChangePassModal(true);
 
   return (
@@ -94,10 +93,25 @@ export default function UserTableRow({
         <TableCell>
           {FirstName} {LastName}
         </TableCell>
-        <TableCell align="left">{user ? Role?.RoleName : row?.UserId}</TableCell>
+        <TableCell align="left">{user ? Role?.RoleName : row?.UserEmail}</TableCell>
         <TableCell align="left">{user ? row?.Mobile : row?.Mobile}</TableCell>
-        <TableCell align="left">{user ? row?.UserEmail : row?.UserEmail}</TableCell>
-        {!user && <TableCell align="left">{user ? row?.UserCity : row?.UserCity}</TableCell>}
+        {/* <TableCell align="left">{user ? row?.UserEmail : row?.UserEmail}</TableCell> */}
+        {!user && (
+          <TableCell align="left">
+            {row?.State && (row?.State || row?.State?.StateCountryName) !== null
+              ? row?.State?.StateCountryName
+              : '-'}
+          </TableCell>
+        )}
+        {!user && (
+          <TableCell align="left">
+            {row?.State && (row?.State || row?.State?.StateName) !== null
+              ? row?.State?.StateName
+              : '-'}
+          </TableCell>
+        )}
+        {!user && <TableCell align="left">{row?.UserCity}</TableCell>}
+        {/* {!user && <TableCell align="left">{row?.UserLocation}</TableCell>} */}
         <TableCell align="left">
           {isDeleteRights === false && isUpdateRights === false ? (
             ''
