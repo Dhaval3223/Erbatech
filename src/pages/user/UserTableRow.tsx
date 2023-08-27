@@ -98,12 +98,16 @@ export default function UserTableRow({
         {/* <TableCell align="left">{user ? row?.UserEmail : row?.UserEmail}</TableCell> */}
         {!user && (
           <TableCell align="left">
-            {row?.UserCountry && row?.UserCountry !== null ? row?.UserCountry : '-'}
+            {row?.State && (row?.State || row?.State?.StateCountryName) !== null
+              ? row?.State?.StateCountryName
+              : '-'}
           </TableCell>
         )}
         {!user && (
           <TableCell align="left">
-            {row?.UserState && row?.UserState !== null ? row?.UserState : '-'}
+            {row?.State && (row?.State || row?.State?.StateName) !== null
+              ? row?.State?.StateName
+              : '-'}
           </TableCell>
         )}
         {!user && <TableCell align="left">{row?.UserCity}</TableCell>}
