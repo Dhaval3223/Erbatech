@@ -47,11 +47,11 @@ export default function SensorCustomSettingsTableRows({
 }: Props) {
   return (
     <TableRow hover selected={selected}>
-      <TableCell align="left">{row?.SensorSettingDescription}</TableCell>
-      <TableCell align="left">{row?.SensorSettingGroup}</TableCell>
-      <TableCell align="left">{row?.SensorSettingIdentifier}</TableCell>
-      <TableCell align="left">{row?.SensorSettingLocation}</TableCell>
-      <TableCell align="left">{row?.SensorSettingValue}</TableCell>
-    </TableRow>
+    <TableCell align="left">{row?.SensorCustomSettingDescription}</TableCell>
+    <TableCell align="left">{row?.SensorCustomSettingParameter}</TableCell>
+    <TableCell align="left">{row?.SensorCustomSettingRange}</TableCell>
+    <TableCell align="left">{row?.SensorCustomSettingUnit}</TableCell>
+    <TableCell align="left">{row?.SensorCustomSettingValue}</TableCell>
+  </TableRow>
   );
 }

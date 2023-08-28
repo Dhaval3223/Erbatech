@@ -58,11 +58,11 @@ import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
 const TABLE_HEAD = [
-  { id: 'SensorCustomSettingDescription', label: 'SensorCustomSettingDescription', align: 'left' },
-  { id: 'SensorCustomSettingParameter', label: 'SensorCustomSettingParameter', align: 'left' },
-  { id: 'SensorCustomSettingRange', label: 'SensorCustomSettingRange', align: 'left' },
-  { id: 'SensorCustomSettingUnit', label: 'SensorCustomSettingUnit', align: 'left' },
-  { id: 'SensorCustomSettingValue', label: 'SensorCustomSettingValue', align: 'left' },
+  { id: 'SensorSettingDescription', label: 'SensorSettingDescription', align: 'left' },
+  { id: 'SensorSettingGroup', label: 'SensorSettingGroup', align: 'left' },
+  { id: 'SensorSettingIdentifier', label: 'SensorSettingIdentifier', align: 'left' },
+  { id: 'SensorSettingLocation', label: 'SensorSettingLocation', align: 'left' },
+  { id: 'SensorSettingValue', label: 'SensorSettingValue', align: 'left' },
 ];
 
 const ROWS = [
@@ -268,7 +268,7 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    sensorData?.SensorCustomSettingData?.map((row: any) => (
+                    sensorData?.SensorSettingData?.map((row: any) => (
                       <SensorSettingsTableRow
                         key={row.UserId}
                         row={row}

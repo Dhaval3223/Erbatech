@@ -46,48 +46,13 @@ export default function SensorSettingsTableRow({
   isUpdateRights,
 }: Props) {
   console.log(user);
-
-  const { isSuperAdmin } = useAuthContext();
-  console.log('isSuperAdmin', isSuperAdmin);
-
-  const [openConfirm, setOpenConfirm] = useState(false);
-
-  const [changePassModal, setChangePassModal] = useState(false);
-
-  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
-
-  const handleOpenConfirm = () => {
-    setOpenConfirm(true);
-  };
-
-  const handleCloseConfirm = () => {
-    setOpenConfirm(false);
-  };
-
-  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
-    setOpenPopover(event.currentTarget);
-  };
-
-  const handleClosePopover = () => {
-    setOpenPopover(null);
-  };
-
-  const handleCloseDrawer = (event: any, reason: any) => {
-    if (reason && reason === 'backdropClick') {
-      return;
-    }
-    setChangePassModal(false);
-  };
-
-  const handleOpenDrawer = () => setChangePassModal(true);
-
   return (
     <TableRow hover selected={selected}>
-      <TableCell align="left">{row?.SensorCustomSettingDescription}</TableCell>
-      <TableCell align="left">{row?.SensorCustomSettingParameter}</TableCell>
-      <TableCell align="left">{row?.SensorCustomSettingRange}</TableCell>
-      <TableCell align="left">{row?.SensorCustomSettingUnit}</TableCell>
-      <TableCell align="left">{row?.SensorCustomSettingValue}</TableCell>
+      <TableCell align="left">{row?.SensorSettingDescription}</TableCell>
+      <TableCell align="left">{row?.SensorSettingGroup}</TableCell>
+      <TableCell align="left">{row?.SensorSettingIdentifier}</TableCell>
+      <TableCell align="left">{row?.SensorSettingLocation}</TableCell>
+      <TableCell align="left">{row?.SensorSettingValue}</TableCell>
     </TableRow>
   );
 }
