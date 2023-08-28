@@ -17,11 +17,11 @@ type Props = {
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCreateClick?: any;
   lastLoadingTime?: any;
-  isCreateRights: boolean;
+  isCreateRights?: boolean;
   lastUpdateStatus?: boolean;
 };
 
-export default function UserTableToolbar({
+export default function SensorTableToolbar({
   isFiltered,
   filterName,
   filterRole,

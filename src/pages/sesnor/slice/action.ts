@@ -8,7 +8,10 @@ UPDATE_SENSOR_BY_ID
 } from './action_type';
 import { slice } from '.';
 
-  export function getSensorDataByID(data: any){
+  export function getSensorDataByID(data: {
+    UserId: string;
+    SensorType: string;
+  }){
     return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());
       try {

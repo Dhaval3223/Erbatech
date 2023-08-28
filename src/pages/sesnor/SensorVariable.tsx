@@ -62,7 +62,7 @@ const TABLE_HEAD = [
   { id: 'unit', label: 'Unit', align: 'left' },
   { id: 'range', label: 'Range', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
-  { id: 'action', label: 'Action', align: 'left' },
+  // { id: 'action', label: 'Action', align: 'left' },
 ];
 
 const ROWS = [
@@ -76,15 +76,19 @@ const ROWS = [
   },
 ];
 
-interface IUserListing {
+interface ISensorVariableListing {
   isUpdateRights: boolean;
-  isDeleteRights: boolean;
-  isCreateRights: boolean;
+  isDeleteRights?: boolean;
+  isCreateRights?: boolean;
 }
 
 // ----------------------------------------------------------------------
 
-function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IUserListing) {
+function SensorVariableAccess({
+  isUpdateRights,
+  isDeleteRights,
+  isCreateRights,
+}: ISensorVariableListing) {
   const {
     dense,
     page,
@@ -110,7 +114,11 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
     (state) => state?.sensor
   );
 
+  console.log('sensorData', sensorData);
+
   const { themeStretch } = useSettingsContext();
+
+  const { user } = useAuthContext();
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -129,6 +137,14 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+  useEffect(() => {
+    dispatch(getSensorDataByID({
+      UserId: user?.UserId,
+      SensorType: 'variable'
+    }));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -151,16 +167,6 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
   const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setFilterRole(event.target.value);
-  };
-
-  const handleDeleteRow = (id: string) => {};
-
-  const handleDeleteRows = (selectedRows: string[]) => {
-    const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
-  };
-
-  const handleEditRow = (id: string) => {
-    setEditOpenDrawer(true);
   };
 
   const handleResetFilter = () => {
@@ -198,7 +204,6 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
             // isCreateButton
             lastUpdateStatus
             lastLoadingTime={lastLoadingTime}
-            isCreateRights={isCreateRights}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -246,12 +251,6 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
                         key={row.UserId}
                         row={row}
                         selected={selected.includes(row.UserId)}
-                        onSelectRow={() => onSelectRow(row.UserId)}
-                        onEditRow={() => handleEditRow(row.UserId)}
-                        onDeleteRow={() => handleDeleteRow(row.UserId)}
-                        isDeleteRights={isDeleteRights}
-                        isUpdateRights={isUpdateRights}
-                        index={index}
                       />
                     ))
                   )}
@@ -283,22 +282,11 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
 export default function SensorVariable() {
   const { accessControlCRUD } = useAuthContext();
 
-  const {
-    isView: isUserView,
-    isCreate: isUserCreate,
-    isDelete: isUserDelete,
-    isUpdate: isUserUpdate,
-  } = accessControlCRUD[types.PG004] || {};
+  console.log('accessControlCRUD', accessControlCRUD);
 
-  return isUserView ? (
-    <SensorVariableAccess
-      isUpdateRights={isUserUpdate}
-      isDeleteRights={isUserDelete}
-      isCreateRights={isUserCreate}
-    />
-  ) : (
-    <Page403 />
-  );
+  const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
+
+  return isView ? <SensorVariableAccess isUpdateRights={isUpdate} /> : <Page403 />;
 }
 
 // ----------------------------------------------------------------------
