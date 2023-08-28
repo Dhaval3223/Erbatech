@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import moment from 'moment';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import * as types from 'src/pages/Roles/slice/action_type';
 // @mui
@@ -65,13 +66,14 @@ const TABLE_HEAD = [
 ];
 
 const ROWS = [
-  { id: 1,
+  {
+    id: 1,
     variables: 'Cycles counts',
-  unit: 'INT',
-  range: '0-9999',
-  description: 'Cycle Counter',
-  value: '1191',
- },
+    unit: 'INT',
+    range: '0-9999',
+    description: 'Cycle Counter',
+    value: '1191',
+  },
 ];
 
 interface IUserListing {
@@ -104,8 +106,8 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading,isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
-    (state) => state.sensor
+  const { isSensorLoading, isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
+    (state) => state?.sensor
   );
 
   const { themeStretch } = useSettingsContext();
@@ -125,6 +127,8 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
   const [EditopenDrawer, setEditOpenDrawer] = useState(false);
 
   const [openConfirm, setOpenConfirm] = useState(false);
+
+  const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -149,8 +153,7 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
     setFilterRole(event.target.value);
   };
 
-  const handleDeleteRow = (id: string) => {
-  };
+  const handleDeleteRow = (id: string) => {};
 
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
@@ -190,9 +193,11 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
-            createButtonLable="+"
+            // createButtonLable="+"
             handleCreateClick={handleOpenDrawer}
-            isCreateButton
+            // isCreateButton
+            lastUpdateStatus
+            lastLoadingTime={lastLoadingTime}
             isCreateRights={isCreateRights}
           />
 
@@ -236,7 +241,7 @@ function SensorVariableAccess({ isUpdateRights, isDeleteRights, isCreateRights }
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    ROWS.map((row:any, index: any) => (
+                    ROWS.map((row: any, index: any) => (
                       <SensorVariableTableRow
                         key={row.UserId}
                         row={row}
@@ -285,22 +290,15 @@ export default function SensorVariable() {
     isUpdate: isUserUpdate,
   } = accessControlCRUD[types.PG004] || {};
 
-  const {
-    isView: isCustomerView,
-    isCreate: isCustomerCreate,
-    isDelete: isCustomerDelete,
-    isUpdate: isCustomerUpdate,
-  } = accessControlCRUD[types.PG004] || {};
-
-    return isUserView ? (
-      <SensorVariableAccess
-        isUpdateRights={isUserUpdate}
-        isDeleteRights={isUserDelete}
-        isCreateRights={isUserCreate}
-      />
-    ) : (
-      <Page403 />
-    );
+  return isUserView ? (
+    <SensorVariableAccess
+      isUpdateRights={isUserUpdate}
+      isDeleteRights={isUserDelete}
+      isCreateRights={isUserCreate}
+    />
+  ) : (
+    <Page403 />
+  );
 }
 
 // ----------------------------------------------------------------------
