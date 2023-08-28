@@ -57,11 +57,11 @@ import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
 const TABLE_HEAD = [
-  { id: 'variables', label: 'Variables', align: 'left' },
-  { id: 'value', label: 'Value', align: 'left' },
-  { id: 'unit', label: 'Unit', align: 'left' },
-  { id: 'range', label: 'Range', align: 'left' },
-  { id: 'description', label: 'Description', align: 'left' },
+  { id: 'SensorVariableDescription', label: 'SensorVariableDescription', align: 'left' },
+  { id: 'SensorVariableName', label: 'SensorVariableName', align: 'left' },
+  { id: 'SensorVariableRange', label: 'SensorVariableRange', align: 'left' },
+  { id: 'SensorVariableUnit', label: 'SensorVariableUnit', align: 'left' },
+  { id: 'SensorVariableValue', label: 'SensorVariableValue', align: 'left' },
   // { id: 'action', label: 'Action', align: 'left' },
 ];
 
@@ -139,11 +139,27 @@ function SensorVariableAccess({
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   useEffect(() => {
-    dispatch(getSensorDataByID({
-      UserId: user?.UserId,
-      SensorType: 'variable'
-    }));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(
+      getSensorDataByID({
+        UserId: user?.UserId,
+        SensorType: 'variable',
+      })
+    );
+    const intervalId = setInterval(() => {
+      dispatch(
+        getSensorDataByID({
+          UserId: user?.UserId,
+          SensorType: 'variable',
+        })
+      );
+      // Update last call time during each interval
+      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+    }, 60000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
   const dataFiltered = applyFilter({
@@ -246,7 +262,7 @@ function SensorVariableAccess({
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    ROWS.map((row: any, index: any) => (
+                    sensorData?.SensorVariableData?.map((row: any, index: any) => (
                       <SensorVariableTableRow
                         key={row.UserId}
                         row={row}

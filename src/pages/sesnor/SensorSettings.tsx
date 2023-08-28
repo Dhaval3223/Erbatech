@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
@@ -27,6 +28,7 @@ import {
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
+import moment from 'moment';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -55,24 +57,23 @@ import { slice } from './slice';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
-const TABLE_HEAD =  [
-  { id: 'group', label: 'Group', align: 'left' },
-  { id: 'identifier', label: 'Identifier', align: 'left' },
-  { id: 'description', label: 'Description', align: 'left' },
-  { id: 'value', label: 'Value', align: 'left' },
-  { id: 'unit', label: 'Unit', align: 'left' },
-  { id: 'location', label: 'Location',align: 'left' },
-  { id: 'action', label: 'Action',align: 'left' },
+const TABLE_HEAD = [
+  { id: 'SensorCustomSettingDescription', label: 'SensorCustomSettingDescription', align: 'left' },
+  { id: 'SensorCustomSettingParameter', label: 'SensorCustomSettingParameter', align: 'left' },
+  { id: 'SensorCustomSettingRange', label: 'SensorCustomSettingRange', align: 'left' },
+  { id: 'SensorCustomSettingUnit', label: 'SensorCustomSettingUnit', align: 'left' },
+  { id: 'SensorCustomSettingValue', label: 'SensorCustomSettingValue', align: 'left' },
 ];
 
 const ROWS = [
-  { group: 'SG',
-  identifier: 'P01',
-  description: 'PV electricity meter',
-  unit: 'W',
-  location: 'Inverter',
-  value: '84500',
- },
+  {
+    group: 'SG',
+    identifier: 'P01',
+    description: 'PV electricity meter',
+    unit: 'W',
+    location: 'Inverter',
+    value: '84500',
+  },
 ];
 
 interface IUserListing {
@@ -105,11 +106,13 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading,isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
+  const { isSensorLoading, isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
     (state) => state.sensor
   );
 
   const { themeStretch } = useSettingsContext();
+
+  const { user } = useAuthContext();
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -127,12 +130,39 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
+  const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
+
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(order, orderBy),
     filterName,
     filterRole,
   });
+
+  useEffect(() => {
+    dispatch(
+      getSensorDataByID({
+        UserId: user?.UserId,
+        SensorType: 'setting',
+      })
+    );
+
+    const intervalId = setInterval(() => {
+      dispatch(
+        getSensorDataByID({
+          UserId: user?.UserId,
+          SensorType: 'setting',
+        })
+      );
+      // Update last call time during each interval
+      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+    }, 60000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
   const isFiltered = filterName !== '' || filterRole !== 'all' || filterStatus !== 'all';
 
@@ -150,8 +180,7 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
     setFilterRole(event.target.value);
   };
 
-  const handleDeleteRow = (id: string) => {
-  };
+  const handleDeleteRow = (id: string) => {};
 
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
@@ -195,6 +224,8 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
             handleCreateClick={handleOpenDrawer}
             isCreateButton
             isCreateRights={isCreateRights}
+            lastUpdateStatus
+            lastLoadingTime={lastLoadingTime}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -237,7 +268,7 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    ROWS?.map((row:any) => (
+                    sensorData?.SensorCustomSettingData?.map((row: any) => (
                       <SensorSettingsTableRow
                         key={row.UserId}
                         row={row}
@@ -283,24 +314,17 @@ export default function SensorSettings() {
     isCreate: isUserCreate,
     isDelete: isUserDelete,
     isUpdate: isUserUpdate,
-  } = accessControlCRUD[types.PG004] || {};
+  } = accessControlCRUD[types.PG007] || {};
 
-  const {
-    isView: isCustomerView,
-    isCreate: isCustomerCreate,
-    isDelete: isCustomerDelete,
-    isUpdate: isCustomerUpdate,
-  } = accessControlCRUD[types.PG004] || {};
-
-    return isUserView ? (
-      <SensorSettingsAccess
-        isUpdateRights={isUserUpdate}
-        isDeleteRights={isUserDelete}
-        isCreateRights={isUserCreate}
-      />
-    ) : (
-      <Page403 />
-    );
+  return isUserView ? (
+    <SensorSettingsAccess
+      isUpdateRights={isUserUpdate}
+      isDeleteRights={isUserDelete}
+      isCreateRights={isUserCreate}
+    />
+  ) : (
+    <Page403 />
+  );
 }
 
 // ----------------------------------------------------------------------

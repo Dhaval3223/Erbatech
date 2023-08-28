@@ -79,50 +79,15 @@ export default function SensorSettingsTableRow({
     setChangePassModal(false);
   };
 
-
   const handleOpenDrawer = () => setChangePassModal(true);
 
   return (
-    <>
-      <TableRow hover selected={selected}>
-        {/* <TableCell padding="checkbox">
-          <Checkbox checked={selected} onClick={onSelectRow} />
-        </TableCell> */}
-
-        {/* <TableRow hover> */}
-        <TableCell>
-          {row?.group}
-        </TableCell>
-        <TableCell align="left">{row?.identifier}</TableCell>
-        <TableCell align="left">{ row?.description}</TableCell>
-        <TableCell align="left">{ row?.value}</TableCell>
-        <TableCell align="left">{row?.unit}</TableCell>
-        <TableCell align="left">{row?.location}</TableCell>
-        <TableCell align="left">
-          {isDeleteRights === false && isUpdateRights === false ? (
-            ''
-          ) : (
-            <Button>
-            <Iconify icon="eva:edit-fill" /> Edit
-          </Button>
-          )}
-        </TableCell>
-        {/* </TableRow> */}
-      </TableRow>
-
-      <Dialog
-        open={changePassModal}
-        onClose={handleCloseDrawer}
-        // aria-labelledby="parent-modal-title"
-        // aria-describedby="parent-modal-description"
-      >
-        <Box sx={{ p: '26px' }}>
-          <Typography variant="h5" textAlign="center" sx={{ mb: '16px' }}>
-            Reset Password
-          </Typography>
-          <AuthNewPasswordForm isSuperAdmin email={row?.UserEmail} onclose={handleCloseDrawer} />
-        </Box>
-      </Dialog>
-    </>
+    <TableRow hover selected={selected}>
+      <TableCell align="left">{row?.SensorCustomSettingDescription}</TableCell>
+      <TableCell align="left">{row?.SensorCustomSettingParameter}</TableCell>
+      <TableCell align="left">{row?.SensorCustomSettingRange}</TableCell>
+      <TableCell align="left">{row?.SensorCustomSettingUnit}</TableCell>
+      <TableCell align="left">{row?.SensorCustomSettingValue}</TableCell>
+    </TableRow>
   );
 }

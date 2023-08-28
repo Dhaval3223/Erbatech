@@ -18,7 +18,7 @@ const slice = createSlice({
       },
       getSensorRecords(state, action) {
         state.isSensorLoading = false;
-        state.sensorData = action.payload;
+        state.sensorData = action.payload?.data;
       },
       hasError(state, action) {
         state.isSensorLoading = false;

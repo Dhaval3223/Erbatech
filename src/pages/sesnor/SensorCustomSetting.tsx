@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
@@ -27,6 +28,7 @@ import {
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
+import moment from 'moment';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -56,21 +58,21 @@ import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
 const TABLE_HEAD = [
-  { id: 'parameter', label: 'Parameter', align: 'left' },
-  { id: 'unit', label: 'Unit', align: 'left' },
-  { id: 'range', label: 'Range', align: 'left' },
-  { id: 'description', label: 'Description', align: 'left' },
-  { id: 'value', label: 'Value', align: 'left' },
-  { id: 'action', label: 'Action', align : 'left'},
+  { id: 'SensorSettingDescription', label: 'SensorSettingDescription', align: 'left' },
+  { id: 'SensorSettingGroup', label: 'SensorSettingGroup', align: 'left' },
+  { id: 'SensorSettingIdentifier', label: 'SensorSettingIdentifier', align: 'left' },
+  { id: 'SensorSettingLocation', label: 'SensorSettingLocation', align: 'left' },
+  { id: 'SensorSettingValue', label: 'SensorSettingValue', align: 'left' },
 ];
 
 const ROWS = [
-  { parameter: 'Cycles to recal',
-  unit: 'INT',
-  range: '0-1000',
-  description: 'No. Of cycles units',
-  value: '80.00',
- },
+  {
+    parameter: 'Cycles to recal',
+    unit: 'INT',
+    range: '0-1000',
+    description: 'No. Of cycles units',
+    value: '80.00',
+  },
 ];
 
 const CUSTOMER_TABLE_HEAD = [
@@ -90,7 +92,11 @@ interface IUserListing {
 
 // ----------------------------------------------------------------------
 
-function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IUserListing) {
+function SensorCustomSettingAccess({
+  isUpdateRights,
+  isDeleteRights,
+  isCreateRights,
+}: IUserListing) {
   const {
     dense,
     page,
@@ -112,11 +118,13 @@ function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRig
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading,isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
+  const { isSensorLoading, isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
     (state) => state.sensor
   );
 
   const { themeStretch } = useSettingsContext();
+
+  const { user } = useAuthContext();
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -134,6 +142,8 @@ function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRig
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
+  const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
+
   const dataFiltered = applyFilter({
     inputData: tableData,
     comparator: getComparator(order, orderBy),
@@ -147,6 +157,32 @@ function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRig
     setOpenDrawer(false);
   }, []);
 
+  useEffect(() => {
+    dispatch(
+      getSensorDataByID({
+        UserId: user?.UserId,
+        SensorType: 'custome-setting',
+      })
+    );
+
+    setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+    const intervalId = setInterval(() => {
+      dispatch(
+        getSensorDataByID({
+          UserId: user?.UserId,
+          SensorType: 'custome-setting',
+        })
+      );
+      // Update last call time during each interval
+      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+    }, 60000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
   const handleFilterName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setFilterName(event.target.value);
@@ -157,8 +193,7 @@ function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRig
     setFilterRole(event.target.value);
   };
 
-  const handleDeleteRow = (id: string) => {
-  };
+  const handleDeleteRow = (id: string) => {};
 
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
@@ -202,6 +237,8 @@ function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRig
             handleCreateClick={handleOpenDrawer}
             isCreateButton
             isCreateRights={isCreateRights}
+            lastLoadingTime={lastLoadingTime}
+            lastUpdateStatus
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
@@ -244,7 +281,7 @@ function SensorCustomSettingAccess({ isUpdateRights, isDeleteRights, isCreateRig
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    ROWS?.map((row:any) => (
+                    sensorData?.SensorSettingData?.map((row: any) => (
                       <SensorCustomSettingsTableRows
                         key={row.UserId}
                         row={row}
@@ -290,24 +327,17 @@ export default function SensorCustomSetting() {
     isCreate: isUserCreate,
     isDelete: isUserDelete,
     isUpdate: isUserUpdate,
-  } = accessControlCRUD[types.PG004] || {};
+  } = accessControlCRUD[types.PG008] || {};
 
-  const {
-    isView: isCustomerView,
-    isCreate: isCustomerCreate,
-    isDelete: isCustomerDelete,
-    isUpdate: isCustomerUpdate,
-  } = accessControlCRUD[types.PG004] || {};
-
-    return isUserView ? (
-      <SensorCustomSettingAccess
-        isUpdateRights={isUserUpdate}
-        isDeleteRights={isUserDelete}
-        isCreateRights={isUserCreate}
-      />
-    ) : (
-      <Page403 />
-    );
+  return isUserView ? (
+    <SensorCustomSettingAccess
+      isUpdateRights={isUserUpdate}
+      isDeleteRights={isUserDelete}
+      isCreateRights={isUserCreate}
+    />
+  ) : (
+    <Page403 />
+  );
 }
 
 // ----------------------------------------------------------------------
