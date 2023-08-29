@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import moment from 'moment';
@@ -7,28 +6,17 @@ import { useAuthContext } from 'src/auth/useAuthContext';
 import * as types from 'src/pages/Roles/slice/action_type';
 // @mui
 import {
-  Tab,
-  Tabs,
   Card,
   Table,
-  Button,
   Tooltip,
-  Divider,
   TableBody,
   Container,
   IconButton,
   TableContainer,
-  Radio,
-  TableCell,
-  TableRow,
-  Dialog,
-  MenuItem,
 } from '@mui/material';
 // routes
-import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
-import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
@@ -36,23 +24,18 @@ import { _userListData } from '../../_mock/arrays';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
-import ConfirmDialog from '../../components/confirm-dialog';
-import CustomBreadcrumbs from '../../components/custom-breadcrumbs';
 import { useSettingsContext } from '../../components/settings';
 import {
   useTable,
   getComparator,
-  emptyRows,
   TableNoData,
-  TableEmptyRows,
   TableHeadCustom,
   TableSelectedAction,
   TablePaginationCustom,
 } from '../../components/table';
 // sections
 import SensorVariableTableRow from './SensorVariableTableRow';
-import { getSensorDataByID, updateSensorByID } from './slice/action';
-import { slice } from './slice';
+import { getSensorDataByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
@@ -63,6 +46,14 @@ const TABLE_HEAD = [
   { id: 'SensorVariableUnit', label: 'SensorVariableUnit', align: 'left' },
   { id: 'SensorVariableValue', label: 'SensorVariableValue', align: 'left' },
   // { id: 'action', label: 'Action', align: 'left' },
+];
+
+const SETTINGS_TABLE_HEAD = [
+  { id: 'SensorSettingDescription', label: 'SensorSettingDescription', align: 'left' },
+  { id: 'SensorSettingGroup', label: 'SensorSettingGroup', align: 'left' },
+  { id: 'SensorSettingIdentifier', label: 'SensorSettingIdentifier', align: 'left' },
+  { id: 'SensorSettingLocation', label: 'SensorSettingLocation', align: 'left' },
+  { id: 'SensorSettingValue', label: 'SensorSettingValue', align: 'left' },
 ];
 
 const ROWS = [
@@ -80,6 +71,7 @@ interface ISensorVariableListing {
   isUpdateRights: boolean;
   isDeleteRights?: boolean;
   isCreateRights?: boolean;
+  SensorVariableType?: boolean;
 }
 
 // ----------------------------------------------------------------------
@@ -88,6 +80,7 @@ function SensorVariableAccess({
   isUpdateRights,
   isDeleteRights,
   isCreateRights,
+  SensorVariableType,
 }: ISensorVariableListing) {
   const {
     dense,
@@ -96,13 +89,8 @@ function SensorVariableAccess({
     orderBy,
     rowsPerPage,
     setPage,
-    //
     selected,
-    setSelected,
-    onSelectRow,
     onSelectAllRows,
-    //
-    onSort,
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
@@ -110,7 +98,7 @@ function SensorVariableAccess({
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
+  const { isSensorLoading, sensorData } = useSelector(
     (state) => state?.sensor
   );
 
@@ -119,6 +107,7 @@ function SensorVariableAccess({
   const { themeStretch } = useSettingsContext();
 
   const { user } = useAuthContext();
+  console.log("user", user)
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -132,8 +121,6 @@ function SensorVariableAccess({
 
   const [openDrawer, setOpenDrawer] = useState(false);
 
-  const [EditopenDrawer, setEditOpenDrawer] = useState(false);
-
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
@@ -142,14 +129,14 @@ function SensorVariableAccess({
     dispatch(
       getSensorDataByID({
         UserId: user?.UserId,
-        SensorType: 'variable',
+        SensorType: SensorVariableType ? 'variable' : 'setting',
       })
     );
     const intervalId = setInterval(() => {
       dispatch(
         getSensorDataByID({
           UserId: user?.UserId,
-          SensorType: 'variable',
+          SensorType: SensorVariableType ? 'variable' : 'setting',
         })
       );
       // Update last call time during each interval
@@ -160,7 +147,7 @@ function SensorVariableAccess({
     return () => clearInterval(intervalId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, page, SensorVariableType, rowsPerPage]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -247,7 +234,7 @@ function SensorVariableAccess({
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
+                  headLabel={SensorVariableType ? TABLE_HEAD : SETTINGS_TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
                   // onSort={onSort}
@@ -267,6 +254,7 @@ function SensorVariableAccess({
                         key={row.UserId}
                         row={row}
                         selected={selected.includes(row.UserId)}
+                        SensorVariableType={SensorVariableType}
                       />
                     ))
                   )}
@@ -295,14 +283,14 @@ function SensorVariableAccess({
   );
 }
 
-export default function SensorVariable() {
+export default function SensorVariable({ SensorVariableType = false }: { SensorVariableType?: boolean }) {
   const { accessControlCRUD } = useAuthContext();
 
   console.log('accessControlCRUD', accessControlCRUD);
 
   const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
 
-  return isView ? <SensorVariableAccess isUpdateRights={isUpdate} /> : <Page403 />;
+  return isView ? <SensorVariableAccess isUpdateRights={isUpdate} SensorVariableType={SensorVariableType} /> : <Page403 />;
 }
 
 // ----------------------------------------------------------------------

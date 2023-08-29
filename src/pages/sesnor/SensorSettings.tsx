@@ -1,35 +1,23 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { Helmet } from 'react-helmet-async';
-import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import * as types from 'src/pages/Roles/slice/action_type';
 // @mui
 import {
-  Tab,
-  Tabs,
   Card,
   Table,
-  Button,
   Tooltip,
-  Divider,
   TableBody,
   Container,
   IconButton,
   TableContainer,
-  Radio,
-  TableCell,
-  TableRow,
-  Dialog,
-  MenuItem,
 } from '@mui/material';
 // routes
-import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
 import moment from 'moment';
-import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
@@ -37,23 +25,18 @@ import { _userListData } from '../../_mock/arrays';
 // components
 import Iconify from '../../components/iconify';
 import Scrollbar from '../../components/scrollbar';
-import ConfirmDialog from '../../components/confirm-dialog';
-import CustomBreadcrumbs from '../../components/custom-breadcrumbs';
 import { useSettingsContext } from '../../components/settings';
 import {
   useTable,
   getComparator,
-  emptyRows,
   TableNoData,
-  TableEmptyRows,
   TableHeadCustom,
   TableSelectedAction,
   TablePaginationCustom,
 } from '../../components/table';
 // sections
 import SensorSettingsTableRow from './SensorSettingsTableRow';
-import { getSensorDataByID, updateSensorByID } from './slice/action';
-import { slice } from './slice';
+import { getSensorDataByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
@@ -92,13 +75,9 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
     orderBy,
     rowsPerPage,
     setPage,
-    //
     selected,
-    setSelected,
     onSelectRow,
     onSelectAllRows,
-    //
-    onSort,
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
@@ -106,7 +85,7 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, isSensorUpdateLoading, sensorData, sensorUpdateData } = useSelector(
+  const { isSensorLoading, sensorData } = useSelector(
     (state) => state.sensor
   );
 

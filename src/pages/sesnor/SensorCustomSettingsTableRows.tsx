@@ -1,26 +1,7 @@
-import { useState } from 'react';
-// @mui
 import {
-  Stack,
-  Avatar,
-  Button,
-  Checkbox,
   TableRow,
-  MenuItem,
   TableCell,
-  IconButton,
-  Typography,
-  Dialog,
-  Box,
 } from '@mui/material';
-// @types
-import { IUserAccountGeneral } from 'src/@types/user';
-// components
-import { useAuthContext } from 'src/auth/useAuthContext';
-import AuthNewPasswordForm from 'src/sections/auth/AuthNewPasswordForm';
-import Iconify from '../../components/iconify';
-import MenuPopover from '../../components/menu-popover';
-import ConfirmDialog from '../../components/confirm-dialog';
 
 // ----------------------------------------------------------------------
 

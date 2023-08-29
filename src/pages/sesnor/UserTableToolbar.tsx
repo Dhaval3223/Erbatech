@@ -78,18 +78,17 @@ export default function SensorTableToolbar({
             Clear
           </Button>
         )}
-      </Stack>
-
-      {isCreateButton && isCreateRights && (
+        {isCreateButton && isCreateRights && (
         <Button
           variant="contained"
-          sx={{ flexShrink: 0 }}
+          sx={{ flexShrink: 0, ml: '20px' }}
           onClick={handleCreateClick}
           // startIcon={<Iconify icon="eva:trash-2-outline" />}
         >
           {createButtonLable}
         </Button>
       )}
+      </Stack>
       {lastUpdateStatus && (
         <Typography variant="h6" color="#637381" paragraph>
           {`Last data loaded time: ${lastLoadingTime}`}
