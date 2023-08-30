@@ -38,22 +38,23 @@ import SensorVariableTableRow from './SensorVariableTableRow';
 import { getSensorDataByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
+import { slice } from './slice';
 
 const TABLE_HEAD = [
-  { id: 'SensorVariableDescription', label: 'SensorVariableDescription', align: 'left' },
-  { id: 'SensorVariableName', label: 'SensorVariableName', align: 'left' },
-  { id: 'SensorVariableRange', label: 'SensorVariableRange', align: 'left' },
-  { id: 'SensorVariableUnit', label: 'SensorVariableUnit', align: 'left' },
-  { id: 'SensorVariableValue', label: 'SensorVariableValue', align: 'left' },
+  { id: 'description', label: 'Description', align: 'left' },
+  { id: 'name', label: 'Name', align: 'left' },
+  { id: 'range', label: 'Range', align: 'left' },
+  { id: 'unit', label: 'Unit', align: 'left' },
+  { id: 'value', label: 'Value', align: 'left' },
   // { id: 'action', label: 'Action', align: 'left' },
 ];
 
 const SETTINGS_TABLE_HEAD = [
-  { id: 'SensorSettingDescription', label: 'SensorSettingDescription', align: 'left' },
-  { id: 'SensorSettingGroup', label: 'SensorSettingGroup', align: 'left' },
-  { id: 'SensorSettingIdentifier', label: 'SensorSettingIdentifier', align: 'left' },
-  { id: 'SensorSettingLocation', label: 'SensorSettingLocation', align: 'left' },
-  { id: 'SensorSettingValue', label: 'SensorSettingValue', align: 'left' },
+  { id: 'description', label: 'Description', align: 'left' },
+  { id: 'group', label: 'Group', align: 'left' },
+  { id: 'identifier', label: 'Identifier', align: 'left' },
+  { id: 'location', label: 'Location', align: 'left' },
+  { id: 'value', label: 'Value', align: 'left' },
 ];
 
 const ROWS = [
@@ -95,7 +96,7 @@ function SensorVariableAccess({
     onChangePage,
     onChangeRowsPerPage,
   } = useTable({
-    defaultRowsPerPage: 25
+    defaultRowsPerPage: 25,
   });
 
   const dispatch = useDispatch();
@@ -126,13 +127,14 @@ function SensorVariableAccess({
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   useEffect(() => {
+    dispatch(slice.actions.startLoading());
     dispatch(
       getSensorDataByID({
         userId: user?.UserId,
         sensorType: SensorVariableType ? 'variable' : 'setting',
-        searchValue: '',
-        page: '1',
-        limit: '25',
+        searchValue: filterName,
+        page: String(page + 1),
+        limit: String(rowsPerPage),
       })
     );
     const intervalId = setInterval(() => {
@@ -146,14 +148,14 @@ function SensorVariableAccess({
         })
       );
       // Update last call time during each interval
-      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
     }, 60000);
+    setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, SensorVariableType, rowsPerPage]);
+  }, [dispatch, page, SensorVariableType, rowsPerPage, filterName]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -268,7 +270,7 @@ function SensorVariableAccess({
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
                   /> */}
-                  {!isSensorLoading && <TableNoData isNotFound={ROWS?.length === 0} />}
+                  {!isSensorLoading && <TableNoData isNotFound={sensorData?.count?.length === 0} />}
                 </TableBody>
               </Table>
             </Scrollbar>

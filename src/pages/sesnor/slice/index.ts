@@ -14,28 +14,32 @@ const slice = createSlice({
   initialState,
   reducers: {
     startLoading(state) {
-        state.isSensorLoading = true;
-      },
-      getSensorRecords(state, action) {
-        state.isSensorLoading = false;
-        state.sensorData = action.payload?.data;
-      },
-      hasError(state, action) {
-        state.isSensorLoading = false;
-        state.error = action.payload;
-      },
-      startUpdateLoading(state) {
-        state.isSensorUpdateLoading = true;
-      },
-      getSensorUpdatedRecords(state, action) {
-        state.isSensorUpdateLoading = false;
-        state.sensorUpdateData = action.payload;
-      },
-      hasUpdatedError(state, action) {
-        state.isSensorUpdateLoading = false;
-        state.error = action.payload;
-      },
-  }
+      state.isSensorLoading = true;
+    },
+    getSensorRecords(state, action) {
+      state.isSensorLoading = false;
+      state.sensorData = action.payload?.data;
+    },
+    hasError(state, action) {
+      state.isSensorLoading = false;
+      state.error = action.payload;
+    },
+    startUpdateLoading(state) {
+      state.isSensorUpdateLoading = true;
+    },
+    getSensorUpdatedRecords(state, action) {
+      state.isSensorUpdateLoading = false;
+      state.sensorUpdateData = action.payload;
+    },
+    resetSensorUpdatedRecords(state) {
+      state.isSensorUpdateLoading = false;
+      state.sensorUpdateData = {};
+    },
+    hasUpdatedError(state, action) {
+      state.isSensorUpdateLoading = false;
+      state.error = action.payload;
+    },
+  },
 });
 
 // Reducer

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import * as types from 'src/pages/Roles/slice/action_type';
+import { useSnackbar } from 'src/components/snackbar';
 // @mui
 import {
   Card,
@@ -35,16 +36,17 @@ import {
 } from '../../components/table';
 // sections
 import SensorCustomSettingsTableRows from './SensorCustomSettingsTableRows';
-import { getSensorDataByID } from './slice/action';
+import { getSensorDataByID, updateSensorByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
+import { slice } from './slice';
 
 const TABLE_HEAD = [
-  { id: 'SensorCustomSettingDescription', label: 'SensorCustomSettingDescription', align: 'left' },
-  { id: 'SensorCustomSettingParameter', label: 'SensorCustomSettingParameter', align: 'left' },
-  { id: 'SensorCustomSettingRange', label: 'SensorCustomSettingRange', align: 'left' },
-  { id: 'SensorCustomSettingUnit', label: 'SensorCustomSettingUnit', align: 'left' },
-  { id: 'SensorCustomSettingValue', label: 'SensorCustomSettingValue', align: 'left' },
+  { id: 'Description', label: 'Description', align: 'left' },
+  { id: 'Value', label: 'Value', align: 'left' },
+  { id: 'Parameter', label: 'Parameter', align: 'left' },
+  { id: 'Range', label: 'Range', align: 'left' },
+  { id: 'Unit', label: 'Unit', align: 'left' },
 ];
 
 const ROWS = [
@@ -84,11 +86,15 @@ function SensorCustomSettingAccess({
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
-  } = useTable();
+  } = useTable({
+    defaultRowsPerPage: 25,
+  });
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData } = useSelector((state) => state.sensor);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const { isSensorLoading, sensorData, sensorUpdateData } = useSelector((state) => state.sensor);
 
   const { themeStretch } = useSettingsContext();
 
@@ -110,6 +116,22 @@ function SensorCustomSettingAccess({
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
+  const [editingId, setEditingId] = useState(-1);
+
+  const [updateData, setUpdateData] = useState({
+    userId: '',
+    index: 1,
+    sensorType: 'custom-setting',
+    data: {
+      SensorCustomSettingUnit: '',
+      SensorCustomSettingRange: '',
+      SensorCustomSettingValue: -1,
+      SensorCustomSettingMasterId: '',
+      SensorCustomSettingParameter: '',
+      SensorCustomSettingDescription: '',
+    },
+  });
+
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   const dataFiltered = applyFilter({
@@ -126,13 +148,14 @@ function SensorCustomSettingAccess({
   }, []);
 
   useEffect(() => {
+    dispatch(slice.actions.startLoading());
     dispatch(
       getSensorDataByID({
         userId: user?.UserId,
-        sensorType: 'custome-setting',
-        searchValue: '',
-        page: '1',
-        limit: '25',
+        sensorType: 'custom-setting',
+        searchValue: filterName,
+        page: String(page + 1),
+        limit: String(rowsPerPage),
       })
     );
 
@@ -142,7 +165,7 @@ function SensorCustomSettingAccess({
       dispatch(
         getSensorDataByID({
           userId: user?.UserId,
-          sensorType: 'custome-setting',
+          sensorType: 'custom-setting',
           searchValue: '',
           page: '1',
           limit: '25',
@@ -155,7 +178,42 @@ function SensorCustomSettingAccess({
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
+  }, [dispatch, filterName, rowsPerPage, page]);
+
+  useEffect(() => {
+    if (sensorUpdateData?.success) {
+      enqueueSnackbar(sensorUpdateData?.message, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetSensorUpdatedRecords());
+      dispatch(slice.actions.startLoading());
+      dispatch(
+        getSensorDataByID({
+          userId: user?.UserId,
+          sensorType: 'custom-setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    if (sensorUpdateData?.success === false) {
+      enqueueSnackbar(sensorUpdateData?.message, {
+        variant: 'error',
+      });
+      dispatch(
+        getSensorDataByID({
+          userId: user?.UserId,
+          sensorType: 'custom-setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    console.log(sensorUpdateData, 'sensorUpdateData');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sensorUpdateData]);
 
   const handleFilterName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
@@ -191,6 +249,33 @@ function SensorCustomSettingAccess({
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
   };
+
+  const handleCellDoubleClick = (id: number, row: any) => {
+    setEditingId(id);
+    setUpdateData({
+      userId: user?.UserId,
+      index: rowsPerPage * page + (id + 1),
+      sensorType: 'custom-setting',
+      data: { ...row },
+    });
+  };
+
+  const handleOnChangeUpdate = (e: any) => {
+    setUpdateData({
+      ...updateData,
+      data: {
+        ...updateData.data,
+        SensorCustomSettingValue: e.target.value,
+      },
+    });
+  };
+
+  const handleBlurApiCall = () => {
+    setEditingId(-1);
+    console.log(updateData, 'updateData');
+    dispatch(updateSensorByID({ ...updateData }));
+  };
+
   return (
     <>
       <Helmet>
@@ -255,7 +340,7 @@ function SensorCustomSettingAccess({
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    sensorData?.SensorCustomSettingData?.map((row: any) => (
+                    sensorData?.rows?.map((row: any, index: number) => (
                       <SensorCustomSettingsTableRows
                         key={row.UserId}
                         row={row}
@@ -265,6 +350,11 @@ function SensorCustomSettingAccess({
                         onDeleteRow={() => handleDeleteRow(row.UserId)}
                         isDeleteRights={isDeleteRights}
                         isUpdateRights={isUpdateRights}
+                        editingId={editingId}
+                        handleBlur={handleBlurApiCall}
+                        handleCellDoubleClick={handleCellDoubleClick}
+                        index={index}
+                        handleOnChangeUpdate={handleOnChangeUpdate}
                       />
                     ))
                   )}
@@ -272,15 +362,16 @@ function SensorCustomSettingAccess({
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
                   /> */}
-                  {!isSensorLoading && <TableNoData isNotFound={ROWS?.length === 0} />}
+                  {!isSensorLoading && <TableNoData isNotFound={sensorData?.count === 0} />}
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
 
           <TablePaginationCustom
-            count={ROWS?.length}
+            count={sensorData?.count}
             page={page}
+            rowsPerPageOptions={[25, 50, 100]}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}

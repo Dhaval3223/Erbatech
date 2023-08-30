@@ -16,7 +16,7 @@ import { slice } from '.';
     limit: string;
   }){
     return async (dispatch: Dispatch) => {
-    dispatch(slice.actions.startLoading());
+    // dispatch(slice.actions.startLoading());
       try {
         const response = await axios.post(GET_SENSOR_BY_ID, data);
         dispatch(slice.actions.getSensorRecords(response.data));
@@ -28,7 +28,7 @@ import { slice } from '.';
 
   export function updateSensorByID(data: any){
     return async (dispatch: Dispatch) => {
-    dispatch(slice.actions.startUpdateLoading());
+    // dispatch(slice.actions.startUpdateLoading());
       try {
         const response = await axios.post(UPDATE_SENSOR_BY_ID, data);
         dispatch(slice.actions.getSensorUpdatedRecords(response.data));

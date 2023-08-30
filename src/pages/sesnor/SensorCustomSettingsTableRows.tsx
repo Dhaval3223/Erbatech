@@ -1,7 +1,5 @@
-import {
-  TableRow,
-  TableCell,
-} from '@mui/material';
+import { TableRow, TableCell, TextField } from '@mui/material';
+import { useState } from 'react';
 
 // ----------------------------------------------------------------------
 
@@ -14,6 +12,11 @@ type Props = {
   onDeleteRow?: VoidFunction;
   isDeleteRights: boolean;
   isUpdateRights: boolean;
+  editingId: any;
+  handleBlur: any;
+  handleCellDoubleClick: any;
+  handleOnChangeUpdate: any;
+  index: number;
 };
 
 export default function SensorCustomSettingsTableRows({
@@ -25,14 +28,38 @@ export default function SensorCustomSettingsTableRows({
   onDeleteRow,
   isDeleteRights,
   isUpdateRights,
+  editingId,
+  handleBlur,
+  handleCellDoubleClick,
+  index,
+  handleOnChangeUpdate,
 }: Props) {
+
   return (
     <TableRow hover selected={selected}>
-    <TableCell align="left">{row?.SensorCustomSettingDescription}</TableCell>
-    <TableCell align="left">{row?.SensorCustomSettingParameter}</TableCell>
-    <TableCell align="left">{row?.SensorCustomSettingRange}</TableCell>
-    <TableCell align="left">{row?.SensorCustomSettingUnit}</TableCell>
-    <TableCell align="left">{row?.SensorCustomSettingValue}</TableCell>
-  </TableRow>
+      <TableCell align="left" sx={{ width: '25%' }}>
+        {row?.SensorCustomSettingDescription}
+      </TableCell>
+      <TableCell align="left" onDoubleClick={() => handleCellDoubleClick(index, row)}>
+        {editingId === index ? (
+          <TextField
+            value={row.name}
+            onChange={handleOnChangeUpdate}
+            onBlur={handleBlur}
+          />
+        ) : (
+          row?.SensorCustomSettingValue || '-'
+        )}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '20%' }}>
+        {row?.SensorCustomSettingParameter}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '20%' }}>
+        {row?.SensorCustomSettingRange}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '20%' }}>
+        {row?.SensorCustomSettingUnit}
+      </TableCell>
+    </TableRow>
   );
 }
