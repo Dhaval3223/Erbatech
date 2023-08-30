@@ -34,19 +34,18 @@ export default function SensorCustomSettingsTableRows({
   index,
   handleOnChangeUpdate,
 }: Props) {
-
   return (
     <TableRow hover selected={selected}>
       <TableCell align="left" sx={{ width: '25%' }}>
         {row?.SensorCustomSettingDescription}
       </TableCell>
-      <TableCell align="left" onDoubleClick={() => handleCellDoubleClick(index, row)}>
+      <TableCell
+        align="left"
+        sx={{ width: '20%' }}
+        onDoubleClick={() => handleCellDoubleClick(index, row)}
+      >
         {editingId === index ? (
-          <TextField
-            value={row.name}
-            onChange={handleOnChangeUpdate}
-            onBlur={handleBlur}
-          />
+          <TextField value={row.name} onChange={handleOnChangeUpdate} onBlur={handleBlur} />
         ) : (
           row?.SensorCustomSettingValue || '-'
         )}
@@ -54,7 +53,7 @@ export default function SensorCustomSettingsTableRows({
       <TableCell align="left" sx={{ width: '20%' }}>
         {row?.SensorCustomSettingParameter}
       </TableCell>
-      <TableCell align="left" sx={{ width: '20%' }}>
+      <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorCustomSettingRange}
       </TableCell>
       <TableCell align="left" sx={{ width: '20%' }}>

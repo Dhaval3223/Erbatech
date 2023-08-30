@@ -125,7 +125,7 @@ function SensorCustomSettingAccess({
     data: {
       SensorCustomSettingUnit: '',
       SensorCustomSettingRange: '',
-      SensorCustomSettingValue: -1,
+      SensorCustomSettingValue: '',
       SensorCustomSettingMasterId: '',
       SensorCustomSettingParameter: '',
       SensorCustomSettingDescription: '',
@@ -273,6 +273,7 @@ function SensorCustomSettingAccess({
   const handleBlurApiCall = () => {
     setEditingId(-1);
     console.log(updateData, 'updateData');
+    if (updateData.data.SensorCustomSettingValue === '') return;
     dispatch(updateSensorByID({ ...updateData }));
   };
 
