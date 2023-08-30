@@ -39,7 +39,6 @@ import { getSensorDataByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
-
 const TABLE_HEAD = [
   { id: 'SensorCustomSettingDescription', label: 'SensorCustomSettingDescription', align: 'left' },
   { id: 'SensorCustomSettingParameter', label: 'SensorCustomSettingParameter', align: 'left' },
@@ -89,9 +88,7 @@ function SensorCustomSettingAccess({
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData } = useSelector(
-    (state) => state.sensor
-  );
+  const { isSensorLoading, sensorData } = useSelector((state) => state.sensor);
 
   const { themeStretch } = useSettingsContext();
 
@@ -131,8 +128,11 @@ function SensorCustomSettingAccess({
   useEffect(() => {
     dispatch(
       getSensorDataByID({
-        UserId: user?.UserId,
-        SensorType: 'custome-setting',
+        userId: user?.UserId,
+        sensorType: 'custome-setting',
+        searchValue: '',
+        page: '1',
+        limit: '25',
       })
     );
 
@@ -141,8 +141,11 @@ function SensorCustomSettingAccess({
     const intervalId = setInterval(() => {
       dispatch(
         getSensorDataByID({
-          UserId: user?.UserId,
-          SensorType: 'custome-setting',
+          userId: user?.UserId,
+          sensorType: 'custome-setting',
+          searchValue: '',
+          page: '1',
+          limit: '25',
         })
       );
       // Update last call time during each interval

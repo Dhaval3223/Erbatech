@@ -94,20 +94,20 @@ function SensorVariableAccess({
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
-  } = useTable();
+  } = useTable({
+    defaultRowsPerPage: 25
+  });
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData } = useSelector(
-    (state) => state?.sensor
-  );
+  const { isSensorLoading, sensorData } = useSelector((state) => state?.sensor);
 
   console.log('sensorData', sensorData);
 
   const { themeStretch } = useSettingsContext();
 
   const { user } = useAuthContext();
-  console.log("user", user)
+  console.log('user', user);
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -128,15 +128,21 @@ function SensorVariableAccess({
   useEffect(() => {
     dispatch(
       getSensorDataByID({
-        UserId: user?.UserId,
-        SensorType: SensorVariableType ? 'variable' : 'setting',
+        userId: user?.UserId,
+        sensorType: SensorVariableType ? 'variable' : 'setting',
+        searchValue: '',
+        page: '1',
+        limit: '25',
       })
     );
     const intervalId = setInterval(() => {
       dispatch(
         getSensorDataByID({
-          UserId: user?.UserId,
-          SensorType: SensorVariableType ? 'variable' : 'setting',
+          userId: user?.UserId,
+          sensorType: SensorVariableType ? 'variable' : 'setting',
+          searchValue: '',
+          page: '1',
+          limit: '25',
         })
       );
       // Update last call time during each interval
@@ -249,7 +255,7 @@ function SensorVariableAccess({
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
-                    sensorData?.SensorVariableData?.map((row: any, index: any) => (
+                    sensorData?.rows?.map((row: any, index: any) => (
                       <SensorVariableTableRow
                         key={row.UserId}
                         row={row}
@@ -269,9 +275,10 @@ function SensorVariableAccess({
           </TableContainer>
 
           <TablePaginationCustom
-            count={ROWS?.length}
+            count={sensorData?.count}
             page={page}
             rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={[25, 50, 100]}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
             dense={dense}
@@ -283,14 +290,22 @@ function SensorVariableAccess({
   );
 }
 
-export default function SensorVariable({ SensorVariableType = false }: { SensorVariableType?: boolean }) {
+export default function SensorVariable({
+  SensorVariableType = false,
+}: {
+  SensorVariableType?: boolean;
+}) {
   const { accessControlCRUD } = useAuthContext();
 
   console.log('accessControlCRUD', accessControlCRUD);
 
   const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
 
-  return isView ? <SensorVariableAccess isUpdateRights={isUpdate} SensorVariableType={SensorVariableType} /> : <Page403 />;
+  return isView ? (
+    <SensorVariableAccess isUpdateRights={isUpdate} SensorVariableType={SensorVariableType} />
+  ) : (
+    <Page403 />
+  );
 }
 
 // ----------------------------------------------------------------------

@@ -121,16 +121,22 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
   useEffect(() => {
     dispatch(
       getSensorDataByID({
-        UserId: user?.UserId,
-        SensorType: 'setting',
+        userId: user?.UserId,
+        sensorType: 'setting',
+        searchValue: '',
+          page: '1',
+          limit: '25',
       })
     );
 
     const intervalId = setInterval(() => {
       dispatch(
         getSensorDataByID({
-          UserId: user?.UserId,
-          SensorType: 'setting',
+          userId: user?.UserId,
+          sensorType: 'setting',
+          searchValue: '',
+          page: '1',
+          limit: '25',
         })
       );
       // Update last call time during each interval
