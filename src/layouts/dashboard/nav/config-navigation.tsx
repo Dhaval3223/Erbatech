@@ -244,7 +244,7 @@ const navConfig = [
   {
     subheader: 'general',
     items: [
-      // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard },
+     // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard, code: 'PG001' },
       {
         title: 'role',
         path: PATH_DASHBOARD.general.roles,
@@ -268,6 +268,24 @@ const navConfig = [
         path: PATH_DASHBOARD.general.accessControl,
         icon: ICONS.banking,
         code: 'PG005',
+      },
+      {
+        title: 'sensor variable',
+        path: PATH_DASHBOARD.general.sensorVariable,
+        icon: ICONS.banking,
+        code: 'PG006',
+      },
+      {
+        title: 'sensor setting',
+        path: PATH_DASHBOARD.general.sensorSetting,
+        icon: ICONS.banking,
+        code: 'PG007',
+      },
+      {
+        title: 'sensor custom setting',
+        path: PATH_DASHBOARD.general.sensorCustomSetting,
+        icon: ICONS.banking,
+        code: 'PG008',
       },
       // { title: 'sensor variable', path: PATH_DASHBOARD.general.sensorVariable, icon: ICONS.booking },
       // { title: 'sensor setting', path: PATH_DASHBOARD.general.sensorSetting, icon: ICONS.file },

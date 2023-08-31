@@ -131,6 +131,9 @@ import {
   CustomerManagement,
   AccessControl,
   RolesPage,
+  SensorVariable,
+  SensorSetting,
+  SensorCustomSetting,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -204,6 +207,9 @@ export default function Router() {
         { path: 'roles', element: <RolesPage /> },
         { path: 'user-management', element: <UserListingPage user /> },
         { path: 'customer-management', element: <UserListingPage /> },
+        { path: 'sensor-variable', element: <SensorVariable  SensorVariableType /> },
+        { path: 'sensor-setting', element: <SensorVariable /> },
+        { path: 'sensor-custom-setting', element: <SensorCustomSetting /> },
         // { path: 'customer-management', element: <CustomerManagement /> },
         { path: 'access-control', element: <AccessControl /> },
         { path: 'userList', element: <UserListingPage /> },

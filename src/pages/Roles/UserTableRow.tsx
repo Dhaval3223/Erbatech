@@ -1,18 +1,13 @@
 import { useState } from 'react';
 // @mui
 import {
-  Stack,
-  Avatar,
   Button,
-  Checkbox,
   TableRow,
   MenuItem,
   TableCell,
   IconButton,
-  Typography,
 } from '@mui/material';
 // @types
-import { IUserAccountGeneral } from 'src/@types/user';
 // components
 import Iconify from '../../components/iconify';
 import MenuPopover from '../../components/menu-popover';

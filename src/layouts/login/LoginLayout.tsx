@@ -27,9 +27,9 @@ export default function LoginLayout({ children, illustration, title }: Props) {
       />
 
       <StyledSection>
-        <Typography variant="h3" sx={{ mb: 10, textAlign: 'center' }}>
+        {/* <Typography variant="h3" sx={{ mb: 10, textAlign: 'center' }}>
           {title || 'Soblue Sensor Monitoring System'}
-        </Typography>
+        </Typography> */}
 
         <Image
           disabledEffect
