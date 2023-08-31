@@ -134,12 +134,12 @@ import {
   SensorVariable,
   SensorSetting,
   SensorCustomSetting,
+  ReportsPage,
 } from './elements';
 
 // ----------------------------------------------------------------------
 
 export default function Router() {
-
   // const { pathAfterLogIn } = useAuthContext();
 
   // const PATH_AFTER_LOGIN = pathAfterLogIn;
@@ -207,11 +207,15 @@ export default function Router() {
         { path: 'roles', element: <RolesPage /> },
         { path: 'user-management', element: <UserListingPage user /> },
         { path: 'customer-management', element: <UserListingPage /> },
-        { path: 'sensor-variable', element: <SensorVariable  SensorVariableType /> },
+        { path: 'sensor-variable', element: <SensorVariable SensorVariableType /> },
         { path: 'sensor-setting', element: <SensorVariable /> },
         { path: 'sensor-custom-setting', element: <SensorCustomSetting /> },
         // { path: 'customer-management', element: <CustomerManagement /> },
         { path: 'access-control', element: <AccessControl /> },
+        {
+          path: 'reports',
+          element: <ReportsPage />
+        },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },
         { path: 'ecommerce', element: <GeneralEcommercePage /> },
@@ -293,9 +297,14 @@ export default function Router() {
     {
       element: <MainLayout />,
       children: [
-        { element: <GuestGuard>
-          <LoginPage />
-        </GuestGuard>, index: true },
+        {
+          element: (
+            <GuestGuard>
+              <LoginPage />
+            </GuestGuard>
+          ),
+          index: true,
+        },
         { path: 'about-us', element: <AboutPage /> },
         { path: 'contact-us', element: <Contact /> },
         { path: 'faqs', element: <FaqsPage /> },

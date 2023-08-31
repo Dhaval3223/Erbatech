@@ -244,7 +244,7 @@ const navConfig = [
   {
     subheader: 'general',
     items: [
-     // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard, code: 'PG001' },
+      // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard, code: 'PG001' },
       {
         title: 'role',
         path: PATH_DASHBOARD.general.roles,
@@ -292,7 +292,118 @@ const navConfig = [
       // { title: 'sensor custom setting', path: PATH_DASHBOARD.general.sensorCustomSetting, icon: ICONS.file },
       // { title: 'PLC Alert', path: PATH_DASHBOARD.general.plcAlert, icon: ICONS.file },
       // { title: 'collector performamce', path: PATH_DASHBOARD.general.collectorPerformance, icon: ICONS.file },
-      // { title: 'Reports', path: PATH_DASHBOARD.general.reports, icon: ICONS.analytics },
+      // {
+      //   title: 'Reports',
+      //   path: PATH_DASHBOARD.general.reports,
+      //   icon: ICONS.analytics,
+      //   code: 'PG008',
+      // },
+      {
+        title: 'Reports',
+        path: PATH_DASHBOARD.general.reports,
+        icon: ICONS.analytics,
+        code: 'PG008',
+        children: [
+          {
+            title: 'Yeilds',
+            path: '#/yeilds',
+            children: [
+              {
+                title: 'yeilds-table',
+                path: '#/yeilds/table',
+              },
+              {
+                title: 'yeilds-report',
+                path: '#/yeilds/report',
+              },
+            ],
+          },
+          {
+            title: 'Weather',
+            path: '#/weather',
+            children: [
+              {
+                title: 'weather-table',
+                path: '#/weather/table',
+              },
+              {
+                title: 'weather-report',
+                path: '#/weather/report',
+              },
+            ],
+          },
+          {
+            title: 'Temprature',
+            path: '#/temprature',
+            children: [
+              {
+                title: 'temprature-table',
+                path: '#/temprature/table',
+              },
+              {
+                title: 'temprature-report',
+                path: '#/temprature/report',
+              },
+            ],
+          },
+          {
+            title: 'SV Heat Transfer',
+            path: '#/sv-heat-transfer',
+            children: [
+              {
+                title: 'sv-heat-transfer-table',
+                path: '#/sv-heat-transfer/table',
+              },
+              {
+                title: 'sv-heat-transfer-report',
+                path: '#/sv-heat-transfer/report',
+              },
+            ],
+          },
+          {
+            title: 'Stratefied Tank',
+            path: '#/stratefied-tank',
+            children: [
+              {
+                title: 'stratefied-tank-table',
+                path: '#/stratefied-tank/table',
+              },
+              {
+                title: 'stratefied-tank-report',
+                path: '#/stratefied-tank/report',
+              },
+            ],
+          },
+          {
+            title: 'Operating Hours',
+            path: '#/operating-hours',
+            children: [
+              {
+                title: 'operating-hours-table',
+                path: '#/operating-hours/table',
+              },
+              {
+                title: 'operating-hours-report',
+                path: '#/operating-hours/report',
+              },
+            ],
+          },
+          {
+            title: 'SK Frequency And Pressure',
+            path: '#/sk-frequency-and-pressure',
+            children: [
+              {
+                title: 'sk-frequency-and-pressure-table',
+                path: '#/sk-frequency-and-pressure/table',
+              },
+              {
+                title: 'sk-frequency-and-pressure-report',
+                path: '#/sk-frequency-and-pressure/report',
+              },
+            ],
+          },
+        ],
+      },
       // { title: 'AWS integration status', path: PATH_DASHBOARD.general.awsIntegrationStatus, icon: ICONS.file },
       // { title: 'template master', path: PATH_DASHBOARD.general.templateMaster, icon: ICONS.file },
       // { title: 'template mapping', path: PATH_DASHBOARD.general.templateMapping, icon: ICONS.file },

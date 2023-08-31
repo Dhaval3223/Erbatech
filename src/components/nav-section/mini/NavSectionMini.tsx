@@ -35,21 +35,22 @@ type ItemsProps = {
 };
 
 function Items({ items, isLastGroup }: ItemsProps) {
-
   const { accessControlCRUD } = useAuthContext();
 
   return (
     <>
-      {items?.filter(
-                (item) =>
-                  accessControlCRUD &&
-                  accessControlCRUD !== null &&
-                  accessControlCRUD !== undefined &&
-                  accessControlCRUD[item?.code] !== undefined &&
-                  accessControlCRUD[item?.code]?.isView
-              )?.map((list) => (
-        <NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />
-      ))}
+      {items
+        ?.filter(
+          (item) =>
+            accessControlCRUD &&
+            accessControlCRUD !== null &&
+            accessControlCRUD !== undefined &&
+            accessControlCRUD[item?.code] !== undefined &&
+            accessControlCRUD[item?.code]?.isView
+        )
+        ?.map((list) => (
+          <NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />
+        ))}
 
       {!isLastGroup && (
         <Box
