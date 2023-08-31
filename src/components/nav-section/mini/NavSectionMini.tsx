@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Box, Stack } from '@mui/material';
 //
+import { useAuthContext } from 'src/auth/useAuthContext';
 import { NavSectionProps, NavListProps } from '../types';
 import NavList from './NavList';
 
@@ -34,9 +35,19 @@ type ItemsProps = {
 };
 
 function Items({ items, isLastGroup }: ItemsProps) {
+
+  const { accessControlCRUD } = useAuthContext();
+
   return (
     <>
-      {items.map((list) => (
+      {items?.filter(
+                (item) =>
+                  accessControlCRUD &&
+                  accessControlCRUD !== null &&
+                  accessControlCRUD !== undefined &&
+                  accessControlCRUD[item?.code] !== undefined &&
+                  accessControlCRUD[item?.code]?.isView
+              )?.map((list) => (
         <NavList key={list.title + list.path} data={list} depth={1} hasChild={!!list.children} />
       ))}
 

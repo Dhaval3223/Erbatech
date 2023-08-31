@@ -45,7 +45,12 @@ export default function SensorCustomSettingsTableRows({
         onDoubleClick={() => handleCellDoubleClick(index, row)}
       >
         {editingId === index ? (
-          <TextField value={row.name} onChange={handleOnChangeUpdate} onBlur={handleBlur} />
+          <TextField
+            value={row.name}
+            type="number"
+            onChange={handleOnChangeUpdate}
+            onBlur={handleBlur}
+          />
         ) : (
           row?.SensorCustomSettingValue || '-'
         )}
