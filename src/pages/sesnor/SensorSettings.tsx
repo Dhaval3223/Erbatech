@@ -41,11 +41,11 @@ import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 
 const TABLE_HEAD = [
-  { id: 'SensorSettingDescription', label: 'SensorSettingDescription', align: 'left' },
   { id: 'SensorSettingGroup', label: 'SensorSettingGroup', align: 'left' },
+  { id: 'SensorSettingValue', label: 'SensorSettingValue', align: 'left' },
   { id: 'SensorSettingIdentifier', label: 'SensorSettingIdentifier', align: 'left' },
   { id: 'SensorSettingLocation', label: 'SensorSettingLocation', align: 'left' },
-  { id: 'SensorSettingValue', label: 'SensorSettingValue', align: 'left' },
+  { id: 'SensorSettingDescription', label: 'SensorSettingDescription', align: 'left' },
 ];
 
 const ROWS = [

@@ -27,11 +27,11 @@ export default function SensorSettingsTableRow({
   console.log(user);
   return (
     <TableRow hover selected={selected}>
-      <TableCell align="left">{row?.SensorSettingDescription}</TableCell>
-      <TableCell align="left">{row?.SensorSettingGroup}</TableCell>
       <TableCell align="left">{row?.SensorSettingIdentifier}</TableCell>
-      <TableCell align="left">{row?.SensorSettingLocation}</TableCell>
       <TableCell align="left">{row?.SensorSettingValue}</TableCell>
+      <TableCell align="left">{row?.SensorSettingGroup}</TableCell>
+      <TableCell align="left">{row?.SensorSettingLocation}</TableCell>
+      <TableCell align="left">{row?.SensorSettingDescription}</TableCell>
     </TableRow>
   );
 }

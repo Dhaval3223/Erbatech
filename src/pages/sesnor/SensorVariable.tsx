@@ -41,20 +41,20 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 
 const TABLE_HEAD = [
-  { id: 'description', label: 'Description', align: 'left' },
-  { id: 'name', label: 'Name', align: 'left' },
-  { id: 'range', label: 'Range', align: 'left' },
-  { id: 'unit', label: 'Unit', align: 'left' },
+  { id: 'variable', label: 'Variable', align: 'left' },
   { id: 'value', label: 'Value', align: 'left' },
+  { id: 'unit', label: 'Unit', align: 'left' },
+  { id: 'range', label: 'Range', align: 'left' },
+  { id: 'description', label: 'Description', align: 'left' },
   // { id: 'action', label: 'Action', align: 'left' },
 ];
 
 const SETTINGS_TABLE_HEAD = [
-  { id: 'description', label: 'Description', align: 'left' },
   { id: 'group', label: 'Group', align: 'left' },
+  { id: 'value', label: 'Value', align: 'left' },
   { id: 'identifier', label: 'Identifier', align: 'left' },
   { id: 'location', label: 'Location', align: 'left' },
-  { id: 'value', label: 'Value', align: 'left' },
+  { id: 'description', label: 'Description', align: 'left' },
 ];
 
 const ROWS = [

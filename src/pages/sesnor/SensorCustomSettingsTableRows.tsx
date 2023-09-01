@@ -36,9 +36,10 @@ export default function SensorCustomSettingsTableRows({
 }: Props) {
   return (
     <TableRow hover selected={selected}>
-      <TableCell align="left" sx={{ width: '25%' }}>
-        {row?.SensorCustomSettingDescription}
+      <TableCell align="left" sx={{ width: '20%' }}>
+        {row?.SensorCustomSettingParameter}
       </TableCell>
+
       <TableCell
         align="left"
         sx={{ width: '20%' }}
@@ -55,14 +56,17 @@ export default function SensorCustomSettingsTableRows({
           row?.SensorCustomSettingValue || '-'
         )}
       </TableCell>
+
       <TableCell align="left" sx={{ width: '20%' }}>
-        {row?.SensorCustomSettingParameter}
+        {row?.SensorCustomSettingUnit}
       </TableCell>
+
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorCustomSettingRange}
       </TableCell>
-      <TableCell align="left" sx={{ width: '20%' }}>
-        {row?.SensorCustomSettingUnit}
+
+      <TableCell align="left" sx={{ width: '25%' }}>
+        {row?.SensorCustomSettingDescription}
       </TableCell>
     </TableRow>
   );
