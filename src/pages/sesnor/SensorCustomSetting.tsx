@@ -42,11 +42,11 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 
 const TABLE_HEAD = [
-  { id: 'Description', label: 'Description', align: 'left' },
+  { id: 'variables', label: 'Variables', align: 'left' },
   { id: 'Value', label: 'Value', align: 'left' },
-  { id: 'Parameter', label: 'Parameter', align: 'left' },
-  { id: 'Range', label: 'Range', align: 'left' },
   { id: 'Unit', label: 'Unit', align: 'left' },
+  { id: 'Range', label: 'Range', align: 'left' },
+  { id: 'Description', label: 'Description', align: 'left' },
 ];
 
 const ROWS = [
