@@ -41,6 +41,7 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 
 const TABLE_HEAD = [
+  { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'variable', label: 'Variable', align: 'left' },
   { id: 'value', label: 'Value', align: 'left' },
   { id: 'unit', label: 'Unit', align: 'left' },
@@ -50,11 +51,12 @@ const TABLE_HEAD = [
 ];
 
 const SETTINGS_TABLE_HEAD = [
+  { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'group', label: 'Group', align: 'left' },
-  { id: 'value', label: 'Value', align: 'left' },
   { id: 'identifier', label: 'Identifier', align: 'left' },
-  { id: 'location', label: 'Location', align: 'left' },
+  { id: 'value', label: 'Value', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
+  { id: 'location', label: 'Location', align: 'left' },
 ];
 
 const ROWS = [

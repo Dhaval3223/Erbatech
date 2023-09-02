@@ -42,6 +42,7 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 
 const TABLE_HEAD = [
+  { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'variables', label: 'Variables', align: 'left' },
   { id: 'Value', label: 'Value', align: 'left' },
   { id: 'Unit', label: 'Unit', align: 'left' },
@@ -261,6 +262,7 @@ function SensorCustomSettingAccess({
   };
 
   const handleOnChangeUpdate = (e: any) => {
+    if (e.target.value?.length > 10) return
     setUpdateData({
       ...updateData,
       data: {
@@ -295,7 +297,7 @@ function SensorCustomSettingAccess({
             onResetFilter={handleResetFilter}
             createButtonLable="+"
             handleCreateClick={handleOpenDrawer}
-            isCreateButton
+            // isCreateButton
             isCreateRights={isCreateRights}
             lastLoadingTime={lastLoadingTime}
             lastUpdateStatus
@@ -356,6 +358,7 @@ function SensorCustomSettingAccess({
                         handleCellDoubleClick={handleCellDoubleClick}
                         index={index}
                         handleOnChangeUpdate={handleOnChangeUpdate}
+                        updatedData={updateData}
                       />
                     ))
                   )}
