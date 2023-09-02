@@ -24,19 +24,22 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
     // const logo = (
     //   <Box
     //     component="img"
-    //     src="/logo/logo_single.svg" => your path
-    //     sx={{ width: 40, height: 40, cursor: 'pointer', ...sx }}
+    //     src="/logo/LogoSoblue.jpg"
+    //     sx={{ width: 200, height: 50, cursor: 'pointer', ...sx }}
     //   />
     // );
 
     const logo = (
     <Box component="img" src="/logo/LogoSoblue.jpg" alt="logo" sx={{
-      width:60,
-      height:40,
-      display: 'inline-flex',
-      position:!disabledLink ?'absolute' : 'unset',
-      ml:!disabledLink ? '10px' : '0px',
-      mt: !disabledLink ? '10px' : '0px'
+      width: 150,
+      height: 45,
+      background: 'transparent',
+      // display: 'inline-flex',
+      cursor: 'pointer',
+      ...sx
+      // position:!disabledLink ?'absolute' : 'unset',
+      // ml:!disabledLink ? '10px' : '0px',
+      // mt: !disabledLink ? '10px' : '0px'
     }}/>
     );
 
