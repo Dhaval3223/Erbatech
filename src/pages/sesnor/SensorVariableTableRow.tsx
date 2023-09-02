@@ -18,21 +18,45 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
 
   return SensorVariableType ? (
     <TableRow hover selected={selected}>
-      <TableCell align="left">{row?.SensorVariableName}</TableCell>
-      <TableCell align="left">
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorVariableDataTypes}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorVariableName}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorVariableValue ? row?.SensorVariableValue : '-'}
       </TableCell>
-      <TableCell align="left">{row?.SensorVariableUnit}</TableCell>
-      <TableCell align="left">{row?.SensorVariableRange}</TableCell>
-      <TableCell align="left">{row?.SensorVariableDescription}</TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorVariableUnit}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorVariableRange}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '25%' }}>
+        {row?.SensorVariableDescription}
+      </TableCell>
     </TableRow>
   ) : (
     <TableRow hover selected={selected}>
-      <TableCell align="left">{row?.SensorSettingDescription}</TableCell>
-      <TableCell align="left">{row?.SensorSettingValue ? row?.SensorSettingValue : '-'}</TableCell>
-      <TableCell align="left">{row?.SensorSettingGroup}</TableCell>
-      <TableCell align="left">{row?.SensorSettingIdentifier}</TableCell>
-      <TableCell align="left">{row?.SensorSettingLocation}</TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorSettingDataType ? row?.SensorSettingDataType : '-'}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorSettingGroup}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorSettingIdentifier}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '20%' }}>
+        {row?.SensorSettingDescription}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '15%' }}>
+        {row?.SensorSettingValue ? row?.SensorSettingValue : '-'}
+      </TableCell>
+      <TableCell align="left" sx={{ width: '20%' }}>
+        {row?.SensorSettingLocation}
+      </TableCell>
     </TableRow>
   );
 }

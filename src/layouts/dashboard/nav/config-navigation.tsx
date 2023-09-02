@@ -17,7 +17,9 @@ const ICONS = {
   cart: icon('ic_cart'),
   chat: icon('ic_chat'),
   mail: icon('ic_mail'),
+  role: icon('ic_role'),
   user: icon('ic_user'),
+  customer: icon('ic_customer'),
   file: icon('ic_file'),
   lock: icon('ic_lock'),
   label: icon('ic_label'),
@@ -34,6 +36,10 @@ const ICONS = {
   ecommerce: icon('ic_ecommerce'),
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
+  variable: icon('ic_sensor_variable'),
+  setting: icon('ic_sensor_setting'),
+  customSetting: icon('ic_sensor_costom_setting'),
+  accessControl: icon('ic_access_control'),
 };
 
 const storageAvailable = localStorageAvailable();
@@ -248,7 +254,7 @@ const navConfig = [
       {
         title: 'role',
         path: PATH_DASHBOARD.general.roles,
-        icon: ICONS.ecommerce,
+        icon: ICONS.role,
         code: 'PG002',
       },
       {
@@ -260,32 +266,138 @@ const navConfig = [
       {
         title: 'customer management',
         path: PATH_DASHBOARD.general.customerManagement,
-        icon: ICONS.user,
+        icon: ICONS.customer,
         code: 'PG004',
       },
       {
         title: 'access control',
         path: PATH_DASHBOARD.general.accessControl,
-        icon: ICONS.banking,
+        icon: ICONS.accessControl,
         code: 'PG005',
       },
       {
         title: 'sensor variable',
         path: PATH_DASHBOARD.general.sensorVariable,
-        icon: ICONS.banking,
+        icon: ICONS.variable,
         code: 'PG006',
       },
       {
         title: 'sensor setting',
         path: PATH_DASHBOARD.general.sensorSetting,
-        icon: ICONS.banking,
+        icon: ICONS.setting,
         code: 'PG007',
       },
       {
         title: 'sensor custom setting',
         path: PATH_DASHBOARD.general.sensorCustomSetting,
-        icon: ICONS.banking,
+        icon: ICONS.customSetting,
         code: 'PG008',
+      },
+      {
+        title: 'Reports',
+        path: PATH_DASHBOARD.general.reports,
+        icon: ICONS.analytics,
+        code: 'PG008',
+        children: [
+          {
+            title: 'Yields',
+            path: '#/yields',
+            children: [
+              {
+                title: 'yields table',
+                path: '#/yields/table',
+              },
+              {
+                title: 'yields report',
+                path: '#/yields/report',
+              },
+            ],
+          },
+          // {
+          //   title: 'Weather',
+          //   path: '#/weather',
+          //   children: [
+          //     {
+          //       title: 'weather-table',
+          //       path: '#/weather/table',
+          //     },
+          //     {
+          //       title: 'weather-report',
+          //       path: '#/weather/report',
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'Temprature',
+          //   path: '#/temprature',
+          //   children: [
+          //     {
+          //       title: 'temprature-table',
+          //       path: '#/temprature/table',
+          //     },
+          //     {
+          //       title: 'temprature-report',
+          //       path: '#/temprature/report',
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'SV Heat Transfer',
+          //   path: '#/sv-heat-transfer',
+          //   children: [
+          //     {
+          //       title: 'sv-heat-transfer-table',
+          //       path: '#/sv-heat-transfer/table',
+          //     },
+          //     {
+          //       title: 'sv-heat-transfer-report',
+          //       path: '#/sv-heat-transfer/report',
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'Stratefied Tank',
+          //   path: '#/stratefied-tank',
+          //   children: [
+          //     {
+          //       title: 'stratefied-tank-table',
+          //       path: '#/stratefied-tank/table',
+          //     },
+          //     {
+          //       title: 'stratefied-tank-report',
+          //       path: '#/stratefied-tank/report',
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'Operating Hours',
+          //   path: '#/operating-hours',
+          //   children: [
+          //     {
+          //       title: 'operating-hours-table',
+          //       path: '#/operating-hours/table',
+          //     },
+          //     {
+          //       title: 'operating-hours-report',
+          //       path: '#/operating-hours/report',
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: 'SK Frequency And Pressure',
+          //   path: '#/sk-frequency-and-pressure',
+          //   children: [
+          //     {
+          //       title: 'sk-frequency-and-pressure-table',
+          //       path: '#/sk-frequency-and-pressure/table',
+          //     },
+          //     {
+          //       title: 'sk-frequency-and-pressure-report',
+          //       path: '#/sk-frequency-and-pressure/report',
+          //     },
+          //   ],
+          // },
+        ],
       },
       // { title: 'sensor variable', path: PATH_DASHBOARD.general.sensorVariable, icon: ICONS.booking },
       // { title: 'sensor setting', path: PATH_DASHBOARD.general.sensorSetting, icon: ICONS.file },
@@ -298,112 +410,6 @@ const navConfig = [
       //   icon: ICONS.analytics,
       //   code: 'PG008',
       // },
-      {
-        title: 'Reports',
-        path: PATH_DASHBOARD.general.reports,
-        icon: ICONS.analytics,
-        code: 'PG008',
-        children: [
-          {
-            title: 'Yeilds',
-            path: '#/yeilds',
-            children: [
-              {
-                title: 'yeilds-table',
-                path: '#/yeilds/table',
-              },
-              {
-                title: 'yeilds-report',
-                path: '#/yeilds/report',
-              },
-            ],
-          },
-          {
-            title: 'Weather',
-            path: '#/weather',
-            children: [
-              {
-                title: 'weather-table',
-                path: '#/weather/table',
-              },
-              {
-                title: 'weather-report',
-                path: '#/weather/report',
-              },
-            ],
-          },
-          {
-            title: 'Temprature',
-            path: '#/temprature',
-            children: [
-              {
-                title: 'temprature-table',
-                path: '#/temprature/table',
-              },
-              {
-                title: 'temprature-report',
-                path: '#/temprature/report',
-              },
-            ],
-          },
-          {
-            title: 'SV Heat Transfer',
-            path: '#/sv-heat-transfer',
-            children: [
-              {
-                title: 'sv-heat-transfer-table',
-                path: '#/sv-heat-transfer/table',
-              },
-              {
-                title: 'sv-heat-transfer-report',
-                path: '#/sv-heat-transfer/report',
-              },
-            ],
-          },
-          {
-            title: 'Stratefied Tank',
-            path: '#/stratefied-tank',
-            children: [
-              {
-                title: 'stratefied-tank-table',
-                path: '#/stratefied-tank/table',
-              },
-              {
-                title: 'stratefied-tank-report',
-                path: '#/stratefied-tank/report',
-              },
-            ],
-          },
-          {
-            title: 'Operating Hours',
-            path: '#/operating-hours',
-            children: [
-              {
-                title: 'operating-hours-table',
-                path: '#/operating-hours/table',
-              },
-              {
-                title: 'operating-hours-report',
-                path: '#/operating-hours/report',
-              },
-            ],
-          },
-          {
-            title: 'SK Frequency And Pressure',
-            path: '#/sk-frequency-and-pressure',
-            children: [
-              {
-                title: 'sk-frequency-and-pressure-table',
-                path: '#/sk-frequency-and-pressure/table',
-              },
-              {
-                title: 'sk-frequency-and-pressure-report',
-                path: '#/sk-frequency-and-pressure/report',
-              },
-            ],
-          },
-        ],
-      },
       // { title: 'AWS integration status', path: PATH_DASHBOARD.general.awsIntegrationStatus, icon: ICONS.file },
       // { title: 'template master', path: PATH_DASHBOARD.general.templateMaster, icon: ICONS.file },
       // { title: 'template mapping', path: PATH_DASHBOARD.general.templateMapping, icon: ICONS.file },
