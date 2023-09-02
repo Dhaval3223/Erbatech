@@ -23,10 +23,11 @@ const slice = createSlice({
       };
     },
     handleGetReportData(state, action) {
+      console.log("data 1", action?.payload)
       return {
         ...state,
         isGetReportLoading: false,
-        reportsData: action.payload?.data?.data,
+        reportsData: action.payload,
       };
     },
     hasGetReportErr(state, action) {

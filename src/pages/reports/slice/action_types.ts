@@ -1,1 +1,1 @@
-export const GET_REPORT = '';
+export const GET_REPORT = '/transactions/getTransactionsByName';

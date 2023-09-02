@@ -76,12 +76,13 @@ export const CustomerListingPage = Loadable(lazy(() => import('../pages/user')))
 export const CustomerManagement = Loadable(lazy(() => import('../pages/customerManagement')));
 export const AccessControl = Loadable(lazy(() => import('../pages/accessControl')));
 export const UserAccountPage = Loadable(lazy(() => import('../pages/dashboard/UserAccountPage')));
-export const ReportsPage = Loadable(lazy(() => import('../pages/reports')));
+export const ReportsPage = Loadable(lazy(() => import('../pages/reports/ScatterChart')));
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));
 export const SensorVariable = Loadable(lazy(() => import('../pages/sesnor/SensorVariable')));
 export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorSettings')));
 export const SensorCustomSetting = Loadable(lazy(() => import('../pages/sesnor/SensorCustomSetting')));
+export const YieldTable = Loadable(lazy(() => import('../pages/reports/YieldTable')));
 
 // DASHBOARD: BLOG
 export const BlogPostsPage = Loadable(lazy(() => import('../pages/dashboard/BlogPostsPage')));

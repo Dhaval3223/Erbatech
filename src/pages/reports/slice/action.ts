@@ -6,7 +6,7 @@ import { slice } from '.';
 import { GET_REPORT } from './action_types';
 // ----------------------------------------------------------------------
 
-export function getAllRoles(params: { TransactionTopicName: string; page: string; limit: string }) {
+export function getAllReportsData(params: { TransactionTopicName: string; page: number; limit: number }) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startGetReportsLoading());
     try {
