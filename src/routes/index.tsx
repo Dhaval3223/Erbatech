@@ -218,16 +218,24 @@ export default function Router() {
           element: <ReportsPage />,
           children: [
             {
-              path: '#/yields',
+              path: 'yields',
               element: <UserListPage />,
               children: [
                 {
-                  path: '#/yields/table',
+                  path: 'yields/table',
+                  element: <YieldTable />,
+                },
+                {
+                  path: 'yields/report',
                   element: <YieldTable />,
                 },
               ],
             },
           ],
+        },
+        {
+          path: 'yields/table',
+          element: <YieldTable />,
         },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },

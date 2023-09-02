@@ -301,15 +301,15 @@ const navConfig = [
         children: [
           {
             title: 'Yields',
-            path: '#/yields',
+            path: 'yields',
             children: [
               {
                 title: 'yields table',
-                path: '#/yields/table',
+                path: 'yields/table',
               },
               {
                 title: 'yields report',
-                path: '#/yields/report',
+                path: 'yields/report',
               },
             ],
           },
