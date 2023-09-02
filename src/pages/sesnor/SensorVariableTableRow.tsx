@@ -19,7 +19,7 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
   return SensorVariableType ? (
     <TableRow hover selected={selected}>
       <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorVariableDataTypes}
+        {row?.SensorVariableDataType ? row?.SensorVariableDataType : '-'}
       </TableCell>
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorVariableName}

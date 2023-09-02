@@ -107,10 +107,10 @@ export default function AuthLoginForm() {
         variant="contained"
         loading={isSubmitSuccessful || isSubmitting}
         sx={{
-          bgcolor: 'text.primary',
+          bgcolor: '#444d9c',
           color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           '&:hover': {
-            bgcolor: 'text.primary',
+            bgcolor: '#444d9c',
             color: (theme) => (theme.palette.mode === 'light' ? 'common.white' : 'grey.800'),
           },
           my: 2
