@@ -7,6 +7,7 @@ import userReducer from 'src/pages/user/slice';
 import menuReducer from 'src/pages/Menu/slice';
 import accesControlReducer from 'src/pages/accessControl/slice';
 import SensorReducer from 'src/pages/sesnor/slice';
+import reportsReducer from 'src/pages/reports/slice';
 import mailReducer from './slices/mail';
 import chatReducer from './slices/chat';
 import productReducer from './slices/product';
@@ -41,6 +42,7 @@ const rootReducer = combineReducers({
   accesControl: accesControlReducer,
   common: CommonReducer,
   sensor: SensorReducer,
+  report: reportsReducer,
   product: persistReducer(productPersistConfig, productReducer),
 });
 

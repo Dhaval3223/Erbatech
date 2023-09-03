@@ -135,6 +135,8 @@ import {
   SensorSetting,
   SensorCustomSetting,
   ReportsPage,
+  YieldTable,
+  YieldReport,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -214,7 +216,31 @@ export default function Router() {
         { path: 'access-control', element: <AccessControl /> },
         {
           path: 'reports',
-          element: <ReportsPage />
+          element: <ReportsPage />,
+          children: [
+            {
+              path: 'yields',
+              element: <UserListPage />,
+              children: [
+                {
+                  path: 'yields/table',
+                  element: <YieldTable />,
+                },
+                {
+                  path: 'yields/report',
+                  element: <YieldTable />,
+                },
+              ],
+            },
+          ],
+        },
+        {
+          path: 'yields/report',
+          element: <YieldReport />,
+        },
+        {
+          path: 'yields/table',
+          element: <YieldTable />,
         },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },

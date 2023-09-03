@@ -77,8 +77,6 @@ const ROLE_OPTIONS = [
 
 const TABLE_HEAD = [{ id: 'role', label: 'Role', align: 'left' }, { id: '' }];
 
-// ----------------------------------------------------------------------
-
 export default function UserListPage() {
   const {
     dense,
