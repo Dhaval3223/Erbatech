@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import {
   Table,
   TableContainer,
@@ -7,8 +8,12 @@ import {
   TableRow,
   Container,
   Card,
+  Stack,
+  Typography,
+  Button,
 } from '@mui/material';
 import React, { useState, useEffect, MouseEvent } from 'react';
+import moment, { Moment } from 'moment';
 import Scrollbar from 'src/components/scrollbar/Scrollbar';
 import { Theme } from '@mui/material/styles';
 import {
@@ -19,7 +24,12 @@ import {
 } from 'src/components/table';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { useSettingsContext } from 'src/components/settings';
-import { getAllReportsData } from './slice/action';
+import { LoadingButton } from '@mui/lab';
+import { DatePicker, Space } from 'antd';
+import Iconify from 'src/components/iconify/Iconify';
+
+import { downLoadReportCSV, getAllReportsData } from './slice/action';
+import { slice } from './slice';
 
 type Props = {
   columns: any[];
@@ -48,11 +58,18 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     defaultRowsPerPage: 10,
   });
 
+  const { isDownloadCSVLoading, isDownloadCSVSuccess } = useSelector((state) => state.report);
+
   const dispatch = useDispatch();
+
+  const { RangePicker } = DatePicker;
 
   const { themeStretch } = useSettingsContext();
 
+  const [dateRange, setDateRange] = useState<any>([]);
+
   useEffect(() => {
+    dispatch(slice.actions.startGetReportsLoading());
     dispatch(
       getAllReportsData({
         TransactionTopicName: tableType,
@@ -79,9 +96,86 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, rowsPerPage, page]);
 
+  const handleDateChange = (dates: any) => {
+    console.log(dates[0], dates[1]);
+    setDateRange([dates[0], dates[1]]);
+  };
+
+  const onResetFilter = () => setDateRange([]);
+
+  useEffect(() => {
+    if (isDownloadCSVSuccess) setDateRange([]);
+  }, [isDownloadCSVSuccess]);
+
   return (
     <Container maxWidth={themeStretch ? false : 'lg'}>
       <Card>
+        <Stack
+          spacing={2}
+          alignItems="center"
+          justifyContent="space-between"
+          textAlign="center"
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+          sx={{ px: 2.5, py: 3 }}
+        >
+          <Stack
+            spacing={2}
+            alignItems="center"
+            justifyContent="space-between"
+            direction={{
+              xs: 'column',
+              sm: 'row',
+            }}
+          >
+            <RangePicker
+              showTime={{ format: 'HH:mm:ss' }}
+              format="YYYY-MM-DD HH:mm:ss"
+              size="large"
+              value={dateRange}
+              onChange={handleDateChange}
+              allowClear={false}
+            />
+            {dateRange?.length > 0 && (
+              <Button
+                color="error"
+                sx={{ flexShrink: 0 }}
+                onClick={onResetFilter}
+                startIcon={<Iconify icon="eva:trash-2-outline" />}
+              >
+                Clear
+              </Button>
+            )}
+          </Stack>
+          <Stack
+            spacing={2}
+            alignItems="center"
+            justifyContent="space-between"
+            direction={{
+              xs: 'column',
+              sm: 'row',
+            }}
+          >
+            <LoadingButton
+              type="submit"
+              variant="contained"
+              onClick={() =>
+                dispatch(
+                  downLoadReportCSV({
+                    startDate: dateRange[0] ? dateRange[0] : '',
+                    endDate: dateRange[1] ? dateRange[1] : '',
+                  })
+                )
+              }
+              loading={isDownloadCSVLoading}
+              disabled={dateRange?.length === 0}
+            >
+              Download CSV
+            </LoadingButton>
+          </Stack>
+        </Stack>
         <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
           <Scrollbar>
             <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
