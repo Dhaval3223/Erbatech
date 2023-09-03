@@ -1,46 +1,107 @@
+import { Card, Container } from '@mui/material';
 import React, { useState, useEffect } from 'react';
+import ApexCharts from 'react-apexcharts';
+import { useSettingsContext } from 'src/components/settings';
 import { useDispatch, useSelector } from 'src/redux/store';
-import { Skeleton } from '@mui/material';
-import TableComponent from '../TableComponent';
+import { getAllReportsData } from '../slice/action';
 
-const TABLE_HEAD = [
-  { id: 'SK_heat', label: 'SK_heat', align: 'left' },
-  { id: 'PVA_yield', label: 'PVA_yield', align: 'left' },
-  { id: 'SK_heat_tot', label: 'SK_heat_tot', align: 'left' },
-  { id: 'PVA_yield_tot', label: 'PVA_yield_tot', align: 'left' },
-];
-
-export default function YieldTable() {
+const YieldsReport: React.FC = () => {
+  const { themeStretch } = useSettingsContext();
+  const dispatch = useDispatch();
   const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
 
-  const [rows, setRows] = useState<any>([]);
+  const [seriesData, setSeriesData] = useState<any>([
+    { data: [], name: 'PVA_yield' },
+    { data: [], name: 'SK_heat' },
+    { data: [], name: 'PVA_yield_tot' },
+  ]);
+
+  const options: ApexCharts.ApexOptions = {
+    chart: {
+      id: 'realtime-chart',
+      animations: {
+        enabled: true,
+        easing: 'linear',
+        dynamicAnimation: {
+          speed: 1000,
+        },
+      },
+      toolbar: {
+        show: false,
+      },
+    },
+    xaxis: {
+      type: 'datetime',
+    },
+    yaxis: {
+      min: 0,
+      max: 70,
+    },
+    title: {
+      text: 'Yields',
+      align: 'left',
+    },
+  };
 
   useEffect(() => {
-    if (!isGetReportLoading) {
-      const data = reportsData?.rows?.map((item: any) => ({
-        SK_heat: item?.TransactionData[0]?.SK_heat,
-        PVA_yield: item?.TransactionData[0]?.PVA_yield,
-        SK_heat_tot: item?.TransactionData[0]?.SK_heat_tot,
-        PVA_yield_tot: item?.TransactionData[0]?.PVA_yield_tot,
-      }));
-      setRows(data);
-    } else {
-      const data = Array.from({ length: TABLE_HEAD?.length })?.map(() => ({
-        SK_heat: <Skeleton />,
-        PVA_yield: <Skeleton />,
-        SK_heat_tot: <Skeleton />,
-        PVA_yield_tot: <Skeleton />,
-      }));
-      setRows(data);
+    dispatch(getAllReportsData({
+      TransactionTopicName: 'topic_2',
+      page: 1,
+      limit: 10,
+    }));
+  },[dispatch])
+  useEffect(() => {
+    const dataInterval = setInterval(updateData, 60000); // Update every 1 minute
+
+    return () => {
+      clearInterval(dataInterval);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if(!isGetReportLoading) {
+      const data1 = [] as any;
+      const data2 = [] as any;
+      const data3 = [] as any;
+      reportsData?.rows?.forEach((item:any) => {
+        data1.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y:item?.TransactionData[0]?.PVA_yield,
+        })
+        data2.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y:item?.TransactionData[0]?.SK_heat,
+        })
+        data3.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y:item?.TransactionData[0]?.PVA_yield_tot,
+        })
+      });
+      setSeriesData((prevData: any) => [
+        { ...prevData[0], data: data1 },
+        { ...prevData[1], data: data2 },
+        { ...prevData[2], data:data3},
+      ]);
     }
-  }, [reportsData, isGetReportLoading]);
+  },[reportsData, isGetReportLoading])
+  const updateData = () => {
+    dispatch(getAllReportsData({
+      TransactionTopicName: 'topic_2',
+      page: 1,
+      limit: 10,
+    }));
+  };
 
   return (
-    <TableComponent
-      columns={TABLE_HEAD}
-      rowCount={reportsData?.count}
-      rows={rows}
-      tableType="topic_2"
-    />
+    <div className="realtime-chart">
+      <Container maxWidth={themeStretch ? false : 'lg'}>
+        <Card>
+          <ApexCharts options={options} series={seriesData} type="line" height={500} />
+        </Card>
+      </Container>
+    </div>
   );
-}
+};
+
+export default YieldsReport;
