@@ -42,18 +42,26 @@ export default function UserTableToolbar({
   setRoleError,
   isCreate,
 }: Props) {
-  const { isCreateRoleLoading } = useSelector(
-    (state) => state.roles
-  )
+  const { isCreateRoleLoading } = useSelector((state) => state.roles);
   const handleRoles = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (roleError) setRoleError(false);
     setRole({
-      RoleName: e.target.value
-    })
-  }
+      RoleName: e.target.value,
+    });
+  };
 
   return (
     <Stack
+      spacing={2}
+      alignItems="center"
+      justifyContent="space-between"
+      direction={{
+        xs: 'column',
+        sm: 'row',
+      }}
+      sx={{ px: 2.5, py: 3 }}
+    >
+      <Stack
         spacing={2}
         alignItems="center"
         justifyContent="space-between"
@@ -61,18 +69,8 @@ export default function UserTableToolbar({
           xs: 'column',
           sm: 'row',
         }}
-        sx={{ px: 2.5, py: 3 }}
       >
-        <Stack 
-          spacing={2}
-          alignItems="center"
-          justifyContent="space-between"
-          direction={{
-            xs: 'column',
-            sm: 'row',
-          }}
-        >
-          {/* <TextField
+        {/* <TextField
             fullWidth
             select
             label="Role"
@@ -108,31 +106,33 @@ export default function UserTableToolbar({
             ))}
           </TextField> */}
 
-          <TextField
-            fullWidth
-            value={filterName}
-            onChange={onFilterName}
-            placeholder="Search..."
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-                </InputAdornment>
-              ),
-            }} />
+        <TextField
+          fullWidth
+          value={filterName}
+          onChange={onFilterName}
+          placeholder="Search..."
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+              </InputAdornment>
+            ),
+          }}
+        />
 
-          {isFiltered && (
-            <Button
-              color="error"
-              sx={{ flexShrink: 0 }}
-              onClick={onResetFilter}
-              startIcon={<Iconify icon="eva:trash-2-outline" />}
-            >
-              Clear
-            </Button>
-          )}
-        </Stack>
-        {isCreate && <Stack 
+        {isFiltered && (
+          <Button
+            color="error"
+            sx={{ flexShrink: 0 }}
+            onClick={onResetFilter}
+            startIcon={<Iconify icon="eva:trash-2-outline" />}
+          >
+            Clear
+          </Button>
+        )}
+      </Stack>
+      {isCreate && (
+        <Stack
           spacing={2}
           alignItems="center"
           justifyContent="space-between"
@@ -151,18 +151,18 @@ export default function UserTableToolbar({
               textTransform: 'capitalize',
             }}
             value={role.RoleName}
-            onChange={e =>  handleRoles(e)}
+            onChange={(e) => handleRoles(e)}
           />
           <LoadingButton
-              // fullWidth
-              type="submit"
-              // variant="contained"
-              // size="large"
-              loading={isCreateRoleLoading}
-              onClick={handleCreateRoleAPI}
-            >
-              <Iconify icon="eva:plus-fill" width={24} />
-            </LoadingButton>
+            // fullWidth
+            type="submit"
+            // variant="contained"
+            // size="large"
+            loading={isCreateRoleLoading}
+            onClick={handleCreateRoleAPI}
+          >
+            <Iconify icon="eva:plus-fill" width={24} />
+          </LoadingButton>
           {/* <IconButtonAnimate 
             color="primary" 
             size="large"
@@ -170,15 +170,16 @@ export default function UserTableToolbar({
             >
             <Iconify icon="eva:plus-fill" width={24} />
           </IconButtonAnimate> */}
-        </Stack>}
+        </Stack>
+      )}
 
-        {/* <Button
+      {/* <Button
           variant="contained"
           sx={{ flexShrink: 0 }}
           onClick={handleCreateClick}
         >
           + create new role
         </Button> */}
-      </Stack>
+    </Stack>
   );
 }

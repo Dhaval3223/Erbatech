@@ -1,8 +1,13 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { Skeleton } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
+import { CSVDownload } from 'react-csv';
+import { useSnackbar } from 'src/components/snackbar/index';
+
 import TableComponent from '../TableComponent';
+import { slice } from '../slice';
 
 const TABLE_HEAD = [
   { id: 'time', label: 'Time', align: 'left' },
@@ -11,10 +16,24 @@ const TABLE_HEAD = [
   { id: 'SK_heat_tot', label: 'SK heat tot', align: 'left' },
   { id: 'PVA_yield_tot', label: 'PVA yield tot', align: 'left' },
 ];
+
 export default function YieldTable() {
-  const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
+  const {
+    isGetReportLoading,
+    reportsData,
+    isDownloadCSVSuccess,
+    isDownloadCSVError,
+    downloadCSVData,
+    downloadCSVMsg,
+  } = useSelector((state) => state.report);
+
+  const dispatch = useDispatch();
+
+  const { enqueueSnackbar } = useSnackbar();
 
   const [rows, setRows] = useState<any>([]);
+
+  const [csvData, setCSVdata] = useState<any>();
 
   useEffect(() => {
     if (!isGetReportLoading) {
@@ -25,6 +44,7 @@ export default function YieldTable() {
         SK_heat_tot: item?.TransactionData[0]?.SK_heat_tot,
         PVA_yield_tot: item?.TransactionData[0]?.PVA_yield_tot,
       }));
+      console.log(data, 'dataaaaaa');
       setRows(data);
     } else {
       const data = Array.from({ length: TABLE_HEAD?.length })?.map(() => ({
@@ -38,11 +58,45 @@ export default function YieldTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
+  useEffect(() => {
+    if (isDownloadCSVSuccess) {
+      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+        item?.TransactionData[0]?.Time,
+        item?.TransactionData[0]?.SK_heat,
+        item?.TransactionData[0]?.PVA_yield,
+        item?.TransactionData[0]?.SK_heat_tot,
+        item?.TransactionData[0]?.PVA_yield_tot,
+      ]);
+
+      // Add the header row
+      const csvDataArray = [
+        ['Time', 'SK heat', 'PVA yield', 'SK heat tot', 'PVA yield tot'],
+        ...flattenedData,
+      ];
+
+      // Set the CSV data when the component mounts
+      setCSVdata(csvDataArray);
+      dispatch(slice.actions.clearGetReportErrState());
+    }
+
+    if (isDownloadCSVError) {
+      enqueueSnackbar(downloadCSVMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.clearGetReportErrState());
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+
   return (
     <>
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
+      {isDownloadCSVSuccess && csvData?.length > 0 && (
+        <CSVDownload data={csvData} target="_blank" />
+      )}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

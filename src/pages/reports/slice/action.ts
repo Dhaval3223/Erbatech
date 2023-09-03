@@ -18,3 +18,16 @@ export function getAllReportsData(params: { TransactionTopicName: string; page: 
     }
   };
 }
+
+export function downLoadReportCSV(params: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(slice.actions.startDownloadReportCSVLoading());
+    try {
+      const response = await axios.post(GET_REPORT, params);
+      console.log('response', response);
+      dispatch(slice.actions.handleDownloadReportCSV(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasDownloadReportCSV(error));
+    }
+  };
+}
