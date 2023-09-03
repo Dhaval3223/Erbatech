@@ -6,7 +6,7 @@ export default function ScatterChart() {
     chart: {
       id: 'chart',
       height: 350,
-      type: 'scatter',
+      type: 'line',
       zoom: {
         enabled:false,
         type: 'xy',

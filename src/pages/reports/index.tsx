@@ -1,19 +1,23 @@
-import React, { useState, useEffect } from "react";
-import ApexCharts from "react-apexcharts";
+import { Card, Container } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import ApexCharts from 'react-apexcharts';
+import { useSettingsContext } from 'src/components/settings';
 
 const RealTimeChart: React.FC = () => {
+  const { themeStretch } = useSettingsContext();
+
   const [seriesData, setSeriesData] = useState<any>([
-    { data: [], name: "Series 1" },
-    { data: [], name: "Series 2" },
-    { data: [], name: "Series 3" },
+    { data: [], name: 'Series 1' },
+    { data: [], name: 'Series 2' },
+    { data: [], name: 'Series 3' },
   ]);
-  
+
   const options: ApexCharts.ApexOptions = {
     chart: {
-      id: "realtime-chart",
+      id: 'realtime-chart',
       animations: {
         enabled: true,
-        easing: "linear",
+        easing: 'linear',
         dynamicAnimation: {
           speed: 1000,
         },
@@ -23,15 +27,15 @@ const RealTimeChart: React.FC = () => {
       },
     },
     xaxis: {
-      type: "datetime",
+      type: 'datetime',
     },
     yaxis: {
       min: 0,
       max: 100,
     },
     title: {
-      text: "Real-Time Chart",
-      align: "left",
+      text: 'Real-Time Chart',
+      align: 'left',
     },
   };
 
@@ -68,7 +72,11 @@ const RealTimeChart: React.FC = () => {
 
   return (
     <div className="realtime-chart">
-      <ApexCharts options={options} series={seriesData} type="line" height={300} />
+      <Container maxWidth={themeStretch ? false : 'lg'}>
+        <Card>
+          <ApexCharts options={options} series={seriesData} type="line" height={500} />
+        </Card>
+      </Container>
     </div>
   );
 };
