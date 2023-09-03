@@ -8,7 +8,7 @@ import { GET_REPORT } from './action_types';
 
 export function getAllReportsData(params: { TransactionTopicName: string; page: number; limit: number }) {
   return async (dispatch: Dispatch) => {
-    dispatch(slice.actions.startGetReportsLoading());
+    // dispatch(slice.actions.startGetReportsLoading());
     try {
       const response = await axios.post(GET_REPORT, params);
       console.log('response', response);

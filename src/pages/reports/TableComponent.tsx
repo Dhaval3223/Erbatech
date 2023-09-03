@@ -27,7 +27,9 @@ import { useSettingsContext } from 'src/components/settings';
 import { LoadingButton } from '@mui/lab';
 import { DatePicker, Space } from 'antd';
 import Iconify from 'src/components/iconify/Iconify';
+
 import { downLoadReportCSV, getAllReportsData } from './slice/action';
+import { slice } from './slice';
 
 type Props = {
   columns: any[];
@@ -67,6 +69,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
   const [dateRange, setDateRange] = useState<any>([]);
 
   useEffect(() => {
+    dispatch(slice.actions.startGetReportsLoading());
     dispatch(
       getAllReportsData({
         TransactionTopicName: tableType,
