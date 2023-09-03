@@ -137,6 +137,7 @@ import {
   ReportsPage,
   YieldTable,
   YieldReport,
+  YieldsReport,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -228,7 +229,7 @@ export default function Router() {
                 },
                 {
                   path: 'yields/report',
-                  element: <YieldTable />,
+                  element: <YieldsReport />,
                 },
               ],
             },
@@ -236,7 +237,7 @@ export default function Router() {
         },
         {
           path: 'yields/report',
-          element: <YieldReport />,
+          element: <YieldsReport />,
         },
         {
           path: 'yields/table',

@@ -83,6 +83,7 @@ export const SensorVariable = Loadable(lazy(() => import('../pages/sesnor/Sensor
 export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorSettings')));
 export const SensorCustomSetting = Loadable(lazy(() => import('../pages/sesnor/SensorCustomSetting')));
 export const YieldTable = Loadable(lazy(() => import('../pages/reports/yields/YieldTable')));
+export const YieldsReport = Loadable(lazy(() => import('../pages/reports/yields/YieldsReport')));
 export const YieldReport = Loadable(lazy(() => import('../pages/reports/index')));
 
 // DASHBOARD: BLOG
