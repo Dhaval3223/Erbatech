@@ -136,6 +136,7 @@ import {
   SensorCustomSetting,
   ReportsPage,
   YieldTable,
+  YieldReport,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -232,6 +233,10 @@ export default function Router() {
               ],
             },
           ],
+        },
+        {
+          path: 'yields/report',
+          element: <YieldReport />,
         },
         {
           path: 'yields/table',
