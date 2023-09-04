@@ -138,6 +138,12 @@ import {
   YieldTable,
   YieldReport,
   YieldsReport,
+  InspectTable,
+  TempratureTable,
+  SvHeatTransferTable,
+  StratefiedTankTable,
+  OperatingHoursTable,
+  SkFrquencyTable,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -233,6 +239,20 @@ export default function Router() {
                 },
               ],
             },
+            {
+              path: 'weather',
+              element: <UserListPage />,
+              children: [
+                {
+                  path: 'weather/table',
+                  element: <InspectTable />,
+                },
+                {
+                  path: 'weather/report',
+                  element: <YieldsReport />,
+                },
+              ],
+            },
           ],
         },
         {
@@ -242,6 +262,54 @@ export default function Router() {
         {
           path: 'yields/table',
           element: <YieldTable />,
+        },
+        {
+          path: 'weather/table',
+          element: <InspectTable/>,
+        },
+        {
+          path: 'weather/report',
+          element: <YieldsReport />,
+        },
+        {
+          path: 'temprature/table',
+          element: <TempratureTable/>,
+        },
+        {
+          path: 'temprature/report',
+          element: <YieldsReport />,
+        },
+        {
+          path: 'sv-heat-transfer/table',
+          element: <SvHeatTransferTable/>,
+        },
+        {
+          path: 'sv-heat-transfer/report',
+          element: <YieldsReport />,
+        },
+        {
+          path: 'stratefied-tank/table',
+          element: <StratefiedTankTable/>,
+        },
+        {
+          path: 'stratefied-tank/report',
+          element: <YieldsReport />,
+        },
+        {
+          path: 'operating-hours/table',
+          element: <OperatingHoursTable/>,
+        },
+        {
+          path: 'operating-hours/report',
+          element: <YieldsReport />,
+        },
+        {
+          path: 'sk-frequency-and-pressure/table',
+          element: <SkFrquencyTable/>,
+        },
+        {
+          path: 'sk-frequency-and-pressure/report',
+          element: <YieldsReport />,
         },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },

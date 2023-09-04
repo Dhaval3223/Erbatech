@@ -84,6 +84,12 @@ export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorS
 export const SensorCustomSetting = Loadable(lazy(() => import('../pages/sesnor/SensorCustomSetting')));
 export const YieldTable = Loadable(lazy(() => import('../pages/reports/yields/YieldTable')));
 export const YieldsReport = Loadable(lazy(() => import('../pages/reports/yields/YieldsReport')));
+export const InspectTable = Loadable(lazy(() => import('../pages/reports/inspectWeather/InspectTable')));
+export const TempratureTable = Loadable(lazy(() => import('../pages/reports/temprature/TempratureTable')));
+export const SvHeatTransferTable = Loadable(lazy(() => import('../pages/reports/svHeatTransfer/SvHeatTransferTable')));
+export const StratefiedTankTable = Loadable(lazy(() => import('../pages/reports/stratefiedTank/StratefiedTankTable')));
+export const OperatingHoursTable = Loadable(lazy(() => import('../pages/reports/operatingHours/OperatingHoursTable')));
+export const SkFrquencyTable = Loadable(lazy(() => import('../pages/reports/skFrquency/SkFrquencyTable')));
 export const YieldReport = Loadable(lazy(() => import('../pages/reports/index')));
 
 // DASHBOARD: BLOG
