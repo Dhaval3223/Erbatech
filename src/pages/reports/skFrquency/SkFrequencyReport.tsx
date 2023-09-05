@@ -106,6 +106,7 @@ const Report: React.FC = () => {
           startDate: dateRange?.start_date,
           endDate: dateRange?.end_date,
           userId: currentSelectedUser,
+          type: 'all',
         })
       );
     } else {
@@ -198,7 +199,7 @@ const Report: React.FC = () => {
           fullWidth
           select
           size="small"
-          label="Days"
+          label="Time"
           value={selectDays}
           onChange={(e) => {
             const data = DAYS_FILTER?.find((item) => item?.value === e.target.value);

@@ -13,6 +13,7 @@ export function getAllReportsData(params: {
   userId?: number;
   startDate?: any;
   endDate?: any;
+  type?: any;
 }) {
   return async (dispatch: Dispatch) => {
     // dispatch(slice.actions.startGetReportsLoading());

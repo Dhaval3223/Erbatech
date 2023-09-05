@@ -105,6 +105,7 @@ const YieldsReport: React.FC = () => {
           topicName: 'topic_2',
           page: 1,
           limit: 10,
+          type: 'all',
           startDate: dateRange?.start_date,
           endDate: dateRange?.end_date,
           userId: currentSelectedUser,
@@ -194,7 +195,7 @@ const YieldsReport: React.FC = () => {
           fullWidth
           select
           size="small"
-          label="Days"
+          label="Time"
           value={selectDays}
           onChange={(e) => {
             const data = DAYS_FILTER?.find((item) => item?.value === e.target.value);
