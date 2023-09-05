@@ -150,6 +150,7 @@ import {
   StrateFieldReport,
   OperatingHoursReport,
   SkFrquencyReport,
+  DashboardScreen,
   Acknowledgement,
 } from './elements';
 
