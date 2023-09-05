@@ -6,7 +6,14 @@ import { slice } from '.';
 import { GET_REPORT } from './action_types';
 // ----------------------------------------------------------------------
 
-export function getAllReportsData(params: { TransactionTopicName: string; page: number; limit: number }) {
+export function getAllReportsData(params: {
+  topicName: string;
+  page: number;
+  limit: number;
+  userId?: number;
+  startDate?: any;
+  endDate?: any;
+}) {
   return async (dispatch: Dispatch) => {
     // dispatch(slice.actions.startGetReportsLoading());
     try {

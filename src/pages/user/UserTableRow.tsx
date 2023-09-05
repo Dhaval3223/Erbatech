@@ -85,14 +85,8 @@ export default function UserTableRow({
   return (
     <>
       <TableRow hover selected={selected}>
-        {/* <TableCell padding="checkbox">
-          <Checkbox checked={selected} onClick={onSelectRow} />
-        </TableCell> */}
-
-        {/* <TableRow hover> */}
-        <TableCell>
-          {FirstName} {LastName}
-        </TableCell>
+        <TableCell>{FirstName}</TableCell>
+        <TableCell>{LastName}</TableCell>
         <TableCell align="left">{user ? Role?.RoleName : row?.UserEmail}</TableCell>
         <TableCell align="left">{user ? row?.Mobile : row?.Mobile}</TableCell>
         {user && <TableCell align="left">{user ? row?.UserEmail : row?.UserEmail}</TableCell>}
@@ -111,7 +105,6 @@ export default function UserTableRow({
           </TableCell>
         )}
         {!user && <TableCell align="left">{row?.UserCity}</TableCell>}
-        {/* {!user && <TableCell align="left">{row?.UserLocation}</TableCell>} */}
         <TableCell align="left">
           {isDeleteRights === false && isUpdateRights === false ? (
             ''
@@ -121,15 +114,9 @@ export default function UserTableRow({
             </IconButton>
           )}
         </TableCell>
-        {/* </TableRow> */}
       </TableRow>
 
-      <MenuPopover
-        open={openPopover}
-        onClose={handleClosePopover}
-        arrow="right-top"
-        // sx={{ width: 140 }}
-      >
+      <MenuPopover open={openPopover} onClose={handleClosePopover} arrow="right-top">
         {isSuperAdmin && (
           <MenuItem
             onClick={() => {

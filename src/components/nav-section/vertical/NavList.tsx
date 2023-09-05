@@ -23,12 +23,12 @@ export default function NavList({ data, depth, hasChild }: NavListRootProps) {
 
   const [open, setOpen] = useState(active);
 
-  useEffect(() => {
-    if (!active) {
-      handleClose();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]);
+  // useEffect(() => {
+  //   if (!active) {
+  //     handleClose();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [pathname]);
 
   const handleToggle = () => {
     setOpen(!open);

@@ -8,11 +8,13 @@ const UsersDropDown = ({
   currentSelectedUser,
   addAllRole,
   setCurrentSelectedUser,
+  size,
 }: {
-  onChange: any;
+  onChange?: any;
   currentSelectedUser: any;
   addAllRole?: boolean;
   setCurrentSelectedUser: any;
+  size?: 'small' | 'medium';
 }) => {
   const dispatch = useDispatch();
 
@@ -44,7 +46,8 @@ const UsersDropDown = ({
     <TextField
       fullWidth
       select
-      label="Role"
+      size={size || 'medium'}
+      label="Customer Name"
       value={currentSelectedUser}
       onChange={(e) => setCurrentSelectedUser(e.target.value)}
       SelectProps={{
@@ -58,7 +61,6 @@ const UsersDropDown = ({
       }}
       sx={{
         maxWidth: { sm: 240 },
-        textTransform: 'capitalize',
       }}
     >
       {usersData?.map((option: any, index: number) => (
@@ -69,10 +71,9 @@ const UsersDropDown = ({
             mx: 1,
             borderRadius: 0.75,
             typography: 'body2',
-            textTransform: 'capitalize',
           }}
         >
-          {`${option?.FirstName} ${option?.LastName}: ${option?.UserEmail}`}
+          {`${option?.FirstName} - ${option?.UserEmail}`}
         </MenuItem>
       ))}
     </TextField>

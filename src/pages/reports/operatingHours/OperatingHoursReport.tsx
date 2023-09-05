@@ -57,7 +57,7 @@ const Report: React.FC = () => {
   useEffect(() => {
     dispatch(
       getAllReportsData({
-        TransactionTopicName: 'topic_2',
+        topicName: 'topic_2',
         page: 1,
         limit: 10,
       })
@@ -121,7 +121,7 @@ const Report: React.FC = () => {
   const updateData = () => {
     dispatch(
       getAllReportsData({
-        TransactionTopicName: 'topic_2',
+        topicName: 'topic_2',
         page: 1,
         limit: 10,
       })

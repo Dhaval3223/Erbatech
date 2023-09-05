@@ -35,9 +35,9 @@ const slice = createSlice({
       state.isSensorUpdateLoading = false;
       state.sensorUpdateData = {};
     },
-    hasUpdatedError(state, action) {
+    hasUpdateSensorDataError(state, action) {
       state.isSensorUpdateLoading = false;
-      state.error = action.payload;
+      state.sensorUpdateData = action.payload;
     },
   },
 });
