@@ -15,6 +15,7 @@ const TABLE_HEAD = [
   { id: 'T_tank', label: 'T_tank', align: 'left' },
   { id: 'T_coll_surface', label: 'T_coll_surface', align: 'left' },
   { id: 'T_coll_backfeed', label: 'T_coll_backfeed', align: 'left' },
+  { id: 'T_coll_infeed', label: 'T_coll_infeed', align: 'left' },
 ];
 
 export default function TempratureTable() {
@@ -43,6 +44,7 @@ export default function TempratureTable() {
         T_tank: item?.TransactionData[0]?.T_tank,
         T_coll_surface: item?.TransactionData[0]?.T_coll_surface,
         T_coll_backfeed: item?.TransactionData[0]?.T_coll_backfeed,
+        T_coll_infeed: item?.TransactionData[0]?.T_coll_infeed,
       }));
       console.log(data, 'dataaaaaa');
       setRows(data);
@@ -53,6 +55,7 @@ export default function TempratureTable() {
         T_tank: <Skeleton />,
         T_coll_surface: <Skeleton />,
         T_coll_backfeed: <Skeleton />,
+        T_coll_infeed: <Skeleton />,
       }));
       setRows(data);
     }
@@ -66,6 +69,7 @@ export default function TempratureTable() {
         item?.TransactionData[0]?.T_tank,
         item?.TransactionData[0]?.T_coll_surface,
         item?.TransactionData[0]?.T_coll_backfeed,
+        item?.TransactionData[0]?.T_coll_infeed,
       ]);
 
       // Add the header row

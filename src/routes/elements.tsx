@@ -81,16 +81,48 @@ export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/Use
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));
 export const SensorVariable = Loadable(lazy(() => import('../pages/sesnor/SensorVariable')));
 export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorSettings')));
-export const SensorCustomSetting = Loadable(lazy(() => import('../pages/sesnor/SensorCustomSetting')));
+export const SensorCustomSetting = Loadable(
+  lazy(() => import('../pages/sesnor/SensorCustomSetting'))
+);
 export const YieldTable = Loadable(lazy(() => import('../pages/reports/yields/YieldTable')));
 export const YieldsReport = Loadable(lazy(() => import('../pages/reports/yields/YieldsReport')));
-export const InspectTable = Loadable(lazy(() => import('../pages/reports/inspectWeather/InspectTable')));
-export const TempratureTable = Loadable(lazy(() => import('../pages/reports/temprature/TempratureTable')));
-export const SvHeatTransferTable = Loadable(lazy(() => import('../pages/reports/svHeatTransfer/SvHeatTransferTable')));
-export const StratefiedTankTable = Loadable(lazy(() => import('../pages/reports/stratefiedTank/StratefiedTankTable')));
-export const OperatingHoursTable = Loadable(lazy(() => import('../pages/reports/operatingHours/OperatingHoursTable')));
-export const SkFrquencyTable = Loadable(lazy(() => import('../pages/reports/skFrquency/SkFrquencyTable')));
+export const InspectTable = Loadable(
+  lazy(() => import('../pages/reports/inspectWeather/InspectTable'))
+);
+export const TempratureTable = Loadable(
+  lazy(() => import('../pages/reports/temprature/TempratureTable'))
+);
+export const SvHeatTransferTable = Loadable(
+  lazy(() => import('../pages/reports/svHeatTransfer/SvHeatTransferTable'))
+);
+export const StratefiedTankTable = Loadable(
+  lazy(() => import('../pages/reports/stratefiedTank/StratefiedTankTable'))
+);
+export const OperatingHoursTable = Loadable(
+  lazy(() => import('../pages/reports/operatingHours/OperatingHoursTable'))
+);
+export const SkFrquencyTable = Loadable(
+  lazy(() => import('../pages/reports/skFrquency/SkFrquencyTable'))
+);
 export const YieldReport = Loadable(lazy(() => import('../pages/reports/index')));
+export const WeatherReport = Loadable(
+  lazy(() => import('../pages/reports/inspectWeather/InspectWeatherReport'))
+);
+export const TempratureReport = Loadable(
+  lazy(() => import('../pages/reports/temprature/TempratureReport'))
+);
+export const SvHeatTransferReport = Loadable(
+  lazy(() => import('../pages/reports/svHeatTransfer/SvHeatTransferReport'))
+);
+export const StrateFieldReport = Loadable(
+  lazy(() => import('../pages/reports/stratefiedTank/StrateFieldTankReport'))
+);
+export const OperatingHoursReport = Loadable(
+  lazy(() => import('../pages/reports/operatingHours/OperatingHoursReport'))
+);
+export const SkFrquencyReport = Loadable(
+  lazy(() => import('../pages/reports/skFrquency/SkFrequencyReport'))
+);
 
 // DASHBOARD: BLOG
 export const BlogPostsPage = Loadable(lazy(() => import('../pages/dashboard/BlogPostsPage')));

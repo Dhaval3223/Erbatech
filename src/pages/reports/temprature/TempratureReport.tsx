@@ -5,7 +5,7 @@ import { useSettingsContext } from 'src/components/settings';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { getAllReportsData } from '../slice/action';
 
-const YieldsReport: React.FC = () => {
+const TempratureReport: React.FC = () => {
   const dispatch = useDispatch();
 
   const { themeStretch } = useSettingsContext();
@@ -15,10 +15,12 @@ const YieldsReport: React.FC = () => {
   const [seriesData, setSeriesData] = useState<any>([
     {
       data: [],
-      name: 'PVA_yield',
+      name: 'T_outside',
     },
-    { data: [], name: 'SK_heat' },
-    { data: [], name: 'PVA_yield_tot' },
+    { data: [], name: 'T_tank' },
+    { data: [], name: 'T_coll_surface' },
+    { data: [], name: 'T_coll_backfeed' },
+    { data: [], name: 'T_coll_infeed' },
   ]);
 
   const options: ApexCharts.ApexOptions = {
@@ -42,14 +44,14 @@ const YieldsReport: React.FC = () => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 70,
+      // min: 2,
+      // max: 14,
       title: {
-        text: 'kW', // X-axis label
+        text: '°C', // X-axis label
       },
     },
     title: {
-      text: 'Yields',
+      text: 'Temprature',
       align: 'left',
     },
   };
@@ -78,24 +80,36 @@ const YieldsReport: React.FC = () => {
       const data1 = [] as any;
       const data2 = [] as any;
       const data3 = [] as any;
+      const data4 = [] as any;
+      const data5 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield,
+          y: item?.TransactionData[0]?.T_outside,
         });
         data2.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.SK_heat,
+          y: item?.TransactionData[0]?.T_tank,
         });
         data3.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield_tot,
+          y: item?.TransactionData[0]?.T_coll_surface,
+        });
+        data4.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.T_coll_backfeed,
+        });
+        data5.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.T_coll_infeed,
         });
       });
       setSeriesData((prevData: any) => [
         { ...prevData[0], data: data1 },
         { ...prevData[1], data: data2 },
         { ...prevData[2], data: data3 },
+        { ...prevData[3], data: data4 },
+        { ...prevData[4], data: data5 },
       ]);
     }
   }, [reportsData, isGetReportLoading]);
@@ -121,4 +135,4 @@ const YieldsReport: React.FC = () => {
   );
 };
 
-export default YieldsReport;
+export default TempratureReport;

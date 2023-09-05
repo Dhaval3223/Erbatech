@@ -144,6 +144,12 @@ import {
   StratefiedTankTable,
   OperatingHoursTable,
   SkFrquencyTable,
+  WeatherReport,
+  TempratureReport,
+  SvHeatTransferReport,
+  StrateFieldReport,
+  OperatingHoursReport,
+  SkFrquencyReport,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -265,51 +271,51 @@ export default function Router() {
         },
         {
           path: 'weather/table',
-          element: <InspectTable/>,
+          element: <InspectTable />,
         },
         {
           path: 'weather/report',
-          element: <YieldsReport />,
+          element: <WeatherReport />,
         },
         {
           path: 'temprature/table',
-          element: <TempratureTable/>,
+          element: <TempratureTable />,
         },
         {
           path: 'temprature/report',
-          element: <YieldsReport />,
+          element: <TempratureReport />,
         },
         {
           path: 'sv-heat-transfer/table',
-          element: <SvHeatTransferTable/>,
+          element: <SvHeatTransferTable />,
         },
         {
           path: 'sv-heat-transfer/report',
-          element: <YieldsReport />,
+          element: <SvHeatTransferReport />,
         },
         {
           path: 'stratefied-tank/table',
-          element: <StratefiedTankTable/>,
+          element: <StratefiedTankTable />,
         },
         {
           path: 'stratefied-tank/report',
-          element: <YieldsReport />,
+          element: <StrateFieldReport />,
         },
         {
           path: 'operating-hours/table',
-          element: <OperatingHoursTable/>,
+          element: <OperatingHoursTable />,
         },
         {
           path: 'operating-hours/report',
-          element: <YieldsReport />,
+          element: <OperatingHoursReport />,
         },
         {
           path: 'sk-frequency-and-pressure/table',
-          element: <SkFrquencyTable/>,
+          element: <SkFrquencyTable />,
         },
         {
           path: 'sk-frequency-and-pressure/report',
-          element: <YieldsReport />,
+          element: <SkFrquencyReport />,
         },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },

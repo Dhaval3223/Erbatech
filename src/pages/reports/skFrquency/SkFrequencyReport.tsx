@@ -5,7 +5,7 @@ import { useSettingsContext } from 'src/components/settings';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { getAllReportsData } from '../slice/action';
 
-const YieldsReport: React.FC = () => {
+const Report: React.FC = () => {
   const dispatch = useDispatch();
 
   const { themeStretch } = useSettingsContext();
@@ -13,12 +13,10 @@ const YieldsReport: React.FC = () => {
   const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
 
   const [seriesData, setSeriesData] = useState<any>([
-    {
-      data: [],
-      name: 'PVA_yield',
-    },
-    { data: [], name: 'SK_heat' },
-    { data: [], name: 'PVA_yield_tot' },
+    { data: [], name: 'f_pump' },
+    { data: [], name: 'f_cal_full' },
+    { data: [], name: 'f_cal_overflow' },
+    { data: [], name: 'p_roof' },
   ]);
 
   const options: ApexCharts.ApexOptions = {
@@ -42,14 +40,14 @@ const YieldsReport: React.FC = () => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 70,
+      // min: 0,
+      // max: 70,
       title: {
-        text: 'kW', // X-axis label
+        text: 'hPa', // X-axis label
       },
     },
     title: {
-      text: 'Yields',
+      text: 'SK Frequency & Pressure',
       align: 'left',
     },
   };
@@ -78,24 +76,30 @@ const YieldsReport: React.FC = () => {
       const data1 = [] as any;
       const data2 = [] as any;
       const data3 = [] as any;
+      const data4 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield,
+          y: item?.TransactionData[0]?.f_pump,
         });
         data2.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.SK_heat,
+          y: item?.TransactionData[0]?.f_cal_full,
         });
         data3.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield_tot,
+          y: item?.TransactionData[0]?.f_cal_overflow,
+        });
+        data4.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.p_roof,
         });
       });
       setSeriesData((prevData: any) => [
         { ...prevData[0], data: data1 },
         { ...prevData[1], data: data2 },
         { ...prevData[2], data: data3 },
+        { ...prevData[3], data: data4 },
       ]);
     }
   }, [reportsData, isGetReportLoading]);
@@ -121,4 +125,4 @@ const YieldsReport: React.FC = () => {
   );
 };
 
-export default YieldsReport;
+export default Report;

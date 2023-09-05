@@ -13,6 +13,7 @@ const TABLE_HEAD = [
   { id: 'Time', label: 'Time', align: 'left' },
   { id: 'T_backfeed_prim_SV', label: 'T_backfeed_prim_SV', align: 'left' },
   { id: 'T_backfeed_sec_SV', label: 'T_backfeed_sec_SV', align: 'left' },
+  { id: 'T_tank', label: 'T_tank', align: 'left' },
 ];
 
 export default function SvHeatTransferTable() {
@@ -39,6 +40,7 @@ export default function SvHeatTransferTable() {
         Time: item?.TransactionData[0]?.Time,
         T_backfeed_prim_SV: item?.TransactionData[0]?.T_backfeed_prim_SV,
         T_backfeed_sec_SV: item?.TransactionData[0]?.T_backfeed_sec_SV,
+        T_tank: item?.TransactionData[0]?.T_tank,
       }));
       console.log(data, 'dataaaaaa');
       setRows(data);
@@ -47,6 +49,7 @@ export default function SvHeatTransferTable() {
         Time: <Skeleton />,
         T_backfeed_prim_SV: <Skeleton />,
         T_backfeed_sec_SV: <Skeleton />,
+        T_tank: <Skeleton />,
       }));
       setRows(data);
     }
@@ -58,6 +61,7 @@ export default function SvHeatTransferTable() {
         item?.TransactionData[0]?.Time,
         item?.TransactionData[0]?.T_backfeed_prim_SV,
         item?.TransactionData[0]?.T_backfeed_sec_SV,
+        item?.TransactionData[0]?.T_tank,
       ]);
 
       // Add the header row
