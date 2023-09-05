@@ -76,6 +76,7 @@ export const UserListingPage = Loadable(lazy(() => import('../pages/user')));
 export const CustomerListingPage = Loadable(lazy(() => import('../pages/user')));
 export const CustomerManagement = Loadable(lazy(() => import('../pages/customerManagement')));
 export const AccessControl = Loadable(lazy(() => import('../pages/accessControl')));
+export const Acknowledgement = Loadable(lazy(() => import('../pages/acknowledgement')));
 export const UserAccountPage = Loadable(lazy(() => import('../pages/dashboard/UserAccountPage')));
 export const ReportsPage = Loadable(lazy(() => import('../pages/reports/ScatterChart')));
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
