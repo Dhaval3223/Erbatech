@@ -15,10 +15,10 @@ const YieldsReport: React.FC = () => {
   const [seriesData, setSeriesData] = useState<any>([
     {
       data: [],
-      name: 'PVA_yield',
+      name: 'T_backfeed_prim_SV',
     },
-    { data: [], name: 'SK_heat' },
-    { data: [], name: 'PVA_yield_tot' },
+    { data: [], name: 'T_backfeed_sec_SV' },
+    { data: [], name: 'T_tank' },
   ]);
 
   const options: ApexCharts.ApexOptions = {
@@ -42,14 +42,12 @@ const YieldsReport: React.FC = () => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 70,
       title: {
-        text: 'kW', // X-axis label
+        text: '°C', // X-axis label
       },
     },
     title: {
-      text: 'Yields',
+      text: 'SV Heat Transfer',
       align: 'left',
     },
   };
@@ -81,15 +79,15 @@ const YieldsReport: React.FC = () => {
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield,
+          y: item?.TransactionData[0]?.T_backfeed_prim_SV,
         });
         data2.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.SK_heat,
+          y: item?.TransactionData[0]?.T_backfeed_sec_SV,
         });
         data3.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield_tot,
+          y: item?.TransactionData[0]?.T_tank,
         });
       });
       setSeriesData((prevData: any) => [

@@ -5,7 +5,7 @@ import { useSettingsContext } from 'src/components/settings';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { getAllReportsData } from '../slice/action';
 
-const YieldsReport: React.FC = () => {
+const Report: React.FC = () => {
   const dispatch = useDispatch();
 
   const { themeStretch } = useSettingsContext();
@@ -13,12 +13,12 @@ const YieldsReport: React.FC = () => {
   const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
 
   const [seriesData, setSeriesData] = useState<any>([
-    {
-      data: [],
-      name: 'PVA_yield',
-    },
-    { data: [], name: 'SK_heat' },
-    { data: [], name: 'PVA_yield_tot' },
+    { data: [], name: 'WP_in_operation' },
+    { data: [], name: 'LK_in_operation' },
+    { data: [], name: 'ZH_in_operation' },
+    { data: [], name: 'Operating_time_SV_heat_transfer' },
+    { data: [], name: 'Operating_time_SV_he_protection' },
+    { data: [], name: 'Operating_time_WV' },
   ]);
 
   const options: ApexCharts.ApexOptions = {
@@ -42,14 +42,14 @@ const YieldsReport: React.FC = () => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 70,
+      // min: 2,
+      // max: 14,
       title: {
-        text: 'kW', // X-axis label
+        text: 'hh : mm', // X-axis label
       },
     },
     title: {
-      text: 'Yields',
+      text: 'Operating Hours',
       align: 'left',
     },
   };
@@ -78,24 +78,42 @@ const YieldsReport: React.FC = () => {
       const data1 = [] as any;
       const data2 = [] as any;
       const data3 = [] as any;
+      const data4 = [] as any;
+      const data5 = [] as any;
+      const data6 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield,
+          y: item?.TransactionData[0]?.WP_in_operation,
         });
         data2.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.SK_heat,
+          y: item?.TransactionData[0]?.LK_in_operation,
         });
         data3.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield_tot,
+          y: item?.TransactionData[0]?.ZH_in_operation,
+        });
+        data4.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.Operating_time_SV_heat_transfer,
+        });
+        data5.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.Operating_time_SV_he_protection,
+        });
+        data6.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.Operating_time_WV,
         });
       });
       setSeriesData((prevData: any) => [
         { ...prevData[0], data: data1 },
         { ...prevData[1], data: data2 },
         { ...prevData[2], data: data3 },
+        { ...prevData[3], data: data4 },
+        { ...prevData[4], data: data5 },
+        { ...prevData[5], data: data6 },
       ]);
     }
   }, [reportsData, isGetReportLoading]);
@@ -121,4 +139,4 @@ const YieldsReport: React.FC = () => {
   );
 };
 
-export default YieldsReport;
+export default Report;

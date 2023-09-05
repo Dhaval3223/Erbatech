@@ -5,7 +5,7 @@ import { useSettingsContext } from 'src/components/settings';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { getAllReportsData } from '../slice/action';
 
-const YieldsReport: React.FC = () => {
+const WeatherReport: React.FC = () => {
   const dispatch = useDispatch();
 
   const { themeStretch } = useSettingsContext();
@@ -15,10 +15,10 @@ const YieldsReport: React.FC = () => {
   const [seriesData, setSeriesData] = useState<any>([
     {
       data: [],
-      name: 'PVA_yield',
+      name: 'T_outside',
     },
-    { data: [], name: 'SK_heat' },
-    { data: [], name: 'PVA_yield_tot' },
+    { data: [], name: 'Wind_speed' },
+    { data: [], name: 'Irradiation' },
   ]);
 
   const options: ApexCharts.ApexOptions = {
@@ -42,14 +42,14 @@ const YieldsReport: React.FC = () => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 70,
+      // min: 2,
+      // max: 14,
       title: {
-        text: 'kW', // X-axis label
+        text: '°C', // X-axis label
       },
     },
     title: {
-      text: 'Yields',
+      text: 'Weather',
       align: 'left',
     },
   };
@@ -81,15 +81,15 @@ const YieldsReport: React.FC = () => {
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield,
+          y: item?.TransactionData[0]?.T_outside,
         });
         data2.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.SK_heat,
+          y: item?.TransactionData[0]?.Wind_speed,
         });
         data3.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield_tot,
+          y: item?.TransactionData[0]?.Irradiation,
         });
       });
       setSeriesData((prevData: any) => [
@@ -121,4 +121,4 @@ const YieldsReport: React.FC = () => {
   );
 };
 
-export default YieldsReport;
+export default WeatherReport;
