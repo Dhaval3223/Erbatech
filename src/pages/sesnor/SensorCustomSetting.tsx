@@ -14,6 +14,7 @@ import {
   Container,
   IconButton,
   TableContainer,
+  Typography,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
@@ -105,6 +106,8 @@ function SensorCustomSettingAccess({
 
   const [filterName, setFilterName] = useState('');
 
+  const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
+
   const [isEdit, setIsEdit] = useState(false);
 
   const [filterRole, setFilterRole] = useState('all');
@@ -152,7 +155,7 @@ function SensorCustomSettingAccess({
     dispatch(slice.actions.startLoading());
     dispatch(
       getSensorDataByID({
-        userId: user?.UserId,
+        userId: currentSelectedUser,
         sensorType: 'custom-setting',
         searchValue: filterName,
         page: String(page + 1),
@@ -165,7 +168,7 @@ function SensorCustomSettingAccess({
     const intervalId = setInterval(() => {
       dispatch(
         getSensorDataByID({
-          userId: user?.UserId,
+          userId: currentSelectedUser,
           sensorType: 'custom-setting',
           searchValue: '',
           page: '1',
@@ -179,7 +182,7 @@ function SensorCustomSettingAccess({
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, filterName, rowsPerPage, page]);
+  }, [dispatch, filterName, rowsPerPage, page, currentSelectedUser]);
 
   useEffect(() => {
     if (sensorUpdateData?.success) {
@@ -262,7 +265,7 @@ function SensorCustomSettingAccess({
   };
 
   const handleOnChangeUpdate = (e: any) => {
-    if (e.target.value?.length > 10) return
+    if (e.target.value?.length > 10) return;
     setUpdateData({
       ...updateData,
       data: {
@@ -286,6 +289,11 @@ function SensorCustomSettingAccess({
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
+        {user?.UserTypeCode !== 'CU' && (
+          <Typography variant="h6" textAlign="right" color="#637381" paragraph>
+            {`Last data loaded time: ${lastLoadingTime}`}
+          </Typography>
+        )}
         <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
@@ -301,6 +309,8 @@ function SensorCustomSettingAccess({
             isCreateRights={isCreateRights}
             lastLoadingTime={lastLoadingTime}
             lastUpdateStatus
+            setCurrentSelectedUser={setCurrentSelectedUser}
+            currentSelectedUser={currentSelectedUser}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>

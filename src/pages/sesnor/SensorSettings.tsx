@@ -85,9 +85,7 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData } = useSelector(
-    (state) => state.sensor
-  );
+  const { isSensorLoading, sensorData } = useSelector((state) => state.sensor);
 
   const { themeStretch } = useSettingsContext();
 
@@ -96,6 +94,8 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
   const [tableData, setTableData] = useState(_userListData);
 
   const [filterName, setFilterName] = useState('');
+
+  const [currentSelectedUser, setCurrentSelectedUser] = useState(-1);
 
   const [isEdit, setIsEdit] = useState(false);
 
@@ -119,17 +119,7 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
   });
 
   useEffect(() => {
-    dispatch(
-      getSensorDataByID({
-        userId: user?.UserId,
-        sensorType: 'setting',
-        searchValue: '',
-          page: '1',
-          limit: '25',
-      })
-    );
-
-    const intervalId = setInterval(() => {
+    if (user?.UserTypeCode !== 'SA') {
       dispatch(
         getSensorDataByID({
           userId: user?.UserId,
@@ -139,15 +129,61 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
           limit: '25',
         })
       );
-      // Update last call time during each interval
-      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
-    }, 60000);
 
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
+      const intervalId = setInterval(() => {
+        dispatch(
+          getSensorDataByID({
+            userId: user?.UserId,
+            sensorType: 'setting',
+            searchValue: '',
+            page: '1',
+            limit: '25',
+          })
+        );
+        // Update last call time during each interval
+        setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+      }, 60000);
 
+      // Clear the interval when the component unmounts
+      return () => clearInterval(intervalId);
+    }
+
+    return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
+
+  useEffect(() => {
+    if (currentSelectedUser && user?.UserTypeCode === 'SA') {
+      dispatch(
+        getSensorDataByID({
+          userId: String(currentSelectedUser),
+          sensorType: '',
+          searchValue: '',
+          page: '1',
+          limit: '25',
+        })
+      );
+
+      const intervalId = setInterval(() => {
+        dispatch(
+          getSensorDataByID({
+            userId: String(currentSelectedUser),
+            sensorType: '',
+            searchValue: '',
+            page: '1',
+            limit: '25',
+          })
+        );
+        // Update last call time during each interval
+        setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+      }, 60000);
+
+      // Clear the interval when the component unmounts
+      return () => clearInterval(intervalId);
+    }
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSelectedUser]);
 
   const isFiltered = filterName !== '' || filterRole !== 'all' || filterStatus !== 'all';
 
@@ -211,6 +247,8 @@ function SensorSettingsAccess({ isUpdateRights, isDeleteRights, isCreateRights }
             isCreateRights={isCreateRights}
             lastUpdateStatus
             lastLoadingTime={lastLoadingTime}
+            setCurrentSelectedUser={setCurrentSelectedUser}
+            currentSelectedUser={currentSelectedUser}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
