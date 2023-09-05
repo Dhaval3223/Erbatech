@@ -77,7 +77,8 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'name', label: 'User Name', align: 'left' },
+  { id: 'first name', label: 'First Name', align: 'left' },
+  { id: 'last name', label: 'Last Name', align: 'left' },
   { id: 'role', label: 'Role Name', align: 'left' },
   { id: 'mobile', label: 'Phone Number', align: 'left' },
   { id: 'email', label: 'Email Id', align: 'left' },
@@ -85,7 +86,8 @@ const TABLE_HEAD = [
 ];
 
 const CUSTOMER_TABLE_HEAD = [
-  { id: 'name', label: 'Cutomer Name', align: 'left' },
+  { id: 'first name', label: 'First Name', align: 'left' },
+  { id: 'last name', label: 'Last Name', align: 'left' },
   { id: 'email', label: 'Email Id', align: 'left' },
   { id: 'mobile', label: 'Phone Number', align: 'left' },
   { id: 'role', label: 'Country', align: 'left' },

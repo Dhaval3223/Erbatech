@@ -205,6 +205,8 @@ function SensorCustomSettingAccess({
       enqueueSnackbar(sensorUpdateData?.message, {
         variant: 'error',
       });
+      dispatch(slice.actions.resetSensorUpdatedRecords());
+      dispatch(slice.actions.startLoading());
       dispatch(
         getSensorDataByID({
           userId: user?.UserId,

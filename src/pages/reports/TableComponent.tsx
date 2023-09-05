@@ -28,6 +28,8 @@ import { LoadingButton } from '@mui/lab';
 import { DatePicker, Space } from 'antd';
 import Iconify from 'src/components/iconify/Iconify';
 
+import UsersDropDown from 'src/components/all-users-dropdown';
+import { useAuthContext } from 'src/auth/useAuthContext';
 import { downLoadReportCSV, getAllReportsData } from './slice/action';
 import { slice } from './slice';
 
@@ -66,24 +68,37 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
 
   const { themeStretch } = useSettingsContext();
 
-  const [dateRange, setDateRange] = useState<any>([]);
+  const { user } = useAuthContext();
+
+  const [currentSelectedUser, setCurrentSelectedUser] = useState<any>(user?.UserId);
+
+  const [dateRange, setDateRange] = useState<any>([
+    moment().startOf('day'), // Start of the current day (00:00)
+    moment(), // Current date and time
+  ]);
 
   useEffect(() => {
     dispatch(slice.actions.startGetReportsLoading());
     dispatch(
       getAllReportsData({
-        TransactionTopicName: tableType,
+        topicName: tableType,
         page: page + 1,
         limit: rowsPerPage,
+        startDate: dateRange[0] ? dateRange[0] : '',
+        endDate: dateRange[1] ? dateRange[1] : '',
+        userId: currentSelectedUser,
       })
     );
 
     const intervalId = setInterval(() => {
       dispatch(
         getAllReportsData({
-          TransactionTopicName: tableType,
+          topicName: tableType,
           page: page + 1,
           limit: rowsPerPage,
+          startDate: dateRange[0] ? dateRange[0] : '',
+          endDate: dateRange[1] ? dateRange[1] : '',
+          userId: currentSelectedUser,
         })
       );
       // Update last call time during each interval
@@ -94,7 +109,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     return () => clearInterval(intervalId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, rowsPerPage, page]);
+  }, [dispatch, rowsPerPage, page, dateRange, currentSelectedUser]);
 
   const handleDateChange = (dates: any) => {
     console.log(dates[0], dates[1]);
@@ -130,6 +145,13 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
               sm: 'row',
             }}
           >
+            {user?.UserTypeCode !== 'CU' && (
+              <UsersDropDown
+                size="small"
+                currentSelectedUser={currentSelectedUser}
+                setCurrentSelectedUser={setCurrentSelectedUser}
+              />
+            )}
             <RangePicker
               showTime={{ format: 'HH:mm:ss' }}
               format="YYYY-MM-DD HH:mm:ss"
@@ -166,6 +188,9 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
                   downLoadReportCSV({
                     startDate: dateRange[0] ? dateRange[0] : '',
                     endDate: dateRange[1] ? dateRange[1] : '',
+                    type: 'all',
+                    userId: currentSelectedUser,
+                    topicName: 'topic_2'
                   })
                 )
               }

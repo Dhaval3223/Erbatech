@@ -33,7 +33,7 @@ import { slice } from '.';
         const response = await axios.post(UPDATE_SENSOR_BY_ID, data);
         dispatch(slice.actions.getSensorUpdatedRecords(response.data));
       } catch (error) {
-        dispatch(slice.actions.hasUpdatedError(error));
+        dispatch(slice.actions.hasUpdateSensorDataError(error));
       }
     };
   }
