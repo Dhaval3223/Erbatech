@@ -1,5 +1,7 @@
 // @mui
 import { Stack, InputAdornment, TextField, MenuItem, Button, Typography } from '@mui/material';
+import { useAuthContext } from 'src/auth/useAuthContext';
+import UsersDropDown from 'src/components/all-users-dropdown';
 import Iconify from 'src/components/iconify/Iconify';
 // components
 
@@ -16,6 +18,9 @@ type Props = {
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCreateClick?: any;
+  onUserChange?: any;
+  currentSelectedUser: number | string;
+  setCurrentSelectedUser: any;
   lastLoadingTime?: any;
   isCreateRights?: boolean;
   lastUpdateStatus?: boolean;
@@ -35,8 +40,13 @@ export default function SensorTableToolbar({
   isCreateRights,
   lastUpdateStatus,
   lastLoadingTime,
+  onUserChange,
+  currentSelectedUser,
+  setCurrentSelectedUser,
 }: Props) {
   console.log(isCreateRights, 'isCreateRights');
+  const { user } = useAuthContext();
+
   return (
     <Stack
       spacing={2}
@@ -55,7 +65,7 @@ export default function SensorTableToolbar({
         }}
       >
         <TextField
-          // fullWidth={!isCreateButton || !lastUpdateStatus}
+          fullWidth
           value={filterName}
           onChange={onFilterName}
           placeholder="Search..."
@@ -79,20 +89,26 @@ export default function SensorTableToolbar({
           </Button>
         )}
         {isCreateButton && isCreateRights && (
-        <Button
-          variant="contained"
-          sx={{ flexShrink: 0, ml: '20px' }}
-          onClick={handleCreateClick}
-          // startIcon={<Iconify icon="eva:trash-2-outline" />}
-        >
-          {createButtonLable}
-        </Button>
-      )}
+          <Button
+            variant="contained"
+            sx={{ flexShrink: 0, ml: '20px' }}
+            onClick={handleCreateClick}
+            // startIcon={<Iconify icon="eva:trash-2-outline" />}
+          >
+            {createButtonLable}
+          </Button>
+        )}
       </Stack>
-      {lastUpdateStatus && (
+      {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
         <Typography variant="h6" color="#637381" paragraph>
           {`Last data loaded time: ${lastLoadingTime}`}
         </Typography>
+      ) : (
+        <UsersDropDown
+          onChange={onUserChange}
+          currentSelectedUser={currentSelectedUser}
+          setCurrentSelectedUser={setCurrentSelectedUser}
+        />
       )}
     </Stack>
   );

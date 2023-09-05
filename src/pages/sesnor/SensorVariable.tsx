@@ -13,6 +13,7 @@ import {
   Container,
   IconButton,
   TableContainer,
+  Typography,
 } from '@mui/material';
 // routes
 import { useDispatch, useSelector } from 'src/redux/store';
@@ -120,6 +121,8 @@ function SensorVariableAccess({
 
   const [filterRole, setFilterRole] = useState('all');
 
+  const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
+
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
@@ -132,17 +135,18 @@ function SensorVariableAccess({
     dispatch(slice.actions.startLoading());
     dispatch(
       getSensorDataByID({
-        userId: user?.UserId,
+        userId: currentSelectedUser,
         sensorType: SensorVariableType ? 'variable' : 'setting',
         searchValue: filterName,
         page: String(page + 1),
         limit: String(rowsPerPage),
       })
     );
+
     const intervalId = setInterval(() => {
       dispatch(
         getSensorDataByID({
-          userId: user?.UserId,
+          userId: currentSelectedUser,
           sensorType: SensorVariableType ? 'variable' : 'setting',
           searchValue: '',
           page: '1',
@@ -157,7 +161,7 @@ function SensorVariableAccess({
     return () => clearInterval(intervalId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, SensorVariableType, rowsPerPage, filterName]);
+  }, [dispatch, page, SensorVariableType, rowsPerPage, filterName, currentSelectedUser]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -203,6 +207,11 @@ function SensorVariableAccess({
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
+        {user?.UserTypeCode !== 'CU' && (
+          <Typography variant="h6" textAlign="right" color="#637381" paragraph>
+            {`Last data loaded time: ${lastLoadingTime}`}
+          </Typography>
+        )}
         <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
@@ -217,6 +226,8 @@ function SensorVariableAccess({
             // isCreateButton
             lastUpdateStatus
             lastLoadingTime={lastLoadingTime}
+            setCurrentSelectedUser={setCurrentSelectedUser}
+            currentSelectedUser={currentSelectedUser}
           />
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
