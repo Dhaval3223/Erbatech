@@ -39,6 +39,7 @@ const ICONS = {
   variable: icon('ic_sensor_variable'),
   setting: icon('ic_sensor_setting'),
   customSetting: icon('ic_sensor_costom_setting'),
+  acknowledgement: icon('ic_acknowledgement'),
   accessControl: icon('ic_access_control'),
 };
 
@@ -292,6 +293,12 @@ const navConfig = [
         path: PATH_DASHBOARD.general.sensorCustomSetting,
         icon: ICONS.customSetting,
         code: 'PG008',
+      },
+      {
+        title: 'Acknowledgement',
+        path: PATH_DASHBOARD.general.acknowledgement,
+        icon: ICONS.acknowledgement,
+        code: 'PG015',
       },
       {
         title: 'Reports',

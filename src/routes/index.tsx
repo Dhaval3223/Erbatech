@@ -150,6 +150,7 @@ import {
   StrateFieldReport,
   OperatingHoursReport,
   SkFrquencyReport,
+  Acknowledgement,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -227,6 +228,7 @@ export default function Router() {
         { path: 'sensor-custom-setting', element: <SensorCustomSetting /> },
         // { path: 'customer-management', element: <CustomerManagement /> },
         { path: 'access-control', element: <AccessControl /> },
+        { path: 'acknowledgement', element: <Acknowledgement /> },
         {
           path: 'reports',
           element: <ReportsPage />,
