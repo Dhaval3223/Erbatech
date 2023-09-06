@@ -33,12 +33,12 @@ const DAYS_FILTER = [
     start_date: moment().subtract(8, 'hours'),
     end_date: moment(),
   },
-  {
-    item: '24 Hours',
-    value: '24_hours',
-    start_date: moment().subtract(1, 'day'),
-    end_date: moment(),
-  },
+  // {
+  //   item: '24 Hours',
+  //   value: '24_hours',
+  //   start_date: moment().subtract(1, 'day'),
+  //   end_date: moment(),
+  // },
 ];
 
 const Report: React.FC = () => {
@@ -183,6 +183,8 @@ const Report: React.FC = () => {
         topicName: 'topic_2',
         page: 1,
         limit: 10,
+        startDate: dateRange?.start_date ? dateRange?.start_date : '',
+        endDate: dateRange?.end_date ? dateRange?.end_date : '',
       })
     );
   };
