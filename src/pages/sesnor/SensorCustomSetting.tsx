@@ -193,7 +193,7 @@ function SensorCustomSettingAccess({
       dispatch(slice.actions.startLoading());
       dispatch(
         getSensorDataByID({
-          userId: user?.UserId,
+          userId: currentSelectedUser,
           sensorType: 'custom-setting',
           searchValue: filterName,
           page: String(page + 1),
@@ -209,7 +209,7 @@ function SensorCustomSettingAccess({
       dispatch(slice.actions.startLoading());
       dispatch(
         getSensorDataByID({
-          userId: user?.UserId,
+          userId: currentSelectedUser,
           sensorType: 'custom-setting',
           searchValue: filterName,
           page: String(page + 1),
@@ -259,7 +259,7 @@ function SensorCustomSettingAccess({
   const handleCellDoubleClick = (id: number, row: any) => {
     setEditingId(id);
     setUpdateData({
-      userId: user?.UserId,
+      userId: currentSelectedUser,
       index: rowsPerPage * page + (id + 1),
       sensorType: 'custom-setting',
       data: { ...row },
