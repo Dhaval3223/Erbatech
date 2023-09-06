@@ -33,12 +33,12 @@ const DAYS_FILTER = [
     start_date: moment().subtract(8, 'hours'),
     end_date: moment(),
   },
-  {
-    item: '24 Hours',
-    value: '24_hours',
-    start_date: moment().subtract(1, 'day'),
-    end_date: moment(),
-  },
+  // {
+  //   item: '24 Hours',
+  //   value: '24_hours',
+  //   start_date: moment().subtract(1, 'day'),
+  //   end_date: moment(),
+  // },
 ];
 
 const Report: React.FC = () => {
@@ -169,13 +169,15 @@ const Report: React.FC = () => {
         topicName: 'topic_2',
         page: 1,
         limit: 10,
+        startDate: dateRange?.start_date ? dateRange?.start_date : '',
+        endDate: dateRange?.end_date ? dateRange?.end_date : '',
       })
     );
   };
 
   return (
     <>
-     <Stack
+      <Stack
         spacing={2}
         alignItems="center"
         direction={{
@@ -238,13 +240,13 @@ const Report: React.FC = () => {
           ))}
         </TextField>
       </Stack>
-    <div className="realtime-chart">
-      <Container maxWidth={themeStretch ? false : 'lg'}>
-        <Card sx={{ p: 2 }}>
-          <ApexCharts options={options} series={seriesData} type="line" height={500} />
-        </Card>
-      </Container>
-    </div>
+      <div className="realtime-chart">
+        <Container maxWidth={themeStretch ? false : 'lg'}>
+          <Card sx={{ p: 2 }}>
+            <ApexCharts options={options} series={seriesData} type="line" height={500} />
+          </Card>
+        </Container>
+      </div>
     </>
   );
 };
