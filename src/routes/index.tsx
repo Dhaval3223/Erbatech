@@ -150,6 +150,7 @@ import {
   StrateFieldReport,
   OperatingHoursReport,
   SkFrquencyReport,
+  DashboardScreen,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -216,9 +217,9 @@ export default function Router() {
       ),
       children: [
         { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
-        { path: 'app', element: <GeneralAppPage /> },
-        { path: 'dashboard', element: <GeneralAppPage /> },
-        { path: 'dashboard', element: <GeneralAppPage /> },
+        // { path: 'app', element: <GeneralAppPage /> },
+        // { path: 'dashboard', element: <GeneralAppPage /> },
+        { path: 'dashboard', element: <DashboardScreen /> },
         { path: 'roles', element: <RolesPage /> },
         { path: 'user-management', element: <UserListingPage user /> },
         { path: 'customer-management', element: <UserListingPage /> },
