@@ -253,6 +253,12 @@ const navConfig = [
     items: [
       // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard, code: 'PG001' },
       {
+        title: 'dashboard',
+        path: PATH_DASHBOARD.general.dashboard,
+        icon: ICONS.dashboard,
+        code: 'PG001',
+      },
+      {
         title: 'role',
         path: PATH_DASHBOARD.general.roles,
         icon: ICONS.role,
