@@ -20,19 +20,19 @@ export default function Login() {
   const { method } = useAuthContext();
   const dispatch = useDispatch();
 
-  const { rolesData } = useSelector(
-    (state) => state.roles
-  );
+  const { rolesData } = useSelector((state) => state.roles);
   console.log('rolesData', rolesData);
 
   useEffect(() => {
-    dispatch(getAllRoles({
-      searchValue: "",
-      type: "all",
-      page: "1",
-      limit: "10"
-    }))
-  }, [dispatch])
+    dispatch(
+      getAllRoles({
+        searchValue: '',
+        type: 'all',
+        page: '1',
+        limit: '10',
+      })
+    );
+  }, [dispatch]);
 
   return (
     <LoginLayout>

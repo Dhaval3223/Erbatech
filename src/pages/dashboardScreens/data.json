@@ -14,7 +14,7 @@
   "2.35": "t_coll_backfeed_3",
   "2.21": "f_pump_2",
   "2.31": "f_pump_3",
-  "3.1": "t_coll_infeed",
+  "3.1": "T_coll_infeed",
   "3.2": "T_coll_backfeed",
   "3.3": "SK_heat",
   "3.4": "SK_heat",
