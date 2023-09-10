@@ -291,11 +291,6 @@ function SensorCustomSettingAccess({
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        {user?.UserTypeCode !== 'CU' && (
-          <Typography variant="h6" textAlign="right" color="#637381" paragraph>
-            {`Last data loaded time: ${lastLoadingTime}`}
-          </Typography>
-        )}
         <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
@@ -395,6 +390,12 @@ function SensorCustomSettingAccess({
             onChangeDense={onChangeDense}
           />
         </Card>
+
+        {user?.UserTypeCode !== 'CU' && (
+          <Typography variant="body2" mt="8px" textAlign="right" color="#637381" paragraph>
+            {`Last data loaded time: ${lastLoadingTime}`}
+          </Typography>
+        )}
       </Container>
     </>
   );

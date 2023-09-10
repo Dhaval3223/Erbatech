@@ -100,7 +100,7 @@ export default function SensorTableToolbar({
         )}
       </Stack>
       {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
-        <Typography variant="h6" color="#637381" paragraph>
+        <Typography variant="body2" paragraph>
           {`Last data loaded time: ${lastLoadingTime}`}
         </Typography>
       ) : (

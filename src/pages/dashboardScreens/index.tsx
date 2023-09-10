@@ -68,13 +68,13 @@ const Dashboard = () => {
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
           )}
-          <Typography variant="h6" m="0" textAlign="right" color="#637381" paragraph>
-            {`Last data loaded time: ${lastLoadingTime}`}
-          </Typography>
         </Box>
         <Card>
           <MotherScreen />
         </Card>
+        <Typography variant="body2" mt="8px" textAlign="right" paragraph>
+          {`Last data loaded time: ${lastLoadingTime}`}
+        </Typography>
       </Container>
     </>
   );
