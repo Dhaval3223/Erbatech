@@ -42,7 +42,7 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 
 const TABLE_HEAD = [
-  { id: 'data_types', label: 'Data Types', align: 'left' },
+  // { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'variable', label: 'Variable', align: 'left' },
   { id: 'value', label: 'Value', align: 'left' },
   { id: 'unit', label: 'Unit', align: 'left' },
@@ -52,7 +52,7 @@ const TABLE_HEAD = [
 ];
 
 const SETTINGS_TABLE_HEAD = [
-  { id: 'data_types', label: 'Data Types', align: 'left' },
+  // { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'group', label: 'Group', align: 'left' },
   { id: 'identifier', label: 'Identifier', align: 'left' },
   { id: 'value', label: 'Value', align: 'left' },
@@ -207,11 +207,6 @@ function SensorVariableAccess({
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        {user?.UserTypeCode !== 'CU' && (
-          <Typography variant="h6" textAlign="right" color="#637381" paragraph>
-            {`Last data loaded time: ${lastLoadingTime}`}
-          </Typography>
-        )}
         <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
@@ -300,6 +295,11 @@ function SensorVariableAccess({
             onChangeDense={onChangeDense}
           />
         </Card>
+        {user?.UserTypeCode !== 'CU' && (
+          <Typography variant="body2" mt="8px" textAlign="right" paragraph>
+            {`Last data loaded time: ${lastLoadingTime}`}
+          </Typography>
+        )}
       </Container>
     </>
   );

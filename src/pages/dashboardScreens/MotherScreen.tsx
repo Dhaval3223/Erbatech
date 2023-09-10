@@ -154,7 +154,7 @@ export const MotherScreen = () => {
         </g>
         <g transform="matrix(1, 0, 0, 1, 46.6633, 16.642834)">
           <text
-            fontFamily="Noto Sans"
+            fontFamily="Public Sans"
             fontStyle="normal"
             fontWeight="bold"
             fontStretch="normal"
@@ -892,7 +892,7 @@ export const MotherScreen = () => {
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[1.5]]} °C
+              {apiValues?.[keys?.[3.1]]} °C
             </tspan>
           </text>
         </g>
@@ -938,14 +938,14 @@ export const MotherScreen = () => {
             y="5.743476"
           >
             <tspan x="2.6279526" y="5.743476">
-              {apiValues?.[keys?.[3.4]]} m
+              {apiValues?.[keys?.[3.4]]} m³/h
             </tspan>
-            <tspan x="18.377953" y="2.5034757" fontSize="4.455pt">
+            {/* <tspan x="18.377953" y="2.5034757" fontSize="4.455pt">
               3
             </tspan>
             <tspan x="21.627953" y="5.743476">
               /h
-            </tspan>
+            </tspan> */}
           </text>
         </g>
         <path fill="#FFFFFF" d="M860.29 78.22L916.98 78.22 916.98 90.75 860.29 90.75z" />
@@ -989,10 +989,10 @@ export const MotherScreen = () => {
             x="31.364664"
             y="7.903476"
           >
-            <tspan x="11.489664" y="0.34347534">
-              {apiValues?.[keys?.[9.2]]}
+            <tspan x="0.052164" y="5.743476">
+              {apiValues?.[keys?.[9.2]]} W/m²
             </tspan>
-            <tspan xmlSpace="preserve" x="33.864662" y="0.34347534">
+            {/* <tspan xmlSpace="preserve" x="33.864662" y="0.34347534">
               {' '}
             </tspan>
             <tspan x="10.739664" y="11.1434765">
@@ -1000,7 +1000,7 @@ export const MotherScreen = () => {
             </tspan>
             <tspan x="31.364664" y="7.903476" fontSize="4.455pt">
               2
-            </tspan>
+            </tspan> */}
           </text>
         </g>
         <path fill="#FFFFFF" d="M860.29 136.84L916.98 136.84 916.98 149.37 860.29 149.37z" />
@@ -2860,17 +2860,17 @@ export const MotherScreen = () => {
             </tspan>
           </text>
         </g>
-        <path
+        {/* <path
           fill="#DAE3F3"
           d="M764.06 10.96C764.06 7.67 766.72 5.01 770.01 5.01L927.12 5.01 927.12 5.01C930.41 5.01 933.07 7.67 933.07 10.96L933.07 34.75 933.07 34.75C933.07 38.03 930.41 40.7 927.12 40.7L770.01 40.7 770.01 40.7C766.72 40.7 764.06 38.03 764.06 34.75z"
-        />
-        <path
+        /> */}
+        {/* <path
           strokeWidth="1"
           stroke="#FF0000"
           fill="none"
           d="M764.06 10.96C764.06 7.67 766.72 5.01 770.01 5.01L927.12 5.01 927.12 5.01C930.41 5.01 933.07 7.67 933.07 10.96L933.07 34.75 933.07 34.75C933.07 38.03 930.41 40.7 927.12 40.7L770.01 40.7 770.01 40.7C766.72 40.7 764.06 38.03 764.06 34.75z"
-        />
-        <g transform="matrix(1, 0, 0, 1, 772.9994, 10.350758)">
+        /> */}
+        {/* <g transform="matrix(1, 0, 0, 1, 772.9994, 10.350758)">
           <text
             fontFamily="Noto Sans"
             fontStyle="normal"
@@ -2885,7 +2885,7 @@ export const MotherScreen = () => {
               Mother screen
             </tspan>
           </text>
-        </g>
+        </g> */}
       </g>
     </svg>
   );

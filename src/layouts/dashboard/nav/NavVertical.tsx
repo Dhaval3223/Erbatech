@@ -57,7 +57,7 @@ export default function NavVertical({ openNav, onCloseNav }: Props) {
       >
         <Logo disabledLink />
 
-        <NavAccount />
+        {/* <NavAccount /> */}
       </Stack>
 
       <NavSectionVertical data={navConfig} />

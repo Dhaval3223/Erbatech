@@ -128,6 +128,7 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
   const onChangeContrast = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const themeContrast = event.target.value;
+      console.log('themeContrast', themeContrast);
       setSettings({ ...settings, themeContrast });
     },
     [setSettings, settings]
