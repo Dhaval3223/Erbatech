@@ -22,7 +22,7 @@ import ConfirmDialog from 'src/components/confirm-dialog/index';
 // ----------------------------------------------------------------------
 
 type Props = {
-  row: IUserAccountGeneral;
+  row: any;
   selected: boolean;
   onEditRow: VoidFunction;
   onSelectRow: VoidFunction;
@@ -36,7 +36,7 @@ export default function UserTableRow({
   onSelectRow,
   onDeleteRow,
 }: Props) {
-  const { name, avatarUrl, company, role, isVerified, status } = row;
+  // const { name, avatarUrl, company, role, isVerified, status } = row;
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -61,11 +61,11 @@ export default function UserTableRow({
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
+        {/* <TableCell padding="checkbox">
           <Checkbox checked={selected} onClick={onSelectRow} />
-        </TableCell>
+        </TableCell> */}
 
-        <TableCell align="left">
+        {/* <TableCell align="left">
           <Label
             variant="soft"
             color={(status === 'banned' && 'error') || 'success'}
@@ -73,9 +73,10 @@ export default function UserTableRow({
           >
             {status}
           </Label>
-        </TableCell>
+        </TableCell> */}
 
-        <TableCell align="left">{company}</TableCell>
+        <TableCell align="left">{row?.[0]}</TableCell>
+        <TableCell align="left">{row?.[1]}</TableCell>
       </TableRow>
 
       <MenuPopover

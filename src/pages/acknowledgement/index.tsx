@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 // @mui
 import {
@@ -15,8 +15,14 @@ import {
   Container,
   IconButton,
   TableContainer,
+  Typography,
+  Box,
 } from '@mui/material';
 // routes
+import moment from 'moment';
+import { dispatch, useSelector } from 'src/redux/store';
+import { useAuthContext } from 'src/auth/useAuthContext';
+import UsersDropDown from 'src/components/all-users-dropdown';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -39,7 +45,9 @@ import {
   TablePaginationCustom,
 } from '../../components/table';
 // sections
-import TableRows  from './TableRows';
+import TableRows from './TableRows';
+import { slice } from '../reports/slice';
+import { getAllReportsData } from '../reports/slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -59,8 +67,8 @@ const ROLE_OPTIONS = [
 ];
 
 const TABLE_HEAD = [
-  { id: 'status', label: 'Status', align: 'left' },
-  { id: 'description', label: 'Description', align: 'left' },
+  { id: 'label', label: 'Label', align: 'left' },
+  { id: 'value', label: 'Value', align: 'left' },
 ];
 
 // ----------------------------------------------------------------------
@@ -83,11 +91,18 @@ export default function UserListPage() {
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
-  } = useTable();
+  } = useTable({
+    defaultRowsPerPage: 10,
+  });
 
   const { themeStretch } = useSettingsContext();
 
   const navigate = useNavigate();
+
+  const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
+
+  const apiValues = reportsData?.rows?.[0]?.TransactionData?.[0];
+  console.log('sensorData', Object.entries(apiValues || {}));
 
   const [tableData, setTableData] = useState(_userList);
 
@@ -98,6 +113,44 @@ export default function UserListPage() {
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [filterStatus, setFilterStatus] = useState('all');
+
+  const { user } = useAuthContext();
+
+  const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
+
+  const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+  useEffect(() => {
+    dispatch(slice.actions.startGetReportsLoading());
+    dispatch(
+      getAllReportsData({
+        topicName: 'topic_2',
+        page: 1,
+        limit: 1,
+        userId: currentSelectedUser,
+      })
+    );
+
+    const intervalId = setInterval(() => {
+      dispatch(
+        getAllReportsData({
+          topicName: 'topic_2',
+          page: 1,
+          limit: 1,
+          userId: currentSelectedUser,
+        })
+      );
+      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+      // Update last call time during each interval
+    }, 60000);
+
+    setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentSelectedUser, page, rowsPerPage, dispatch]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -114,9 +167,9 @@ export default function UserListPage() {
   const isFiltered = filterName !== '' || filterRole !== 'all' || filterStatus !== 'all';
 
   const isNotFound =
-    (!dataFiltered.length && !!filterName) ||
-    (!dataFiltered.length && !!filterRole) ||
-    (!dataFiltered.length && !!filterStatus);
+    Object.entries(apiValues || {})?.filter(
+      (item: any) => item?.[0]?.includes('Alarm') && item?.[1] >= 1
+    )?.length === 0;
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -187,6 +240,15 @@ export default function UserListPage() {
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
+        {user?.UserTypeCode !== 'CU' && (
+          <Box sx={{ marginBottom: 2}}>
+            <UsersDropDown
+              size="small"
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          </Box>
+        )}
         <Card>
           {/* <UserTableToolbar
             isFiltered={isFiltered}
@@ -200,7 +262,7 @@ export default function UserListPage() {
 
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
-              dense={dense}
+              // dense={dense}
               numSelected={selected.length}
               rowCount={tableData.length}
               onSelectAllRows={(checked) =>
@@ -219,33 +281,33 @@ export default function UserListPage() {
             />
 
             <Scrollbar>
-              <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
+              <Table size="medium" sx={{ minWidth: 800 }}>
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
                   rowCount={tableData.length}
                   numSelected={selected.length}
-                  onSort={onSort}
-                  onSelectAllRows={(checked) =>
-                    onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
-                  }
+                  // onSort={onSort}
+                  // onSelectAllRows={(checked) =>
+                  //   onSelectAllRows(
+                  //     checked,
+                  //     tableData.map((row) => row.id)
+                  //   )
+                  // }
                 />
 
                 <TableBody>
-                  {dataFiltered
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => (
+                  {Object.entries(apiValues || {})
+                    ?.filter((item: any) => item?.[0]?.includes('Alarm') && item?.[1] >= 1)
+                    ?.map((row: any) => (
                       <TableRows
-                        key={row.id}
+                        key={row?.id}
                         row={row}
-                        selected={selected.includes(row.id)}
-                        onSelectRow={() => onSelectRow(row.id)}
-                        onDeleteRow={() => handleDeleteRow(row.id)}
-                        onEditRow={() => handleEditRow(row.name)}
+                        selected={selected.includes(row?.id)}
+                        onSelectRow={() => onSelectRow(row?.id)}
+                        onDeleteRow={() => handleDeleteRow(row?.id)}
+                        onEditRow={() => handleEditRow(row?.name)}
                       />
                     ))}
 
@@ -261,16 +323,26 @@ export default function UserListPage() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={dataFiltered.length}
+            count={
+              Object.entries(apiValues || {})?.filter(
+                (item: any) => item?.[0]?.includes('Alarm') && item?.[1] >= 1
+              )?.length
+            }
             page={page}
+            rowsPerPageOptions={[10, 25, 50]}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
             //
-            dense={dense}
+            // dense={false}
             onChangeDense={onChangeDense}
           />
         </Card>
+        {user?.UserTypeCode !== 'CU' && (
+          <Typography variant="body2" mt="8px" textAlign="right" color="#637381" paragraph>
+            {`Last data loaded time: ${lastLoadingTime}`}
+          </Typography>
+        )}
       </Container>
 
       <ConfirmDialog
