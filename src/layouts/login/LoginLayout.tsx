@@ -32,8 +32,7 @@ export default function LoginLayout({ children, illustration, title }: Props) {
         </Typography> */}
 
         <Image
-          disabledEffect
-          visibleByDefault
+          // visibleByDefault
           alt="auth"
           src={
             illustration ||

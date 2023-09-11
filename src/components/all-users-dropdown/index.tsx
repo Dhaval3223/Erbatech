@@ -9,10 +9,12 @@ const UsersDropDown = ({
   addAllRole,
   setCurrentSelectedUser,
   size,
+  offLabel,
 }: {
   onChange?: any;
   currentSelectedUser: any;
   addAllRole?: boolean;
+  offLabel?: boolean;
   setCurrentSelectedUser: any;
   size?: 'small' | 'medium';
 }) => {
@@ -47,7 +49,7 @@ const UsersDropDown = ({
       fullWidth
       select
       size={size || 'medium'}
-      label="Customer Name"
+      label={!offLabel && 'Customer Name'}
       value={currentSelectedUser}
       onChange={(e) => setCurrentSelectedUser(e.target.value)}
       SelectProps={{

@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'src/redux/store';
+import UsersDropDown from 'src/components/all-users-dropdown';
+import { useAuthContext } from 'src/auth/useAuthContext';
 
 import keys from './data.json';
 
-export const MotherScreen = () => {
+export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: any) => {
   const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
+
+  const { user } = useAuthContext();
+
   console.log('sensorData', reportsData?.rows?.[0]?.TransactionData?.[0]);
 
   const apiValues = reportsData?.rows?.[0]?.TransactionData?.[0];
@@ -2860,6 +2865,22 @@ export const MotherScreen = () => {
             </tspan>
           </text>
         </g>
+        <g transform="matrix(1, 0, 0, 1, 772.9994, 10.350758)">
+          <foreignObject
+            style={{ backgroundColor: 'white', borderRadius: '10px' }}
+            x="-80"
+            y="0"
+            width="240"
+            height="40"
+          >
+            <UsersDropDown
+              size="small"
+              offLabel
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          </foreignObject>
+        </g>
         {/* <path
           fill="#DAE3F3"
           d="M764.06 10.96C764.06 7.67 766.72 5.01 770.01 5.01L927.12 5.01 927.12 5.01C930.41 5.01 933.07 7.67 933.07 10.96L933.07 34.75 933.07 34.75C933.07 38.03 930.41 40.7 927.12 40.7L770.01 40.7 770.01 40.7C766.72 40.7 764.06 38.03 764.06 34.75z"
@@ -2881,6 +2902,13 @@ export const MotherScreen = () => {
             x="14.15139"
             y="18.654581"
           >
+            <foreignObject x="50" y="50" width="300" height="100">
+              <UsersDropDown
+                size="small"
+                currentSelectedUser={currentSelectedUser}
+                setCurrentSelectedUser={setCurrentSelectedUser}
+              />
+            </foreignObject>
             <tspan x="14.15139" y="18.654581">
               Mother screen
             </tspan>
