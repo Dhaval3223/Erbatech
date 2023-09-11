@@ -5,6 +5,10 @@ import { useAuthContext } from 'src/auth/useAuthContext';
 
 import keys from './data.json';
 
+function roundToOneDecimalPlace(number: any) {
+  return Math.round(number * 10) / 10;
+}
+
 export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: any) => {
   const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
 
@@ -753,7 +757,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.7529526" y="5.743476">
-              {apiValues?.[keys?.[2.1]] && `${apiValues?.[keys?.[2.1]]} %`}
+              {apiValues?.[keys?.[2.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[2.1]])} %`}
             </tspan>
           </text>
         </g>
@@ -799,7 +803,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.1279526" y="5.743476">
-              {apiValues?.[keys?.[2.3]] && `${apiValues?.[keys?.[2.3]]} hPa`}
+              {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])} hPa`}
             </tspan>
           </text>
         </g>
@@ -822,7 +826,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[6.1]] && `${apiValues?.[keys?.[6.1]]} °C`}
+              {apiValues?.[keys?.[6.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[6.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -845,7 +849,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="11.1434765"
           >
             <tspan x="4.010334" y="0.34347534">
-              {apiValues?.[keys?.[4.5]] && `${apiValues?.[keys?.[4.5]]} %`}
+              {apiValues?.[keys?.[4.5]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[4.5]])} %`}
             </tspan>
             {/* <tspan xmlSpace="preserve" x="16.385334" y="0.34347534">
               {' '}
@@ -874,7 +878,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[3.2]] && `${apiValues?.[keys?.[3.2]]} °C`}
+              {apiValues?.[keys?.[3.2]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[3.2]])} °C`}
             </tspan>
           </text>
         </g>
@@ -897,7 +901,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[3.1]] && `${apiValues?.[keys?.[3.1]]} °C`}
+              {apiValues?.[keys?.[3.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[3.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -920,7 +924,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="9.002953" y="5.743476">
-              {apiValues?.[keys?.[3.3]] && `${apiValues?.[keys?.[3.3]]} W`}
+              {apiValues?.[keys?.[3.3]] && `${Math.round(apiValues?.[keys?.[3.3]])} W`}
             </tspan>
           </text>
         </g>
@@ -943,7 +947,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.6279526" y="5.743476">
-              {apiValues?.[keys?.[3.4]] && `${apiValues?.[keys?.[3.4]]} m³/h`}
+              {apiValues?.[keys?.[3.4]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[3.4]])} m³/h`}
             </tspan>
             {/* <tspan x="18.377953" y="2.5034757" fontSize="4.455pt">
               3
@@ -972,7 +977,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="8.052164" y="5.743476">
-              {apiValues?.[keys?.[9.1]] && `${apiValues?.[keys?.[9.1]]} °C`}
+              {apiValues?.[keys?.[9.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[9.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -994,8 +999,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             x="31.364664"
             y="7.903476"
           >
-            <tspan x="-3" y="5.743476">
-              {apiValues?.[keys?.[9.2]] && `${apiValues?.[keys?.[9.2]]} W/m²`}
+            <tspan x="-1" y="5.743476">
+              {apiValues?.[keys?.[9.2]] && `${Math.round(apiValues?.[keys?.[9.2]])} W/m²`}
             </tspan>
             {/* <tspan xmlSpace="preserve" x="33.864662" y="0.34347534">
               {' '}
@@ -1027,7 +1032,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="7.052164" y="5.743476">
-              {apiValues?.[keys?.[9.3]] && `${apiValues?.[keys?.[9.3]]} m/s`}
+              {apiValues?.[keys?.[9.3]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[9.3]])} m/s`}
             </tspan>
           </text>
         </g>
@@ -1050,7 +1056,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[4.2]] && `${apiValues?.[keys?.[4.2]]} °C`}
+              {apiValues?.[keys?.[4.2]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[4.2]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1073,7 +1079,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[4.7]] && `${apiValues?.[keys?.[4.7]]} °C`}
+              {apiValues?.[keys?.[4.7]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[4.7]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1096,7 +1102,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="9.002953" y="5.743476">
-              {apiValues?.[keys?.[6.3]] && `${apiValues?.[keys?.[6.3]]} W`}
+              {apiValues?.[keys?.[6.3]] && `${Math.round(apiValues?.[keys?.[6.3]])} W`}
             </tspan>
           </text>
         </g>
@@ -1119,7 +1125,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="9.002953" y="5.743476">
-              {apiValues?.[keys?.[4.3]] && `${apiValues?.[keys?.[4.3]]} W`}
+              {apiValues?.[keys?.[4.3]] && `${Math.round(apiValues?.[keys?.[4.3]])} W`}
             </tspan>
           </text>
         </g>
@@ -1197,7 +1203,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="7.302164" y="5.743476">
-              {apiValues?.[keys?.[8.1]] && `${apiValues?.[keys?.[8.1]]} W`}
+              {apiValues?.[keys?.[8.1]] && `${Math.round(apiValues?.[keys?.[8.1]])} W`}
             </tspan>
           </text>
         </g>
@@ -1236,7 +1242,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="4.614664" y="5.743476">
-              {apiValues?.[keys?.[8.2]] && `${apiValues?.[keys?.[8.2]]} kWh`}
+              {apiValues?.[keys?.[8.2]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[8.2]])} kWh`}
             </tspan>
           </text>
         </g>
@@ -1311,7 +1318,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[2.15]] && `${apiValues?.[keys?.[2.15]]} °C`}
+              {apiValues?.[keys?.[2.15]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.15]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1337,7 +1345,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[1.4]] && `${apiValues?.[keys?.[1.4]]} °C`}
+              {apiValues?.[keys?.[1.4]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[1.4]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1403,7 +1411,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[1.1]] && `${apiValues?.[keys?.[1.1]]} °C`}
+              {apiValues?.[keys?.[1.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[1.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1441,7 +1449,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[2.25]] && `${apiValues?.[keys?.[2.25]]} °C`}
+              {apiValues?.[keys?.[2.25]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.25]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1467,7 +1476,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[2.35]] && `${apiValues?.[keys?.[2.35]]} °C`}
+              {apiValues?.[keys?.[2.35]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.35]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1520,7 +1530,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[4.1]] && `${apiValues?.[keys?.[4.1]]} °C`}
+              {apiValues?.[keys?.[4.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1546,7 +1556,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[6.2]] && `${apiValues?.[keys?.[6.2]]} °C`}
+              {apiValues?.[keys?.[6.2]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[6.2]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1614,7 +1624,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[5.1]] && `${apiValues?.[keys?.[5.1]]} °C`}
+              {apiValues?.[keys?.[5.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[5.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1637,7 +1647,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[5.2]] && `${apiValues?.[keys?.[5.2]]} °C`}
+              {apiValues?.[keys?.[5.2]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[5.2]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1667,7 +1677,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[7.1]] && `${apiValues?.[keys?.[7.1]]} °C`}
+              {apiValues?.[keys?.[7.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[7.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1690,7 +1700,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="9.002953" y="5.743476">
-              {apiValues?.[keys?.[7.3]] && `${apiValues?.[keys?.[7.3]]} W`}
+              {apiValues?.[keys?.[7.3]] && `${Math.round(apiValues?.[keys?.[7.3]])} W`}
             </tspan>
           </text>
         </g>
@@ -1716,7 +1726,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[7.2]] && `${apiValues?.[keys?.[7.2]]} °C`}
+              {apiValues?.[keys?.[7.2]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[7.2]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1771,7 +1781,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[7.7]] && `${apiValues?.[keys?.[7.7]]} °C`}
+              {apiValues?.[keys?.[7.7]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[7.7]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1797,7 +1807,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[7.6]] && `${apiValues?.[keys?.[7.6]]} °C`}
+              {apiValues?.[keys?.[7.6]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[7.6]])} °C`}
             </tspan>
           </text>
         </g>
@@ -1823,7 +1833,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[6.6]] && `${apiValues?.[keys?.[6.6]]} °C`}
+              {apiValues?.[keys?.[6.6]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[6.6]])} °C`}
             </tspan>
           </text>
         </g>
@@ -2522,7 +2532,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[2.1]] && `${apiValues?.[keys?.[2.1]]} °C`}
+              {apiValues?.[keys?.[2.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[2.1]])} °C`}
             </tspan>
           </text>
         </g>
@@ -2592,7 +2602,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.1279526" y="5.743476">
-              {apiValues?.[keys?.[2.3]] && `${apiValues?.[keys?.[2.3]]}  hPa`}
+              {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])}  hPa`}
             </tspan>
           </text>
         </g>
@@ -2625,7 +2635,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.7529526" y="5.743476">
-              {apiValues?.[keys?.[2.1]] && `${apiValues?.[keys?.[2.1]]} %`}
+              {apiValues?.[keys?.[2.1]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[2.1]])} %`}
             </tspan>
           </text>
         </g>
@@ -2710,7 +2720,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.1279526" y="5.743476">
-              {apiValues?.[keys?.[2.23]] && `${apiValues?.[keys?.[2.23]]}  hPa`}
+              {apiValues?.[keys?.[2.23]] && `${Math.round(apiValues?.[keys?.[2.23]])}  hPa`}
             </tspan>
           </text>
         </g>
@@ -2743,7 +2753,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.7529526" y="5.743476">
-              {apiValues?.[keys?.[2.21]] && `${apiValues?.[keys?.[2.21]]} %`}
+              {apiValues?.[keys?.[2.21]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.21]])} %`}
             </tspan>
           </text>
         </g>
@@ -2828,7 +2839,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.1279526" y="5.743476">
-              {apiValues?.[keys?.[2.33]] && `${apiValues?.[keys?.[2.33]]} hPa`}
+              {apiValues?.[keys?.[2.33]] && `${Math.round(apiValues?.[keys?.[2.33]])} hPa`}
             </tspan>
           </text>
         </g>
@@ -2861,7 +2872,8 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="5.7529526" y="5.743476">
-              {apiValues?.[keys?.[2.31]] && `${apiValues?.[keys?.[2.31]]} %`}
+              {apiValues?.[keys?.[2.31]] &&
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.31]])} %`}
             </tspan>
           </text>
         </g>
