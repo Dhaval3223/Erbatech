@@ -33,12 +33,18 @@ const DAYS_FILTER = [
     start_date: moment().subtract(8, 'hours'),
     end_date: moment(),
   },
-  // {
-  //   item: '24 Hours',
-  //   value: '24_hours',
-  //   start_date: moment().subtract(1, 'day'),
-  //   end_date: moment(),
-  // },
+  {
+    item: '24 Hours',
+    value: '24_hours',
+    start_date: moment().subtract(1, 'day'),
+    end_date: moment(),
+  },
+  {
+    item: '48 Hours',
+    value: '48_hours',
+    start_date: moment().subtract(2, 'day'),
+    end_date: moment(),
+  },
 ];
 
 const YieldsReport: React.FC = () => {

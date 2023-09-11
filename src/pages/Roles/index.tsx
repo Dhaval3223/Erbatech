@@ -75,7 +75,10 @@ const ROLE_OPTIONS = [
   'full stack developer',
 ];
 
-const TABLE_HEAD = [{ id: 'role', label: 'Role', align: 'left' }, { id: '' }];
+const TABLE_HEAD = [
+  { id: 'role', label: 'Role', align: 'left' },
+  { id: 'action', label: 'Action' },
+];
 
 export default function UserListPage() {
   const {
@@ -95,7 +98,9 @@ export default function UserListPage() {
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
-  } = useTable();
+  } = useTable({
+    defaultRowsPerPage: 10,
+  });
 
   const { themeStretch } = useSettingsContext();
 
@@ -421,7 +426,7 @@ export default function UserListPage() {
             />
 
             <Scrollbar>
-              <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
+              <Table size="small" sx={{ minWidth: 800 }}>
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
@@ -459,8 +464,8 @@ export default function UserListPage() {
                             // aria-describedby="parent-modal-description"
                           >
                             <Typography variant="h4" sx={{ mt: 2 }} textAlign="center">
-                                Edit Role
-                              </Typography>
+                              Edit Role
+                            </Typography>
                             <Stack
                               spacing={2}
                               alignItems="center"
@@ -536,6 +541,7 @@ export default function UserListPage() {
             count={rolesData?.count}
             page={page}
             rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={[10, 25, 50]}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
             //

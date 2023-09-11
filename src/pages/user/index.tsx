@@ -82,7 +82,7 @@ const TABLE_HEAD = [
   { id: 'role', label: 'Role Name', align: 'left' },
   { id: 'mobile', label: 'Phone Number', align: 'left' },
   { id: 'email', label: 'Email Id', align: 'left' },
-  { id: 'action' },
+  { id: 'action', label: 'Action', align: 'left' },
 ];
 
 const CUSTOMER_TABLE_HEAD = [
@@ -93,7 +93,7 @@ const CUSTOMER_TABLE_HEAD = [
   { id: 'role', label: 'Country', align: 'left' },
   { id: 'state', label: 'State', align: 'left' },
   { id: 'city', label: 'City', align: 'left' },
-  { id: 'action', align: 'left' },
+  { id: 'action', label: 'Action', align: 'left' },
 ];
 
 interface IUserListing {
@@ -123,7 +123,9 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
     onChangeDense,
     onChangePage,
     onChangeRowsPerPage,
-  } = useTable();
+  } = useTable({
+    defaultRowsPerPage: 10,
+  });
 
   const dispatch = useDispatch();
 
@@ -376,7 +378,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
             />
 
             <Scrollbar>
-              <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
+              <Table size="small" sx={{ minWidth: 800 }}>
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}
@@ -422,6 +424,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
           <TablePaginationCustom
             count={users?.count}
             page={page}
+            rowsPerPageOptions={[10, 25, 50]}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}

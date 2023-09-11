@@ -203,7 +203,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
         </Stack>
         <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
           <Scrollbar>
-            <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
+            <Table size="small" sx={{ minWidth: 800 }}>
               <TableHeadCustom
                 order={order}
                 orderBy={orderBy}

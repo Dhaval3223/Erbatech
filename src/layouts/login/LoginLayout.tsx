@@ -36,7 +36,7 @@ export default function LoginLayout({ children, illustration, title }: Props) {
           alt="auth"
           src={
             illustration ||
-            '/assets/illustrations/SOBLUE Sitebranding Büro München Übersichtsphoto 500x350mm Druck Beschnitt ohne Marken-4.svg'
+            '/assets/illustrations/Screenshot 2023-09-12 at 3.17.48 AM.png'
           }
           sx={{ maxWidth: 720 }}
         />

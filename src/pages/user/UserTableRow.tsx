@@ -126,7 +126,7 @@ export default function UserTableRow({
             // sx={{ color: 'error.main' }}
           >
             <Iconify icon="mdi:password-outline" />
-            Change Password
+            Reset Password
           </MenuItem>
         )}
 
