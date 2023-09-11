@@ -33,12 +33,18 @@ const DAYS_FILTER = [
     start_date: moment().subtract(8, 'hours'),
     end_date: moment(),
   },
-  // {
-  //   item: '24 Hours',
-  //   value: '24_hours',
-  //   start_date: moment().subtract(1, 'day'),
-  //   end_date: moment(),
-  // },
+  {
+    item: '24 Hours',
+    value: '24_hours',
+    start_date: moment().subtract(1, 'day'),
+    end_date: moment(),
+  },
+  {
+    item: '48 Hours',
+    value: '48_hours',
+    start_date: moment().subtract(2, 'day'),
+    end_date: moment(),
+  },
 ];
 
 const TempratureReport: React.FC = () => {
@@ -80,6 +86,9 @@ const TempratureReport: React.FC = () => {
         show: false,
       },
     },
+    markers: {
+      size: 0,
+    },
     xaxis: {
       type: 'datetime',
       title: {
@@ -94,7 +103,7 @@ const TempratureReport: React.FC = () => {
       },
     },
     title: {
-      text: 'Temprature',
+      text: 'Temperature',
       align: 'left',
     },
   };
@@ -118,6 +127,8 @@ const TempratureReport: React.FC = () => {
           topicName: 'topic_2',
           page: 1,
           limit: 10,
+          startDate: dateRange?.start_date,
+          endDate: dateRange?.end_date,
           userId: currentSelectedUser,
         })
       );

@@ -43,7 +43,7 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 
 const TABLE_HEAD = [
-  { id: 'data_types', label: 'Data Types', align: 'left' },
+  // { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'variables', label: 'Variables', align: 'left' },
   { id: 'Value', label: 'Value', align: 'left' },
   { id: 'Unit', label: 'Unit', align: 'left' },
@@ -331,7 +331,7 @@ function SensorCustomSettingAccess({
             />
 
             <Scrollbar>
-              <Table size={dense ? 'small' : 'medium'} sx={{ minWidth: 800 }}>
+              <Table size="small" sx={{ minWidth: 800 }}>
                 <TableHeadCustom
                   order={order}
                   orderBy={orderBy}

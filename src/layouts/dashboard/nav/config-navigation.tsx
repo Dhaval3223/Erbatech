@@ -317,15 +317,15 @@ const navConfig = [
             ],
           },
           {
-            title: 'Temprature',
+            title: 'Temperature',
             path: 'temprature',
             children: [
               {
-                title: 'temprature-table',
+                title: 'temperature-table',
                 path: 'temprature/table',
               },
               {
-                title: 'temprature-report',
+                title: 'temperature-report',
                 path: 'temprature/report',
               },
             ],
