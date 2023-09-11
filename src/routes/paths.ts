@@ -57,6 +57,7 @@ export const PATH_DASHBOARD = {
     sensorVariable: path(ROOTS_DASHBOARD, '/sensor-variable'),
     sensorSetting: path(ROOTS_DASHBOARD, '/sensor-setting'),
     sensorCustomSetting: path(ROOTS_DASHBOARD, '/sensor-custom-setting'),
+    acknowledgement: path(ROOTS_DASHBOARD, '/acknowledgement'),
     plcAlert: path(ROOTS_DASHBOARD, '/plc-alert'),
     collectorPerformance: path(ROOTS_DASHBOARD, '/collector-performance'),
     reports: path(ROOTS_DASHBOARD, '/reports'),
