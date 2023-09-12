@@ -76,7 +76,9 @@ export default function UserTableRow({
         </TableCell> */}
 
         <TableCell align="left">{row?.[0]}</TableCell>
-        <TableCell align="left">{row?.[1]}</TableCell>
+        <TableCell align="left" style={{
+          color:'red'
+        }}>{row?.[1]}</TableCell>
       </TableRow>
 
       <MenuPopover

@@ -48,7 +48,7 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorSettingIdentifier}
       </TableCell>
-      <TableCell align="left" sx={{ width: '15%' }}>
+      <TableCell align="left" sx={{ width: '15%', color:'red' }}>
         {row?.SensorSettingValue ? row?.SensorSettingValue : '-'}
       </TableCell>
       <TableCell align="left" sx={{ width: '20%' }}>

@@ -48,7 +48,7 @@ export default function SensorCustomSettingsTableRows({
 
       <TableCell
         align="left"
-        sx={{ width: '15%' }}
+        sx={{ width: '15%', color:'green' }}
         onDoubleClick={() => handleCellDoubleClick(index, row)}
       >
         {editingId === index ? (
