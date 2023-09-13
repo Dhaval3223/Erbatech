@@ -277,7 +277,7 @@ const navConfig = [
         code: 'PG008',
       },
       {
-        title: 'Acknowledgement',
+        title: 'Message Center',
         path: PATH_DASHBOARD.general.acknowledgement,
         icon: ICONS.acknowledgement,
         code: 'PG015',
@@ -293,12 +293,12 @@ const navConfig = [
             path: 'yields',
             children: [
               {
-                title: 'yields table',
-                path: 'yields/table',
-              },
-              {
                 title: 'yields report',
                 path: 'yields/report',
+              },
+              {
+                title: 'yields table',
+                path: 'yields/table',
               },
             ],
           },
@@ -307,12 +307,12 @@ const navConfig = [
             path: 'weather',
             children: [
               {
-                title: 'weather-table',
-                path: 'weather/table',
+                title: 'weather report',
+                path: 'weather/report',
               },
               {
-                title: 'weather-report',
-                path: 'weather/report',
+                title: 'weather table',
+                path: 'weather/table',
               },
             ],
           },
@@ -321,12 +321,12 @@ const navConfig = [
             path: 'temprature',
             children: [
               {
-                title: 'temperature-table',
-                path: 'temprature/table',
+                title: 'temperature report',
+                path: 'temprature/report',
               },
               {
-                title: 'temperature-report',
-                path: 'temprature/report',
+                title: 'temperature table',
+                path: 'temprature/table',
               },
             ],
           },
@@ -335,12 +335,12 @@ const navConfig = [
             path: 'sv-heat-transfer',
             children: [
               {
-                title: 'sv-heat-transfer-table',
-                path: 'sv-heat-transfer/table',
+                title: 'sv heat transfer report',
+                path: 'sv-heat-transfer/report',
               },
               {
-                title: 'sv-heat-transfer-report',
-                path: 'sv-heat-transfer/report',
+                title: 'sv heat transfer table',
+                path: 'sv-heat-transfer/table',
               },
             ],
           },
@@ -349,12 +349,12 @@ const navConfig = [
             path: 'stratefied-tank',
             children: [
               {
-                title: 'stratefied-tank-table',
-                path: 'stratefied-tank/table',
+                title: 'stratefied tank report',
+                path: 'stratefied-tank/report',
               },
               {
-                title: 'stratefied-tank-report',
-                path: 'stratefied-tank/report',
+                title: 'stratefied tank table',
+                path: 'stratefied-tank/table',
               },
             ],
           },
@@ -363,12 +363,12 @@ const navConfig = [
             path: 'operating-hours',
             children: [
               {
-                title: 'operating-hours-table',
-                path: 'operating-hours/table',
+                title: 'operating hours report',
+                path: 'operating-hours/report',
               },
               {
-                title: 'operating-hours-report',
-                path: 'operating-hours/report',
+                title: 'operating hours table',
+                path: 'operating-hours/table',
               },
             ],
           },
@@ -377,12 +377,12 @@ const navConfig = [
             path: 'sk-frequency-and-pressure',
             children: [
               {
-                title: 'sk-frequency-and-pressure-table',
-                path: 'sk-frequency-and-pressure/table',
+                title: 'sk frequency and pressure report',
+                path: 'sk-frequency-and-pressure/report',
               },
               {
-                title: 'sk-frequency-and-pressure-report',
-                path: 'sk-frequency-and-pressure/report',
+                title: 'sk frequency and pressure table',
+                path: 'sk-frequency-and-pressure/table',
               },
             ],
           },
