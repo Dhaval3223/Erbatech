@@ -717,20 +717,20 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           />
         </g>
         <g transform="matrix(0, 1, -1, -0, 843.6265, -123.805725)">
-          <path fill="#FFFFFF" d="M477.71 365.01L483.72 354.81 489.72 365.01z" />
+          <path fill={apiValues?.[keys?.[4.3]] && apiValues?.[keys?.[4.3]] >= 1 ? '#36B37E' : "#FFFFFF"} d="M477.71 365.01L483.72 354.81 489.72 365.01z" />
           <path
             strokeWidth="1"
-            stroke="#000000"
+            stroke={apiValues?.[keys?.[4.3]] && apiValues?.[keys?.[4.3]] >= 1 ? '#36B37E' : "#000000"}
             fill="none"
             d="M477.71 365.01L483.72 354.81 489.72 365.01z"
           />
         </g>
         <path strokeWidth="2.25" stroke="#000000" fill="none" d="M488.68 353.19L488.68 366.26" />
         <g transform="matrix(-0, -1, 1, 0, -280.60367, 539.629)">
-          <path fill="#FFFFFF" d="M123.5 415.22L129.51 405.01 135.52 415.22z" />
+          <path fill={apiValues?.[keys?.[2.1]] && apiValues?.[keys?.[2.1]] >= 1 ? '#36B37E' : "#FFFFFF"} d="M123.5 415.22L129.51 405.01 135.52 415.22z" />
           <path
             strokeWidth="1"
-            stroke="#000000"
+            stroke={apiValues?.[keys?.[2.1]] && apiValues?.[keys?.[2.1]] >= 1 ? '#36B37E' : "#000000"}
             fill="none"
             d="M123.5 415.22L129.51 405.01 135.52 415.22z"
           />
@@ -1136,36 +1136,39 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           fill="none"
           d="M86.29 102.47L483.14 102.47"
         />
-        <path strokeWidth="2" stroke="#FF0000" fill="none" d="M175.17 412.63L190.81 412.63" />
-        <path fill="#FBE5D6" d="M190.81 406.37L238.96 406.37 238.96 418.9 190.81 418.9z" />
-        <path
-          strokeWidth="1"
-          stroke="#FF0000"
-          fill="none"
-          d="M190.81 406.37L238.96 406.37 238.96 418.9 190.81 418.9z"
-        />
-        <g transform="matrix(1, 0, 0, 1, 193.6433, 409.96582)">
-          <text
-            fontFamily="Noto Sans"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontStretch="normal"
-            fontSize="6.75pt"
-            fill="#FF0000"
-            x="17.743309"
-            y="11.1434765"
-          >
-            <tspan x="3.180809" y="0.34347534">
-              {apiValues?.[keys?.[1.6]] && `${apiValues?.[keys?.[1.6]]}`}
-            </tspan>
-            {/* <tspan xmlSpace="preserve" x="39.30581" y="0.34347534">
-              {' '}
-            </tspan>
-            <tspan x="17.743309" y="11.1434765">
-              !!
-            </tspan> */}
-          </text>
-        </g>
+        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] >= 1 &&
+        <>
+          <path strokeWidth="2" stroke="#FF0000" fill="none" d="M175.17 412.63L190.81 412.63" /> 
+          <path fill="#FBE5D6" d="M190.81 406.37L238.96 406.37 238.96 418.9 190.81 418.9z" />
+          <path
+            strokeWidth="1"
+            stroke="#FF0000"
+            fill="none"
+            d="M190.81 406.37L238.96 406.37 238.96 418.9 190.81 418.9z"
+          />
+          <g transform="matrix(1, 0, 0, 1, 193.6433, 409.96582)">
+            <text
+              fontFamily="Noto Sans"
+              fontStyle="normal"
+              fontWeight="normal"
+              fontStretch="normal"
+              fontSize="6.75pt"
+              fill="#FF0000"
+              x="17.743309"
+              y="11.1434765"
+            >
+              <tspan x="2.180809" y="5.34347534">
+                !! Empty !!
+              </tspan>
+              <tspan xmlSpace="preserve" x="39.30581" y="0.34347534">
+              !! Empty
+              </tspan>
+              <tspan x="17.743309" y="11.1434765">
+                !!
+              </tspan> 
+            </text>
+          </g>
+        </>}
         <path strokeWidth="2.25" stroke="#FF0000" fill="none" d="M402.96 360.12L459.65 360.12" />
         <path strokeWidth="2.25" stroke="#FF0000" fill="none" d="M335.34 179.14L335.34 329.28" />
         <g transform="matrix(1, 0, 0, 1, 576.0193, 78.796455)">
@@ -1564,10 +1567,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <path strokeWidth="2.25" stroke="#FF0000" fill="none" d="M458.89 268.66L698.51 268.7" />
         </g>
         <g transform="matrix(0, 1, -1, -0, 752.15497, -215.06293)">
-          <path fill="#FFFFFF" d="M477.6 273.65L483.61 263.44 489.62 273.65z" />
+          <path fill={apiValues?.[keys?.[6.3]] && apiValues?.[keys?.[6.3]] >= 1 ? '#36B37E' : "#FFFFFF"} d="M477.6 273.65L483.61 263.44 489.62 273.65z" />
           <path
             strokeWidth="1"
-            stroke="#000000"
+            stroke={apiValues?.[keys?.[6.3]] && apiValues?.[keys?.[6.3]] >= 1 ? '#36B37E' : "#000000"}
             fill="none"
             d="M477.6 273.65L483.61 263.44 489.62 273.65z"
           />
@@ -1734,10 +1737,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <path strokeWidth="2.25" stroke="#FF0000" fill="none" d="M459.37 459.2L840.39 459.2" />
         </g>
         <g transform="matrix(0, 1, -1, -0, 943.7885, -24.378723)">
-          <path fill="#FFFFFF" d="M478.08 464.81L484.08 454.6 490.09 464.81z" />
+          <path fill={apiValues?.[keys?.[7.2]] && apiValues?.[keys?.[7.2]] >= 1 ? '#36B37E' :"#FFFFFF"} d="M478.08 464.81L484.08 454.6 490.09 464.81z" />
           <path
             strokeWidth="1"
-            stroke="#000000"
+            stroke={apiValues?.[keys?.[7.2]] && apiValues?.[keys?.[7.2]] >= 1 ? '#36B37E' : "#000000"}
             fill="none"
             d="M478.08 464.81L484.08 454.6 490.09 464.81z"
           />
@@ -2536,53 +2539,61 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan>
           </text>
         </g>
-        <path fill="#E2F0D9" d="M40.94 96.45L89.1 96.45 89.1 108.99 40.94 108.99z" />
-        <path
-          strokeWidth="1"
-          stroke="#00B050"
-          fill="none"
-          d="M40.94 96.45L89.1 96.45 89.1 108.99 40.94 108.99z"
-        />
-        <g transform="matrix(1, 0, 0, 1, 43.778893, 100.05347)">
-          <text
-            fontFamily="Noto Sans"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontStretch="normal"
-            fontSize="6.75pt"
-            fill="#00B050"
-            x="13.743309"
-            y="5.743476"
-          >
-            <tspan x="13.743309" y="5.743476">
-              Full
-            </tspan>
-          </text>
-        </g>
-        <path strokeWidth="2.25" stroke="#FFC000" fill="none" d="M456.99 118.26L456.99 188.91" />
-        <path fill="#E2F0D9" d="M118.18 96.12L166.33 96.12 166.33 108.65 118.18 108.65z" />
-        <path
-          strokeWidth="1"
-          stroke="#00B050"
-          fill="none"
-          d="M118.18 96.12L166.33 96.12 166.33 108.65 118.18 108.65z"
-        />
-        <g transform="matrix(1, 0, 0, 1, 121.0111, 99.71622)">
-          <text
-            fontFamily="Noto Sans"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontStretch="normal"
-            fontSize="6.75pt"
-            fill="#00B050"
-            x="13.743309"
-            y="5.743476"
-          >
-            <tspan x="13.743309" y="5.743476">
-              Full
-            </tspan>
-          </text>
-        </g>
+        {apiValues?.[keys?.[2.1]] && apiValues?.[keys?.[2.1]] >= 1 && (
+        <>
+          <path fill="#E2F0D9" d="M40.94 96.45L89.1 96.45 89.1 108.99 40.94 108.99z" />
+          <path
+            strokeWidth="1"
+            stroke="#00B050"
+            fill="none"
+            d="M40.94 96.45L89.1 96.45 89.1 108.99 40.94 108.99z"
+          />
+          <g transform="matrix(1, 0, 0, 1, 43.778893, 100.05347)">
+            <text
+              fontFamily="Noto Sans"
+              fontStyle="normal"
+              fontWeight="normal"
+              fontStretch="normal"
+              fontSize="6.75pt"
+              fill="#00B050"
+              x="13.743309"
+              y="5.743476"
+            >
+              <tspan x="13.743309" y="5.743476">
+                Full
+              </tspan>
+            </text>
+          </g>
+        </>
+        )}
+        {apiValues?.[keys?.[2.1]] 
+          && apiValues?.[keys?.[2.1]] >= 1 && 
+        <>
+          <path strokeWidth="2.25" stroke="#FFC000" fill="none" d="M456.99 118.26L456.99 188.91" />
+          <path fill="#E2F0D9" d="M118.18 96.12L166.33 96.12 166.33 108.65 118.18 108.65z" />
+          <path
+            strokeWidth="1"
+            stroke="#00B050"
+            fill="none"
+            d="M118.18 96.12L166.33 96.12 166.33 108.65 118.18 108.65z"
+          />
+          <g transform="matrix(1, 0, 0, 1, 121.0111, 99.71622)">
+            <text
+              fontFamily="Noto Sans"
+              fontStyle="normal"
+              fontWeight="normal"
+              fontStretch="normal"
+              fontSize="6.75pt"
+              fill="#00B050"
+              x="13.743309"
+              y="5.743476"
+            >
+              <tspan x="13.743309" y="5.743476">
+                Full
+              </tspan>
+            </text>
+          </g>
+        </>}
         <path fill="#FFFFFF" d="M116.65 73.54L164.81 73.54 164.81 86.07 116.65 86.07z" />
         <path
           strokeWidth="1"
@@ -2606,10 +2617,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan>
           </text>
         </g>
-        <path fill="#FFFFFF" d="M132.99 162.53L139 152.32 145.01 162.53z" />
+        <path fill={apiValues?.[keys?.[2.1]] && apiValues?.[keys?.[2.1]] >= 1 ? '#36B37E' : "#FFFFFF"} d="M132.99 162.53L139 152.32 145.01 162.53z" />
         <path
           strokeWidth="1"
-          stroke="#000000"
+          stroke={apiValues?.[keys?.[2.1]] && apiValues?.[keys?.[2.1]] >= 1 ? '#36B37E' : "#000000"}
           fill="none"
           d="M132.99 162.53L139 152.32 145.01 162.53z"
         />
@@ -2678,29 +2689,32 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan> */}
           </text>
         </g>
-        <path fill="#E2F0D9" d="M258.06 96.3L306.21 96.3 306.21 108.83 258.06 108.83z" />
-        <path
-          strokeWidth="1"
-          stroke="#00B050"
-          fill="none"
-          d="M258.06 96.3L306.21 96.3 306.21 108.83 258.06 108.83z"
-        />
-        <g transform="matrix(1, 0, 0, 1, 260.89166, 99.89512)">
-          <text
-            fontFamily="Noto Sans"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontStretch="normal"
-            fontSize="6.75pt"
-            fill="#00B050"
-            x="13.743309"
-            y="5.743476"
-          >
-            <tspan x="13.743309" y="5.743476">
-              Full
-            </tspan>
-          </text>
-        </g>
+        {apiValues?.[keys?.[2.24]] 
+          && apiValues?.[keys?.[2.24]] >= 1 && <>
+            <path fill="#E2F0D9" d="M258.06 96.3L306.21 96.3 306.21 108.83 258.06 108.83z" />
+          <path
+            strokeWidth="1"
+            stroke="#00B050"
+            fill="none"
+            d="M258.06 96.3L306.21 96.3 306.21 108.83 258.06 108.83z"
+          />
+          <g transform="matrix(1, 0, 0, 1, 260.89166, 99.89512)">
+            <text
+              fontFamily="Noto Sans"
+              fontStyle="normal"
+              fontWeight="normal"
+              fontStretch="normal"
+              fontSize="6.75pt"
+              fill="#00B050"
+              x="13.743309"
+              y="5.743476"
+            >
+              <tspan x="13.743309" y="5.743476">
+                Full
+              </tspan>
+            </text>
+          </g>
+        </>}
         <path fill="#FFFFFF" d="M256.54 73.72L304.69 73.72 304.69 86.25 256.54 86.25z" />
         <path
           strokeWidth="1"
@@ -2724,10 +2738,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan>
           </text>
         </g>
-        <path fill="#FFFFFF" d="M272.87 162.71L278.88 152.5 284.89 162.71z" />
+        <path fill={apiValues?.[keys?.[2.21]] && apiValues?.[keys?.[2.21]] >= 1 ? '#36B37E' : "#FFFFFF"} d="M272.87 162.71L278.88 152.5 284.89 162.71z" />
         <path
           strokeWidth="1"
-          stroke="#000000"
+          stroke={apiValues?.[keys?.[2.21]] && apiValues?.[keys?.[2.21]] >= 1 ? '#36B37E' : "#000000"}
           fill="none"
           d="M272.87 162.71L278.88 152.5 284.89 162.71z"
         />
@@ -2797,29 +2811,32 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan> */}
           </text>
         </g>
-        <path fill="#E2F0D9" d="M400.98 96.3L449.14 96.3 449.14 108.83 400.98 108.83z" />
-        <path
-          strokeWidth="1"
-          stroke="#00B050"
-          fill="none"
-          d="M400.98 96.3L449.14 96.3 449.14 108.83 400.98 108.83z"
-        />
-        <g transform="matrix(1, 0, 0, 1, 403.8174, 99.89512)">
-          <text
-            fontFamily="Noto Sans"
-            fontStyle="normal"
-            fontWeight="normal"
-            fontStretch="normal"
-            fontSize="6.75pt"
-            fill="#00B050"
-            x="13.743309"
-            y="5.743476"
-          >
-            <tspan x="13.743309" y="5.743476">
-              Full
-            </tspan>
-          </text>
-        </g>
+        {apiValues?.[keys?.[2.24]] 
+          && apiValues?.[keys?.[2.24]] >= 1 && <>
+            <path fill="#E2F0D9" d="M400.98 96.3L449.14 96.3 449.14 108.83 400.98 108.83z" />
+            <path
+              strokeWidth="1"
+              stroke="#00B050"
+              fill="none"
+              d="M400.98 96.3L449.14 96.3 449.14 108.83 400.98 108.83z"
+            />
+            <g transform="matrix(1, 0, 0, 1, 403.8174, 99.89512)">
+              <text
+                fontFamily="Noto Sans"
+                fontStyle="normal"
+                fontWeight="normal"
+                fontStretch="normal"
+                fontSize="6.75pt"
+                fill="#00B050"
+                x="13.743309"
+                y="5.743476"
+              >
+                <tspan x="13.743309" y="5.743476">
+                  Full
+                </tspan>
+              </text>
+            </g>
+          </>}
         <path fill="#FFFFFF" d="M399.46 73.72L447.62 73.72 447.62 86.25 399.46 86.25z" />
         <path
           strokeWidth="1"
@@ -2843,10 +2860,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan>
           </text>
         </g>
-        <path fill="#FFFFFF" d="M415.8 162.71L421.81 152.5 427.81 162.71z" />
+        <path fill={apiValues?.[keys?.[2.31]] && apiValues?.[keys?.[2.31]] >= 1 ? '#36B37E' : "#FFFFFF"} d="M415.8 162.71L421.81 152.5 427.81 162.71z" />
         <path
           strokeWidth="1"
-          stroke="#000000"
+          stroke={apiValues?.[keys?.[2.31]] && apiValues?.[keys?.[2.31]] >= 1 ? '#36B37E' : "#000000"}
           fill="none"
           d="M415.8 162.71L421.81 152.5 427.81 162.71z"
         />
