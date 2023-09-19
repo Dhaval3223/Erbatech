@@ -127,14 +127,14 @@ const YieldsReport: React.FC = () => {
     }
   }, [dispatch, dateRange, currentSelectedUser]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     const dataInterval = setInterval(updateData, 60000); // Update every 1 minute
 
     return () => {
       clearInterval(dataInterval);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, []); */
 
   useEffect(() => {
     if (!isGetReportLoading) {
