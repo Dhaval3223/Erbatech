@@ -10,16 +10,11 @@ import TableComponent from '../TableComponent';
 import { slice } from '../slice';
 
 const TABLE_HEAD = [
-  { id: 'Time', label: 'Time', align: 'left' },
-  { id: 'T_outside', label: 'T_outside', align: 'left' },
-  { id: 'T_tank', label: 'T_tank', align: 'left' },
-  { id: 'T_tank_2', label: 'T_tank_2', align: 'left' },
-  { id: 'T_coll_surface', label: 'T_coll_surface', align: 'left' },
-  { id: 'T_coll_backfeed', label: 'T_coll_backfeed', align: 'left' },
-  { id: 'T_coll_infeed', label: 'T_coll_infeed', align: 'left' },
+    { id: 'p_buffer_tank', label: 'p_buffer_tank', align: 'left' },
+  { id: 'p_roof', label: 'p_roof', align: 'left' },
 ];
 
-export default function TempratureTable() {
+export default function LevelsTable() {
   const {
     isGetReportLoading,
     reportsData,
@@ -40,25 +35,15 @@ export default function TempratureTable() {
   useEffect(() => {
     if (!isGetReportLoading) {
       const data = reportsData?.rows?.map((item: any) => ({
-        Time: item?.TransactionData[0]?.Time,
-        T_outside: item?.TransactionData[0]?.T_outside,
-        T_tank: item?.TransactionData[0]?.T_tank,
-        T_tank_2: item?.TransactionData[0]?.T_tank_2,
-        T_coll_surface: item?.TransactionData[0]?.T_coll_surface,
-        T_coll_backfeed: item?.TransactionData[0]?.T_coll_backfeed,
-        T_coll_infeed: item?.TransactionData[0]?.T_coll_infeed,
+        p_buffer_tank: item?.TransactionData[0]?.p_buffer_tank,
+        p_roof: item?.TransactionData[0]?.p_roof,
       }));
       console.log(data, 'dataaaaaa');
       setRows(data);
     } else {
       const data = Array.from({ length: TABLE_HEAD?.length })?.map(() => ({
-        Time: <Skeleton />,
-        T_outside: <Skeleton />,
-        T_tank: <Skeleton />,
-        T_tank_2: <Skeleton />,
-        T_coll_surface: <Skeleton />,
-        T_coll_backfeed: <Skeleton />,
-        T_coll_infeed: <Skeleton />,
+        p_buffer_tank: <Skeleton />,
+        p_roof: <Skeleton />,
       }));
       setRows(data);
     }
@@ -67,17 +52,15 @@ export default function TempratureTable() {
   useEffect(() => {
     if (isDownloadCSVSuccess) {
       const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.T_outside,
-        item?.TransactionData[0]?.T_tank,
-        item?.TransactionData[0]?.T_tank_2,
-        item?.TransactionData[0]?.T_coll_surface,
-        item?.TransactionData[0]?.T_coll_backfeed,
-        item?.TransactionData[0]?.T_coll_infeed,
+        item?.TransactionData[0]?.p_buffer_tank,
+        item?.TransactionData[0]?.p_roof,
       ]);
 
       // Add the header row
-      const csvDataArray = [['Time', 'T outside', 'T tank', 'T coll surface', 'T coll backfeed'], ...flattenedData];
+      const csvDataArray = [
+        ['p_buffer_tank', 'p_roof'],
+        ...flattenedData,
+      ];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);

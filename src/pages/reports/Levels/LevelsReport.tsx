@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react';
 import ApexCharts from 'react-apexcharts';
 import { useSettingsContext } from 'src/components/settings';
 import { useDispatch, useSelector } from 'src/redux/store';
-import UsersDropDown from 'src/components/all-users-dropdown';
 import moment from 'moment';
 import { useAuthContext } from 'src/auth/useAuthContext';
+import UsersDropDown from 'src/components/all-users-dropdown';
 import { getAllReportsData } from '../slice/action';
 
 const DAYS_FILTER = [
@@ -47,7 +47,7 @@ const DAYS_FILTER = [
   },
 ];
 
-const TempratureReport: React.FC = () => {
+const WeatherReport: React.FC = () => {
   const dispatch = useDispatch();
 
   const { themeStretch } = useSettingsContext();
@@ -57,13 +57,9 @@ const TempratureReport: React.FC = () => {
   const [seriesData, setSeriesData] = useState<any>([
     {
       data: [],
-      name: 'T_outside',
+      name: 'p_buffer_tank',
     },
-    { data: [], name: 'T_tank' },
-    { data: [], name: 'T_tank_2' },
-    { data: [], name: 'T_coll_surface' },
-    { data: [], name: 'T_coll_backfeed' },
-    { data: [], name: 'T_coll_infeed' },
+    { data: [], name: 'p_roof' },
   ]);
 
   const [selectDays, setSelectedDays] = useState<string>('');
@@ -73,22 +69,20 @@ const TempratureReport: React.FC = () => {
     state_date: '',
     end_date: '',
   });
+
   const options: ApexCharts.ApexOptions = {
     chart: {
       id: 'realtime-chart',
       animations: {
-        enabled: true,
+        enabled: false,
         easing: 'linear',
-        dynamicAnimation: {
-          speed: 1000,
-        },
+        // dynamicAnimation: {
+        //   speed: 1000,
+        // },
       },
       toolbar: {
         show: false,
       },
-    },
-    markers: {
-      size: 0,
     },
     xaxis: {
       type: 'datetime',
@@ -104,7 +98,7 @@ const TempratureReport: React.FC = () => {
       },
     },
     title: {
-      text: 'Temperature',
+      text: 'Weather',
       align: 'left',
     },
   };
@@ -128,64 +122,39 @@ const TempratureReport: React.FC = () => {
           topicName: 'topic_2',
           page: 1,
           limit: 10,
-          startDate: dateRange?.start_date,
-          endDate: dateRange?.end_date,
           userId: currentSelectedUser,
         })
       );
     }
   }, [dispatch, dateRange, currentSelectedUser]);
 
-/*   useEffect(() => {
+  useEffect(() => {
     const dataInterval = setInterval(updateData, 60000); // Update every 1 minute
 
     return () => {
       clearInterval(dataInterval);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); */
+  }, []);
 
   useEffect(() => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
       const data2 = [] as any;
-      const data3 = [] as any;
-      const data4 = [] as any;
-      const data5 = [] as any;
-      const data6 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_outside,
+          y: item?.TransactionData[0]?.p_buffer_tank,
         });
         data2.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_tank,
+          y: item?.TransactionData[0]?.p_roof,
         });
-        data3.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_tank_2,
-        });
-        data4.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_coll_surface,
-        });
-        data5.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_coll_backfeed,
-        });
-        data6.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_coll_infeed,
-        });
+       
       });
       setSeriesData((prevData: any) => [
         { ...prevData[0], data: data1 },
         { ...prevData[1], data: data2 },
-        { ...prevData[2], data: data3 },
-        { ...prevData[3], data: data4 },
-        { ...prevData[4], data: data5 },
-        { ...prevData[4], data: data6 },
       ]);
     }
   }, [reportsData, isGetReportLoading]);
@@ -278,4 +247,4 @@ const TempratureReport: React.FC = () => {
   );
 };
 
-export default TempratureReport;
+export default WeatherReport;

@@ -61,6 +61,8 @@ const YieldsReport: React.FC = () => {
     },
     { data: [], name: 'T_backfeed_sec_SV' },
     { data: [], name: 'T_tank' },
+    { data: [], name: 'T_tank_2' },
+    { data: [], name: 'f_pump' },
   ]);
 
   const [selectDays, setSelectedDays] = useState<string>('');
@@ -141,6 +143,8 @@ const YieldsReport: React.FC = () => {
       const data1 = [] as any;
       const data2 = [] as any;
       const data3 = [] as any;
+      const data4 = [] as any;
+      const data5 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
@@ -154,11 +158,21 @@ const YieldsReport: React.FC = () => {
           x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
           y: item?.TransactionData[0]?.T_tank,
         });
+        data4.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.T_tank_2,
+        });
+        data5.push({
+          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+          y: item?.TransactionData[0]?.f_pump,
+        });
       });
       setSeriesData((prevData: any) => [
         { ...prevData[0], data: data1 },
         { ...prevData[1], data: data2 },
         { ...prevData[2], data: data3 },
+        { ...prevData[3], data: data4 },
+        { ...prevData[3], data: data5 },
       ]);
     }
   }, [reportsData, isGetReportLoading]);
