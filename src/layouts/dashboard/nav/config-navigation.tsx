@@ -331,6 +331,34 @@ const navConfig = [
             ],
           },
           {
+            title: 'SK Frequency And Pressure',
+            path: 'sk-frequency-and-pressure',
+            children: [
+              {
+                title: 'sk frequency and pressure report',
+                path: 'sk-frequency-and-pressure/report',
+              },
+              {
+                title: 'sk frequency and pressure table',
+                path: 'sk-frequency-and-pressure/table',
+              },
+            ],
+          },
+          {
+            title: 'Levels',
+            path: 'levels',
+            children: [
+              {
+                title: 'Levels report',
+                path: 'levels/report',
+              },
+              {
+                title: 'Levels table',
+                path: 'levels/table',
+              },
+            ],
+          },
+          {
             title: 'SV Heat Transfer',
             path: 'sv-heat-transfer',
             children: [
@@ -369,20 +397,6 @@ const navConfig = [
               {
                 title: 'operating hours table',
                 path: 'operating-hours/table',
-              },
-            ],
-          },
-          {
-            title: 'SK Frequency And Pressure',
-            path: 'sk-frequency-and-pressure',
-            children: [
-              {
-                title: 'sk frequency and pressure report',
-                path: 'sk-frequency-and-pressure/report',
-              },
-              {
-                title: 'sk frequency and pressure table',
-                path: 'sk-frequency-and-pressure/table',
               },
             ],
           },

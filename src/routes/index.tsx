@@ -152,6 +152,8 @@ import {
   SkFrquencyReport,
   DashboardScreen,
   Acknowledgement,
+  LevelsReports,
+  LevelsTable,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -319,6 +321,14 @@ export default function Router() {
         {
           path: 'sk-frequency-and-pressure/report',
           element: <SkFrquencyReport />,
+        },
+        {
+          path: 'levels/report',
+          element: <LevelsReports />,
+        },
+        {
+          path: 'levels/table',
+          element: <LevelsTable />,
         },
         { path: 'userList', element: <UserListingPage /> },
         { path: 'profile', element: <UserProfilePage /> },

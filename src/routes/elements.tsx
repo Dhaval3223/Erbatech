@@ -125,6 +125,12 @@ export const OperatingHoursReport = Loadable(
 export const SkFrquencyReport = Loadable(
   lazy(() => import('../pages/reports/skFrquency/SkFrequencyReport'))
 );
+export const LevelsReports = Loadable(
+  lazy(() => import('../pages/reports/Levels/LevelsReport'))
+);
+export const LevelsTable = Loadable(
+  lazy(() => import('../pages/reports/Levels/LevelsTable'))
+);
 
 // DASHBOARD: BLOG
 export const BlogPostsPage = Loadable(lazy(() => import('../pages/dashboard/BlogPostsPage')));
