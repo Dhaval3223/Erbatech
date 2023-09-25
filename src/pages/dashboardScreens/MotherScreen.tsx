@@ -1332,8 +1332,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="2.2529526" y="5.743476">
-              {apiValues?.[keys?.[3.2]] &&
-                `${roundToOneDecimalPlace(apiValues?.[keys?.[3.2]])} °C`}
+              {apiValues?.[keys?.[3.2]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[3.2]])} °C`}
             </tspan>
           </text>
         </g>
@@ -2936,22 +2935,24 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </tspan>
           </text>
         </g>
-        <g transform="matrix(1, 0, 0, 1, 772.9994, 10.350758)">
-          <foreignObject
-            style={{ backgroundColor: 'white', borderRadius: '10px' }}
-            x="-80"
-            y="0"
-            width="240"
-            height="40"
-          >
-            <UsersDropDown
-              size="small"
-              offLabel
-              currentSelectedUser={currentSelectedUser}
-              setCurrentSelectedUser={setCurrentSelectedUser}
-            />
-          </foreignObject>
-        </g>
+        {user?.UserTypeCode !== 'CU' && (
+          <g transform="matrix(1, 0, 0, 1, 772.9994, 10.350758)">
+            <foreignObject
+              style={{ backgroundColor: 'white', borderRadius: '10px' }}
+              x="-80"
+              y="0"
+              width="240"
+              height="40"
+            >
+              <UsersDropDown
+                size="small"
+                offLabel
+                currentSelectedUser={currentSelectedUser}
+                setCurrentSelectedUser={setCurrentSelectedUser}
+              />
+            </foreignObject>
+          </g>
+        )}
         {/* <path
           fill="#DAE3F3"
           d="M764.06 10.96C764.06 7.67 766.72 5.01 770.01 5.01L927.12 5.01 927.12 5.01C930.41 5.01 933.07 7.67 933.07 10.96L933.07 34.75 933.07 34.75C933.07 38.03 930.41 40.7 927.12 40.7L770.01 40.7 770.01 40.7C766.72 40.7 764.06 38.03 764.06 34.75z"

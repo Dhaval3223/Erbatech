@@ -241,7 +241,7 @@ export default function UserListPage() {
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         {user?.UserTypeCode !== 'CU' && (
-          <Box sx={{ marginBottom: 2}}>
+          <Box sx={{ marginBottom: 2 }}>
             <UsersDropDown
               size="small"
               currentSelectedUser={currentSelectedUser}
@@ -260,7 +260,9 @@ export default function UserListPage() {
             onResetFilter={handleResetFilter}
           /> */}
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableContainer
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '70vh', overflowY: 'scroll' }}
+          >
             <TableSelectedAction
               // dense={dense}
               numSelected={selected.length}

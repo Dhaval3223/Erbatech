@@ -402,7 +402,9 @@ export default function UserListing() {
               Save Changes
             </LoadingButton>
           </Stack>
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableContainer
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '70vh', overflowY: 'scroll' }}
+          >
             <TableSelectedAction
               dense={dense}
               numSelected={selected.length}
@@ -523,7 +525,9 @@ export default function UserListing() {
         }
       />
     </>
-  ) : <Page403 />;
+  ) : (
+    <Page403 />
+  );
 }
 
 // ----------------------------------------------------------------------

@@ -23,54 +23,57 @@ export default function NavItem({
 }: NavItemProps) {
   const { translate } = useLocales();
 
-  const { title, path, icon, info, children, disabled, caption, roles } = item;
+  const { title, path, icon, info, children, disabled, caption, roles, isblueLine } = item;
 
   const subItem = depth !== 1;
 
   const renderContent = (
-    <StyledItem depth={depth} active={active} disabled={disabled} caption={!!caption} {...other}>
-      {icon && <StyledIcon>{icon}</StyledIcon>}
+    <>
+      {isblueLine && <Box sx={{ borderTop: '1px solid blue', pb: 1 }} />}
+      <StyledItem depth={depth} active={active} disabled={disabled} caption={!!caption} {...other}>
+        {icon && <StyledIcon>{icon}</StyledIcon>}
 
-      {subItem && (
-        <StyledIcon>
-          <StyledDotIcon active={active && subItem} />
-        </StyledIcon>
-      )}
+        {subItem && (
+          <StyledIcon>
+            <StyledDotIcon active={active && subItem} />
+          </StyledIcon>
+        )}
 
-      <ListItemText
-        primary={`${translate(title)}`}
-        secondary={
-          caption && (
-            <Tooltip title={`${translate(caption)}`} placement="top-start">
-              <span>{`${translate(caption)}`}</span>
-            </Tooltip>
-          )
-        }
-        primaryTypographyProps={{
-          noWrap: true,
-          component: 'span',
-          variant: active ? 'subtitle2' : 'body2',
-        }}
-        secondaryTypographyProps={{
-          noWrap: true,
-          variant: 'caption',
-        }}
-      />
-
-      {info && (
-        <Box component="span" sx={{ lineHeight: 0 }}>
-          {info}
-        </Box>
-      )}
-
-      {!!children && (
-        <Iconify
-          width={16}
-          icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
-          sx={{ ml: 1, flexShrink: 0 }}
+        <ListItemText
+          primary={`${translate(title)}`}
+          secondary={
+            caption && (
+              <Tooltip title={`${translate(caption)}`} placement="top-start">
+                <span>{`${translate(caption)}`}</span>
+              </Tooltip>
+            )
+          }
+          primaryTypographyProps={{
+            noWrap: true,
+            component: 'span',
+            variant: active ? 'subtitle2' : 'body2',
+          }}
+          secondaryTypographyProps={{
+            noWrap: true,
+            variant: 'caption',
+          }}
         />
-      )}
-    </StyledItem>
+
+        {info && (
+          <Box component="span" sx={{ lineHeight: 0 }}>
+            {info}
+          </Box>
+        )}
+
+        {!!children && (
+          <Iconify
+            width={16}
+            icon={open ? 'eva:arrow-ios-downward-fill' : 'eva:arrow-ios-forward-fill'}
+            sx={{ ml: 1, flexShrink: 0 }}
+          />
+        )}
+      </StyledItem>
+    </>
   );
 
   const renderItem = () => {

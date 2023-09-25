@@ -8,6 +8,7 @@ export type INavItem = {
   open?: boolean;
   active?: boolean;
   isExternalLink?: boolean;
+  isblueLine?: any;
 };
 
 export type NavItemProps = INavItem & ListItemButtonProps;
@@ -22,6 +23,7 @@ export type NavListProps = {
   roles?: string[];
   children?: any;
   code?: any;
+  isblueLine?: any;
 };
 
 export interface NavSectionProps extends StackProps {
