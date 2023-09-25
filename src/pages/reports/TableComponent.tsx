@@ -190,7 +190,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
                     endDate: dateRange[1] ? dateRange[1] : '',
                     type: 'all',
                     userId: currentSelectedUser,
-                    topicName: 'topic_2'
+                    topicName: 'topic_2',
                   })
                 )
               }
@@ -201,7 +201,9 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
             </LoadingButton>
           </Stack>
         </Stack>
-        <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+        <TableContainer
+          sx={{ position: 'relative', overflow: 'unset', maxHeight: '65vh', overflowY: 'scroll' }}
+        >
           <Scrollbar>
             <Table size="small" sx={{ minWidth: 800 }}>
               <TableHeadCustom

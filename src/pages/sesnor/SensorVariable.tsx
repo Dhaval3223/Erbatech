@@ -225,7 +225,9 @@ function SensorVariableAccess({
             currentSelectedUser={currentSelectedUser}
           />
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableContainer
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '60vh', overflowY: 'scroll' }}
+          >
             <TableSelectedAction
               dense={dense}
               numSelected={selected.length}

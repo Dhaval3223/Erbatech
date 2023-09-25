@@ -357,7 +357,9 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
             isCreateRights={isCreateRights}
           />
 
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableContainer
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '70vh', overflowY: 'scroll' }}
+          >
             <TableSelectedAction
               dense={dense}
               numSelected={selected.length}

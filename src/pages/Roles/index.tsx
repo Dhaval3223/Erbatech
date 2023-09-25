@@ -405,7 +405,9 @@ export default function UserListPage() {
             setRoleError={setRoleError}
             isCreate={isCreate}
           />
-          <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
+          <TableContainer
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '70vh', overflowY: 'scroll' }}
+          >
             <TableSelectedAction
               dense={dense}
               numSelected={selected.length}

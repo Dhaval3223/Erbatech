@@ -407,6 +407,7 @@ const navConfig = [
         path: PATH_DASHBOARD.general.userManagement,
         icon: ICONS.user,
         code: 'PG003',
+        isblueLine: true,
       },
       {
         title: 'role',
