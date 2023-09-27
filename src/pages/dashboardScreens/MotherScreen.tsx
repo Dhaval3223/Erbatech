@@ -7336,44 +7336,48 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </text>
           </g>
         </g> */}
-        <path
-          fill="#e2f0d9"
-          fillOpacity="1"
-          fillRule="evenodd"
-          stroke="none"
-          d="M40.92 431.04h48.24v12.48H40.92z"
-        />
-        <path
-          fill="none"
-          stroke="#00b050"
-          strokeDasharray="none"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
-          strokeOpacity="1"
-          strokeWidth="0.96"
-          d="M40.92 431.04h48.24v12.48H40.92z"
-        />
-        <g>
-          <g clipPath="url(#clipPath3294)">
-            <text
-              fill="#00b050"
+        {apiValues?.[keys?.[2.4]] && apiValues?.[keys?.[2.4]] >= 1 && (
+          <>
+            <path
+              fill="#e2f0d9"
               fillOpacity="1"
-              fillRule="nonzero"
+              fillRule="evenodd"
               stroke="none"
-              fontFamily="Calibri"
-              fontSize="9"
-              fontVariant="normal"
-              fontWeight="normal"
-              transform="matrix(1 0 0 -1 58.608 434.26)"
-              writingMode="lr-tb"
-            >
-              <tspan x="0 4.0770001 8.757 10.8" y="0">
-                Full
-              </tspan>
-            </text>
-          </g>
-        </g>
+              d="M40.92 431.04h48.24v12.48H40.92z"
+            />
+            <path
+              fill="none"
+              stroke="#00b050"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.96"
+              d="M40.92 431.04h48.24v12.48H40.92z"
+            />
+            <g>
+              <g clipPath="url(#clipPath3294)">
+                <text
+                  fill="#00b050"
+                  fillOpacity="1"
+                  fillRule="nonzero"
+                  stroke="none"
+                  fontFamily="Calibri"
+                  fontSize="9"
+                  fontVariant="normal"
+                  fontWeight="normal"
+                  transform="matrix(1 0 0 -1 58.608 434.26)"
+                  writingMode="lr-tb"
+                >
+                  <tspan x="0 4.0770001 8.757 10.8" y="0">
+                    Full
+                  </tspan>
+                </text>
+              </g>
+            </g>
+          </>
+        )}
         <path
           fill="none"
           stroke="#ffc000"
@@ -7385,44 +7389,48 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           strokeWidth="2.28"
           d="M457.02 421.74v-70.65"
         />
-        <path
-          fill="#e2f0d9"
-          fillOpacity="1"
-          fillRule="evenodd"
-          stroke="none"
-          d="M118.2 431.4h48.12v12.48H118.2z"
-        />
-        <path
-          fill="none"
-          stroke="#00b050"
-          strokeDasharray="none"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
-          strokeOpacity="1"
-          strokeWidth="0.96"
-          d="M118.2 431.4h48.12v12.48H118.2z"
-        />
-        <g>
-          <g clipPath="url(#clipPath3312)">
-            <text
-              fill="#00b050"
+        {apiValues?.[keys?.[2.4]] && apiValues?.[keys?.[2.4]] >= 1 && (
+          <>
+            <path
+              fill="#e2f0d9"
               fillOpacity="1"
-              fillRule="nonzero"
+              fillRule="evenodd"
               stroke="none"
-              fontFamily="Calibri"
-              fontSize="9"
-              fontVariant="normal"
-              fontWeight="normal"
-              transform="matrix(1 0 0 -1 135.84 434.59)"
-              writingMode="lr-tb"
-            >
-              <tspan x="0 4.0770001 8.757 10.8" y="0">
-                Full
-              </tspan>
-            </text>
-          </g>
-        </g>
+              d="M118.2 431.4h48.12v12.48H118.2z"
+            />
+            <path
+              fill="none"
+              stroke="#00b050"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.96"
+              d="M118.2 431.4h48.12v12.48H118.2z"
+            />
+            <g>
+              <g clipPath="url(#clipPath3312)">
+                <text
+                  fill="#00b050"
+                  fillOpacity="1"
+                  fillRule="nonzero"
+                  stroke="none"
+                  fontFamily="Calibri"
+                  fontSize="9"
+                  fontVariant="normal"
+                  fontWeight="normal"
+                  transform="matrix(1 0 0 -1 135.84 434.59)"
+                  writingMode="lr-tb"
+                >
+                  <tspan x="0 4.0770001 8.757 10.8" y="0">
+                    Full
+                  </tspan>
+                </text>
+              </g>
+            </g>
+          </>
+        )}
         <path
           fill="#fff"
           fillOpacity="1"
@@ -7688,44 +7696,48 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </text>
           </g>
         </g> */}
-        <path
-          fill="#e2f0d9"
-          fillOpacity="1"
-          fillRule="evenodd"
-          stroke="none"
-          d="M258 431.16h48.24v12.6H258z"
-        />
-        <path
-          fill="none"
-          stroke="#00b050"
-          strokeDasharray="none"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
-          strokeOpacity="1"
-          strokeWidth="0.96"
-          d="M258 431.16h48.24v12.6H258z"
-        />
-        <g>
-          <g clipPath="url(#clipPath3436)">
-            <text
-              fill="#00b050"
+        {apiValues?.[keys?.[2.24]] && apiValues?.[keys?.[2.24]] >= 1 && (
+          <>
+            <path
+              fill="#e2f0d9"
               fillOpacity="1"
-              fillRule="nonzero"
+              fillRule="evenodd"
               stroke="none"
-              fontFamily="Calibri"
-              fontSize="9"
-              fontVariant="normal"
-              fontWeight="normal"
-              transform="matrix(1 0 0 -1 275.74 434.42)"
-              writingMode="lr-tb"
-            >
-              <tspan x="0 4.0770001 8.757 10.8" y="0">
-                Full
-              </tspan>
-            </text>
-          </g>
-        </g>
+              d="M258 431.16h48.24v12.6H258z"
+            />
+            <path
+              fill="none"
+              stroke="#00b050"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.96"
+              d="M258 431.16h48.24v12.6H258z"
+            />
+            <g>
+              <g clipPath="url(#clipPath3436)">
+                <text
+                  fill="#00b050"
+                  fillOpacity="1"
+                  fillRule="nonzero"
+                  stroke="none"
+                  fontFamily="Calibri"
+                  fontSize="9"
+                  fontVariant="normal"
+                  fontWeight="normal"
+                  transform="matrix(1 0 0 -1 275.74 434.42)"
+                  writingMode="lr-tb"
+                >
+                  <tspan x="0 4.0770001 8.757 10.8" y="0">
+                    Full
+                  </tspan>
+                </text>
+              </g>
+            </g>
+          </>
+        )}
         <path
           fill="#fff"
           fillOpacity="1"
@@ -7991,44 +8003,48 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             </text>
           </g>
         </g> */}
-        <path
-          fill="#e2f0d9"
-          fillOpacity="1"
-          fillRule="evenodd"
-          stroke="none"
-          d="M401.04 431.16h48.12v12.6h-48.12z"
-        />
-        <path
-          fill="none"
-          stroke="#00b050"
-          strokeDasharray="none"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
-          strokeOpacity="1"
-          strokeWidth="0.96"
-          d="M401.04 431.16h48.12v12.6h-48.12z"
-        />
-        <g>
-          <g clipPath="url(#clipPath3560)">
-            <text
-              fill="#00b050"
+        {apiValues?.[keys?.[2.34]] && apiValues?.[keys?.[2.34]] >= 1 && (
+          <>
+            <path
+              fill="#e2f0d9"
               fillOpacity="1"
-              fillRule="nonzero"
+              fillRule="evenodd"
               stroke="none"
-              fontFamily="Calibri"
-              fontSize="9"
-              fontVariant="normal"
-              fontWeight="normal"
-              transform="matrix(1 0 0 -1 418.68 434.42)"
-              writingMode="lr-tb"
-            >
-              <tspan x="0 4.0770001 8.757 10.8" y="0">
-                Full
-              </tspan>
-            </text>
-          </g>
-        </g>
+              d="M401.04 431.16h48.12v12.6h-48.12z"
+            />
+            <path
+              fill="none"
+              stroke="#00b050"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.96"
+              d="M401.04 431.16h48.12v12.6h-48.12z"
+            />
+            <g>
+              <g clipPath="url(#clipPath3560)">
+                <text
+                  fill="#00b050"
+                  fillOpacity="1"
+                  fillRule="nonzero"
+                  stroke="none"
+                  fontFamily="Calibri"
+                  fontSize="9"
+                  fontVariant="normal"
+                  fontWeight="normal"
+                  transform="matrix(1 0 0 -1 418.68 434.42)"
+                  writingMode="lr-tb"
+                >
+                  <tspan x="0 4.0770001 8.757 10.8" y="0">
+                    Full
+                  </tspan>
+                </text>
+              </g>
+            </g>
+          </>
+        )}
         <path
           fill="#fff"
           fillOpacity="1"
