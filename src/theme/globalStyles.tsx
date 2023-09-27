@@ -49,8 +49,9 @@ export default function GlobalStyles() {
           padding: 0,
         },
         tspan: {
-          fontFamily:'Public Sans',
-          fontWeight:'600'
+          fontFamily:'Public Sans !important',
+          fontWeight:'600',
+          // letterSpacing: 1.2
         }
       }}
     />
