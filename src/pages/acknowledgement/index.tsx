@@ -234,7 +234,6 @@ export default function UserListPage() {
             }}
             gap={2}
           >
-          <Box sx={{ marginBottom: 2, display:'flex', justifyContent:'flex-end'}}>
             <UsersDropDown
               size="small"
               currentSelectedUser={currentSelectedUser}
