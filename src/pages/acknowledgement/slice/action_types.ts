@@ -1,1 +1,1 @@
-export const GET_ACKNOWLEDGEMENT = ''
+export const GET_ACKNOWLEDGEMENT = '/alarms/getAlarmById'

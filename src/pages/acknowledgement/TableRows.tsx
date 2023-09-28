@@ -75,10 +75,15 @@ export default function UserTableRow({
           </Label>
         </TableCell> */}
 
-        <TableCell align="left">{row?.[0]}</TableCell>
-        <TableCell align="left" style={{
-          color:'red'
-        }}>{row?.[1]}</TableCell>
+        <TableCell align="left">{row?.TransactionAlarmName}</TableCell>
+        <TableCell
+          align="left"
+          style={{
+            color: 'red',
+          }}
+        >
+          {row?.TransactionAlarmDescription}
+        </TableCell>
       </TableRow>
 
       <MenuPopover

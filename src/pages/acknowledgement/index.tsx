@@ -23,6 +23,8 @@ import moment from 'moment';
 import { dispatch, useSelector } from 'src/redux/store';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import UsersDropDown from 'src/components/all-users-dropdown';
+import TableSkeleton from 'src/components/table-skeleton';
+
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -48,6 +50,7 @@ import {
 import TableRows from './TableRows';
 import { slice } from '../reports/slice';
 import { getAllReportsData } from '../reports/slice/action';
+import { getAcknowledgementAPI } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -68,7 +71,7 @@ const ROLE_OPTIONS = [
 
 const TABLE_HEAD = [
   { id: 'label', label: 'Label', align: 'left' },
-  { id: 'value', label: 'Value', align: 'left' },
+  { id: 'description', label: 'Description', align: 'left' },
 ];
 
 // ----------------------------------------------------------------------
@@ -99,10 +102,11 @@ export default function UserListPage() {
 
   const navigate = useNavigate();
 
-  const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
+  const { acknowledgementData, isGetAcknowledgementLoading } = useSelector(
+    (state) => state.acknowledgement
+  );
 
-  const apiValues = reportsData?.rows?.[0]?.TransactionData?.[0];
-  console.log('sensorData', Object.entries(apiValues || {}));
+  console.log('sensorData', acknowledgementData);
 
   const [tableData, setTableData] = useState(_userList);
 
@@ -114,6 +118,8 @@ export default function UserListPage() {
 
   const [filterStatus, setFilterStatus] = useState('all');
 
+  const [refresh, setRefresh] = useState(true);
+
   const { user } = useAuthContext();
 
   const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
@@ -121,36 +127,17 @@ export default function UserListPage() {
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   useEffect(() => {
-    dispatch(slice.actions.startGetReportsLoading());
     dispatch(
-      getAllReportsData({
-        topicName: 'topic_2',
-        page: 1,
-        limit: 1,
+      getAcknowledgementAPI({
+        topic: 'topic_2',
+        page: page + 1,
+        limit: rowsPerPage,
         userId: currentSelectedUser,
       })
     );
 
-    const intervalId = setInterval(() => {
-      dispatch(
-        getAllReportsData({
-          topicName: 'topic_2',
-          page: 1,
-          limit: 1,
-          userId: currentSelectedUser,
-        })
-      );
-      setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
-      // Update last call time during each interval
-    }, 60000);
-
-    setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
-
-    // Clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentSelectedUser, page, rowsPerPage, dispatch]);
+  }, [currentSelectedUser, page, rowsPerPage, refresh, dispatch]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -166,10 +153,7 @@ export default function UserListPage() {
 
   const isFiltered = filterName !== '' || filterRole !== 'all' || filterStatus !== 'all';
 
-  const isNotFound =
-    Object.entries(apiValues || {})?.filter(
-      (item: any) => item?.[0]?.includes('Alarm') && item?.[1] >= 1
-    )?.length === 0;
+  const isNotFound = acknowledgementData?.rows?.length === 0;
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -241,11 +225,25 @@ export default function UserListPage() {
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
         {user?.UserTypeCode !== 'CU' && (
-          <Box sx={{ marginBottom: 2 }}>
+          <Box
+            sx={{
+              marginBottom: 2,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+            }}
+            gap={2}
+          >
             <UsersDropDown
               size="small"
               currentSelectedUser={currentSelectedUser}
               setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<Iconify icon="mi:refresh" />}
+              onClick={() => setRefresh(!refresh)}
             />
           </Box>
         )}
@@ -300,9 +298,10 @@ export default function UserListPage() {
                 />
 
                 <TableBody>
-                  {Object.entries(apiValues || {})
-                    ?.filter((item: any) => item?.[0]?.includes('Alarm') && item?.[1] >= 1)
-                    ?.map((row: any) => (
+                  {isGetAcknowledgementLoading ? (
+                    <TableSkeleton colums={2} />
+                  ) : (
+                    (acknowledgementData?.rows || [])?.map((row: any) => (
                       <TableRows
                         key={row?.id}
                         row={row}
@@ -311,7 +310,8 @@ export default function UserListPage() {
                         onDeleteRow={() => handleDeleteRow(row?.id)}
                         onEditRow={() => handleEditRow(row?.name)}
                       />
-                    ))}
+                    ))
+                  )}
 
                   <TableEmptyRows
                     height={denseHeight}
@@ -325,11 +325,7 @@ export default function UserListPage() {
           </TableContainer>
 
           <TablePaginationCustom
-            count={
-              Object.entries(apiValues || {})?.filter(
-                (item: any) => item?.[0]?.includes('Alarm') && item?.[1] >= 1
-              )?.length
-            }
+            count={acknowledgementData?.count}
             page={page}
             rowsPerPageOptions={[10, 25, 50]}
             rowsPerPage={rowsPerPage}

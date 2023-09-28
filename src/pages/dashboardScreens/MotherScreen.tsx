@@ -2600,7 +2600,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath688)">
             <path
-              fill="#fff"
+              fill={apiValues?.[keys?.[4.3]] && apiValues?.[keys?.[4.3]] >= 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -2612,7 +2612,9 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath698)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={
+                apiValues?.[keys?.[4.3]] && apiValues?.[keys?.[4.3]] >= 1 ? '#36B37E' : '#000'
+              }
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -2936,7 +2938,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 248.88 302.04)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[3.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[3.2]])} °C`}
               </tspan>
@@ -3015,7 +3017,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 191.18 302.04)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[3.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[3.1]])} °C`}
               </tspan>
@@ -3290,10 +3292,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 866.74 422.93)"
               writingMode="lr-tb"
             >
-              <tspan
-                x="0 4.5630002 6.8309999 11.394 15.957 20.52 22.202999 30.231001 33.705002"
-                y="0"
-              >
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[9.2]] && `${Math.round(apiValues?.[keys?.[9.2]])} W/m²`}
               </tspan>
             </text>
@@ -3351,7 +3350,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 875.02 393.86)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 13.203 20.393999 23.868" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[9.3]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[9.3]])} m/s`}
               </tspan>
@@ -3606,58 +3605,62 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             d="M86.28 437.52h396.85"
           />
         </g>
-        <path
-          fill="none"
-          stroke="red"
-          strokeDasharray="none"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
-          strokeOpacity="1"
-          strokeWidth="2.04"
-          d="M175.26 127.26h15.63"
-        />
-        <path
-          fill="#fbe5d6"
-          fillOpacity="1"
-          fillRule="evenodd"
-          stroke="none"
-          d="M190.8 121.08h48.12v12.6H190.8z"
-        />
-        <path
-          fill="none"
-          stroke="red"
-          strokeDasharray="none"
-          strokeLinecap="butt"
-          strokeLinejoin="miter"
-          strokeMiterlimit="10"
-          strokeOpacity="1"
-          strokeWidth="0.96"
-          d="M190.8 121.08h48.12v12.6H190.8z"
-        />
-        <g>
-          <g clipPath="url(#clipPath1178)">
-            <text
-              fill="red"
+        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] >= 1 && (
+          <>
+            <path
+              fill="none"
+              stroke="red"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="2.04"
+              d="M175.26 127.26h15.63"
+            />
+            <path
+              fill="#fbe5d6"
               fillOpacity="1"
-              fillRule="nonzero"
+              fillRule="evenodd"
               stroke="none"
-              fontFamily="Calibri"
-              fontSize="9.024"
-              fontVariant="normal"
-              fontWeight="normal"
-              transform="matrix(1 0 0 -1 195.41 124.3)"
-              writingMode="lr-tb"
-            >
-              <tspan
-                x="0 2.8786559 5.7573118 7.7967358 12.22752 19.437696 24.103104 27.126144 31.186943 33.226368 36.105022"
-                y="0"
-              >
-                !! Empty !!
-              </tspan>
-            </text>
-          </g>
-        </g>
+              d="M190.8 121.08h48.12v12.6H190.8z"
+            />
+            <path
+              fill="none"
+              stroke="red"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.96"
+              d="M190.8 121.08h48.12v12.6H190.8z"
+            />
+            <g>
+              <g clipPath="url(#clipPath1178)">
+                <text
+                  fill="red"
+                  fillOpacity="1"
+                  fillRule="nonzero"
+                  stroke="none"
+                  fontFamily="Calibri"
+                  fontSize="9.024"
+                  fontVariant="normal"
+                  fontWeight="normal"
+                  transform="matrix(1 0 0 -1 195.41 124.3)"
+                  writingMode="lr-tb"
+                >
+                  <tspan
+                    x="0 2.8786559 5.7573118 7.7967358 12.22752 19.437696 24.103104 27.126144 31.186943 33.226368 36.105022"
+                    y="0"
+                  >
+                    !! Empty !!
+                  </tspan>
+                </text>
+              </g>
+            </g>
+          </>
+        )}
         <path
           fill="none"
           stroke="red"
@@ -3775,7 +3778,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 671.62 452.18)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 9.1260004 13.689 18.252001 20.042999" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[8.1]] && `${Math.round(apiValues?.[keys?.[8.1]])} W`}
               </tspan>
             </text>
@@ -3870,10 +3873,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 669.79 427.73)"
+              transform="matrix(1 0 0 -1 659.79 427.73)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 9.1260004 13.689 15.48 19.575001 27.584999" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[8.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[8.2]])} kWh`}
               </tspan>
@@ -4872,7 +4875,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath1768)">
             <path
-              fill="#fff"
+              fill={apiValues?.[keys?.[6.3]] && apiValues?.[keys?.[6.3]] >= 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -4884,7 +4887,9 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath1778)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={
+                apiValues?.[keys?.[6.3]] && apiValues?.[keys?.[6.3]] >= 1 ? '#36B37E' : '#000'
+              }
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -5402,7 +5407,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath2024)">
             <path
-              fill="#fff"
+              fill={apiValues?.[keys?.[7.3]] && apiValues?.[keys?.[7.3]] >= 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -5414,7 +5419,9 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath2034)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={
+                apiValues?.[keys?.[7.3]] && apiValues?.[keys?.[7.3]] >= 1 ? '#36B37E' : '#000'
+              }
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -7470,7 +7477,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           </g>
         </g>
         <path
-          fill="#fff"
+          fill={apiValues?.[keys?.[2.4]] && apiValues?.[keys?.[2.4]] >= 1 ? '#36B37E' : '#fff'}
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -7478,7 +7485,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={apiValues?.[keys?.[2.4]] && apiValues?.[keys?.[2.4]] >= 1 ? '#36B37E' : '#000'}
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
@@ -8216,7 +8223,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath3646)">
             <path
-              fill="#fff"
+              fill={
+                apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+                  ? '#36B37E'
+                  : '#fff'
+              }
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -8228,7 +8239,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath3656)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={
+                apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+                  ? '#36B37E'
+                  : '#000'
+              }
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -8242,7 +8257,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath3666)">
             <path
-              fill="#fff"
+              fill={
+                apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+                  ? '#36B37E'
+                  : '#fff'
+              }
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -8254,7 +8273,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath3676)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={
+                apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+                  ? '#36B37E'
+                  : '#000'
+              }
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -8303,7 +8326,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           </g>
         </g>
         <path
-          fill="#fff"
+          fill={
+            apiValues?.drain_brine_backfeed && apiValues?.drain_brine_backfeed >= 1
+              ? '#36B37E'
+              : '#fff'
+          }
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -8311,7 +8338,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.drain_brine_backfeed && apiValues?.drain_brine_backfeed >= 1
+              ? '#36B37E'
+              : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
@@ -8321,7 +8352,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           d="M330.48 95.4l4.98 7.08 4.98-7.08z"
         />
         <path
-          fill="#fff"
+          fill={
+            apiValues?.drain_brine_backfeed && apiValues?.drain_brine_backfeed >= 1
+              ? '#36B37E'
+              : '#fff'
+          }
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -8329,7 +8364,11 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.drain_brine_backfeed && apiValues?.drain_brine_backfeed >= 1
+              ? '#36B37E'
+              : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"

@@ -31,17 +31,22 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
     // );
 
     const logo = (
-    <Box component="img" src="/logo/LogoSoblue.jpg" alt="logo" sx={{
-      width: 150,
-      height: 45,
-      background: 'transparent',
-      // display: 'inline-flex',
-      cursor: 'pointer',
-      ...sx
-      // position:!disabledLink ?'absolute' : 'unset',
-      // ml:!disabledLink ? '10px' : '0px',
-      // mt: !disabledLink ? '10px' : '0px'
-    }}/>
+      <Box
+        component="img"
+        src="/logo/LogoSoblue.jpg"
+        alt="logo"
+        sx={{
+          width: 150,
+          height: 45,
+          background: 'transparent',
+          // display: 'inline-flex',
+          cursor: 'pointer',
+          ...sx,
+          // position:!disabledLink ?'absolute' : 'unset',
+          // ml:!disabledLink ? '10px' : '0px',
+          // mt: !disabledLink ? '10px' : '0px'
+        }}
+      />
     );
 
     if (disabledLink) {

@@ -16,7 +16,7 @@ export function getAllReportsData(params: {
   type?: any;
 }) {
   return async (dispatch: Dispatch) => {
-    // dispatch(slice.actions.startGetReportsLoading());
+    dispatch(slice.actions.startGetReportsLoading());
     try {
       const response = await axios.post(GET_REPORT, params);
       console.log('response', response);

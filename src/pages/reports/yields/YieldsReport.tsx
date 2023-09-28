@@ -1,4 +1,4 @@
-import { Card, Container, MenuItem, Stack, TextField } from '@mui/material';
+import { Card, Container, MenuItem, Skeleton, Stack, TextField } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import ApexCharts from 'react-apexcharts';
 import { useSettingsContext } from 'src/components/settings';
@@ -63,12 +63,12 @@ const YieldsReport: React.FC = () => {
     { data: [], name: 'PVA_yield_tot' },
   ]);
 
-  const [selectDays, setSelectedDays] = useState<string>('');
+  const [selectDays, setSelectedDays] = useState<string>('1_hour');
   const { user } = useAuthContext();
   const [currentSelectedUser, setCurrentSelectedUser] = useState<any>(user?.UserId);
   const [dateRange, setDateRange] = useState<any>({
-    state_date: '',
-    end_date: '',
+    start_date: moment().subtract(1, 'hour'),
+    end_date: moment(),
   });
 
   console.log('dateRange', dateRange);
@@ -131,7 +131,7 @@ const YieldsReport: React.FC = () => {
     }
   }, [dispatch, dateRange, currentSelectedUser]);
 
-/*   useEffect(() => {
+  /*   useEffect(() => {
     const dataInterval = setInterval(updateData, 60000); // Update every 1 minute
 
     return () => {
@@ -180,78 +180,80 @@ const YieldsReport: React.FC = () => {
   };
 
   return (
-    <>
-      <Stack
-        spacing={2}
-        alignItems="center"
-        direction={{
-          xs: 'column',
-          sm: 'row',
-        }}
-        sx={{
-          paddingLeft: '25px',
-          paddingBottom: '10px',
-        }}
-      >
-        {user?.UserTypeCode !== 'CU' && (
-          <UsersDropDown
-            size="small"
-            currentSelectedUser={currentSelectedUser}
-            setCurrentSelectedUser={setCurrentSelectedUser}
-          />
-        )}
-
-        <TextField
-          fullWidth
-          select
-          size="small"
-          label="Time"
-          value={selectDays}
-          onChange={(e) => {
-            const data = DAYS_FILTER?.find((item) => item?.value === e.target.value);
-            console.log('date', data?.start_date, data?.end_date);
-            setSelectedDays(e.target.value);
-            setDateRange({
-              start_date: data?.start_date,
-              end_date: data?.end_date,
-            });
-          }}
-          SelectProps={{
-            MenuProps: {
-              PaperProps: {
-                sx: {
-                  maxHeight: 260,
-                },
-              },
-            },
+    <div className="realtime-chart">
+      <Container maxWidth={themeStretch ? false : 'lg'}>
+        <Stack
+          spacing={2}
+          alignItems="center"
+          direction={{
+            xs: 'column',
+            sm: 'row',
           }}
           sx={{
-            maxWidth: { sm: 240 },
+            paddingBottom: '10px',
           }}
+          display="flex"
+          justifyContent="flex-end"
         >
-          {DAYS_FILTER?.map((option: any, index: number) => (
-            <MenuItem
-              key={index}
-              value={option?.value}
-              sx={{
-                mx: 1,
-                borderRadius: 0.75,
-                typography: 'body2',
-              }}
-            >
-              {option?.item}
-            </MenuItem>
-          ))}
-        </TextField>
-      </Stack>
-      <div className="realtime-chart">
-        <Container maxWidth={themeStretch ? false : 'lg'}>
-          <Card sx={{ p: 2 }}>
+          <TextField
+            fullWidth
+            select
+            size="small"
+            label="Time"
+            value={selectDays}
+            onChange={(e) => {
+              const data = DAYS_FILTER?.find((item) => item?.value === e.target.value);
+              console.log('date', data?.start_date, data?.end_date);
+              setSelectedDays(e.target.value);
+              setDateRange({
+                start_date: data?.start_date,
+                end_date: data?.end_date,
+              });
+            }}
+            SelectProps={{
+              MenuProps: {
+                PaperProps: {
+                  sx: {
+                    maxHeight: 260,
+                  },
+                },
+              },
+            }}
+            sx={{
+              maxWidth: { sm: 240 },
+            }}
+          >
+            {DAYS_FILTER?.map((option: any, index: number) => (
+              <MenuItem
+                key={index}
+                value={option?.value}
+                sx={{
+                  mx: 1,
+                  borderRadius: 0.75,
+                  typography: 'body2',
+                }}
+              >
+                {option?.item}
+              </MenuItem>
+            ))}
+          </TextField>
+          {user?.UserTypeCode !== 'CU' && (
+            <UsersDropDown
+              size="small"
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          )}
+        </Stack>
+        <Card sx={{ p: 2 }}>
+          {isGetReportLoading ? (
+            <Skeleton variant="rectangular" width={1048} height={500} />
+          ) : (
             <ApexCharts options={options} series={seriesData} type="line" height={500} />
-          </Card>
-        </Container>
-      </div>
-    </>
+          )}
+        </Card>
+      </Container>
+    </div>
   );
 };
 
