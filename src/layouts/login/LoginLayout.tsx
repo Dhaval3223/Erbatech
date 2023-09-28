@@ -22,7 +22,8 @@ export default function LoginLayout({ children, illustration, title }: Props) {
           zIndex: 9,
           position: 'absolute',
           mt: { xs: 1.5, md: 5 },
-          ml: { xs: 2, md: 5 },
+          // ml: { xs: 2, md: 5 },
+          left: '28%'
         }}
       />
 

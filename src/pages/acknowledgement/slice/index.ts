@@ -11,7 +11,7 @@ const initialState: IAcknowledgementState = {
 };
 
 const slice = createSlice({
-  name: 'roles',
+  name: 'acknowledgement',
   initialState,
   reducers: {
     startGetAcknowledgementLoading(state) {
@@ -24,7 +24,7 @@ const slice = createSlice({
       return {
         ...state,
         isGetAcknowledgementLoading: false,
-        acknowledgementData: action.payload,
+        acknowledgementData: action.payload?.data,
       };
     },
     hasGetAcknowledgementErr(state, action) {

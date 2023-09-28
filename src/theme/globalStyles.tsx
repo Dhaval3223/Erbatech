@@ -22,6 +22,7 @@ export default function GlobalStyles() {
           padding: 0,
           width: '100%',
           height: '100%',
+          overflowY: 'hidden',
         },
         '#root': {
           width: '100%',
@@ -49,9 +50,10 @@ export default function GlobalStyles() {
           padding: 0,
         },
         tspan: {
-          fontFamily:'Public Sans',
-          fontWeight:'600'
-        }
+          fontFamily: 'Public Sans !important',
+          fontWeight: '600',
+          // letterSpacing: 1.2
+        },
       }}
     />
   );
