@@ -29,7 +29,7 @@ export default function NavItem({
 
   const renderContent = (
     <>
-      {isblueLine && <Box sx={{ borderTop: '1px solid blue', pb: 1 }} />}
+      {isblueLine && <Box sx={{ borderTop: '3px solid blue', pb: 1 }} />}
       <StyledItem depth={depth} active={active} disabled={disabled} caption={!!caption} {...other}>
         {icon && <StyledIcon>{icon}</StyledIcon>}
 
