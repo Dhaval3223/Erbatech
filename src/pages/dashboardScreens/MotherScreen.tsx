@@ -4307,7 +4307,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 357.22 176.14)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[1.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[1.1]])} °C`}
               </tspan>
@@ -7470,7 +7470,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 130.61 457.18)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48 11.16 15.813" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])}  hPa`}
               </tspan>
             </text>
@@ -7541,7 +7541,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 129.48 359.71)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 13.203" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[2.1]])} %`}
               </tspan>
@@ -8180,6 +8180,24 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           strokeWidth="0.96"
           d="M764.04 529.02a5.94 5.94 0 005.94 5.94h157.2a5.94 5.94 0 005.94-5.94v-23.76a5.94 5.94 0 00-5.94-5.94h-157.2a5.94 5.94 0 00-5.94 5.94z"
         /> */}
+        {user?.UserTypeCode !== 'CU' && (
+          <g transform="matrix(1 0 0 -1 794.71 534)">
+            <foreignObject
+              style={{ backgroundColor: 'white', borderRadius: '10px' }}
+              x="-80"
+              y="0"
+              width="240"
+              height="40"
+            >
+              <UsersDropDown
+                size="small"
+                offLabel
+                currentSelectedUser={currentSelectedUser}
+                setCurrentSelectedUser={setCurrentSelectedUser}
+              />
+            </foreignObject>
+          </g>
+        )}
         {/* <g>
           <g clipPath="url(#clipPath3622)">
             <text

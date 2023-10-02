@@ -50,7 +50,7 @@ import {
 import TableRows from './TableRows';
 import { slice } from '../reports/slice';
 import { getAllReportsData } from '../reports/slice/action';
-import { getAcknowledgementAPI } from './slice/action';
+import { checkAlermStatusApi, getAcknowledgementAPI } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -95,7 +95,7 @@ export default function UserListPage() {
     onChangePage,
     onChangeRowsPerPage,
   } = useTable({
-    defaultRowsPerPage: 10,
+    defaultRowsPerPage: 20,
   });
 
   const { themeStretch } = useSettingsContext();
@@ -217,6 +217,16 @@ export default function UserListPage() {
     setFilterStatus('all');
   };
 
+  const handleAPIs = async () => {
+    await dispatch(
+      checkAlermStatusApi({
+        topic: 'topic_2',
+        userId: currentSelectedUser,
+      })
+    );
+    setRefresh(!refresh);
+  };
+
   return (
     <>
       <Helmet>
@@ -243,7 +253,7 @@ export default function UserListPage() {
               variant="contained"
               color="primary"
               startIcon={<Iconify icon="mi:refresh" />}
-              onClick={() => setRefresh(!refresh)}
+              onClick={() => handleAPIs()}
             />
           </Box>
         )}
@@ -327,7 +337,7 @@ export default function UserListPage() {
           <TablePaginationCustom
             count={acknowledgementData?.count}
             page={page}
-            rowsPerPageOptions={[10, 25, 50]}
+            rowsPerPageOptions={[20, 25, 50]}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}

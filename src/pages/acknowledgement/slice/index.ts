@@ -8,6 +8,9 @@ import { IAcknowledgementState } from './types';
 const initialState: IAcknowledgementState = {
   isGetAcknowledgementLoading: false,
   acknowledgementData: [],
+  alermSucess: false,
+  alermError: false,
+  alermSusErrMsg: '',
 };
 
 const slice = createSlice({
@@ -32,6 +35,22 @@ const slice = createSlice({
         ...state,
         isGetAcknowledgementLoading: false,
         acknowledgementData: action.payload,
+      };
+    },
+    handleCheckAlarmSucess(state, action) {
+      return {
+        ...state,
+        alermSucess: true,
+        alermError: false,
+        alermSusErrMsg: '',
+      };
+    },
+    handleCheckAlarmErr(state, action) {
+      return {
+        ...state,
+        alermSucess: false,
+        alermError: true,
+        alermSusErrMsg: '',
       };
     },
   },
