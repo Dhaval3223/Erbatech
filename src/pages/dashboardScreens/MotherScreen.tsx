@@ -1122,16 +1122,13 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 46.68 500.9)"
               writingMode="lr-tb"
             >
-              <tspan
-                x="0 16.224001 29.040001 41.112 49.200001 60.84 69.167999 75 87.888 99.264"
-                y="0"
-              >
-                Operating{' '}
+              <tspan x="0" y="0">
+                Operating status
               </tspan>
             </text>
           </g>
         </g>
-        <g>
+        {/* <g>
           <g clipPath="url(#clipPath74)">
             <text
               fill="#dae3f3"
@@ -1145,12 +1142,12 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 151.44 500.9)"
               writingMode="lr-tb"
             >
-              <tspan x="0 9.3599997 17.4 29.040001 37.368 50.16" y="0">
+              <tspan x="0" y="0">
                 status
               </tspan>
             </text>
           </g>
-        </g>
+        </g> */}
         <path
           fill="none"
           stroke="#bdd7ee"
@@ -1566,7 +1563,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan
-                x="0 2.2679999 5.4089999 8.5229998 12.834 17.523001 19.566 23.877001 26.892 28.926001 33.714001"
+                x="0"
                 y="0"
               >
                 Irradiation
@@ -1588,7 +1585,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 779.4 394.2)"
               writingMode="lr-tb"
             >
-              <tspan x="0 8.0279999 10.071 14.751" y="0">
+              <tspan x="0" y="0">
                 Wind
               </tspan>
             </text>
@@ -2744,7 +2741,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 50.808 149.64)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48 11.16 15.813" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.2]] && `${Math.round(apiValues?.[keys?.[2.2]])} hPa`}
               </tspan>
             </text>
@@ -2782,7 +2779,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 54.576 456.82)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48 11.16 15.813" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])}  hPa`}
               </tspan>
             </text>
@@ -2820,7 +2817,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 503.3 283.42)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[6.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[6.1]])} °C`}
               </tspan>
@@ -3213,7 +3210,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 875.98 452.5)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[9.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[9.1]])} °C`}
               </tspan>
@@ -3389,7 +3386,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 503.18 126.65)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[4.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[4.2]])} °C`}
               </tspan>
@@ -3468,7 +3465,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 602.33 195.12)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[4.7]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[4.7]])} °C`}
               </tspan>
@@ -3697,13 +3694,13 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 576.1 452.78)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.6529999 9.8280001" y="0">
-                PV{' '}
+              <tspan x="0" y="0">
+                PV electricity yield
               </tspan>
             </text>
           </g>
         </g>
-        <g>
+        {/* <g>
           <g clipPath="url(#clipPath1206)">
             <text
               fill="#000"
@@ -3745,7 +3742,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               </tspan>
             </text>
           </g>
-        </g>
+        </g> */}
         <path
           fill="#fff"
           fillOpacity="1"
@@ -3799,12 +3796,12 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0 4.6529999 9.8280001" y="0">
-                PV{' '}
+                PV yield today
               </tspan>
             </text>
           </g>
         </g>
-        <g>
+        {/* <g>
           <g clipPath="url(#clipPath1258)">
             <text
               fill="#000"
@@ -3843,7 +3840,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               </tspan>
             </text>
           </g>
-        </g>
+        </g> */}
         <path
           fill="#fff"
           fillOpacity="1"
@@ -4029,7 +4026,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 210.43 404.71)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.T_coll_surface_3 && `${Math.round(apiValues?.T_coll_surface_3)} °C`}
               </tspan>
             </text>
@@ -4140,7 +4137,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 228.19 176.14)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[1.4]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[1.4]])} °C`}
               </tspan>
@@ -4460,7 +4457,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 354.6 404.57)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.25]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[2.25]])} °C`}
               </tspan>
@@ -4572,7 +4569,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 497.59 404.71)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.35]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[2.35]])} °C`}
               </tspan>
@@ -4724,7 +4721,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 503.3 191.35)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[4.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
               </tspan>
@@ -4814,7 +4811,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 503.35 225.36)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[6.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[6.2]])} °C`}
               </tspan>
@@ -5027,7 +5024,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 725.35 170.57)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[5.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[5.1]])} °C`}
               </tspan>
@@ -5106,7 +5103,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 725.35 243.74)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[5.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[5.2]])} °C`}
               </tspan>
@@ -5218,7 +5215,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 503.78 92.232)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[7.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[7.1]])} °C`}
               </tspan>
@@ -5346,7 +5343,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 503.83 34.152)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[7.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[7.2]])} °C`}
               </tspan>
@@ -5522,7 +5519,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 602.62 92.232)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[7.7]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[7.7]])} °C`}
               </tspan>
@@ -5612,7 +5609,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 602.86 34.152)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[7.6]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[7.6]])} °C`}
               </tspan>
@@ -5702,7 +5699,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 602.45 218.88)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[6.6]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[6.6]])} °C`}
               </tspan>
@@ -7296,7 +7293,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 188.09 457.08)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.T_coll_surface &&
                   `${roundToOneDecimalPlace(apiValues?.T_coll_surface)} °C`}
               </tspan>
@@ -7657,7 +7654,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 327.98 456.89)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {/* UUUUUU{' '} */}
               </tspan>
             </text>
@@ -7777,7 +7774,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 270.5 457.01)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5751681 6.4792318 11.162688 15.828096" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.23]] && `${Math.round(apiValues?.[keys?.[2.23]])}  hPa`}
               </tspan>
             </text>
@@ -7964,7 +7961,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 470.93 456.89)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {/* VVVVVVVVV{' '} */}
               </tspan>
             </text>
@@ -8084,7 +8081,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 413.45 457.01)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5751681 6.4792318 11.162688 15.828096" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[2.33]] && `${Math.round(apiValues?.[keys?.[2.33]])} hPa`}
               </tspan>
             </text>
@@ -8439,13 +8436,13 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 401.83 311.04)"
               writingMode="lr-tb"
             >
-              <tspan x="0 5.6339998 10.071 14.382" y="0">
-                Heat
+              <tspan x="0" y="0">
+                Heat yield today
               </tspan>
             </text>
           </g>
         </g>
-        <g>
+        {/* <g>
           <g clipPath="url(#clipPath3740)">
             <text
               fill="#000"
@@ -8484,7 +8481,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               </tspan>
             </text>
           </g>
-        </g>
+        </g> */}
         <path
           fill="#fff"
           fillOpacity="1"
