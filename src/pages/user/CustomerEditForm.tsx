@@ -28,7 +28,7 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { getCountries, getStateList, getStateByCountry } from 'src/redux/slices/action';
-import { createUser, updateUserById } from './slice/action';
+import { createUser, updateUserById, viewAllTemplate } from './slice/action';
 import { getAllRoles } from '../Roles/slice/action';
 
 // ----------------------------------------------------------------------
@@ -64,6 +64,10 @@ export default function CustomerEditForm({
     isStateLoading,
     isStateByCountryLoading,
   } = useSelector((state) => state.common);
+
+  const {
+    viewTemplateData,
+  } = useSelector((state) => state.user);
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
@@ -79,6 +83,7 @@ export default function CustomerEditForm({
     Address: Yup.string().required('Address is required'),
     UserLocation: Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
+    UserTemplateId: Yup.string().required('Template is required'),
     // UserRoleId: Yup.string().required('Role is required'),
   });
 
@@ -94,6 +99,7 @@ export default function CustomerEditForm({
       Address: currentUser?.Address || '',
       UserLocation: currentUser?.UserLocation || '',
       UserPassword: currentUser?.UserPassword || '',
+      UserTemplateId: currentUser?.UserTemplateId || '',
       // UserRoleId: currentUser?.UserRoleId || '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -111,6 +117,7 @@ export default function CustomerEditForm({
     );
     dispatch(getCountries());
     dispatch(getStateList());
+    dispatch(viewAllTemplate());
   }, [dispatch]);
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
@@ -222,6 +229,22 @@ export default function CustomerEditForm({
           <RHFTextField name="UserCity" label="City" />
           <RHFTextField name="Address" label="Address" />
           <RHFTextField name="UserLocation" label="Location" />
+          <RHFSelect
+            native
+            name="UserTemplateId"
+            label="Template"
+            placeholder="Template"
+            onChange={(event) => {
+              setValue('UserTemplateId', event.target.value);
+            }}
+          >
+            <option value="" />
+            {viewTemplateData?.rows?.map((template) => (
+              <option key={template.TemplateId} value={template.TemplateId}>
+                 {template.TemplateName} 
+              </option>
+            ))}
+          </RHFSelect>
 {/* 
           <RHFSelect native name="UserRoleId" label="Role" placeholder="Role">
             <option value="" />

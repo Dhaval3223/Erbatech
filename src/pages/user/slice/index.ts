@@ -39,6 +39,17 @@ const initialState: IUserState = {
   deleteUserSuccess: false,
   viewUserData: {},
   viewUserLoading: true,
+  viewTemplateLoader: true,
+  viewTemplateData: {
+    count: 0,
+    rows: [
+      {
+        TemplateId: '',
+        TemplateName: '',
+        TemplatePath: '',
+      },
+    ],
+  },
 };
 
 const slice = createSlice({
@@ -98,6 +109,13 @@ const slice = createSlice({
       },
       viewUserError(state, action) {
         state.viewUserLoading = false
+      },
+      viewAllTemplate(state, action) {
+        state.viewTemplateLoader = false
+        state.viewTemplateData = action.payload.data;
+      },
+      viewAllTemplateError(state, action) {
+        state.viewTemplateLoader = false
       },
   }
 });

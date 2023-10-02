@@ -7,7 +7,8 @@ CREATE_USER,
 DELETE_USER,
 EDIT_USER,
 VIEW_USER,
-GET_ALL_USERS
+GET_ALL_USERS,
+VIEW_ALL_TEMPLATE,
 } from './action_type';
 
 import { slice } from '.';
@@ -74,6 +75,17 @@ export function getAllUsers(params: {
         dispatch(slice.actions.viewUser(response.data));
       } catch (error) {
         dispatch(slice.actions.viewUserError(error));
+      }
+    };
+  }
+
+  export function viewAllTemplate() {
+    return async (dispatch: Dispatch) => {
+      try {
+        const response = await axios.post(VIEW_ALL_TEMPLATE);
+        dispatch(slice.actions.viewAllTemplate(response.data));
+      } catch (error) {
+        dispatch(slice.actions.viewAllTemplateError(error));
       }
     };
   }

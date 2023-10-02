@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel } from '@mui/material';
+import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel, Avatar } from '@mui/material';
 // utils
 import { fData } from 'src/utils/formatNumber';
 // routes
@@ -28,7 +28,8 @@ import FormProvider, {
 } from 'src/components/hook-form';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { getCountries, getStateList, getStateByCountry } from 'src/redux/slices/action';
-import { createUser, updateUserById } from './slice/action';
+import { REACT_APP_BASE_URL } from 'src/config-global';
+import { createUser, updateUserById, viewAllTemplate } from './slice/action';
 import { getAllRoles } from '../Roles/slice/action';
 
 // ----------------------------------------------------------------------
@@ -56,6 +57,8 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
     isStateLoading,
     isStateByCountryLoading,
   } = useSelector((state) => state.common);
+
+  const { viewTemplateData, viewTemplateLoader } = useSelector((state) => state.user);
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
@@ -71,6 +74,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
     Address: Yup.string().required('Address is required'),
     UserLocation: Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
+    UserTemplateId: Yup.string().required('Template is required'),
     // UserRoleId: Yup.string().required('Role is required'),
   });
 
@@ -86,6 +90,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
       Address: '',
       UserLocation: '',
       UserPassword: '',
+      UserTemplateId: '',
       // UserRoleId: '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -103,6 +108,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
     );
     dispatch(getCountries());
     dispatch(getStateList());
+    dispatch(viewAllTemplate());
   }, [dispatch]);
   const methods = useForm({
     resolver: yupResolver(NewUserSchema),
@@ -245,6 +251,22 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
             ))}
           </RHFSelect> */}
           <RHFTextField name="UserPassword" label="Password" />
+          <RHFSelect
+            native
+            name="UserTemplateId"
+            label="Template"
+            placeholder="Template"
+            onChange={(event) => {
+              setValue('UserTemplateId', event.target.value);
+            }}
+          >
+            <option value="" />
+            {viewTemplateData?.rows?.map((template) => (
+              <option key={template.TemplateId} value={template.TemplateId}>
+                 {template.TemplateName} 
+              </option>
+            ))}
+          </RHFSelect>
         </Box>
 
         <Stack
