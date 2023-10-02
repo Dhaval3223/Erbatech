@@ -1170,12 +1170,12 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
                 <tspan x="2.180809" y="5.34347534">
                   !! Empty !!
                 </tspan>
-                <tspan xmlSpace="preserve" x="39.30581" y="0.34347534">
+                {/* <tspan xmlSpace="preserve" x="39.30581" y="0.34347534">
                   !! Empty
                 </tspan>
                 <tspan x="17.743309" y="11.1434765">
                   !!
-                </tspan>
+                </tspan> */}
               </text>
             </g>
           </>
@@ -1391,7 +1391,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             y="5.743476"
           >
             <tspan x="1.8154526" y="5.743476">
-              000 cm
+              {apiValues?.[keys?.[1.5]] && `${roundToOneDecimalPlace(apiValues?.[keys?.[1.5]])} cm`}
             </tspan>
           </text>
         </g>
@@ -1463,7 +1463,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           >
             <tspan x="2.2529526" y="5.743476">
               {apiValues?.[keys?.[2.25]] &&
-                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.25]])} °C`} 
+                `${roundToOneDecimalPlace(apiValues?.[keys?.[2.25]])} °C`}
             </tspan>
           </text>
         </g>
