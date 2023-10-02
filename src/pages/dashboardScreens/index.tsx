@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import { Container, Card, Box, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { useSettingsContext } from 'src/components/settings';
@@ -10,6 +11,7 @@ import moment from 'moment';
 import { slice } from '../reports/slice';
 import { getAllReportsData } from '../reports/slice/action';
 import { MotherScreen } from './MotherScreen';
+import { RhaezuensScreen } from './RhaezuensScreen';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -60,20 +62,29 @@ const Dashboard = () => {
         <title> Dashboard | Soblue</title>
       </Helmet>
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        {/* <Box sx={{ pb: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-          {user?.UserTypeCode !== 'CU' && (
-            <UsersDropDown
-              size="small"
+        {currentSelectedUser == 8 && (
+          <Box sx={{ pb: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            {user?.UserTypeCode !== 'CU' && (
+              <UsersDropDown
+                size="small"
+                currentSelectedUser={currentSelectedUser}
+                setCurrentSelectedUser={setCurrentSelectedUser}
+              />
+            )}
+          </Box>
+        )}
+        <Card>
+          {currentSelectedUser != 8 ? (
+            <MotherScreen
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          ) : (
+            <RhaezuensScreen
               currentSelectedUser={currentSelectedUser}
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
           )}
-        </Box> */}
-        <Card>
-          <MotherScreen
-            currentSelectedUser={currentSelectedUser}
-            setCurrentSelectedUser={setCurrentSelectedUser}
-          />
         </Card>
         <Typography variant="body2" mt="8px" textAlign="right" paragraph>
           {`Last data loaded time: ${lastLoadingTime}`}
