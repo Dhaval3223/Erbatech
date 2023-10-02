@@ -52,6 +52,7 @@ export default function GlobalStyles() {
         tspan: {
           fontFamily: 'Public Sans !important',
           fontWeight: '600',
+          x: '0 !important',
           // letterSpacing: 1.2
         },
       }}

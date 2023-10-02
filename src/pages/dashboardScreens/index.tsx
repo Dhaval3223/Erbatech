@@ -60,7 +60,7 @@ const Dashboard = () => {
         <title> Dashboard | Soblue</title>
       </Helmet>
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <Box sx={{ pb: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+        {/* <Box sx={{ pb: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
           {user?.UserTypeCode !== 'CU' && (
             <UsersDropDown
               size="small"
@@ -68,7 +68,7 @@ const Dashboard = () => {
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
           )}
-        </Box>
+        </Box> */}
         <Card>
           <MotherScreen
             currentSelectedUser={currentSelectedUser}

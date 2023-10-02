@@ -40,6 +40,7 @@ import { getSensorDataByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
+import { getAllReportsData } from '../reports/slice/action';
 
 const TABLE_HEAD = [
   // { id: 'data_types', label: 'Data Types', align: 'left' },
@@ -142,6 +143,14 @@ function SensorVariableAccess({
         limit: String(rowsPerPage),
       })
     );
+    dispatch(
+      getAllReportsData({
+        topicName: 'topic_2',
+        page: 1,
+        limit: 1,
+        userId: currentSelectedUser,
+      })
+    );
 
     const intervalId = setInterval(() => {
       dispatch(
@@ -155,6 +164,14 @@ function SensorVariableAccess({
       );
       // Update last call time during each interval
     }, 60000);
+    dispatch(
+      getAllReportsData({
+        topicName: 'topic_2',
+        page: 1,
+        limit: 1,
+        userId: currentSelectedUser,
+      })
+    );
     setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
 
     // Clear the interval when the component unmounts
@@ -162,6 +179,43 @@ function SensorVariableAccess({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, page, SensorVariableType, rowsPerPage, filterName, currentSelectedUser]);
+
+  useEffect(() => {
+    setPage(0);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [SensorVariableType]);
+
+  // useEffect(() => {
+  //   dispatch(slice.actions.startGetReportsLoading());
+  //   dispatch(
+  //     getAllReportsData({
+  //       topicName: 'topic_2',
+  //       page: 1,
+  //       limit: 1,
+  //       userId: currentSelectedUser,
+  //     })
+  //   );
+
+  //   const intervalId = setInterval(() => {
+  //     dispatch(
+  //       getAllReportsData({
+  //         topicName: 'topic_2',
+  //         page: 1,
+  //         limit: 1,
+  //         userId: currentSelectedUser,
+  //       })
+  //     );
+  //     setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+  //     // Update last call time during each interval
+  //   }, 60000);
+
+  //   setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
+
+  //   // Clear the interval when the component unmounts
+  //   return () => clearInterval(intervalId);
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentSelectedUser]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,

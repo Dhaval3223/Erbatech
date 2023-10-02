@@ -1,6 +1,11 @@
 import { useState } from 'react';
 // @mui
 import { TableRow, TableCell } from '@mui/material';
+import { useSelector } from 'src/redux/store';
+import { useAuthContext } from 'src/auth/useAuthContext';
+import { sensorActor } from './json/sensorActor';
+import varable from './json/variables.json';
+
 // @types
 // ----------------------------------------------------------------------
 
@@ -14,7 +19,12 @@ type Props = {
 export default function SensorVariableTableRow({ row, selected, user, SensorVariableType }: Props) {
   console.log(user);
 
-  const [indexRow, setIndexRow] = useState<number>(0);
+  const { reportsData } = useSelector((state) => state.report);
+
+  // const { user } = useAuthContext();
+
+  const apiValues: any = reportsData?.rows?.[0]?.TransactionData?.[0];
+  console.log('sensorData', apiValues?.[row?.SensorVariableName]);
 
   return SensorVariableType ? (
     <TableRow hover selected={selected}>
@@ -24,8 +34,8 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorVariableName}
       </TableCell>
-      <TableCell align="left" sx={{ width: '15%', color:'red' }}>
-        {row?.SensorVariableValue ? row?.SensorVariableValue : '-'}
+      <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
+        {apiValues?.[row?.SensorVariableName] ? apiValues?.[row?.SensorVariableName] : '-'}
       </TableCell>
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorVariableUnit}
@@ -48,8 +58,10 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorSettingIdentifier}
       </TableCell>
-      <TableCell align="left" sx={{ width: '15%', color:'red' }}>
-        {row?.SensorSettingValue ? row?.SensorSettingValue : '-'}
+      <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
+        {apiValues?.[sensorActor?.[row?.SensorSettingIdentifier]]
+          ? apiValues?.[sensorActor?.[row?.SensorSettingIdentifier]]
+          : '-'}
       </TableCell>
       <TableCell align="left" sx={{ width: '20%' }}>
         {row?.SensorSettingDescription}
