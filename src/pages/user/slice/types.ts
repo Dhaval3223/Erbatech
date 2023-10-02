@@ -34,4 +34,13 @@ export interface IUserState {
     deleteUserError: boolean,
     viewUserData: any,
     viewUserLoading: boolean,
+    viewTemplateLoader: boolean,
+    viewTemplateData: {
+      count: number,
+      rows: {
+        TemplateId: string,
+        TemplateName: string,
+        TemplatePath: string,
+      }[],
+    },
   }
