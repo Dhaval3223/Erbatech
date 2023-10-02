@@ -3093,7 +3093,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 226.39 267.91)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[3.3]] && `${Math.round(apiValues?.[keys?.[3.3]])} W`}
               </tspan>
             </text>
@@ -3131,7 +3131,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 221.23 284.98)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[3.4]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[3.4]])} m³/h`}
               </tspan>
@@ -3544,7 +3544,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 508.44 252.48)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[6.3]] && `${Math.round(apiValues?.[keys?.[6.3]])} W`}
               </tspan>
             </text>
@@ -3579,10 +3579,10 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 508.08 157.68)"
+              transform="matrix(1 0 0 -1 498.08 157.68)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[4.3]] && `${Math.round(apiValues?.[keys?.[4.3]])} W`}
               </tspan>
             </text>
@@ -5294,7 +5294,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 508.92 61.272)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[7.3]] && `${Math.round(apiValues?.[keys?.[7.3]])} W`}
               </tspan>
             </text>
