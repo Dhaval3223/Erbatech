@@ -94,8 +94,6 @@ const YieldsReport: React.FC = () => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 70,
       title: {
         text: 'kW', // X-axis label
       },
