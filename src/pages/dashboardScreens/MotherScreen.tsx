@@ -8177,7 +8177,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           strokeWidth="0.96"
           d="M764.04 529.02a5.94 5.94 0 005.94 5.94h157.2a5.94 5.94 0 005.94-5.94v-23.76a5.94 5.94 0 00-5.94-5.94h-157.2a5.94 5.94 0 00-5.94 5.94z"
         /> */}
-        {user?.UserTypeCode !== 'CU' && (
+        {/* {user?.UserTypeCode !== 'CU' && (
           <g transform="matrix(1 0 0 -1 794.71 534)">
             <foreignObject
               style={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -8194,7 +8194,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               />
             </foreignObject>
           </g>
-        )}
+        )} */}
         {/* <g>
           <g clipPath="url(#clipPath3622)">
             <text

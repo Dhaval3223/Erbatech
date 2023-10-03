@@ -2,7 +2,7 @@
 import { Container, Card, Box, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { useSettingsContext } from 'src/components/settings';
-import { useDispatch } from 'src/redux/store';
+import { useDispatch, useSelector } from 'src/redux/store';
 import { useState, useEffect } from 'react';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import UsersDropDown from 'src/components/all-users-dropdown';
@@ -12,6 +12,9 @@ import { slice } from '../reports/slice';
 import { getAllReportsData } from '../reports/slice/action';
 import { MotherScreen } from './MotherScreen';
 import { RhaezuensScreen } from './RhaezuensScreen';
+import { DegersheimScreen } from './DegersheimScreen';
+import { viewUserById } from '../user/slice/action';
+import Page403 from '../Page403';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -19,6 +22,9 @@ const Dashboard = () => {
   const { themeStretch } = useSettingsContext();
 
   const { user } = useAuthContext();
+
+  const { viewUserData } = useSelector((state) => state.user);
+  console.log('viewUserData', viewUserData);
 
   const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
 
@@ -34,6 +40,8 @@ const Dashboard = () => {
         userId: currentSelectedUser,
       })
     );
+
+    dispatch(viewUserById(currentSelectedUser));
 
     const intervalId = setInterval(() => {
       dispatch(
@@ -62,29 +70,35 @@ const Dashboard = () => {
         <title> Dashboard | Soblue</title>
       </Helmet>
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        {currentSelectedUser == 8 && (
+        {user?.UserTypeCode !== 'CU' && (
           <Box sx={{ pb: 2, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-            {user?.UserTypeCode !== 'CU' && (
-              <UsersDropDown
-                size="small"
-                currentSelectedUser={currentSelectedUser}
-                setCurrentSelectedUser={setCurrentSelectedUser}
-              />
-            )}
-          </Box>
-        )}
-        <Card>
-          {currentSelectedUser != 8 ? (
-            <MotherScreen
+            <UsersDropDown
+              size="small"
               currentSelectedUser={currentSelectedUser}
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
-          ) : (
+          </Box>
+        )}
+        <Card>
+          {viewUserData?.UserTemplateId == 2 && (
             <RhaezuensScreen
               currentSelectedUser={currentSelectedUser}
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
           )}
+          {viewUserData?.UserTemplateId == 3 && (
+            <DegersheimScreen
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          )}
+          {(viewUserData?.UserTemplateId == 1 || viewUserData?.UserTemplateId == null) && (
+            <MotherScreen
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          )}
+          {/* {!viewUserData?.UserTemplateId && <Page403 />} */}
         </Card>
         <Typography variant="body2" mt="8px" textAlign="right" paragraph>
           {`Last data loaded time: ${lastLoadingTime}`}
