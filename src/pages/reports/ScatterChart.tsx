@@ -118,7 +118,7 @@ const Example: React.FC = () => {
   useEffect(() => {
     if (!isGetReportLoading) {
       const tempData = reportsData?.rows?.map((item: any) => ({
-        name: new Date(item?.TransactionData[0]?.Time)?.getTime(),
+        name: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm'),
         PVA_yield: item?.TransactionData[0]?.T_outside,
         SK_heat: item?.TransactionData[0]?.T_tank,
         PVA_yield_tot: item?.TransactionData[0]?.T_tank_2,

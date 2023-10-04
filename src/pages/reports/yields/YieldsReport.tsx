@@ -6,6 +6,16 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import moment from 'moment';
 import UsersDropDown from 'src/components/all-users-dropdown';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
 import { getAllReportsData } from '../slice/action';
 
 const DAYS_FILTER = [
@@ -147,23 +157,13 @@ const YieldsReport: React.FC = () => {
       const data3 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield,
-        });
-        data2.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.SK_heat,
-        });
-        data3.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.PVA_yield_tot,
+          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'),
+          PVA_yield: item?.TransactionData[0]?.PVA_yield,
+          SK_heat: item?.TransactionData[0]?.SK_heat,
+          PVA_yield_tot: item?.TransactionData[0]?.PVA_yield_tot,
         });
       });
-      setSeriesData((prevData: any) => [
-        { ...prevData[0], data: data1 },
-        { ...prevData[1], data: data2 },
-        { ...prevData[2], data: data3 },
-      ]);
+      setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);
 
@@ -249,7 +249,28 @@ const YieldsReport: React.FC = () => {
           {isGetReportLoading ? (
             <Skeleton variant="rectangular" width={1048} height={500} />
           ) : (
-            <ApexCharts options={options} series={seriesData} type="line" height={500} />
+            <ResponsiveContainer width="100%" height={500}>
+              <LineChart
+                // width={500}
+                // height={300}
+                data={seriesData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="PVA_yield" stroke="#8884d8" />
+                <Line type="monotone" dataKey="SK_heat" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="PVA_yield_tot" stroke="#82ca9d" />
+              </LineChart>
+            </ResponsiveContainer>
           )}
         </Card>
       </Container>

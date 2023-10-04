@@ -269,7 +269,7 @@ export default function Router() {
         },
         {
           path: 'yields/report',
-          element: <Example />,
+          element: <YieldReport />,
         },
         {
           path: 'yields/table',

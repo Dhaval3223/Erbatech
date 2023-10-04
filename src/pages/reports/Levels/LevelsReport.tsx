@@ -6,6 +6,16 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import moment from 'moment';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import UsersDropDown from 'src/components/all-users-dropdown';
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { getAllReportsData } from '../slice/action';
 
 const DAYS_FILTER = [
@@ -140,21 +150,15 @@ const WeatherReport: React.FC = () => {
   useEffect(() => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
-      const data2 = [] as any;
+
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.p_buffer_tank,
-        });
-        data2.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.p_roof,
+          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
+          p_buffer_tank: item?.TransactionData[0]?.p_buffer_tank,
+          p_roof: item?.TransactionData[0]?.p_roof,
         });
       });
-      setSeriesData((prevData: any) => [
-        { ...prevData[0], data: data1 },
-        { ...prevData[1], data: data2 },
-      ]);
+      setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);
 
@@ -242,7 +246,27 @@ const WeatherReport: React.FC = () => {
           {isGetReportLoading ? (
             <Skeleton variant="rectangular" width={1048} height={500} />
           ) : (
-            <ApexCharts options={options} series={seriesData} type="line" height={500} />
+            <ResponsiveContainer width="100%" height={500}>
+              <LineChart
+                // width={500}
+                // height={300}
+                data={seriesData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="p_buffer_tank" stroke="#8884d5" dot={false} />
+                <Line type="monotone" dataKey="p_roof" stroke="#DE6FA1" dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
           )}
         </Card>
       </Container>
