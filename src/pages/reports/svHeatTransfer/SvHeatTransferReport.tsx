@@ -6,6 +6,16 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import UsersDropDown from 'src/components/all-users-dropdown';
 import moment from 'moment';
 import { useAuthContext } from 'src/auth/useAuthContext';
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { getAllReportsData } from '../slice/action';
 
 const DAYS_FILTER = [
@@ -147,33 +157,15 @@ const YieldsReport: React.FC = () => {
       const data5 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_backfeed_prim_SV,
-        });
-        data2.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_backfeed_sec_SV,
-        });
-        data3.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_tank,
-        });
-        data4.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.T_tank_2,
-        });
-        data5.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.f_pump,
+          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
+          T_backfeed_prim_SV: item?.TransactionData[0]?.T_backfeed_prim_SV,
+          T_backfeed_sec_SV: item?.TransactionData[0]?.T_backfeed_sec_SV,
+          T_tank: item?.TransactionData[0]?.T_tank,
+          T_tank_2: item?.TransactionData[0]?.T_tank_2,
+          f_pump: item?.TransactionData[0]?.f_pump,
         });
       });
-      setSeriesData((prevData: any) => [
-        { ...prevData[0], data: data1 },
-        { ...prevData[1], data: data2 },
-        { ...prevData[2], data: data3 },
-        { ...prevData[3], data: data4 },
-        { ...prevData[3], data: data5 },
-      ]);
+      setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);
 
@@ -260,7 +252,33 @@ const YieldsReport: React.FC = () => {
         <Card sx={{ p: 2 }}>
           {isGetReportLoading ? (
             <Skeleton variant="rectangular" width={1048} height={500} />
-          ) : <ApexCharts options={options} series={seriesData} type="line" height={500} />}
+          ) : (
+            <ResponsiveContainer width="100%" height={500}>
+              <LineChart
+                // width={500}
+                // height={300}
+                data={seriesData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+
+                <Line type="monotone" dataKey="T_backfeed_prim_SV" stroke="#8884d5" dot={false} />
+                <Line type="monotone" dataKey="T_backfeed_sec_SV" stroke="#DE6FA1" dot={false} />
+                <Line type="monotone" dataKey="T_tank" stroke="#f1c232" dot={false} />
+                <Line type="monotone" dataKey="T_tank_2" stroke="#274e13" dot={false} />
+                <Line type="monotone" dataKey="f_pump" stroke="#cc0000" dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </Card>
       </Container>
     </div>

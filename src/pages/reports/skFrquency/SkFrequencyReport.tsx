@@ -6,6 +6,16 @@ import { useDispatch, useSelector } from 'src/redux/store';
 import UsersDropDown from 'src/components/all-users-dropdown';
 import moment from 'moment';
 import { useAuthContext } from 'src/auth/useAuthContext';
+import {
+  CartesianGrid,
+  Legend,
+  Line,
+  LineChart,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from 'recharts';
 import { getAllReportsData } from '../slice/action';
 
 const DAYS_FILTER = [
@@ -139,33 +149,17 @@ const Report: React.FC = () => {
   useEffect(() => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
-      const data2 = [] as any;
-      const data3 = [] as any;
-      const data4 = [] as any;
+
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.f_pump,
-        });
-        data2.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.f_cal_full,
-        });
-        data3.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.f_cal_overflow,
-        });
-        data4.push({
-          x: new Date(item?.TransactionData[0]?.Time)?.getTime(),
-          y: item?.TransactionData[0]?.p_roof,
+          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
+          f_pump: item?.TransactionData[0]?.f_pump,
+          f_cal_full: item?.TransactionData[0]?.f_cal_full,
+          f_cal_overflow: item?.TransactionData[0]?.f_cal_overflow,
+          p_roof: item?.TransactionData[0]?.p_roof,
         });
       });
-      setSeriesData((prevData: any) => [
-        { ...prevData[0], data: data1 },
-        { ...prevData[1], data: data2 },
-        { ...prevData[2], data: data3 },
-        { ...prevData[3], data: data4 },
-      ]);
+      setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);
 
@@ -252,7 +246,31 @@ const Report: React.FC = () => {
         <Card sx={{ p: 2 }}>
           {isGetReportLoading ? (
             <Skeleton variant="rectangular" width={1048} height={500} />
-          ) : <ApexCharts options={options} series={seriesData} type="line" height={500} />}
+          ) : (
+            <ResponsiveContainer width="100%" height={500}>
+              <LineChart
+                // width={500}
+                // height={300}
+                data={seriesData}
+                margin={{
+                  top: 5,
+                  right: 30,
+                  left: 20,
+                  bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="time" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="f_pump" stroke="#8884d5" dot={false} />
+                <Line type="monotone" dataKey="f_cal_full" stroke="#DE6FA1" dot={false} />
+                <Line type="monotone" dataKey="f_cal_overflow" stroke="#82ca91" dot={false} />
+                <Line type="monotone" dataKey="p_roof" stroke="#674ea7" dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </Card>
       </Container>
     </div>
