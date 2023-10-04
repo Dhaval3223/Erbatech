@@ -154,6 +154,7 @@ import {
   Acknowledgement,
   LevelsReports,
   LevelsTable,
+  Example,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -268,7 +269,7 @@ export default function Router() {
         },
         {
           path: 'yields/report',
-          element: <YieldsReport />,
+          element: <Example />,
         },
         {
           path: 'yields/table',
