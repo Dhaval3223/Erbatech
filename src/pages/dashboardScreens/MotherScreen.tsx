@@ -2738,7 +2738,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 50.808 149.64)"
+              transform="matrix(1 0 0 -1 37.808 149.64)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
