@@ -269,7 +269,7 @@ export default function UserListPage() {
           /> */}
 
           <TableContainer
-            sx={{ position: 'relative', overflow: 'unset', maxHeight: '70vh', overflowY: 'scroll' }}
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '60vh', overflowY: 'scroll' }}
           >
             <TableSelectedAction
               // dense={dense}

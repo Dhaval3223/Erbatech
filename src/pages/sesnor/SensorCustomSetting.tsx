@@ -311,7 +311,7 @@ function SensorCustomSettingAccess({
           />
 
           <TableContainer
-            sx={{ position: 'relative', overflow: 'unset', maxHeight: '60vh', overflowY: 'scroll' }}
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '57vh', overflowY: 'scroll' }}
           >
             <TableSelectedAction
               dense={dense}
