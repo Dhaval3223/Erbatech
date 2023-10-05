@@ -134,7 +134,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
             xs: 'column',
             sm: 'row',
           }}
-          sx={{ px: 2.5, py: 3 }}
+          sx={{ px: 2.5, py: 2.5 }}
         >
           <Stack
             spacing={2}

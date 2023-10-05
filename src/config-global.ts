@@ -36,10 +36,10 @@ export const PATH_AFTER_LOGIN = PATH_DASHBOARD.general.dashboard; // as '/dashbo
 // ----------------------------------------------------------------------
 
 export const HEADER = {
-  H_MOBILE: 64,
-  H_MAIN_DESKTOP: 88,
-  H_DASHBOARD_DESKTOP: 92,
-  H_DASHBOARD_DESKTOP_OFFSET: 92 - 32,
+  H_MOBILE: 44,
+  H_MAIN_DESKTOP: 58,
+  H_DASHBOARD_DESKTOP: 62,
+  H_DASHBOARD_DESKTOP_OFFSET: 62 - 32,
 };
 
 export const NAV = {

@@ -56,7 +56,7 @@ export default function SensorTableToolbar({
         xs: 'column',
         sm: 'row',
       }}
-      sx={{ px: 2.5, py: 3 }}
+      sx={{ px: 2.5, py: 2 }}
     >
       <Stack
         direction={{

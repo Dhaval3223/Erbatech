@@ -240,7 +240,7 @@ const StratedReport: React.FC = () => {
             />
           )}
         </Stack>
-        <Card sx={{ p: 2 }}>
+        <Card sx={{ p: 1 }}>
           {isGetReportLoading ? (
             <Skeleton variant="rectangular" width={1048} height={500} />
           ) : (

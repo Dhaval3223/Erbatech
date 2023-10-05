@@ -384,7 +384,7 @@ export default function UserListing() {
               xs: 'column',
               sm: 'row',
             }}
-            sx={{ px: 2.5, py: 3 }}
+            sx={{ px: 2.5, py: 2.5 }}
           >
             <UserRolesDropDown
               onFilterRole={handleFilterRole}
