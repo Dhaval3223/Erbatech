@@ -16,6 +16,7 @@ import { DegersheimScreen } from './DegersheimScreen';
 import { viewUserById } from '../user/slice/action';
 import Page403 from '../Page403';
 import { SprossScreen } from './SprossScreen';
+import { PfisterScreen } from './PfisterScreen';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -101,6 +102,12 @@ const Dashboard = () => {
           )}
           {viewUserData?.UserTemplateId == 4 && (
             <SprossScreen
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          )}
+          {viewUserData?.UserTemplateId == 5 && (
+            <PfisterScreen
               currentSelectedUser={currentSelectedUser}
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
