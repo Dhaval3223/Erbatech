@@ -15,6 +15,7 @@ import { RhaezuensScreen } from './RhaezuensScreen';
 import { DegersheimScreen } from './DegersheimScreen';
 import { viewUserById } from '../user/slice/action';
 import Page403 from '../Page403';
+import { SprossScreen } from './SprossScreen';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -94,6 +95,12 @@ const Dashboard = () => {
           )}
           {(viewUserData?.UserTemplateId == 1 || viewUserData?.UserTemplateId == null) && (
             <MotherScreen
+              currentSelectedUser={currentSelectedUser}
+              setCurrentSelectedUser={setCurrentSelectedUser}
+            />
+          )}
+          {viewUserData?.UserTemplateId == 4 && (
+            <SprossScreen
               currentSelectedUser={currentSelectedUser}
               setCurrentSelectedUser={setCurrentSelectedUser}
             />
