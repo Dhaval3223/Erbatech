@@ -64,6 +64,7 @@ export const PATH_DASHBOARD = {
     awsIntegrationStatus: path(ROOTS_DASHBOARD, '/aws-integration-status'),
     templateMaster: path(ROOTS_DASHBOARD, '/template-master'),
     templateMapping: path(ROOTS_DASHBOARD, '/template-mapping'),
+    templateDetails: path(ROOTS_DASHBOARD, '/template-details'),
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),

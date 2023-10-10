@@ -254,7 +254,7 @@ const navConfig = [
       // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard, code: 'PG001' },
       {
         title: 'dashboard',
-        path: PATH_DASHBOARD.general.dashboard,
+        path: PATH_DASHBOARD.general.templateDetails,
         icon: ICONS.dashboard,
         code: 'PG001',
       },
@@ -426,6 +426,12 @@ const navConfig = [
         path: PATH_DASHBOARD.general.customerManagement,
         icon: ICONS.customer,
         code: 'PG004',
+      },
+      {
+        title: 'template details',
+        path: PATH_DASHBOARD.general.templateDetails,
+        icon: ICONS.customer,
+        code: 'PG016',
       },
 
       // { title: 'sensor variable', path: PATH_DASHBOARD.general.sensorVariable, icon: ICONS.booking },
