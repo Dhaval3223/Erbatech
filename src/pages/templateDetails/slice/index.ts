@@ -2,7 +2,16 @@ import { createSlice, Dispatch } from '@reduxjs/toolkit';
 import { ISensorState } from './types';
 
 const initialState: ISensorState = {
-  isSensorLoading: false,
+  templateDetails: {
+    TemplatePath: '',
+    TemplateTopicName: {
+      alarm: '',
+      receive: '',
+      send: '',
+    },
+    TemplateStatus: false,
+  },
+  isTemplateDetailsByIdLoading: false,
   sensorData: {},
   error: {},
   isSensorUpdateLoading: false,
@@ -14,30 +23,15 @@ const slice = createSlice({
   initialState,
   reducers: {
     startLoading(state) {
-      state.isSensorLoading = true;
+      state.isTemplateDetailsByIdLoading = true;
     },
-    getSensorRecords(state, action) {
-      state.isSensorLoading = false;
-      state.sensorData = action.payload?.data;
+    getTemplateRecords(state, action) {
+      state.isTemplateDetailsByIdLoading = false;
+      state.templateDetails = action.payload?.data;
     },
     hasError(state, action) {
-      state.isSensorLoading = false;
+      state.isTemplateDetailsByIdLoading = false;
       state.error = action.payload;
-    },
-    startUpdateLoading(state) {
-      state.isSensorUpdateLoading = true;
-    },
-    getSensorUpdatedRecords(state, action) {
-      state.isSensorUpdateLoading = false;
-      state.sensorUpdateData = action.payload;
-    },
-    resetSensorUpdatedRecords(state) {
-      state.isSensorUpdateLoading = false;
-      state.sensorUpdateData = {};
-    },
-    hasUpdateSensorDataError(state, action) {
-      state.isSensorUpdateLoading = false;
-      state.sensorUpdateData = action.payload;
     },
   },
 });

@@ -25,11 +25,14 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Grid,
+  Paper,
 } from '@mui/material';
 // routes
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
+import { REACT_APP_IMG_URL } from 'src/config-global';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -59,6 +62,7 @@ import { GET_ALL_USERS } from '../user/slice/action_type';
 import UserTableRow from '../user/UserTableRow';
 import { getAllUsers } from '../user/slice/action';
 import TemplateDetailsRows from './TemplateDetailsRows';
+import { getTemplateDataByID } from './slice/action';
 
 // ----------------------------------------------------------------------
 
@@ -112,6 +116,10 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
   const dispatch = useDispatch();
 
   const { users, isUserLoading } = useSelector((state) => state.user);
+  const { isTemplateDetailsByIdLoading, templateDetails } = useSelector(
+    (state) => state.templateDetails
+  );
+  console.log('templateDetails', templateDetails);
 
   const { themeStretch } = useSettingsContext();
 
@@ -162,6 +170,14 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
       })
     );
   }, [page, rowsPerPage, dispatch, filterName, user]);
+
+  useEffect(() => {
+    dispatch(
+      getTemplateDataByID({
+        TemplateId: '1',
+      })
+    );
+  }, [dispatch]);
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -225,28 +241,38 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-          }}
-        >
-            <p>hello</p>
-          <Card sx={{ minWidth: 100, mb: 2, width: '200px', padding:'2px' }}>
-            <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                Spross_send
-              </Typography>
+        <Grid container spacing={2} xs="auto" alignItems="center">
+          <Grid item xs={8}>
+            <Paper>
+              <img
+                src={`${REACT_APP_IMG_URL}/${templateDetails?.TemplatePath}`}
+                alt="hello"
+                style={{
+                  height: '250px',
+                  width: '100%',
+                }}
+              />
+            </Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper>
+              <Card sx={{ minWidth: 100, mb: 2, width: '100%', padding: '2px' }}>
+                <CardContent>
+                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                    Spross_send : {templateDetails?.TemplateTopicName?.send}
+                  </Typography>
 
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Spross_receive
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                Spross_alarm
-              </Typography>
-            </CardContent>
-          </Card>
-        </div>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    Spross_receive : {templateDetails?.TemplateTopicName?.receive}
+                  </Typography>
+                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                    Spross_alarm : {templateDetails?.TemplateTopicName?.alarm}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Paper>
+          </Grid>
+        </Grid>
 
         <Card>
           <UserTableToolbar

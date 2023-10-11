@@ -1,1 +1,1 @@
-export const GET_TEMPLATE_DETAILS = '/sensors/getSensorsById';
+export const GET_TEMPLATE_BY_ID = '/templates/getTemplateById';

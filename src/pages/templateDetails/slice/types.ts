@@ -1,5 +1,14 @@
 export interface ISensorState {
-    isSensorLoading: boolean;
+    templateDetails: {
+        TemplatePath:string,
+        TemplateTopicName: {
+            send: string;
+            alarm: string;
+            receive: string;
+        },
+        TemplateStatus: boolean,
+    }
+    isTemplateDetailsByIdLoading: boolean;
     sensorData: any;
     error: any;
     isSensorUpdateLoading: boolean;
