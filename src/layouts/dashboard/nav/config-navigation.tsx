@@ -255,7 +255,7 @@ const navConfig = [
       // { title: 'dashboard', path: PATH_DASHBOARD.general.dashboard, icon: ICONS.dashboard, code: 'PG001' },
       {
         title: 'dashboard',
-        path: PATH_DASHBOARD.general.templateDetails,
+        path: PATH_DASHBOARD.general.dashboard,
         icon: ICONS.dashboard,
         code: 'PG001',
       },

@@ -68,8 +68,8 @@ export const InvoiceEditPage = Loadable(lazy(() => import('../pages/dashboard/In
 
 // DASHBOARD: USER
 export const RolesPage = Loadable(lazy(() => import('../pages/Roles')));
-export const DashboardScreen = Loadable(lazy(() => import('../pages/templateDetails/index')));
-// export const DashboardScreen = Loadable(lazy(() => import('../pages/templateMaster/index')));
+export const TemplateDetails = Loadable(lazy(() => import('../pages/templateDetails/index')));
+export const DashboardScreen = Loadable(lazy(() => import('../pages/dashboardScreens/index')));
 export const UserProfilePage = Loadable(lazy(() => import('../pages/dashboard/UserProfilePage')));
 export const UserCardsPage = Loadable(lazy(() => import('../pages/dashboard/UserCardsPage')));
 export const UserListPage = Loadable(lazy(() => import('../pages/dashboard/UserListPage')));

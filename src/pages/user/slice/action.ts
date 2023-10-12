@@ -20,6 +20,7 @@ export function getAllUsers(params: {
   userRoleId: string;
   page: string;
   limit: string;
+  TemplateId?: any;
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());

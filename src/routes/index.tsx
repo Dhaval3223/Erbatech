@@ -156,6 +156,7 @@ import {
   LevelsTable,
   Example,
   TemplateMaster,
+  TemplateDetails,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -235,7 +236,7 @@ export default function Router() {
         { path: 'access-control', element: <AccessControl /> },
         { path: 'acknowledgement', element: <Acknowledgement /> },
         { path: 'template-master', element: <TemplateMaster /> },
-        { path: 'template-master/:templateId', element: <Acknowledgement /> },
+        { path: 'template-master/:templateId', element: <TemplateDetails /> },
         {
           path: 'reports',
           element: <ReportsPage />,
