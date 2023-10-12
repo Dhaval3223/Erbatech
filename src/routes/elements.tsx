@@ -69,6 +69,7 @@ export const InvoiceEditPage = Loadable(lazy(() => import('../pages/dashboard/In
 // DASHBOARD: USER
 export const RolesPage = Loadable(lazy(() => import('../pages/Roles')));
 export const DashboardScreen = Loadable(lazy(() => import('../pages/templateDetails/index')));
+// export const DashboardScreen = Loadable(lazy(() => import('../pages/templateMaster/index')));
 export const UserProfilePage = Loadable(lazy(() => import('../pages/dashboard/UserProfilePage')));
 export const UserCardsPage = Loadable(lazy(() => import('../pages/dashboard/UserCardsPage')));
 export const UserListPage = Loadable(lazy(() => import('../pages/dashboard/UserListPage')));
@@ -83,6 +84,7 @@ export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/Use
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));
 export const SensorVariable = Loadable(lazy(() => import('../pages/sesnor/SensorVariable')));
 export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorSettings')));
+export const TemplateMaster = Loadable(lazy(() => import('../pages/templateMaster/index')));
 export const SensorCustomSetting = Loadable(
   lazy(() => import('../pages/sesnor/SensorCustomSetting'))
 );

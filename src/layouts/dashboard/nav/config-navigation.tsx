@@ -41,6 +41,7 @@ const ICONS = {
   customSetting: icon('ic_sensor_costom_setting'),
   acknowledgement: icon('ic_acknowledgement'),
   accessControl: icon('ic_access_control'),
+  templateMaster: icon('ic_template_master'),
 };
 
 const storageAvailable = localStorageAvailable();
@@ -401,6 +402,12 @@ const navConfig = [
             ],
           },
         ],
+      },
+      {
+        title: 'Template Master',
+        path: PATH_DASHBOARD.general.templateMaster,
+        icon: ICONS.templateMaster,
+        code: 'PG013',
       },
       {
         title: 'user',

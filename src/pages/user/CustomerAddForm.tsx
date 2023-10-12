@@ -8,7 +8,16 @@ import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { LoadingButton } from '@mui/lab';
-import { Box, Card, Grid, Stack, Switch, Typography, FormControlLabel, Avatar } from '@mui/material';
+import {
+  Box,
+  Card,
+  Grid,
+  Stack,
+  Switch,
+  Typography,
+  FormControlLabel,
+  Avatar,
+} from '@mui/material';
 // utils
 import { fData } from 'src/utils/formatNumber';
 // routes
@@ -263,7 +272,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
             <option value="" />
             {viewTemplateData?.rows?.map((template) => (
               <option key={template.TemplateId} value={template.TemplateId}>
-                 {template.TemplateName} 
+                {template.TemplateName}
               </option>
             ))}
           </RHFSelect>
