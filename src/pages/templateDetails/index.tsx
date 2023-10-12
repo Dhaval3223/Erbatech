@@ -170,7 +170,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
         userRoleId: '',
         page: String(page),
         limit: String(rowsPerPage),
-        TemplateId: templateId,
+        userTemplateId: templateId,
       })
     );
   }, [page, rowsPerPage, dispatch, filterName, user, templateId]);
@@ -296,7 +296,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
           />
 
           <TableContainer
-            sx={{ position: 'relative', overflow: 'unset', maxHeight: '40vh', overflowY: 'scroll' }}
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '32vh', overflowY: 'scroll' }}
           >
             <TableSelectedAction
               dense={dense}
