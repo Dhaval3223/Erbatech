@@ -65,6 +65,7 @@ export const PATH_DASHBOARD = {
     templateMaster: path(ROOTS_DASHBOARD, '/template-master'),
     templateMapping: path(ROOTS_DASHBOARD, '/template-mapping'),
     templateDetails: path(ROOTS_DASHBOARD, '/template-details'),
+    // templateDetails: path(ROOTS_DASHBOARD, '/:template-details'),
   },
   mail: {
     root: path(ROOTS_DASHBOARD, '/mail'),

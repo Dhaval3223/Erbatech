@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { paramCase } from 'change-case';
 import { useEffect, useState } from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import * as types from 'src/pages/Roles/slice/action_type';
 // @mui
@@ -110,12 +110,15 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
     onChangePage,
     onChangeRowsPerPage,
   } = useTable({
-    defaultRowsPerPage: 10,
+    defaultRowsPerPage: 5,
   });
 
   const dispatch = useDispatch();
 
+  const { templateId } = useParams();
+
   const { users, isUserLoading } = useSelector((state) => state.user);
+
   const { isTemplateDetailsByIdLoading, templateDetails } = useSelector(
     (state) => state.templateDetails
   );
@@ -167,17 +170,19 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
         userRoleId: '',
         page: String(page),
         limit: String(rowsPerPage),
+        TemplateId: templateId,
       })
     );
-  }, [page, rowsPerPage, dispatch, filterName, user]);
+  }, [page, rowsPerPage, dispatch, filterName, user, templateId]);
 
   useEffect(() => {
     dispatch(
       getTemplateDataByID({
-        TemplateId: '1',
+        TemplateId: templateId,
       })
     );
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [templateId]);
 
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
@@ -246,7 +251,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
             <Paper>
               <img
                 src={`${REACT_APP_IMG_URL}/${templateDetails?.TemplatePath}`}
-                alt="hello"
+                alt=""
                 style={{
                   height: '250px',
                   width: '100%',
@@ -258,15 +263,18 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
             <Paper>
               <Card sx={{ minWidth: 100, mb: 2, width: '100%', padding: '2px' }}>
                 <CardContent>
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Spross_send : {templateDetails?.TemplateTopicName?.send}
+                  <Typography sx={{ mb: 1.5 }} align="center">
+                    Topic Names
+                  </Typography>
+                  <Typography sx={{ mb: 1.5 }} gutterBottom>
+                    {templateDetails?.TemplateTopicName?.send}
                   </Typography>
 
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Spross_receive : {templateDetails?.TemplateTopicName?.receive}
+                  <Typography sx={{ mb: 1.5 }}>
+                    {templateDetails?.TemplateTopicName?.receive}
                   </Typography>
-                  <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                    Spross_alarm : {templateDetails?.TemplateTopicName?.alarm}
+                  <Typography sx={{ mb: 1.5 }}>
+                    {templateDetails?.TemplateTopicName?.alarm}
                   </Typography>
                 </CardContent>
               </Card>
@@ -274,7 +282,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
           </Grid>
         </Grid>
 
-        <Card>
+        <Card sx={{ mt: 2 }}>
           <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
@@ -288,7 +296,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
           />
 
           <TableContainer
-            sx={{ position: 'relative', overflow: 'unset', maxHeight: '70vh', overflowY: 'scroll' }}
+            sx={{ position: 'relative', overflow: 'unset', maxHeight: '40vh', overflowY: 'scroll' }}
           >
             <TableSelectedAction
               dense={dense}
@@ -356,7 +364,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
           <TablePaginationCustom
             count={users?.count}
             page={page}
-            rowsPerPageOptions={[10, 25, 50]}
+            rowsPerPageOptions={[5, 10, 20]}
             rowsPerPage={rowsPerPage}
             onPageChange={onChangePage}
             onRowsPerPageChange={onChangeRowsPerPage}
