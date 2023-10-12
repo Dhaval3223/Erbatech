@@ -9,6 +9,7 @@ import accesControlReducer from 'src/pages/accessControl/slice';
 import SensorReducer from 'src/pages/sesnor/slice';
 import reportsReducer from 'src/pages/reports/slice';
 import acknowledgementReducer from 'src/pages/acknowledgement/slice/index';
+import TemplateDetailsReducer from 'src/pages/templateDetails/slice/index';
 import mailReducer from './slices/mail';
 import chatReducer from './slices/chat';
 import productReducer from './slices/product';
@@ -45,6 +46,7 @@ const rootReducer = combineReducers({
   sensor: SensorReducer,
   report: reportsReducer,
   acknowledgement: acknowledgementReducer,
+  templateDetails: TemplateDetailsReducer,
   product: persistReducer(productPersistConfig, productReducer),
 });
 
