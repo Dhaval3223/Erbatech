@@ -27,6 +27,7 @@ import { useSettingsContext } from 'src/components/settings';
 import { LoadingButton } from '@mui/lab';
 import { DatePicker, Space } from 'antd';
 import Iconify from 'src/components/iconify/Iconify';
+import dayjs from 'dayjs';
 
 import UsersDropDown from 'src/components/all-users-dropdown';
 import { useAuthContext } from 'src/auth/useAuthContext';
@@ -72,10 +73,22 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
 
   const [currentSelectedUser, setCurrentSelectedUser] = useState<any>(user?.UserId);
 
-  const [dateRange, setDateRange] = useState<any>([
-    moment().startOf('day'), // Start of the current day (00:00)
-    moment(), // Current date and time
-  ]);
+  const [dateRange, setDateRange] = useState<any>([dayjs().startOf('day'), dayjs()]);
+
+  // useEffect(() => {
+  //   if (!initialValuesSet) {
+  //     const startOfDay = moment().startOf('day');
+  //     const currentDateTime = moment();
+
+  //     // Set the initial value
+  //     const initialValues = [startOfDay, currentDateTime];
+
+  //     setDateRange(initialValues);
+  //     setInitialValuesSet(true);
+  //   }
+  // }, [dateRange, initialValuesSet]);
+
+  console.log('dateRange', dateRange);
 
   useEffect(() => {
     dispatch(slice.actions.startGetReportsLoading());
@@ -113,14 +126,14 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
 
   const handleDateChange = (dates: any) => {
     console.log(dates[0], dates[1]);
-    setDateRange([dates[0], dates[1]]);
+    setDateRange([dates?.[0], dates?.[1]]);
   };
 
   const onResetFilter = () => setDateRange([]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) setDateRange([]);
-  }, [isDownloadCSVSuccess]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) setDateRange([]);
+  // }, [isDownloadCSVSuccess]);
 
   return (
     <Container maxWidth={themeStretch ? false : 'lg'}>
