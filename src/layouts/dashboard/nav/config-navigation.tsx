@@ -405,18 +405,6 @@ const navConfig = [
         ],
       },
       {
-        title: 'Template Master',
-        path: PATH_DASHBOARD.general.templateMaster,
-        icon: ICONS.templateMaster,
-        code: 'PG013',
-      },
-      {
-        title: 'Template Creation',
-        path: PATH_DASHBOARD.general.templateMapping,
-        icon: ICONS.templateMapping,
-        code: 'PG014',
-      },
-      {
         title: 'user',
         path: PATH_DASHBOARD.general.userManagement,
         icon: ICONS.user,
@@ -442,10 +430,16 @@ const navConfig = [
         code: 'PG004',
       },
       {
-        title: 'template details',
-        path: PATH_DASHBOARD.general.templateDetails,
-        icon: ICONS.customer,
-        code: 'PG016',
+        title: 'Template Master',
+        path: PATH_DASHBOARD.general.templateMaster,
+        icon: ICONS.templateMaster,
+        code: 'PG013',
+      },
+      {
+        title: 'Template Creation',
+        path: PATH_DASHBOARD.general.templateMapping,
+        icon: ICONS.templateMapping,
+        code: 'PG014',
       },
 
       // { title: 'sensor variable', path: PATH_DASHBOARD.general.sensorVariable, icon: ICONS.booking },

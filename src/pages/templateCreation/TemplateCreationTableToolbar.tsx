@@ -1,5 +1,5 @@
 // @mui
-import { Stack, InputAdornment, TextField, MenuItem, Button } from '@mui/material';
+import { Stack, InputAdornment, TextField, MenuItem, Button, Box } from '@mui/material';
 import Iconify from 'src/components/iconify/Iconify';
 // components
 
@@ -44,30 +44,32 @@ export default function UserTableToolbar({
       }}
       sx={{ px: 2.5, py: 3 }}
     >
-      <TextField
-        fullWidth={!isCreateButton}
-        value={filterName}
-        onChange={onFilterName}
-        placeholder="Search..."
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
-            </InputAdornment>
-          ),
-        }}
-      />
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+        <TextField
+          fullWidth={!isCreateButton}
+          value={filterName}
+          onChange={onFilterName}
+          placeholder="Search..."
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled' }} />
+              </InputAdornment>
+            ),
+          }}
+        />
 
-      {isFiltered && (
-        <Button
-          color="error"
-          sx={{ flexShrink: 0 }}
-          onClick={onResetFilter}
-          startIcon={<Iconify icon="eva:trash-2-outline" />}
-        >
-          Clear
-        </Button>
-      )}
+        {isFiltered && (
+          <Button
+            color="error"
+            sx={{ flexShrink: 0, ml: 2 }}
+            onClick={onResetFilter}
+            startIcon={<Iconify icon="eva:trash-2-outline" />}
+          >
+            Clear
+          </Button>
+        )}
+      </Box>
       {isCreateButton && isCreateRights && (
         <Button
           variant="contained"
