@@ -32,6 +32,9 @@ export interface IUserState {
   deleteUserSuccess: boolean;
   deleteUserMsg: string;
   deleteUserError: boolean;
+  deleteTemplateSuccess: boolean;
+  deleteTemplateMsg: string;
+  deleteTemplateError: boolean;
   viewUserData: any;
   viewUserLoading: boolean;
   viewTemplateLoader: boolean;
@@ -46,4 +49,7 @@ export interface IUserState {
   updateTemplateByIdSuccess: boolean;
   updateTemplateByIdError: boolean;
   updateTemplateByIdMsg: string;
+  createTemplateSuccess: boolean;
+  createTemplateError: boolean;
+  createTemplateMsg: string;
 }

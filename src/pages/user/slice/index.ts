@@ -53,6 +53,12 @@ const initialState: IUserState = {
   updateTemplateByIdSuccess: false,
   updateTemplateByIdError: false,
   updateTemplateByIdMsg: '',
+  createTemplateSuccess: false,
+  createTemplateError: false,
+  createTemplateMsg: '',
+  deleteTemplateSuccess: false,
+  deleteTemplateMsg: '',
+  deleteTemplateError: false,
 };
 
 const slice = createSlice({
@@ -105,6 +111,19 @@ const slice = createSlice({
       state.deleteUserError = true;
       state.deleteUserMsg = action.payload.data.message;
     },
+    deletTemplateById(state, action) {
+      state.deleteTemplateSuccess = true;
+      state.deleteTemplateMsg = action?.payload?.data?.message || 'Deleted Successfully';
+    },
+    deleteTemplateByIdError(state, action) {
+      state.deleteTemplateError = true;
+      state.deleteTemplateMsg = action?.payload?.data?.message || 'Failed to delete';
+    },
+    resetDeleteTemplateById(state) {
+      state.deleteTemplateSuccess = false;
+      state.deleteTemplateMsg = '';
+      state.deleteTemplateError = false;
+    },
     viewUser(state, action) {
       console.log('view', action.payload.data);
       state.viewUserLoading = false;
@@ -122,16 +141,29 @@ const slice = createSlice({
     },
     updateTemplateByIdSuccess(state, action) {
       state.updateTemplateByIdSuccess = true;
-      state.updateTemplateByIdMsg = 'updated Successfully';
+      state.updateTemplateByIdMsg = 'Updated Successfully';
     },
     updateTemplateByIdError(state, action) {
       state.updateTemplateByIdError = true;
-      state.updateTemplateByIdMsg = 'failed to update';
+      state.updateTemplateByIdMsg = 'Failed to update';
     },
     resetUpdateTemplateById(state) {
       state.updateTemplateByIdError = false;
       state.updateTemplateByIdSuccess = false;
       state.updateTemplateByIdMsg = '';
+    },
+    createTemplateMappingSuccess(state, action) {
+      state.createTemplateSuccess = true;
+      state.createTemplateMsg = 'Updated Successfully';
+    },
+    createTemplateErrorMapping(state, action) {
+      state.createTemplateError = true;
+      state.createTemplateMsg = 'failed to update';
+    },
+    resetcreateTemplateMapping(state) {
+      state.createTemplateError = false;
+      state.createTemplateSuccess = false;
+      state.createTemplateMsg = '';
     },
   },
 });

@@ -42,6 +42,7 @@ const ICONS = {
   acknowledgement: icon('ic_acknowledgement'),
   accessControl: icon('ic_access_control'),
   templateMaster: icon('ic_template_master'),
+  templateMapping: icon('ic_template_mapping'),
 };
 
 const storageAvailable = localStorageAvailable();
@@ -408,6 +409,12 @@ const navConfig = [
         path: PATH_DASHBOARD.general.templateMaster,
         icon: ICONS.templateMaster,
         code: 'PG013',
+      },
+      {
+        title: 'Template Creation',
+        path: PATH_DASHBOARD.general.templateMapping,
+        icon: ICONS.templateMapping,
+        code: 'PG014',
       },
       {
         title: 'user',
