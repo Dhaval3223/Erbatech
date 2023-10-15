@@ -10,6 +10,8 @@ import {
   GET_ALL_USERS,
   VIEW_ALL_TEMPLATE,
   UPDATE_TEMPLATE_BY_ID,
+  CREATE_TEMPLATE_MAPPING,
+  DELETE_TEMPLATE,
 } from './action_type';
 
 import { slice } from '.';
@@ -21,6 +23,8 @@ export function getAllUsers(params: {
   page: string;
   limit: string;
   userTemplateId?: any;
+  userTemplateType?: any;
+  type?: any;
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());
@@ -71,6 +75,19 @@ export function deleteUserById(userId: string) {
   };
 }
 
+export function deleteTemplateById(userId: string) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.post(DELETE_TEMPLATE, {
+        userId,
+      });
+      dispatch(slice.actions.deletTemplateById(response.data));
+    } catch (error) {
+      dispatch(slice.actions.deleteTemplateByIdError(error));
+    }
+  };
+}
+
 export function viewUserById(id: string) {
   return async (dispatch: Dispatch) => {
     try {
@@ -99,10 +116,29 @@ export function updateTemplateById(data: {
   };
 }
 
-export function viewAllTemplate() {
+export function viewAllTemplate(data: any = {}) {
   return async (dispatch: Dispatch) => {
     try {
-      const response = await axios.post(VIEW_ALL_TEMPLATE);
+      const response = await axios.post(VIEW_ALL_TEMPLATE, data);
+      dispatch(slice.actions.viewAllTemplate(response.data));
+    } catch (error) {
+      dispatch(slice.actions.viewAllTemplateError(error));
+    }
+  };
+}
+
+export function createTemplateMapping(data: {
+  userTemplateId: string | number;
+  userId: string | number;
+  topics: {
+    send: string;
+    alarm: string;
+    receive: string;
+  };
+}) {
+  return async (dispatch: Dispatch) => {
+    try {
+      const response = await axios.post(CREATE_TEMPLATE_MAPPING, data);
       dispatch(slice.actions.viewAllTemplate(response.data));
     } catch (error) {
       dispatch(slice.actions.viewAllTemplateError(error));

@@ -85,6 +85,7 @@ export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserE
 export const SensorVariable = Loadable(lazy(() => import('../pages/sesnor/SensorVariable')));
 export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorSettings')));
 export const TemplateMaster = Loadable(lazy(() => import('../pages/templateMaster/index')));
+export const TemplateCreation = Loadable(lazy(() => import('../pages/templateCreation/index')));
 export const SensorCustomSetting = Loadable(
   lazy(() => import('../pages/sesnor/SensorCustomSetting'))
 );
