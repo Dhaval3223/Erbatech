@@ -26,12 +26,6 @@ const DAYS_FILTER = [
     end_date: moment(),
   },
   {
-    item: '2 Hours',
-    value: '2_hours',
-    start_date: moment().subtract(2, 'hours'),
-    end_date: moment(),
-  },
-  {
     item: '4 Hours',
     value: '4_hours',
     start_date: moment().subtract(4, 'hours'),
@@ -41,6 +35,12 @@ const DAYS_FILTER = [
     item: '8 Hours',
     value: '8_hours',
     start_date: moment().subtract(8, 'hours'),
+    end_date: moment(),
+  },
+  {
+    item: '12 Hours',
+    value: '12_hours',
+    start_date: moment().subtract(12, 'hours'),
     end_date: moment(),
   },
   {
@@ -275,12 +275,48 @@ const TempratureReport: React.FC = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="T_outside" stroke="#8884d5" dot={false} />
-                <Line type="monotone" dataKey="T_tank" stroke="#DE6FA1" dot={false} />
-                <Line type="monotone" dataKey="T_tank_2" stroke="#82ca91" dot={false} />
-                <Line type="monotone" dataKey="T_coll_surface" stroke="#ffd966" dot={false} />
-                <Line type="monotone" dataKey="T_coll_backfeed" stroke="#3d85c6" dot={false} />
-                <Line type="monotone" dataKey="T_coll_infeed" stroke="#bf9000" dot={false} />
+                <Line
+                  type="monotone"
+                  dataKey="T_outside"
+                  stroke="#8884d5"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_tank"
+                  stroke="#DE6FA1"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_tank_2"
+                  stroke="#82ca91"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_coll_surface"
+                  stroke="#ffd966"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_coll_backfeed"
+                  stroke="#3d85c6"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_coll_infeed"
+                  stroke="#bf9000"
+                  dot={false}
+                  strokeWidth={4}
+                />
               </LineChart>
             </ResponsiveContainer>
           )}

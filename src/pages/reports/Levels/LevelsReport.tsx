@@ -25,12 +25,7 @@ const DAYS_FILTER = [
     start_date: moment().subtract(1, 'hour'),
     end_date: moment(),
   },
-  {
-    item: '2 Hours',
-    value: '2_hours',
-    start_date: moment().subtract(2, 'hours'),
-    end_date: moment(),
-  },
+
   {
     item: '4 Hours',
     value: '4_hours',
@@ -41,6 +36,12 @@ const DAYS_FILTER = [
     item: '8 Hours',
     value: '8_hours',
     start_date: moment().subtract(8, 'hours'),
+    end_date: moment(),
+  },
+  {
+    item: '12 Hours',
+    value: '12_hours',
+    start_date: moment().subtract(12, 'hours'),
     end_date: moment(),
   },
   {
@@ -263,8 +264,20 @@ const WeatherReport: React.FC = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="p_buffer_tank" stroke="#8884d5" dot={false} />
-                <Line type="monotone" dataKey="p_roof" stroke="#DE6FA1" dot={false} />
+                <Line
+                  type="monotone"
+                  dataKey="p_buffer_tank"
+                  stroke="#8884d5"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="p_roof"
+                  stroke="#DE6FA1"
+                  dot={false}
+                  strokeWidth={4}
+                />
               </LineChart>
             </ResponsiveContainer>
           )}

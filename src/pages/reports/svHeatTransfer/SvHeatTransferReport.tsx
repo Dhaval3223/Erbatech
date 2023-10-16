@@ -25,12 +25,7 @@ const DAYS_FILTER = [
     start_date: moment().subtract(1, 'hour'),
     end_date: moment(),
   },
-  {
-    item: '2 Hours',
-    value: '2_hours',
-    start_date: moment().subtract(2, 'hours'),
-    end_date: moment(),
-  },
+
   {
     item: '4 Hours',
     value: '4_hours',
@@ -41,6 +36,12 @@ const DAYS_FILTER = [
     item: '8 Hours',
     value: '8_hours',
     start_date: moment().subtract(8, 'hours'),
+    end_date: moment(),
+  },
+  {
+    item: '12 Hours',
+    value: '12_hours',
+    start_date: moment().subtract(12, 'hours'),
     end_date: moment(),
   },
   {
@@ -271,11 +272,41 @@ const YieldsReport: React.FC = () => {
                 <Tooltip />
                 <Legend />
 
-                <Line type="monotone" dataKey="T_backfeed_prim_SV" stroke="#8884d5" dot={false} />
-                <Line type="monotone" dataKey="T_backfeed_sec_SV" stroke="#DE6FA1" dot={false} />
-                <Line type="monotone" dataKey="T_tank" stroke="#f1c232" dot={false} />
-                <Line type="monotone" dataKey="T_tank_2" stroke="#274e13" dot={false} />
-                <Line type="monotone" dataKey="f_pump" stroke="#cc0000" dot={false} />
+                <Line
+                  type="monotone"
+                  dataKey="T_backfeed_prim_SV"
+                  stroke="#8884d5"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_backfeed_sec_SV"
+                  stroke="#DE6FA1"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_tank"
+                  stroke="#f1c232"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_tank_2"
+                  stroke="#274e13"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="f_pump"
+                  stroke="#cc0000"
+                  dot={false}
+                  strokeWidth={4}
+                />
               </LineChart>
             </ResponsiveContainer>
           )}

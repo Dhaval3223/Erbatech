@@ -26,12 +26,6 @@ const DAYS_FILTER = [
     end_date: moment(),
   },
   {
-    item: '2 Hours',
-    value: '2_hours',
-    start_date: moment().subtract(2, 'hours'),
-    end_date: moment(),
-  },
-  {
     item: '4 Hours',
     value: '4_hours',
     start_date: moment().subtract(4, 'hours'),
@@ -41,6 +35,12 @@ const DAYS_FILTER = [
     item: '8 Hours',
     value: '8_hours',
     start_date: moment().subtract(8, 'hours'),
+    end_date: moment(),
+  },
+  {
+    item: '12 Hours',
+    value: '12_hours',
+    start_date: moment().subtract(12, 'hours'),
     end_date: moment(),
   },
   {
@@ -266,9 +266,9 @@ const YieldsReport: React.FC = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="PVA_yield" stroke="#8884d8" />
-                <Line type="monotone" dataKey="SK_heat" stroke="#82ca9d" />
-                <Line type="monotone" dataKey="PVA_yield_tot" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="PVA_yield" stroke="#8884d8" strokeWidth={4} />
+                <Line type="monotone" dataKey="SK_heat" stroke="#82ca9d" strokeWidth={4} />
+                <Line type="monotone" dataKey="PVA_yield_tot" stroke="#82ca9d" strokeWidth={4} />
               </LineChart>
             </ResponsiveContainer>
           )}

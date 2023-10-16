@@ -26,12 +26,6 @@ const DAYS_FILTER = [
     end_date: moment(),
   },
   {
-    item: '2 Hours',
-    value: '2_hours',
-    start_date: moment().subtract(2, 'hours'),
-    end_date: moment(),
-  },
-  {
     item: '4 Hours',
     value: '4_hours',
     start_date: moment().subtract(4, 'hours'),
@@ -41,6 +35,12 @@ const DAYS_FILTER = [
     item: '8 Hours',
     value: '8_hours',
     start_date: moment().subtract(8, 'hours'),
+    end_date: moment(),
+  },
+  {
+    item: '12 Hours',
+    value: '12_hours',
+    start_date: moment().subtract(12, 'hours'),
     end_date: moment(),
   },
   {
@@ -264,10 +264,34 @@ const Report: React.FC = () => {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="f_pump" stroke="#8884d5" dot={false} />
-                <Line type="monotone" dataKey="f_cal_full" stroke="#DE6FA1" dot={false} />
-                <Line type="monotone" dataKey="f_cal_overflow" stroke="#82ca91" dot={false} />
-                <Line type="monotone" dataKey="p_roof" stroke="#674ea7" dot={false} />
+                <Line
+                  type="monotone"
+                  dataKey="f_pump"
+                  stroke="#8884d5"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="f_cal_full"
+                  stroke="#DE6FA1"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="f_cal_overflow"
+                  stroke="#82ca91"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="p_roof"
+                  stroke="#674ea7"
+                  dot={false}
+                  strokeWidth={4}
+                />
               </LineChart>
             </ResponsiveContainer>
           )}
