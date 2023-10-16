@@ -436,7 +436,7 @@ const navConfig = [
         code: 'PG013',
       },
       {
-        title: 'Template Creation',
+        title: 'Instance Creation',
         path: PATH_DASHBOARD.general.templateMapping,
         icon: ICONS.templateMapping,
         code: 'PG014',

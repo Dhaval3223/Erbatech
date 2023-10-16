@@ -57,16 +57,11 @@ import {
 // sections
 import Page403 from '../Page403';
 import UserTableToolbar from '../user/UserTableToolbar';
-import { slice } from '../user/slice';
-import { GET_ALL_USERS } from '../user/slice/action_type';
-import UserTableRow from '../user/UserTableRow';
 import { getAllUsers } from '../user/slice/action';
 import TemplateDetailsRows from './TemplateDetailsRows';
 import { getTemplateDataByID } from './slice/action';
 
 // ----------------------------------------------------------------------
-
-const STATUS_OPTIONS = ['all', 'active', 'banned'];
 
 const ROLE_OPTIONS = [
   'all',
@@ -82,7 +77,7 @@ const ROLE_OPTIONS = [
 ];
 
 const CUSTOMER_TABLE_HEAD = [
-  { id: 'first name', label: 'First Name', align: 'left' },
+  { id: 'first name', label: 'Customer Name', align: 'left' },
   { id: 'date of mapping', label: 'Date of Mapping', align: 'left' },
 ];
 

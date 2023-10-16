@@ -25,12 +25,7 @@ const DAYS_FILTER = [
     start_date: moment().subtract(1, 'hour'),
     end_date: moment(),
   },
-  {
-    item: '2 Hours',
-    value: '2_hours',
-    start_date: moment().subtract(2, 'hours'),
-    end_date: moment(),
-  },
+
   {
     item: '4 Hours',
     value: '4_hours',
@@ -41,6 +36,12 @@ const DAYS_FILTER = [
     item: '8 Hours',
     value: '8_hours',
     start_date: moment().subtract(8, 'hours'),
+    end_date: moment(),
+  },
+  {
+    item: '12 Hours',
+    value: '12_hours',
+    start_date: moment().subtract(12, 'hours'),
     end_date: moment(),
   },
   {
@@ -147,8 +148,6 @@ const StratedReport: React.FC = () => {
   useEffect(() => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
-      const data2 = [] as any;
-      const data3 = [] as any;
       reportsData?.rows?.forEach((item: any) => {
         data1.push({
           time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
@@ -258,11 +257,23 @@ const StratedReport: React.FC = () => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" />
-                <YAxis />
+                <YAxis domain={[40, 70]} />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="T_top_strat_tank" stroke="#8884d5" dot={false} />
-                <Line type="monotone" dataKey="T_bottom_strat_tank" stroke="#DE6FA1" dot={false} />
+                <Line
+                  type="monotone"
+                  dataKey="T_top_strat_tank"
+                  stroke="#8884d5"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="T_bottom_strat_tank"
+                  stroke="#DE6FA1"
+                  dot={false}
+                  strokeWidth={4}
+                />
               </LineChart>
             </ResponsiveContainer>
           )}
