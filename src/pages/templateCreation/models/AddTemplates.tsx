@@ -84,14 +84,18 @@ export default function TemplateAdds({
   );
 
   useEffect(() => {
-    dispatch(viewAllTemplate());
+    dispatch(
+      viewAllTemplate({
+        type: 'all',
+      })
+    );
     dispatch(
       getAllUsers({
         searchValue: '',
         userType: 'customer',
         userRoleId: '',
-        page: '0',
-        limit: '99999999',
+        type: 'all',
+        userTemplateType: 'unmapped',
       })
     );
   }, [dispatch]);
@@ -152,7 +156,7 @@ export default function TemplateAdds({
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
         <Typography variant="h4" sx={{ mb: 3 }} textAlign="center">
-          Add Template
+          Create Instance
         </Typography>
         <Box
           rowGap={3}
@@ -163,7 +167,7 @@ export default function TemplateAdds({
             sm: 'repeat(2, 1fr)',
           }}
         >
-          <RHFTextField name="alerm" label="Topic name" />
+          <RHFTextField name="alerm" label="Alarm" />
           <RHFTextField name="send" label="Send" />
           <RHFTextField name="receive" label="Receive" />
 
