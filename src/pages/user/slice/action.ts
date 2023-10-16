@@ -17,14 +17,14 @@ import {
 import { slice } from '.';
 
 export function getAllUsers(params: {
-  searchValue: string;
+  searchValue?: string;
   userType: string;
   userRoleId: string;
-  page: string;
-  limit: string;
+  page?: string;
+  limit?: string;
   userTemplateId?: any;
-  userTemplateType?: any;
-  type?: any;
+  userTemplateType?: 'mapped' | 'unmapped';
+  type?: 'all' | '';
 }) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startLoading());

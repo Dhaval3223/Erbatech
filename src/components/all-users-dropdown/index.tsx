@@ -27,11 +27,10 @@ const UsersDropDown = ({
   useEffect(() => {
     dispatch(
       getAllUsers({
-        searchValue: '',
         userType: 'customer',
         userRoleId: '',
-        page: '0',
-        limit: '99999999',
+        type: 'all',
+        userTemplateType: 'mapped',
       })
     );
   }, [dispatch]);
