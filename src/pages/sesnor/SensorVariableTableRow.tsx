@@ -35,7 +35,7 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
         {row?.SensorVariableName}
       </TableCell>
       <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
-        {apiValues?.[row?.SensorVariableName] ? apiValues?.[row?.SensorVariableName] : '-'}
+        {row?.SensorVariableValue ? row?.SensorVariableValue : '-'}
       </TableCell>
       <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorVariableUnit}
@@ -59,9 +59,7 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
         {row?.SensorSettingIdentifier}
       </TableCell>
       <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
-        {apiValues?.[sensorActor?.[row?.SensorSettingIdentifier]]
-          ? apiValues?.[sensorActor?.[row?.SensorSettingIdentifier]]
-          : '-'}
+        {row?.SensorSettingValue ? row?.SensorSettingValue : '-'}
       </TableCell>
       <TableCell align="left" sx={{ width: '20%' }}>
         {row?.SensorSettingDescription}

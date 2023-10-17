@@ -135,9 +135,7 @@ export default function UserListPage() {
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   useEffect(() => {
-    dispatch(
-      viewAllTemplate()
-    );
+    dispatch(viewAllTemplate());
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSelectedUser, page, rowsPerPage, refresh, dispatch]);
@@ -158,6 +156,7 @@ export default function UserListPage() {
       enqueueSnackbar(updateTemplateByIdMsg, {
         variant: 'error',
       });
+      dispatch(viewAllTemplate());
       dispatch(slice.actions.resetUpdateTemplateById());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

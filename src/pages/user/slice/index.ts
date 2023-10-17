@@ -145,7 +145,9 @@ const slice = createSlice({
     },
     updateTemplateByIdError(state, action) {
       state.updateTemplateByIdError = true;
-      state.updateTemplateByIdMsg = 'Failed to update';
+      state.updateTemplateByIdMsg =
+        action?.payload?.message ||
+        'This template is mapped to a customer. Please remove template mapping before disable';
     },
     resetUpdateTemplateById(state) {
       state.updateTemplateByIdError = false;
