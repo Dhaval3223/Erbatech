@@ -111,6 +111,7 @@ export function updateTemplateById(data: {
       const response = await axios.post(UPDATE_TEMPLATE_BY_ID, data);
       dispatch(slice.actions.updateTemplateByIdSuccess(response.data));
     } catch (error) {
+      console.log('error', error);
       dispatch(slice.actions.updateTemplateByIdError(error));
     }
   };
