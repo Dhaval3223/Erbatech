@@ -156,16 +156,19 @@ const YieldsReport: React.FC = () => {
       const data3 = [] as any;
       const data4 = [] as any;
       const data5 = [] as any;
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
-          T_backfeed_prim_SV: item?.TransactionData[0]?.T_backfeed_prim_SV,
-          T_backfeed_sec_SV: item?.TransactionData[0]?.T_backfeed_sec_SV,
-          T_tank: item?.TransactionData[0]?.T_tank,
-          T_tank_2: item?.TransactionData[0]?.T_tank_2,
-          f_pump: item?.TransactionData[0]?.f_pump,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm')?.format('HH:mm'),
+            T_backfeed_prim_SV: item?.TransactionData[0]?.T_backfeed_prim_SV,
+            T_backfeed_sec_SV: item?.TransactionData[0]?.T_backfeed_sec_SV,
+            T_tank: item?.TransactionData[0]?.T_tank,
+            T_tank_2: item?.TransactionData[0]?.T_tank_2,
+            f_pump: item?.TransactionData[0]?.f_pump,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

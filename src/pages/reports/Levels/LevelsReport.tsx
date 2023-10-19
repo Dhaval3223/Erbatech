@@ -152,13 +152,16 @@ const WeatherReport: React.FC = () => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
 
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
-          p_buffer_tank: item?.TransactionData[0]?.p_buffer_tank,
-          p_roof: item?.TransactionData[0]?.p_roof,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm')?.format('HH:mm'),
+            p_buffer_tank: item?.TransactionData[0]?.p_buffer_tank,
+            p_roof: item?.TransactionData[0]?.p_roof,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

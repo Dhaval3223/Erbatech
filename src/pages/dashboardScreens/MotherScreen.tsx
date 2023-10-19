@@ -1562,10 +1562,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 779.14 423.53)"
               writingMode="lr-tb"
             >
-              <tspan
-                x="0"
-                y="0"
-              >
+              <tspan x="0" y="0">
                 Irradiation
               </tspan>
             </text>
@@ -2636,7 +2633,7 @@ export const MotherScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath710)">
             <path
-              fill="#fff"
+              fill={apiValues?.Enable_pump === 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"

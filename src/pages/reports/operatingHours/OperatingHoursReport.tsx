@@ -152,19 +152,22 @@ const Report: React.FC = () => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
 
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
-          WP_in_operation: item?.TransactionData[0]?.WP_in_operation,
-          LK_in_operation: item?.TransactionData[0]?.LK_in_operation,
-          ZH_in_operation: item?.TransactionData[0]?.ZH_in_operation,
-          Operating_time_SV_heat_transfer:
-            item?.TransactionData[0]?.Operating_time_SV_heat_transfer,
-          Operating_time_SV_he_protection:
-            item?.TransactionData[0]?.Operating_time_SV_he_protection,
-          Operating_time_WV: item?.TransactionData[0]?.Operating_time_WV,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm')?.format('HH:mm'),
+            WP_in_operation: item?.TransactionData[0]?.WP_in_operation,
+            LK_in_operation: item?.TransactionData[0]?.LK_in_operation,
+            ZH_in_operation: item?.TransactionData[0]?.ZH_in_operation,
+            Operating_time_SV_heat_transfer:
+              item?.TransactionData[0]?.Operating_time_SV_heat_transfer,
+            Operating_time_SV_he_protection:
+              item?.TransactionData[0]?.Operating_time_SV_he_protection,
+            Operating_time_WV: item?.TransactionData[0]?.Operating_time_WV,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

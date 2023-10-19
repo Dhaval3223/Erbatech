@@ -241,18 +241,111 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
       </Helmet>
 
       <Container maxWidth={themeStretch ? false : 'lg'}>
-        <Grid container spacing={2} xs="auto" alignItems="center">
+        <Card>
+          <img
+            src={`${REACT_APP_IMG_URL}/${templateDetails?.TemplatePath}`}
+            alt=""
+            height="100%"
+            width="100%"
+          />
+        </Card>
+        <Grid container spacing={2} xs="auto" mb={3} alignItems="center">
           <Grid item xs={8}>
-            <Paper>
-              <img
-                src={`${REACT_APP_IMG_URL}/${templateDetails?.TemplatePath}`}
-                alt=""
-                style={{
-                  height: '250px',
-                  width: '100%',
-                }}
+            <Card sx={{ mt: 2 }}>
+              <UserTableToolbar
+                isFiltered={isFiltered}
+                filterName={filterName}
+                filterRole={filterRole}
+                optionsRole={ROLE_OPTIONS}
+                onFilterName={handleFilterName}
+                onFilterRole={handleFilterRole}
+                onResetFilter={handleResetFilter}
+                handleCreateClick={handleOpenDrawer}
+                isCreateRights={isCreateRights}
               />
-            </Paper>
+
+              <TableContainer
+                sx={{
+                  position: 'relative',
+                  overflow: 'unset',
+                  maxHeight: '32vh',
+                  overflowY: 'scroll',
+                }}
+              >
+                <TableSelectedAction
+                  dense={dense}
+                  numSelected={selected.length}
+                  rowCount={tableData.length}
+                  onSelectAllRows={(checked) =>
+                    onSelectAllRows(
+                      checked,
+                      tableData.map((row) => row.id)
+                    )
+                  }
+                  action={
+                    <Tooltip title="Delete">
+                      <IconButton color="primary" onClick={handleOpenConfirm}>
+                        <Iconify icon="eva:trash-2-outline" />
+                      </IconButton>
+                    </Tooltip>
+                  }
+                />
+
+                <Scrollbar>
+                  <Table size="small">
+                    <TableHeadCustom
+                      order={order}
+                      orderBy={orderBy}
+                      headLabel={CUSTOMER_TABLE_HEAD}
+                      rowCount={dataFiltered.length}
+                      numSelected={selected.length}
+                      // onSort={onSort}
+                      /*  onSelectAllRows={(checked) =>
+                    onSelectAllRows(
+                      checked,
+                      tableData.map((row) => row.id)
+                    )
+                  } */
+                    />
+                    <TableBody>
+                      {isUserLoading ? (
+                        <TableSkeleton colums={user ? 5 : 7} />
+                      ) : (
+                        users?.rows?.map((row) => (
+                          <TemplateDetailsRows
+                            key={row.UserId}
+                            row={row}
+                            selected={selected.includes(row.UserId)}
+                            onSelectRow={() => onSelectRow(row.UserId)}
+                            onEditRow={() => handleEditRow(row.UserId)}
+                            onDeleteRow={() => handleDeleteRow(row.UserId)}
+                            user={user}
+                            isDeleteRights={isDeleteRights}
+                            isUpdateRights={isUpdateRights}
+                          />
+                        ))
+                      )}
+                      {/* <TableEmptyRows
+                    height={denseHeight}
+                    emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
+                  /> */}
+                      {!isUserLoading && <TableNoData isNotFound={users?.rows?.length === 0} />}
+                    </TableBody>
+                  </Table>
+                </Scrollbar>
+              </TableContainer>
+
+              <TablePaginationCustom
+                count={users?.count}
+                page={page}
+                rowsPerPageOptions={[5, 10, 20]}
+                rowsPerPage={rowsPerPage}
+                onPageChange={onChangePage}
+                onRowsPerPageChange={onChangeRowsPerPage}
+                dense={dense}
+                onChangeDense={onChangeDense}
+              />
+            </Card>
           </Grid>
           <Grid item xs={4}>
             <Paper>
@@ -276,97 +369,7 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
             </Paper>
           </Grid>
         </Grid>
-
-        <Card sx={{ mt: 2 }}>
-          <UserTableToolbar
-            isFiltered={isFiltered}
-            filterName={filterName}
-            filterRole={filterRole}
-            optionsRole={ROLE_OPTIONS}
-            onFilterName={handleFilterName}
-            onFilterRole={handleFilterRole}
-            onResetFilter={handleResetFilter}
-            handleCreateClick={handleOpenDrawer}
-            isCreateRights={isCreateRights}
-          />
-
-          <TableContainer
-            sx={{ position: 'relative', overflow: 'unset', maxHeight: '32vh', overflowY: 'scroll' }}
-          >
-            <TableSelectedAction
-              dense={dense}
-              numSelected={selected.length}
-              rowCount={tableData.length}
-              onSelectAllRows={(checked) =>
-                onSelectAllRows(
-                  checked,
-                  tableData.map((row) => row.id)
-                )
-              }
-              action={
-                <Tooltip title="Delete">
-                  <IconButton color="primary" onClick={handleOpenConfirm}>
-                    <Iconify icon="eva:trash-2-outline" />
-                  </IconButton>
-                </Tooltip>
-              }
-            />
-
-            <Scrollbar>
-              <Table size="small" sx={{ minWidth: 800 }}>
-                <TableHeadCustom
-                  order={order}
-                  orderBy={orderBy}
-                  headLabel={CUSTOMER_TABLE_HEAD}
-                  rowCount={dataFiltered.length}
-                  numSelected={selected.length}
-                  // onSort={onSort}
-                  /*  onSelectAllRows={(checked) =>
-                    onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
-                  } */
-                />
-                <TableBody>
-                  {isUserLoading ? (
-                    <TableSkeleton colums={user ? 5 : 7} />
-                  ) : (
-                    users?.rows?.map((row) => (
-                      <TemplateDetailsRows
-                        key={row.UserId}
-                        row={row}
-                        selected={selected.includes(row.UserId)}
-                        onSelectRow={() => onSelectRow(row.UserId)}
-                        onEditRow={() => handleEditRow(row.UserId)}
-                        onDeleteRow={() => handleDeleteRow(row.UserId)}
-                        user={user}
-                        isDeleteRights={isDeleteRights}
-                        isUpdateRights={isUpdateRights}
-                      />
-                    ))
-                  )}
-                  {/* <TableEmptyRows
-                    height={denseHeight}
-                    emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
-                  /> */}
-                  {!isUserLoading && <TableNoData isNotFound={users?.rows?.length === 0} />}
-                </TableBody>
-              </Table>
-            </Scrollbar>
-          </TableContainer>
-
-          <TablePaginationCustom
-            count={users?.count}
-            page={page}
-            rowsPerPageOptions={[5, 10, 20]}
-            rowsPerPage={rowsPerPage}
-            onPageChange={onChangePage}
-            onRowsPerPageChange={onChangeRowsPerPage}
-            dense={dense}
-            onChangeDense={onChangeDense}
-          />
-        </Card>
+        
       </Container>
 
       <MenuPopover

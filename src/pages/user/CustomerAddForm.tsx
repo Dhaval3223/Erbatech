@@ -260,7 +260,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
             ))}
           </RHFSelect> */}
           <RHFTextField name="UserPassword" label="Password" />
-          <RHFSelect
+          {/* <RHFSelect
             native
             name="UserTemplateId"
             label="Template"
@@ -275,7 +275,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
                 {template.TemplateName}
               </option>
             ))}
-          </RHFSelect>
+          </RHFSelect> */}
         </Box>
 
         <Stack
