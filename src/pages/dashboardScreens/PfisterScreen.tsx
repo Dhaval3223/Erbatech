@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable eqeqeq */
 import React, { useState } from 'react';
 import { useSelector } from 'src/redux/store';
 import UsersDropDown from 'src/components/all-users-dropdown';
@@ -2633,7 +2635,9 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.Enable_WP == 1 ? '#36B37E' : apiValues?.Enable_WP == 0 ? 'red' : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
@@ -2903,13 +2907,13 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
         />
         <path
           fill="none"
-          stroke="#afabab"
+          stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#afabab'}
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth="0.96"
+          strokeWidth={apiValues?.SV_pump_on == 1 ? '2' : '0.96'}
           d="M660.12 126.42c0 3.61 2.47 6.54 5.52 6.54 3.05 0 5.52-2.93 5.52-6.54s-2.47-6.54-5.52-6.54c-3.05 0-5.52 2.93-5.52 6.54z"
         />
         <path
@@ -2974,7 +2978,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
         <g>
           <g clipPath="url(#clipPath1066)">
             <path
-              fill="#fff"
+              fill={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -2986,7 +2990,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
           <g clipPath="url(#clipPath1076)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#000'}
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"

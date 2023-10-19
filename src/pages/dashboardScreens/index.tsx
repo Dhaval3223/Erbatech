@@ -95,10 +95,13 @@ const Dashboard = () => {
             />
           )}
           {(viewUserData?.UserTemplateId == 1 || viewUserData?.UserTemplateId == null) && (
-            <MotherScreen
-              currentSelectedUser={currentSelectedUser}
-              setCurrentSelectedUser={setCurrentSelectedUser}
-            />
+            // <MotherScreen
+            //   currentSelectedUser={currentSelectedUser}
+            //   setCurrentSelectedUser={setCurrentSelectedUser}
+            // />
+            <Typography variant="body2" mt="8px" textAlign="right" paragraph>
+              Template is not mapped
+            </Typography>
           )}
           {viewUserData?.UserTemplateId == 4 && (
             <SprossScreen

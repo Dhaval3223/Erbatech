@@ -155,14 +155,17 @@ const YieldsReport: React.FC = () => {
       const data1 = [] as any;
       const data2 = [] as any;
       const data3 = [] as any;
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'),
-          PVA_yield: item?.TransactionData[0]?.PVA_yield,
-          SK_heat: item?.TransactionData[0]?.SK_heat,
-          PVA_yield_tot: item?.TransactionData[0]?.PVA_yield_tot,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm').format('HH:mm'),
+            PVA_yield: item?.TransactionData[0]?.PVA_yield,
+            SK_heat: item?.TransactionData[0]?.SK_heat,
+            PVA_yield_tot: item?.TransactionData[0]?.PVA_yield_tot,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

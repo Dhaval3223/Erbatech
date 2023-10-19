@@ -159,17 +159,20 @@ const TempratureReport: React.FC = () => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
 
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss').format('HH:mm:ss'),
-          T_outside: item?.TransactionData[0]?.T_outside,
-          T_tank: item?.TransactionData[0]?.T_tank,
-          T_tank_2: item?.TransactionData[0]?.T_tank_2,
-          T_coll_surface: item?.TransactionData[0]?.T_coll_surface,
-          T_coll_backfeed: item?.TransactionData[0]?.T_coll_backfeed,
-          T_coll_infeed: item?.TransactionData[0]?.T_coll_infeed,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm').format('HH:mm'),
+            T_outside: item?.TransactionData[0]?.T_outside,
+            T_tank: item?.TransactionData[0]?.T_tank,
+            T_tank_2: item?.TransactionData[0]?.T_tank_2,
+            T_coll_surface: item?.TransactionData[0]?.T_coll_surface,
+            T_coll_backfeed: item?.TransactionData[0]?.T_coll_backfeed,
+            T_coll_infeed: item?.TransactionData[0]?.T_coll_infeed,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

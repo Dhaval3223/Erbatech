@@ -148,13 +148,16 @@ const StratedReport: React.FC = () => {
   useEffect(() => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
-          T_top_strat_tank: item?.TransactionData[0]?.T_top_strat_tank,
-          T_bottom_strat_tank: item?.TransactionData[0]?.T_bottom_strat_tank,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm')?.format('HH:mm'),
+            T_top_strat_tank: item?.TransactionData[0]?.T_top_strat_tank,
+            T_bottom_strat_tank: item?.TransactionData[0]?.T_bottom_strat_tank,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

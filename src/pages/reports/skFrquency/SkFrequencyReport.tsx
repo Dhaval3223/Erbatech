@@ -150,15 +150,18 @@ const Report: React.FC = () => {
     if (!isGetReportLoading) {
       const data1 = [] as any;
 
-      reportsData?.rows?.forEach((item: any) => {
-        data1.push({
-          time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm:ss')?.format('HH:mm:ss'),
-          f_pump: item?.TransactionData[0]?.f_pump,
-          f_cal_full: item?.TransactionData[0]?.f_cal_full,
-          f_cal_overflow: item?.TransactionData[0]?.f_cal_overflow,
-          p_roof: item?.TransactionData[0]?.p_roof,
+      reportsData?.rows
+        ?.slice()
+        ?.reverse()
+        ?.forEach((item: any) => {
+          data1.push({
+            time: moment(item?.TransactionData[0]?.Time, 'YYYY-MM-DD HH:mm')?.format('HH:mm'),
+            f_pump: item?.TransactionData[0]?.f_pump,
+            f_cal_full: item?.TransactionData[0]?.f_cal_full,
+            f_cal_overflow: item?.TransactionData[0]?.f_cal_overflow,
+            p_roof: item?.TransactionData[0]?.p_roof,
+          });
         });
-      });
       setSeriesData(data1);
     }
   }, [reportsData, isGetReportLoading]);

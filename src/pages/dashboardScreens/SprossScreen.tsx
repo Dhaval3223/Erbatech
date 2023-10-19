@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable eqeqeq */
 import React, { useState } from 'react';
 import { useSelector } from 'src/redux/store';
 import UsersDropDown from 'src/components/all-users-dropdown';
@@ -1104,7 +1106,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath260)">
             <path
-              fill="#fff"
+              fill={apiValues?.Enable_pump >= 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -1116,7 +1118,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath270)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={apiValues?.Enable_pump >= 1 ? '#36B37E' : '#000'}
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -2371,13 +2373,15 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.Enable_WP == 1 ? '#36B37E' : apiValues?.Enable_WP == 0 ? 'red' : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth="0.96"
+          strokeWidth={apiValues?.Enable_WP == 1 || apiValues?.Enable_WP == 0 ? '3' : '0.96'}
           d="M603.24 114h75.72v73.32h-75.72z"
         />
         <path
@@ -2641,13 +2645,13 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         />
         <path
           fill="none"
-          stroke="#afabab"
+          stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#afabab'}
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth="0.96"
+          strokeWidth={apiValues?.SV_pump_on == 1 ? '2' : '0.96'}
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path
@@ -2712,7 +2716,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath984)">
             <path
-              fill="#fff"
+              fill={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -2724,7 +2728,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath994)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#000'}
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -3533,7 +3537,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
             />
           </g>
         </g>
-        <path
+        {/* <path
           fill="#fff"
           fillOpacity="1"
           fillRule="evenodd"
@@ -3550,8 +3554,8 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           strokeOpacity="1"
           strokeWidth="0.96"
           d="M153.48 241.08l4.98 7.08 4.98-7.08z"
-        />
-        <path
+        /> */}
+        {/* <path
           fill="#fff"
           fillOpacity="1"
           fillRule="evenodd"
@@ -3568,8 +3572,8 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           strokeOpacity="1"
           strokeWidth="0.96"
           d="M163.44 255.6l-4.98-7.08-4.98 7.08z"
-        />
-        <g>
+        /> */}
+        {/* <g>
           <g clipPath="url(#clipPath1552)">
             <path
               fill="none"
@@ -3583,8 +3587,8 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               d="M158.52 241.08v-9.56"
             />
           </g>
-        </g>
-        <g>
+        </g> */}
+        {/* <g>
           <g clipPath="url(#clipPath1562)">
             <path
               fill="none"
@@ -3598,8 +3602,8 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               d="M158.52 265.2v-9.56"
             />
           </g>
-        </g>
-        <path
+        </g> */}
+        {/* <path
           fill="none"
           stroke="#000"
           strokeDasharray="none"
@@ -3609,7 +3613,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           strokeOpacity="1"
           strokeWidth="0.48"
           d="M158.36 264.96h-9.56"
-        />
+        /> */}
         <g>
           <path
             fill="url(#linearGradient1584)"
