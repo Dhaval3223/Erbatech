@@ -11,6 +11,7 @@ import frLocales from './langs/fr';
 import viLocales from './langs/vi';
 import cnLocales from './langs/cn';
 import arLocales from './langs/ar';
+import deLocales from './langs/de';
 
 // ----------------------------------------------------------------------
 
@@ -32,6 +33,7 @@ i18n
       vi: { translations: viLocales },
       cn: { translations: cnLocales },
       ar: { translations: arLocales },
+      de: { translations: deLocales },
     },
     lng,
     fallbackLng: defaultLang.value,
