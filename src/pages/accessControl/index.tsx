@@ -32,6 +32,7 @@ import { useSnackbar } from 'src/components/snackbar/index';
 
 import { useAuthContext } from 'src/auth/useAuthContext';
 import localStorageAvailable from 'src/utils/localStorageAvailable';
+import { useLocales } from 'src/locales';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -368,6 +369,7 @@ export default function UserListing() {
 
   const handleChacked = (ProgramCode: string, operation: string) => {};
 
+  const {translate} = useLocales();
   return user?.UserTypeCode === 'SA' ? (
     <>
       <Helmet>
@@ -399,7 +401,7 @@ export default function UserListing() {
               loading={isUpdateRoleLoading}
               // startIcon={<Iconify icon="eva:trash-2-outline" />}
             >
-              Save Changes
+              {`${translate('Save Changes')}`}
             </LoadingButton>
           </Stack>
           <TableContainer

@@ -1,6 +1,7 @@
 // @mui
 import { Stack, InputAdornment, TextField, MenuItem, Button, Box } from '@mui/material';
 import Iconify from 'src/components/iconify/Iconify';
+import { useLocales } from 'src/locales';
 // components
 
 // ----------------------------------------------------------------------
@@ -32,6 +33,7 @@ export default function UserTableToolbar({
   handleCreateClick,
   isCreateRights,
 }: Props) {
+  const {translate} = useLocales();
   console.log(isCreateRights, 'isCreateRights');
   return (
     <Stack
@@ -77,7 +79,7 @@ export default function UserTableToolbar({
           onClick={handleCreateClick}
           // startIcon={<Iconify icon="eva:trash-2-outline" />}
         >
-          {createButtonLable}
+          {`${translate(createButtonLable)}`}
         </Button>
       )}
     </Stack>
