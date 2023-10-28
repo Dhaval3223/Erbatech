@@ -8,6 +8,7 @@ import menuReducer from 'src/pages/Menu/slice';
 import accesControlReducer from 'src/pages/accessControl/slice';
 import SensorReducer from 'src/pages/sesnor/slice';
 import reportsReducer from 'src/pages/reports/slice';
+import AlarmsReducer from 'src/pages/Alarms/slice';
 import acknowledgementReducer from 'src/pages/acknowledgement/slice/index';
 import TemplateDetailsReducer from 'src/pages/templateDetails/slice/index';
 import mailReducer from './slices/mail';
@@ -47,6 +48,7 @@ const rootReducer = combineReducers({
   report: reportsReducer,
   acknowledgement: acknowledgementReducer,
   templateDetails: TemplateDetailsReducer,
+  alarm: AlarmsReducer,
   product: persistReducer(productPersistConfig, productReducer),
 });
 

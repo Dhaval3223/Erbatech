@@ -158,6 +158,7 @@ import {
   TemplateMaster,
   TemplateDetails,
   TemplateCreation,
+  Alarm,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -239,6 +240,7 @@ export default function Router() {
         { path: 'template-master', element: <TemplateMaster /> },
         { path: 'template-mapping', element: <TemplateCreation /> },
         { path: 'template-master/:templateId', element: <TemplateDetails /> },
+        { path: 'alarms', element: <Alarm /> },
         {
           path: 'reports',
           element: <ReportsPage />,

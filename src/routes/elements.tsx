@@ -83,6 +83,7 @@ export const ReportsPage = Loadable(lazy(() => import('../pages/reports/ScatterC
 export const UserCreatePage = Loadable(lazy(() => import('../pages/dashboard/UserCreatePage')));
 export const UserEditPage = Loadable(lazy(() => import('../pages/dashboard/UserEditPage')));
 export const SensorVariable = Loadable(lazy(() => import('../pages/sesnor/SensorVariable')));
+export const Alarm = Loadable(lazy(() => import('../pages/Alarms/index')));
 export const SensorSetting = Loadable(lazy(() => import('../pages/sesnor/SensorSettings')));
 export const TemplateMaster = Loadable(lazy(() => import('../pages/templateMaster/index')));
 export const TemplateCreation = Loadable(lazy(() => import('../pages/templateCreation/index')));

@@ -1,7 +1,8 @@
 // @mui
-import { Stack, InputAdornment, TextField, MenuItem, Button, Box } from '@mui/material';
+import { Stack, InputAdornment, TextField, MenuItem, Button, Typography } from '@mui/material';
+import { useAuthContext } from 'src/auth/useAuthContext';
+import UsersDropDown from 'src/components/all-users-dropdown';
 import Iconify from 'src/components/iconify/Iconify';
-import { useLocales } from 'src/locales';
 // components
 
 // ----------------------------------------------------------------------
@@ -17,10 +18,15 @@ type Props = {
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterRole: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleCreateClick?: any;
-  isCreateRights: boolean;
+  onUserChange?: any;
+  currentSelectedUser: number | string;
+  setCurrentSelectedUser: any;
+  lastLoadingTime?: any;
+  isCreateRights?: boolean;
+  lastUpdateStatus?: boolean;
 };
 
-export default function UserTableToolbar({
+export default function SensorTableToolbar({
   isFiltered,
   filterName,
   filterRole,
@@ -32,9 +38,15 @@ export default function UserTableToolbar({
   createButtonLable,
   handleCreateClick,
   isCreateRights,
+  lastUpdateStatus,
+  lastLoadingTime,
+  onUserChange,
+  currentSelectedUser,
+  setCurrentSelectedUser,
 }: Props) {
-  const {translate} = useLocales();
   console.log(isCreateRights, 'isCreateRights');
+  const { user } = useAuthContext();
+
   return (
     <Stack
       spacing={2}
@@ -46,9 +58,14 @@ export default function UserTableToolbar({
       }}
       sx={{ px: 2.5, py: 3 }}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <Stack
+        direction={{
+          xs: 'column',
+          sm: 'row',
+        }}
+      >
         <TextField
-          fullWidth={!isCreateButton}
+          fullWidth
           value={filterName}
           onChange={onFilterName}
           placeholder="Search..."
@@ -71,16 +88,27 @@ export default function UserTableToolbar({
             Clear
           </Button>
         )}
-      </Box>
-      {isCreateButton && isCreateRights && (
-        <Button
-          variant="contained"
-          sx={{ flexShrink: 0 }}
-          onClick={handleCreateClick}
-          // startIcon={<Iconify icon="eva:trash-2-outline" />}
-        >
-          {`${translate(createButtonLable)}`}
-        </Button>
+        {isCreateButton && isCreateRights && (
+          <Button
+            variant="contained"
+            sx={{ flexShrink: 0, ml: '20px' }}
+            onClick={handleCreateClick}
+            // startIcon={<Iconify icon="eva:trash-2-outline" />}
+          >
+            {createButtonLable}
+          </Button>
+        )}
+      </Stack>
+      {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
+        <Typography variant="body2" paragraph>
+          {`Last data loaded time: ${lastLoadingTime}`}
+        </Typography>
+      ) : (
+        <UsersDropDown
+          onChange={onUserChange}
+          currentSelectedUser={currentSelectedUser}
+          setCurrentSelectedUser={setCurrentSelectedUser}
+        />
       )}
     </Stack>
   );

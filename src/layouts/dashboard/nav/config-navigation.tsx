@@ -267,6 +267,12 @@ const navConfig = [
         code: 'PG006',
       },
       {
+        title: 'Alarms',
+        path: PATH_DASHBOARD.general.alarms,
+        icon: ICONS.variable,
+        code: 'PG015',
+      },
+      {
         title: 'Sensor/Actor values',
         path: PATH_DASHBOARD.general.sensorSetting,
         icon: ICONS.setting,
