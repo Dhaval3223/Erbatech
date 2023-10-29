@@ -6,12 +6,25 @@ export interface IAlarmState {
         UserId: string;
         TransactionAlarmType: string;
         TransactionAlarmName: string;
-        TransactionAlarmValue: string;
+        TransactionAlarmValue: string | boolean;
         TransactionAlarmDescription: string;
         createdAt: string;
       }[];
     };
     alarmDataLoading:boolean;
+    alarmData2:{
+      count: number;
+      rows:{
+        TransactionAlarmId: string;
+        UserId: string;
+        TransactionAlarmType: string;
+        TransactionAlarmName: string;
+        TransactionAlarmValue: string | boolean;
+        TransactionAlarmDescription: string;
+        createdAt: string;
+      }[];
+    };
+    alarmData2Loading:boolean;
     checkAlarmData:any;
     checkAlarmDataLoading:boolean;
     alarmAcknowledgementData:any;

@@ -18,7 +18,6 @@ import {
 // routes
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
-// import { slice as slice2 } from '../acknowledgement/slice/index';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
@@ -36,22 +35,18 @@ import {
   TablePaginationCustom,
 } from '../../components/table';
 // sections
-import { getAcknowledgeAlarmData, getAlarmData } from './slice/action';
+import { getAlarmData2 } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
-import { slice as slice2 } from '../acknowledgement/slice';
 import { getAllReportsData } from '../reports/slice/action';
 import AlarmRows from './AlarmRows';
-import Table2 from './AlarmSecondTable';
-import { useSnackbar } from '../../components/snackbar';
-import { checkAlermStatusApi } from '../acknowledgement/slice/action';
 
 const TABLE_HEAD = [
   { id: 'label', label: 'Label', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
   { id: 'date', label: 'Date', align: 'left' },
-  { id: 'acknowledge', label: 'Acknowledge', align: 'left' },
+  { id: 'acknowledgeTime', label: 'Acknowledge Time', align: 'left' },
 ];
 
 const TABLE_HEAD_1 = [
@@ -66,11 +61,17 @@ interface IAlarmListing {
   isUpdateRights: boolean;
   isDeleteRights?: boolean;
   isCreateRights?: boolean;
+  refreshAPI?: boolean;
 }
 
 // ----------------------------------------------------------------------
 
-function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmListing) {
+function AlarmAccess({
+  isUpdateRights,
+  isDeleteRights,
+  isCreateRights,
+  refreshAPI,
+}: IAlarmListing) {
   const {
     dense,
     page,
@@ -89,22 +90,15 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
 
   const dispatch = useDispatch();
 
-  const { enqueueSnackbar } = useSnackbar();
-
   const { isSensorLoading, sensorData } = useSelector((state) => state?.sensor);
-
   const {
-    alarmDataLoading,
-    alarmData,
+    alarmData2Loading,
+    alarmData2,
     checkAlarmData,
     checkAlarmDataLoading,
     alarmAcknowledgementDataLoading,
     alarmAcknowledgementData,
   } = useSelector((state) => state?.alarm);
-
-  const { alermSucess, alermError, alermSusErrMsg } = useSelector(
-    (state) => state?.acknowledgement
-  );
 
   const { themeStretch } = useSettingsContext();
 
@@ -118,7 +112,7 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
 
   const [filterRole, setFilterRole] = useState('all');
 
-  const [currentSelectedUser, setCurrentSelectedUser] = useState<any>(user?.UserId);
+  const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
 
   const [filterStatus, setFilterStatus] = useState('all');
 
@@ -126,64 +120,21 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
-  const [refreshAPI, setRefreshAPI] = useState(false);
-
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   useEffect(() => {
     dispatch(slice.actions.startLoading());
     dispatch(
-      getAlarmData({
+      getAlarmData2({
         userId: currentSelectedUser,
         page: page + 1,
         limit: rowsPerPage,
-        status: true,
+        status: false,
       })
     );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, currentSelectedUser, page, rowsPerPage, refreshAPI]);
-
-  useEffect(() => {
-    console.log('XXXXX', alarmAcknowledgementData);
-    if (alarmAcknowledgementData?.success === true) {
-      dispatch(
-        checkAlermStatusApi({
-          topic: 'topic_2',
-          userId: currentSelectedUser,
-        })
-      );
-      dispatch(slice.actions.restGetAlarmAcknowledgementSuccess());
-    }
-    if (alarmAcknowledgementData?.success === false) {
-      enqueueSnackbar(alarmAcknowledgementData?.message || 'Something went wrong', {
-        variant: 'error',
-      });
-      dispatch(slice.actions.restGetAlarmAcknowledgementSuccess());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [alarmAcknowledgementData]);
-
-  useEffect(() => {
-    console.log('XXXXX', alarmAcknowledgementData);
-    if (alermSucess) {
-      setRefreshAPI((prev) => !prev);
-      dispatch(slice2.actions.resetCheckAlarm());
-      // dispatch(
-      //   checkAlermStatusApi({
-      //     topic: 'topic_2',
-      //     userId: currentSelectedUser,
-      //   })
-      // );
-    }
-    if (alermError) {
-      dispatch(slice2.actions.resetCheckAlarm());
-      enqueueSnackbar(alarmAcknowledgementData?.message || 'Something went wrong', {
-        variant: 'error',
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [alermSucess, alermError]);
+  }, [dispatch, currentSelectedUser, page, currentSelectedUser, rowsPerPage, refreshAPI]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -222,23 +173,13 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
   };
-
-  const handleAckApi = (id: any) => {
-    dispatch(
-      getAcknowledgeAlarmData({
-        userId: currentSelectedUser,
-        ids: [id],
-      })
-    );
-  };
-
   return (
     <>
-      <Helmet>
+      {/* <Helmet>
         <title> Sensor Variable: List | Soblue</title>
-      </Helmet>
+      </Helmet> */}
 
-      <Container maxWidth={themeStretch ? false : 'lg'}>
+      <Container maxWidth={themeStretch ? false : 'lg'} sx={{ my: 2 }}>
         <Card>
           <UserTableToolbar
             isFiltered={isFiltered}
@@ -301,32 +242,30 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
                   } */
                 />
                 <TableBody>
-                  {alarmDataLoading ? (
+                  {alarmData2Loading ? (
                     <TableSkeleton colums={4} />
                   ) : (
-                    alarmData?.rows
-                      // ?.filter((item) => item?.TransactionAlarmValue === true)
-                      ?.map((row: any, index: any) => (
-                        <AlarmRows
-                          key={row.TransactionAlarmId}
-                          row={row}
-                          selected={selected.includes(row.TransactionAlarmId)}
-                          handleAckApi={handleAckApi}
-                        />
-                      ))
+                    alarmData2?.rows?.map((row: any, index: any) => (
+                      <AlarmRows
+                        key={row.TransactionAlarmId}
+                        row={row}
+                        selected={selected.includes(row.TransactionAlarmId)}
+                        table2
+                      />
+                    ))
                   )}
                   {/* <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
                   /> */}
-                  {!alarmDataLoading && <TableNoData isNotFound={alarmData?.count === 0} />}
+                  {!alarmData2Loading && <TableNoData isNotFound={alarmData2?.count === 0} />}
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
 
           <TablePaginationCustom
-            count={alarmData?.count}
+            count={alarmData2?.count}
             page={page}
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={[5, 10, 20]}
@@ -342,17 +281,20 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
           </Typography>
         )} */}
       </Container>
-      <Table2 refreshAPI={refreshAPI} />
     </>
   );
 }
 
-export default function Alarm() {
+export default function Alarm(props: any) {
   const { accessControlCRUD } = useAuthContext();
 
   const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
 
-  return isView ? <AlarmAccess isUpdateRights={isUpdate} /> : <Page403 />;
+  return isView ? (
+    <AlarmAccess isUpdateRights={isUpdate} refreshAPI={props?.refreshAPI} />
+  ) : (
+    <Page403 />
+  );
 }
 
 // ----------------------------------------------------------------------

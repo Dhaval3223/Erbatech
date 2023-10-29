@@ -64,7 +64,7 @@ export default function SensorTableToolbar({
           sm: 'row',
         }}
       >
-        <TextField
+        {/* <TextField
           fullWidth
           value={filterName}
           onChange={onFilterName}
@@ -76,7 +76,7 @@ export default function SensorTableToolbar({
               </InputAdornment>
             ),
           }}
-        />
+        /> */}
 
         {isFiltered && (
           <Button

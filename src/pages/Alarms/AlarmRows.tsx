@@ -10,11 +10,13 @@ import moment from 'moment';
 
 type Props = {
   row: any;
+  handleAckApi?: any;
   selected: boolean;
   user?: boolean;
+  table2?: boolean;
 };
 
-export default function AlarmRows({ row, selected, user }: Props) {
+export default function AlarmRows({ row, selected, user, table2, handleAckApi }: Props) {
   console.log(user);
 
   const { reportsData } = useSelector((state) => state.report);
@@ -39,7 +41,11 @@ export default function AlarmRows({ row, selected, user }: Props) {
         {moment(row?.createdAt, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm')}
       </TableCell>
       <TableCell align="left" sx={{ width: '20%' }}>
-       <Switch />
+        {table2 ? (
+          moment(row?.updatedAt, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm')
+        ) : (
+          <Switch onChange={() => handleAckApi(row?.TransactionAlarmId)} />
+        )}
       </TableCell>
     </TableRow>
   );

@@ -15,7 +15,7 @@ export const allLangs = [
     label: 'Germany',
     value: 'de',
     systemValue: deDE,
-    icon: '/assets/icons/flags/ic_flag_en.svg',
+    icon: '/assets/icons/flags/ic_flag_de.svg',
   },
   // {
   //   label: 'French',
