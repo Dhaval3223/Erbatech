@@ -236,11 +236,11 @@ export default function Router() {
         { path: 'sensor-custom-setting', element: <SensorCustomSetting /> },
         // { path: 'customer-management', element: <CustomerManagement /> },
         { path: 'access-control', element: <AccessControl /> },
-        { path: 'acknowledgement', element: <Acknowledgement /> },
+        { path: 'acknowledgement', element: <Alarm /> },
         { path: 'template-master', element: <TemplateMaster /> },
         { path: 'template-mapping', element: <TemplateCreation /> },
         { path: 'template-master/:templateId', element: <TemplateDetails /> },
-        { path: 'alarms', element: <Alarm /> },
+        // { path: 'alarms', element: <Alarm /> },
         {
           path: 'reports',
           element: <ReportsPage />,

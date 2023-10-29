@@ -50,6 +50,14 @@ const slice = createSlice({
         ...state,
         alermSucess: false,
         alermError: true,
+        alermSusErrMsg: 'Something went wrong.',
+      };
+    },
+    resetCheckAlarm(state) {
+      return {
+        ...state,
+        alermSucess: false,
+        alermError: false,
         alermSusErrMsg: '',
       };
     },
