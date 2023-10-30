@@ -62,6 +62,8 @@ interface IAlarmListing {
   isDeleteRights?: boolean;
   isCreateRights?: boolean;
   refreshAPI?: boolean;
+  setCurrentSelectedUser?: any; 
+  currentSelectedUser?:any;
 }
 
 // ----------------------------------------------------------------------
@@ -71,6 +73,8 @@ function AlarmAccess({
   isDeleteRights,
   isCreateRights,
   refreshAPI,
+  setCurrentSelectedUser, 
+  currentSelectedUser
 }: IAlarmListing) {
   const {
     dense,
@@ -90,14 +94,9 @@ function AlarmAccess({
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData } = useSelector((state) => state?.sensor);
   const {
     alarmData2Loading,
     alarmData2,
-    checkAlarmData,
-    checkAlarmDataLoading,
-    alarmAcknowledgementDataLoading,
-    alarmAcknowledgementData,
   } = useSelector((state) => state?.alarm);
 
   const { themeStretch } = useSettingsContext();
@@ -112,7 +111,7 @@ function AlarmAccess({
 
   const [filterRole, setFilterRole] = useState('all');
 
-  const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
+  // const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
 
   const [filterStatus, setFilterStatus] = useState('all');
 
@@ -134,7 +133,7 @@ function AlarmAccess({
     );
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, currentSelectedUser, page, currentSelectedUser, rowsPerPage, refreshAPI]);
+  }, [dispatch, currentSelectedUser, page, rowsPerPage, refreshAPI]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -149,27 +148,6 @@ function AlarmAccess({
     setOpenDrawer(false);
   }, []);
 
-  const handleFilterName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
-
-  const handleFilterRole = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPage(0);
-    setFilterRole(event.target.value);
-  };
-
-  const handleResetFilter = () => {
-    setFilterName('');
-    setFilterRole('all');
-    setFilterStatus('all');
-  };
-
-  const handleOpenDrawer = () => {
-    setIsEdit(false);
-    setOpenDrawer(true);
-  };
-
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
   };
@@ -181,7 +159,7 @@ function AlarmAccess({
 
       <Container maxWidth={themeStretch ? false : 'lg'} sx={{ my: 2 }}>
         <Card>
-          <UserTableToolbar
+          {/* <UserTableToolbar
             isFiltered={isFiltered}
             filterName={filterName}
             filterRole={filterRole}
@@ -196,7 +174,7 @@ function AlarmAccess({
             lastLoadingTime={lastLoadingTime}
             setCurrentSelectedUser={setCurrentSelectedUser}
             currentSelectedUser={currentSelectedUser}
-          />
+          /> */}
 
           <TableContainer
             sx={{
@@ -254,10 +232,7 @@ function AlarmAccess({
                       />
                     ))
                   )}
-                  {/* <TableEmptyRows
-                    height={denseHeight}
-                    emptyRows={emptyRows(page, rowsPerPage, users.rows.length)}
-                  /> */}
+                 
                   {!alarmData2Loading && <TableNoData isNotFound={alarmData2?.count === 0} />}
                 </TableBody>
               </Table>
@@ -275,11 +250,7 @@ function AlarmAccess({
             onChangeDense={onChangeDense}
           />
         </Card>
-        {/* {user?.UserTypeCode !== 'CU' && (
-          <Typography variant="body2" mt="8px" textAlign="right" paragraph>
-            {`Last data loaded time: ${lastLoadingTime}`}
-          </Typography>
-        )} */}
+      
       </Container>
     </>
   );
@@ -291,7 +262,8 @@ export default function Alarm(props: any) {
   const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
 
   return isView ? (
-    <AlarmAccess isUpdateRights={isUpdate} refreshAPI={props?.refreshAPI} />
+    <AlarmAccess isUpdateRights={isUpdate} refreshAPI={props?.refreshAPI}  setCurrentSelectedUser={props?.setCurrentSelectedUser}
+    currentSelectedUser={props?.currentSelectedUser}/>
   ) : (
     <Page403 />
   );
