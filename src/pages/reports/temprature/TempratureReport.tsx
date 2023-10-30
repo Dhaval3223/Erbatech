@@ -74,6 +74,7 @@ const TempratureReport: React.FC = () => {
     { data: [], name: 'T_coll_surface' },
     { data: [], name: 'T_coll_backfeed' },
     { data: [], name: 'T_coll_infeed' },
+    { data: [], name: 'f_pump' },
   ]);
 
   const [selectDays, setSelectedDays] = useState<string>('1_hour');
@@ -171,6 +172,7 @@ const TempratureReport: React.FC = () => {
             T_coll_surface: item?.TransactionData[0]?.T_coll_surface,
             T_coll_backfeed: item?.TransactionData[0]?.T_coll_backfeed,
             T_coll_infeed: item?.TransactionData[0]?.T_coll_infeed,
+            f_pump: item?.TransactionData[0]?.f_pump,
           });
         });
       setSeriesData(data1);
@@ -275,7 +277,7 @@ const TempratureReport: React.FC = () => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" />
-                <YAxis />
+                <YAxis domain={[-30, 100]} />
                 <Tooltip />
                 <Legend />
                 <Line
@@ -316,6 +318,13 @@ const TempratureReport: React.FC = () => {
                 <Line
                   type="monotone"
                   dataKey="T_coll_infeed"
+                  stroke="#ffd966"
+                  dot={false}
+                  strokeWidth={4}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="f_pump"
                   stroke="#bf9000"
                   dot={false}
                   strokeWidth={4}

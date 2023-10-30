@@ -266,7 +266,7 @@ const YieldsReport: React.FC = () => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="time" />
-                <YAxis />
+                <YAxis domain={[0, 999]} />
                 <Tooltip />
                 <Legend />
                 <Line type="monotone" dataKey="PVA_yield" stroke="#8884d8" strokeWidth={4} />
