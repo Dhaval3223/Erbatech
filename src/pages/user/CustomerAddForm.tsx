@@ -83,7 +83,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
     Address: Yup.string().required('Address is required'),
     UserLocation: Yup.string().required('Location is required'),
     UserPassword: Yup.string().required('password is required'),
-    UserTemplateId: Yup.string().required('Template is required'),
+    // UserTemplateId: Yup.string().required('Template is required'),
     // UserRoleId: Yup.string().required('Role is required'),
   });
 
@@ -99,7 +99,7 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
       Address: '',
       UserLocation: '',
       UserPassword: '',
-      UserTemplateId: '',
+      // UserTemplateId: '',
       // UserRoleId: '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -148,8 +148,9 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data: any) => {
+    console.log(data);
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       enqueueSnackbar(!isEdit ? 'Customer Created successfully!' : 'Updated successfully!');
       navigate(PATH_DASHBOARD.general.customerManagement);
