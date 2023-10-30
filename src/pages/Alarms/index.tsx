@@ -145,7 +145,6 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
   }, [dispatch, currentSelectedUser, page, rowsPerPage, refreshAPI]);
 
   useEffect(() => {
-    console.log('XXXXX', alarmAcknowledgementData);
     if (alarmAcknowledgementData?.success === true) {
       dispatch(
         checkAlermStatusApi({
@@ -165,7 +164,6 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
   }, [alarmAcknowledgementData]);
 
   useEffect(() => {
-    console.log('XXXXX', alarmAcknowledgementData);
     if (alermSucess) {
       setRefreshAPI((prev) => !prev);
       dispatch(slice2.actions.resetCheckAlarm());
@@ -342,7 +340,7 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
           </Typography>
         )} */}
       </Container>
-      <Table2 refreshAPI={refreshAPI} />
+      <Table2 refreshAPI={refreshAPI} setCurrentSelectedUser={setCurrentSelectedUser} currentSelectedUser={currentSelectedUser}/>
     </>
   );
 }
