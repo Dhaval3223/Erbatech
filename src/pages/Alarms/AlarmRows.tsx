@@ -31,7 +31,7 @@ color= 'yellow';
    } else if(row?.TransactionAlarmType === 'Error'){
     color = 'red'
    }else {
-color='green'
+color='blue'
    }
    console.log("color", color)
   return (
