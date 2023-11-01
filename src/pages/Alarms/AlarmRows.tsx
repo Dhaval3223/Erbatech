@@ -33,22 +33,21 @@ color= 'yellow';
    }else {
 color='blue'
    }
-   console.log("color", color)
   return (
     <TableRow hover selected={selected}>
       {/* <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorSettingDataType ? row?.SensorSettingDataType : '-'}
       </TableCell> */}
-      <TableCell align="left" sx={{ width: '15%', color}}>
+      <TableCell align="left" sx={{ width: '15%', color: table2 ? 'black' : color}}>
         {row?.TransactionAlarmName}
       </TableCell>
-      <TableCell align="left" sx={{ width: '15%', color }}>
+      <TableCell align="left" sx={{ width: '15%', color: table2 ? 'black' : color }}>
         {row?.TransactionAlarmDescription}
       </TableCell>
-      <TableCell align="left" sx={{ width: '15%', color }}>
+      <TableCell align="left" sx={{ width: '15%', color: table2 ? 'black' : color }}>
         {moment(row?.createdAt, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm')}
       </TableCell>
-      <TableCell align="left" sx={{ width: '20%' , color}}>
+      <TableCell align="left" sx={{ width: '20%' , color: table2 ? 'black' : color}}>
         {table2 ? (
           moment(row?.updatedAt, 'YYYY-MM-DD HH:mm:ss').format('DD-MM-YYYY HH:mm')
         ) : (
