@@ -276,46 +276,49 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         <clipPath id="clipPath904" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath926" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath920" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath938" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath942" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath950" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath954" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
         <clipPath id="clipPath966" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath996" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath982" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1012" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1006" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1022" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1036" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1052" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1046" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1062" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1056" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1072" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1066" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1082" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1080" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1096" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1090" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1106" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1112" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1128" clipPathUnits="userSpaceOnUse">
           <path d="M859.56 168.96h16.92v36.36h-16.92z" clipRule="evenodd" />
         </clipPath>
-        <mask id="mask1116" width="1" height="1" x="0" y="0" maskUnits="userSpaceOnUse">
+        <mask id="mask1132" width="1" height="1" x="0" y="0" maskUnits="userSpaceOnUse">
           <image
             width="1"
             height="1"
@@ -324,196 +327,282 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
             xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAABvCAAAAABkhqd6AAAAAXNCSVQI5gpbmQAAAgRJREFUWIXtWL1OxDAM/lIOBCMjPADMiA3BhsTEAzCxMjLzALAiZl6AEYnXYGJmYUAIgRiQ+JEOzNBrYsdOLqp0R0H1crnP/mzHdd2mDkqo/nFaA1tDGV0Cp6x2JBX/sxFRYheGp5nh2DwUJjefLgXLrTZyjZG7BwDsmul5DhGJDVwyZIcaWWahSWcSIOFL1C0WbW5wlnIetGzGuwH4FimIpWayboFh00YJRqgCszVIyH/jDArtWMVdYRx+kUjH8erkEJlgDdyFX2473Tsit753ElLaOzhtFofGfWrWWvROi9xKe1RIae/wdWkNOKnL17TLnGnNqo7VoO+3X+IU1vqb1fq6xXyb5H4O2Lp/zk2R08+qvzGr7BNirbqNAH3gU/cPMJw14iTPiPsAgMGejiMo0bsyaW+sBvb7dORIJp1QGpEq4DlgD7J8Rl4jIHEKRQQHaoVFv35UlMQpzz5PypPlKxHRmsUxKXQs/dZx/ahMtI+vrE+x8paZjsOJ9KLndCpQiJPxHsl7izg+UMfmDgC8NIvJ1M0BOIuQFn2AjDkAHFlgQV8TEdEqj+wDf87ZmcV3Ubv7FHfB1Y1FMZct5o5Ued2TSw1FPUcjSc1ROei5nNfYiulNfb/isDHEOInmPfTVQFeRrXx/M8WavWNYujL8WfJhMfLfOrHgtgoYljQ7f0ta/ADjCi4/C+3lSQAAAABJRU5ErkJggg=="
           />
         </mask>
-        <clipPath id="clipPath1132" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1148" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1144" clipPathUnits="userSpaceOnUse">
-          <path d="M0 0h960v540H0z" clipRule="evenodd" />
-        </clipPath>
-        <clipPath id="clipPath1156" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1160" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
         <clipPath id="clipPath1172" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1198" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1188" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1210" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1214" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1222" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1226" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1234" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1238" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1250" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1244" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1260" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1254" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1270" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1264" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1280" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1274" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1290" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1284" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1300" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1294" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1310" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1304" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1320" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1314" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1330" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1324" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1340" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1334" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1350" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1344" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1360" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1354" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1370" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1364" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1380" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1374" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1390" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1384" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1400" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1394" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1410" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1404" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1420" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1414" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1430" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1424" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1440" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1434" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1450" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1444" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1460" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1454" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1470" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1464" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1480" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1474" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1490" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1484" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1500" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1494" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1510" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1504" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1520" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1514" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1530" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1524" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1540" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1534" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1550" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1544" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1560" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1554" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1570" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1564" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1580" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1574" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1590" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1584" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1600" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1594" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1610" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1604" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1620" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1614" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1630" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1624" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1640" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1634" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1650" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1644" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1660" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1654" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1670" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1664" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1680" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1674" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1690" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1684" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1700" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1694" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1710" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1704" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1720" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1722" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1738" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1732" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1748" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1752" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1768" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1762" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1778" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1772" clipPathUnits="userSpaceOnUse">
-          <path d="M0 540h960V0H0" clipRule="evenodd" />
-        </clipPath>
-        <clipPath id="clipPath1782" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1788" clipPathUnits="userSpaceOnUse">
           <path d="M0 540h960V0H0" clipRule="evenodd" />
         </clipPath>
         <clipPath id="clipPath1798" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1814" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1810" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1826" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
-        <clipPath id="clipPath1822" clipPathUnits="userSpaceOnUse">
+        <clipPath id="clipPath1838" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1876" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1886" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1896" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1906" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1916" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1926" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1936" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1946" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1956" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1966" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1976" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1986" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath1996" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <linearGradient
+          id="linearGradient2012"
+          x1="744"
+          x2="744"
+          y1="354.18"
+          y2="113.94"
+          gradientUnits="userSpaceOnUse"
+          spreadMethod="pad"
+        >
+          <stop offset="0" stopColor="#8faadc" stopOpacity="1" />
+          <stop offset="0.085" stopColor="#8faadc" stopOpacity="1" />
+          <stop offset="0.375" stopColor="#f99" stopOpacity="1" />
+          <stop offset="0.5" stopColor="#f99" stopOpacity="1" />
+          <stop offset="0.625" stopColor="#f99" stopOpacity="1" />
+          <stop offset="0.915" stopColor="#8faadc" stopOpacity="1" />
+          <stop offset="1" stopColor="#8faadc" stopOpacity="1" />
+        </linearGradient>
+        <clipPath id="clipPath2022" clipPathUnits="userSpaceOnUse">
+          <path d="M0 540h960V0H0" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2036" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2048" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2060" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2076" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2088" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2100" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2118" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2130" clipPathUnits="userSpaceOnUse">
+          <path d="M0 0h960v540H0z" clipRule="evenodd" />
+        </clipPath>
+        <clipPath id="clipPath2142" clipPathUnits="userSpaceOnUse">
           <path d="M0 0h960v540H0z" clipRule="evenodd" />
         </clipPath>
       </defs>
@@ -884,7 +973,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               transform="matrix(1 0 0 -1 778.87 452.3)"
               writingMode="lr-tb"
             >
-              <tspan x="0 5.994 10.674 13.689 17.153999 19.197001 23.877001 28.313999" y="0">
+              <tspan x="0" y="0">
                 Outside{' '}
               </tspan>
             </text>
@@ -1139,7 +1228,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         <g>
           <g clipPath="url(#clipPath282)">
             <path
-              fill={apiValues?.Enable_pump >= 1 ? '#36B37E' : '#fff'}
+              fill="#fff"
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -1151,7 +1240,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           <g clipPath="url(#clipPath292)">
             <path
               fill="none"
-              stroke={apiValues?.Enable_pump >= 1 ? '#36B37E' : '#000'}
+              stroke="#000"
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -1245,7 +1334,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[2.2]] && `${Math.round(apiValues?.[keys?.[2.2]])} hPa`}
+                {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])}  hPa`}
               </tspan>
             </text>
           </g>
@@ -1279,11 +1368,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 54.576 456.82)"
+              transform="matrix(1 0 0 -1 47.576 456.82)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])}  hPa`}
+                {apiValues?.[keys?.[2.2]] && `${Math.round(apiValues?.[keys?.[2.2]])} hPa`}
               </tspan>
             </text>
           </g>
@@ -1399,7 +1488,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               transform="matrix(1 0 0 -1 191.18 310.75)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[3.1]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[3.1]])} °C`}
               </tspan>
@@ -1923,7 +2012,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 666.62 452.18)"
+              transform="matrix(1 0 0 -1 671.62 452.18)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
@@ -2021,7 +2110,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 662.79 427.73)"
+              transform="matrix(1 0 0 -1 669.79 427.73)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
@@ -2285,7 +2374,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               transform="matrix(1 0 0 -1 171.43 210.89)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 9.1260004 13.689 15.48 19.313999" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[1.5]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[1.5]])} cm`}
               </tspan>
@@ -2454,6 +2543,48 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
             </g>
           </>
         )}
+
+        {/* <path
+          fill="#dae3f3"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M764.04 529.02a5.94 5.94 0 005.94 5.94h157.2a5.94 5.94 0 005.94-5.94v-23.76a5.94 5.94 0 00-5.94-5.94h-157.2a5.94 5.94 0 00-5.94 5.94z"
+        />
+        <path
+          fill="none"
+          stroke="red"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M764.04 529.02a5.94 5.94 0 005.94 5.94h157.2a5.94 5.94 0 005.94-5.94v-23.76a5.94 5.94 0 00-5.94-5.94h-157.2a5.94 5.94 0 00-5.94 5.94z"
+        />
+        <g>
+          <g clipPath="url(#clipPath920)">
+            <text
+              fill="red"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="18.024"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 804.91 511.15)"
+              writingMode="lr-tb"
+            >
+              <tspan
+                x="0 11.08476 20.060713 28.441872 37.417824 43.329697 50.377079 59.83968 68.869705 72.94313"
+                y="0"
+              >
+                Degersheim
+              </tspan>
+            </text>
+          </g>
+        </g> */}
         <path
           fill="none"
           stroke="red"
@@ -2506,7 +2637,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M865.83 314.52l-13.35-19.51 13.35 2.87-5.43-10.96-2.6 1.32-.11-8.16 8.25 5.6-2.93.46 11.07 16.02-14-3.11 14 14.07z"
         />
         <g>
-          <g clipPath="url(#clipPath926)">
+          <g clipPath="url(#clipPath942)">
             <text
               fill="#000"
               fillOpacity="1"
@@ -2519,14 +2650,14 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               transform="matrix(1 0 0 -1 412.54 230.09)"
               writingMode="lr-tb"
             >
-              <tspan x="0 5.6339998 10.071 14.382" y="0">
-                Heat
+              <tspan x="0" y="0">
+                Heat yield today
               </tspan>
             </text>
           </g>
         </g>
-        <g>
-          <g clipPath="url(#clipPath938)">
+        {/* <g>
+          <g clipPath="url(#clipPath954)">
             <text
               fill="#000"
               fillOpacity="1"
@@ -2546,7 +2677,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath950)">
+          <g clipPath="url(#clipPath966)">
             <text
               fill="#000"
               fillOpacity="1"
@@ -2564,7 +2695,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               </tspan>
             </text>
           </g>
-        </g>
+        </g> */}
         <path
           fill="#fff"
           fillOpacity="1"
@@ -2584,7 +2715,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M483 226.32h56.76v12.48H483z"
         />
         <g>
-          <g clipPath="url(#clipPath966)">
+          <g clipPath="url(#clipPath982)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -2597,7 +2728,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               transform="matrix(1 0 0 -1 495.31 229.49)"
               writingMode="lr-tb"
             >
-              <tspan x="0" y="0">
+              <tspan x="0 4.5630002 9.1260004 13.689 15.48 19.575001 27.584999" y="0">
                 {/* {apiValues?.[keys?.[4.15]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[4.15]])} kWh`} */}
               </tspan>
@@ -2646,15 +2777,13 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         />
         <path
           fill="none"
-          stroke={
-            apiValues?.Enable_WP == 1 ? '#36B37E' : apiValues?.Enable_WP == 0 ? 'red' : '#000'
-          }
+          stroke="#000"
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth={apiValues?.Enable_WP == 1 || apiValues?.Enable_WP == 0 ? '3' : '0.96'}
+          strokeWidth="0.96"
           d="M603.24 114h75.72v73.32h-75.72z"
         />
         <path
@@ -2698,7 +2827,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M605.88 126.3c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <g>
-          <g clipPath="url(#clipPath996)">
+          <g clipPath="url(#clipPath1012)">
             <path
               fill="#d0cece"
               fillOpacity="1"
@@ -2709,7 +2838,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1006)">
+          <g clipPath="url(#clipPath1022)">
             <path
               fill="none"
               stroke="#afabab"
@@ -2814,7 +2943,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M663.6 175.62c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <g>
-          <g clipPath="url(#clipPath1036)">
+          <g clipPath="url(#clipPath1052)">
             <path
               fill="#d0cece"
               fillOpacity="1"
@@ -2825,7 +2954,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1046)">
+          <g clipPath="url(#clipPath1062)">
             <path
               fill="none"
               stroke="#afabab"
@@ -2840,7 +2969,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1056)">
+          <g clipPath="url(#clipPath1072)">
             <path
               fill="#d0cece"
               fillOpacity="1"
@@ -2851,7 +2980,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1066)">
+          <g clipPath="url(#clipPath1082)">
             <path
               fill="none"
               stroke="#afabab"
@@ -2884,7 +3013,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M637.56 176.28c0 1.19.83 2.16 1.86 2.16 1.03 0 1.86-.97 1.86-2.16 0-1.19-.83-2.16-1.86-2.16-1.03 0-1.86.97-1.86 2.16z"
         />
         <g>
-          <g clipPath="url(#clipPath1080)">
+          <g clipPath="url(#clipPath1096)">
             <path
               fill="#d0cece"
               fillOpacity="1"
@@ -2895,7 +3024,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1090)">
+          <g clipPath="url(#clipPath1106)">
             <path
               fill="none"
               stroke="#afabab"
@@ -2918,13 +3047,13 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         />
         <path
           fill="none"
-          stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#afabab'}
+          stroke="#afabab"
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth={apiValues?.SV_pump_on == 1 ? '2' : '0.96'}
+          strokeWidth="0.96"
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path
@@ -2972,13 +3101,13 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M514.08 120.53v58.63"
         />
         <g>
-          <g clipPath="url(#clipPath1112)">
+          <g clipPath="url(#clipPath1128)">
             <g transform="matrix(16.92 0 0 36.36 859.56 168.96)">
               <image
                 width="1"
                 height="1"
                 imageRendering="optimizeSpeed"
-                mask="url(#mask1116)"
+                mask="url(#mask1132)"
                 preserveAspectRatio="none"
                 transform="matrix(1 0 0 -1 0 1)"
                 xlinkHref="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADMAAABvCAYAAABB7fimAAAABHNCSVQICAgIfAhkiAAABExJREFUeJztnE9IVEEcx78+l0zNNMv0UGgYWkKIkKiZCaaGB+nUrWOwUFBR2KHyVocOFiQRdrBDx04hKG3+TQsFizLDLAlKNFK0XMJ1V906Jav73s5v5s17O67vc3P3937zPm/+7Oy4M3EA/kICtXUthu95OtwyimASBxMykQT0sFpKWIZXJBSrpLhldqbmovTYNdMFWyGk8YXHSREBzNWsEVw1I9rJ7RocyDJGN0S9mYrKO0hMSgt7/c1wM+ZmR0k5WJiS4X2qhUXnkZlVSM6TvqcAR4svMfP2dTfA7/fSZGSI8OYS6VOcA4B5ZN24HkIyvV0NUgqXDVMmNS037LVAwGvJzYTC24w9HW64WEElZXI+V0IZfHUbpeU3mHG8Qrb3GQDwer9bkjcqMlbhyKiKI6MqzKE5mvDMDDwdbnVrhneKU1vXIqdmxuszmDH5bbMyioqIsjUjgrIyng43pqeGSLHDQ3dpc7NoMjrSitGRVnK8sjUjgiOjKo6Mqig9mgFA3uEzzJjPY08BKCzDM53JyalGMBiMnWamaVrsyAAKDwCWLDVFk02x1GQVjoyqODKqElMySg/NW3qpSVkZERwZO3DmZhbdR1RwZFTFkVGVmJJRdmiuPvUQmkZ/1r9/fVO3ZnhEACBtV7a6MiIoK/Nx9AlXvNLTmanJAUxNDnBdo2zNiODIqIojoyoxJaPs0Aw4S02xgyNjB85Sk0X3ERW2jowVm9wilVV+4papHIYydor8Jzk5AydrHwhfrytjx+69D+8f674eH+9CZlaxUM4wGbu2If6YHjTMV1h0TigneQCwaguvUV6RZr5uNyDvXkzKj7M3YvRjbbP7QIGQmqmsaiIn669OFxIBjB+AjJpfk0lI2EEqYLw+A3sT400VyvMgeJqbBgAuVxIp+HVNOjkxCz0hs7WjAUBVzT1S4t3bzdXIRvSElpd9Ya+lpOwn5SOPZqJ9hMWV/MR1f/d0Xg6LKTt+k5RLV8auMy8AwJ0X3ldF0SgdzKpaMeLrRLvQdUrMmjc+rIkvz4TyKCFDoaqmmRmzaWRcrm3MmE0jQ8GRiQaBwB9mzKaR6e26yoxRQmbj14K8Q+xtJnpolE97OzaMhpJzoFroOu41ANk0jbH7AhVyM7Oqdh5NrJ8l6z3I/t5GUi4NoJ8FE1gNkpJSoT4gn2+GFMc1ABxpn+MJj4ieiNnmvSaz6Au/Ub3k+W2z+OQNmCqUp8kKLWgM9F7XDdATOt23INyHeFdneAg7eEpkyYf1fWfev4oyz7zh+zKWmQAOGZHkFGSJAAbnm9khVFBwFvuyK3TfG+hrxOIibQQLxfB8M1YbNiMVKffS0gJe9oidDxXxsDZKp+x8fgHB4AozjvIzxZmfI3j3VvxfGsyT5+ya2shovqYPOJSBrH7IdfRkVc19uFwJUgoG5I+OQse1pqYdREmZ+FF6yhzXqgerCa6s+NH94qLZYpj8A/ZHZ27grR6GAAAAAElFTkSuQmCC"
@@ -3005,7 +3134,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M491.88 99.72H540v12.48h-48.12z"
         />
         <g>
-          <g clipPath="url(#clipPath1132)">
+          <g clipPath="url(#clipPath1148)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3026,7 +3155,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         {/* <g>
-          <g clipPath="url(#clipPath1144)">
+          <g clipPath="url(#clipPath1160)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3046,7 +3175,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1156)">
+          <g clipPath="url(#clipPath1172)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3084,7 +3213,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M491.16 144.96h48.24v12.48h-48.24z"
         />
         <g>
-          <g clipPath="url(#clipPath1172)">
+          <g clipPath="url(#clipPath1188)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3148,14 +3277,14 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           strokeMiterlimit="10"
           strokeOpacity="1"
           strokeWidth="0.48"
-          d="M536.4 179.32v8.24"
+          d="M569.76 179.29V192"
         />
         <path
           fill="#fff"
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
-          d="M492 187.56h48.12v12.48H492z"
+          d="M566.4 192h48.24v12.6H566.4z"
         />
         <path
           fill="none"
@@ -3166,10 +3295,10 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           strokeMiterlimit="10"
           strokeOpacity="1"
           strokeWidth="0.96"
-          d="M492 187.56h48.12v12.48H492z"
+          d="M566.4 192h48.24v12.6H566.4z"
         />
         <g>
-          <g clipPath="url(#clipPath1198)">
+          <g clipPath="url(#clipPath1214)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3179,18 +3308,18 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 503.3 190.75)"
+              transform="matrix(1 0 0 -1 577.8 195.24)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[4.1]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
+                {apiValues?.[keys?.[4.7]] &&
+                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.7]])} °C`}
               </tspan>
             </text>
           </g>
         </g>
         {/* <g>
-          <g clipPath="url(#clipPath1210)">
+          <g clipPath="url(#clipPath1226)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3200,7 +3329,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 521.06 190.75)"
+              transform="matrix(1 0 0 -1 595.56 195.24)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
@@ -3210,7 +3339,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1222)">
+          <g clipPath="url(#clipPath1238)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -3220,7 +3349,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 524.06 190.75)"
+              transform="matrix(1 0 0 -1 598.56 195.24)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
@@ -3230,7 +3359,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g> */}
         <g>
-          <g clipPath="url(#clipPath1234)">
+          <g clipPath="url(#clipPath1250)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3241,7 +3370,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1244)">
+          <g clipPath="url(#clipPath1260)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3256,7 +3385,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1254)">
+          <g clipPath="url(#clipPath1270)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3267,7 +3396,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1264)">
+          <g clipPath="url(#clipPath1280)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3282,7 +3411,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1274)">
+          <g clipPath="url(#clipPath1290)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3293,7 +3422,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1284)">
+          <g clipPath="url(#clipPath1300)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3308,7 +3437,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1294)">
+          <g clipPath="url(#clipPath1310)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3319,7 +3448,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1304)">
+          <g clipPath="url(#clipPath1320)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3334,7 +3463,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1314)">
+          <g clipPath="url(#clipPath1330)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3345,7 +3474,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1324)">
+          <g clipPath="url(#clipPath1340)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3360,7 +3489,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1334)">
+          <g clipPath="url(#clipPath1350)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3371,7 +3500,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1344)">
+          <g clipPath="url(#clipPath1360)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3386,7 +3515,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1354)">
+          <g clipPath="url(#clipPath1370)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3397,7 +3526,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1364)">
+          <g clipPath="url(#clipPath1380)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3412,7 +3541,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1374)">
+          <g clipPath="url(#clipPath1390)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3423,7 +3552,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1384)">
+          <g clipPath="url(#clipPath1400)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3438,7 +3567,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1394)">
+          <g clipPath="url(#clipPath1410)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3449,7 +3578,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1404)">
+          <g clipPath="url(#clipPath1420)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3464,7 +3593,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1414)">
+          <g clipPath="url(#clipPath1430)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3475,7 +3604,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1424)">
+          <g clipPath="url(#clipPath1440)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3490,7 +3619,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1434)">
+          <g clipPath="url(#clipPath1450)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3501,7 +3630,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1444)">
+          <g clipPath="url(#clipPath1460)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3516,7 +3645,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1454)">
+          <g clipPath="url(#clipPath1470)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3527,7 +3656,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1464)">
+          <g clipPath="url(#clipPath1480)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3542,7 +3671,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1474)">
+          <g clipPath="url(#clipPath1490)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3553,7 +3682,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1484)">
+          <g clipPath="url(#clipPath1500)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3568,7 +3697,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1494)">
+          <g clipPath="url(#clipPath1510)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3579,7 +3708,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1504)">
+          <g clipPath="url(#clipPath1520)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3594,7 +3723,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1514)">
+          <g clipPath="url(#clipPath1530)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3605,7 +3734,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1524)">
+          <g clipPath="url(#clipPath1540)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3620,7 +3749,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1534)">
+          <g clipPath="url(#clipPath1550)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3631,7 +3760,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1544)">
+          <g clipPath="url(#clipPath1560)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3646,7 +3775,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1554)">
+          <g clipPath="url(#clipPath1570)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3657,7 +3786,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1564)">
+          <g clipPath="url(#clipPath1580)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3672,7 +3801,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1574)">
+          <g clipPath="url(#clipPath1590)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3683,7 +3812,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1584)">
+          <g clipPath="url(#clipPath1600)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3698,7 +3827,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1594)">
+          <g clipPath="url(#clipPath1610)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3709,7 +3838,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1604)">
+          <g clipPath="url(#clipPath1620)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3724,7 +3853,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1614)">
+          <g clipPath="url(#clipPath1630)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3735,7 +3864,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1624)">
+          <g clipPath="url(#clipPath1640)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3750,7 +3879,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1634)">
+          <g clipPath="url(#clipPath1650)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3761,7 +3890,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1644)">
+          <g clipPath="url(#clipPath1660)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3776,7 +3905,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1654)">
+          <g clipPath="url(#clipPath1670)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3787,7 +3916,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1664)">
+          <g clipPath="url(#clipPath1680)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3802,7 +3931,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1674)">
+          <g clipPath="url(#clipPath1690)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3813,7 +3942,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1684)">
+          <g clipPath="url(#clipPath1700)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3828,7 +3957,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1694)">
+          <g clipPath="url(#clipPath1710)">
             <path
               fill="#b4c7e7"
               fillOpacity="1"
@@ -3839,7 +3968,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1704)">
+          <g clipPath="url(#clipPath1720)">
             <path
               fill="none"
               stroke="#2f528f"
@@ -3854,7 +3983,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <path
-          fill="#fff"
+          fill={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#fff'
+          }
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -3862,7 +3995,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
@@ -3872,7 +4009,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M152.28 239.76l4.98 7.08 4.98-7.08z"
         />
         <path
-          fill="#fff"
+          fill={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#fff'
+          }
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -3880,7 +4021,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
@@ -3890,7 +4035,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M162.24 254.4l-4.98-7.08-4.98 7.08z"
         />
         <g>
-          <g clipPath="url(#clipPath1722)">
+          <g clipPath="url(#clipPath1738)">
             <path
               fill="none"
               stroke="#000"
@@ -3905,7 +4050,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1732)">
+          <g clipPath="url(#clipPath1748)">
             <path
               fill="none"
               stroke="#000"
@@ -3931,7 +4076,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M157.16 263.76h-9.56"
         />
         <path
-          fill="#fff"
+          fill={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#fff'
+          }
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -3939,7 +4088,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
@@ -3949,7 +4102,11 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M330.48 95.4l4.98 7.08 4.98-7.08z"
         />
         <path
-          fill="#fff"
+          fill={
+            apiValues?.buffer_tank_refilling_on && apiValues?.buffer_tank_refilling_on >= 1
+              ? '#36B37E'
+              : '#fff'
+          }
           fillOpacity="1"
           fillRule="evenodd"
           stroke="none"
@@ -3967,7 +4124,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M340.44 109.92l-4.98-7.08-4.98 7.08z"
         />
         <g>
-          <g clipPath="url(#clipPath1752)">
+          <g clipPath="url(#clipPath1768)">
             <path
               fill="none"
               stroke="#000"
@@ -3982,7 +4139,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1762)">
+          <g clipPath="url(#clipPath1778)">
             <path
               fill="none"
               stroke="#000"
@@ -3997,9 +4154,9 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1772)">
+          <g clipPath="url(#clipPath1788)">
             <path
-              fill={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#fff'}
+              fill={apiValues?.[keys?.[4.3]] && apiValues?.[keys?.[4.3]] >= 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -4008,10 +4165,12 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1782)">
+          <g clipPath="url(#clipPath1798)">
             <path
               fill="none"
-              stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#000'}
+              stroke={
+                apiValues?.[keys?.[4.3]] && apiValues?.[keys?.[4.3]] >= 1 ? '#36B37E' : '#000'
+              }
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -4052,7 +4211,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M376.68 173.52h48.24V186h-48.24z"
         />
         <g>
-          <g clipPath="url(#clipPath1798)">
+          <g clipPath="url(#clipPath1814)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -4065,14 +4224,15 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               transform="matrix(1 0 0 -1 388.42 176.69)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
-                {/* BBBBB */}
+              <tspan x="0" y="0">
+                {apiValues?.[keys?.[1.1]] &&
+                  `${roundToOneDecimalPlace(apiValues?.[keys?.[1.1]])} °C`}
               </tspan>
             </text>
           </g>
         </g>
         {/* <g>
-          <g clipPath="url(#clipPath1810)">
+          <g clipPath="url(#clipPath1826)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -4092,7 +4252,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           </g>
         </g>
         <g>
-          <g clipPath="url(#clipPath1822)">
+          <g clipPath="url(#clipPath1838)">
             <text
               fill="#203864"
               fillOpacity="1"
@@ -4107,6 +4267,567 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
             >
               <tspan x="0 3.48" y="0">
                 /h
+              </tspan>
+            </text>
+          </g>
+        </g> */}
+        <path
+          fill="none"
+          stroke="#0070c0"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="2.28"
+          d="M738.78 125.73v42.33"
+        />
+        <path
+          fill="none"
+          stroke="red"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="2.28"
+          d="M834.54 222.09l9.39 10.89"
+        />
+        <path
+          fill="none"
+          stroke="red"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="2.28"
+          d="M757.5 228.18h82.2"
+        />
+        <path
+          fill="none"
+          stroke="#2f528f"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M858.48 248.58c0 .89.73 1.62 1.62 1.62h9.12c.89 0 1.62-.73 1.62-1.62v0c0-.89-.73-1.62-1.62-1.62h-9.12c-.89 0-1.62.73-1.62 1.62z"
+        />
+        <path
+          fill="none"
+          stroke="#2f528f"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M853.56 238.98c0 .96.78 1.74 1.74 1.74h18.72c.96 0 1.74-.78 1.74-1.74v0c0-.96-.78-1.74-1.74-1.74H855.3c-.96 0-1.74.78-1.74 1.74z"
+        />
+        <path
+          fill="none"
+          stroke="#2f5597"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M867.72 246.84c3.05 0 5.52-2.74 5.52-6.12"
+        />
+        <path
+          fill="none"
+          stroke="#2f5597"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M861.72 246.84c-3.05 0-5.52-2.74-5.52-6.12"
+        />
+        <path
+          fill="red"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M864 232.32c0 1.26.62 2.28 1.38 2.28.76 0 1.38-1.02 1.38-2.28 0-1.26-.62-2.28-1.38-2.28-.76 0-1.38 1.02-1.38 2.28z"
+        />
+        <path
+          fill="none"
+          stroke="#c00000"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.24"
+          d="M864 232.32c0 1.26.62 2.28 1.38 2.28.76 0 1.38-1.02 1.38-2.28 0-1.26-.62-2.28-1.38-2.28-.76 0-1.38 1.02-1.38 2.28z"
+        />
+        <path
+          fill="red"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M864 224.76c0 1.26.62 2.28 1.38 2.28.76 0 1.38-1.02 1.38-2.28 0-1.26-.62-2.28-1.38-2.28-.76 0-1.38 1.02-1.38 2.28z"
+        />
+        <path
+          fill="none"
+          stroke="#c00000"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.24"
+          d="M864 224.76c0 1.26.62 2.28 1.38 2.28.76 0 1.38-1.02 1.38-2.28 0-1.26-.62-2.28-1.38-2.28-.76 0-1.38 1.02-1.38 2.28z"
+        />
+        <path
+          fill="red"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M864 217.2c0 1.26.62 2.28 1.38 2.28.76 0 1.38-1.02 1.38-2.28 0-1.26-.62-2.28-1.38-2.28-.76 0-1.38 1.02-1.38 2.28z"
+        />
+        <path
+          fill="none"
+          stroke="#c00000"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.24"
+          d="M864 217.2c0 1.26.62 2.28 1.38 2.28.76 0 1.38-1.02 1.38-2.28 0-1.26-.62-2.28-1.38-2.28-.76 0-1.38 1.02-1.38 2.28z"
+        />
+        <g>
+          <g clipPath="url(#clipPath1876)">
+            <path
+              fill="red"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M869.8 232.13c-.18 1.23.3 2.32 1.06 2.42.76.11 1.52-.8 1.69-2.04.18-1.23-.3-2.32-1.06-2.42-.76-.11-1.52.8-1.69 2.04z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1886)">
+            <path
+              fill="none"
+              stroke="#c00000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.25"
+              d="M869.8 232.13c-.18 1.23.3 2.32 1.06 2.42.76.11 1.52-.8 1.69-2.04.18-1.23-.3-2.32-1.06-2.42-.76-.11-1.52.8-1.69 2.04z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1896)">
+            <path
+              fill="red"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M870.85 224.65c-.18 1.24.3 2.32 1.06 2.43.76.11 1.52-.81 1.69-2.04.18-1.23-.3-2.32-1.06-2.43-.76-.1-1.52.81-1.69 2.04z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1906)">
+            <path
+              fill="none"
+              stroke="#c00000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.25"
+              d="M870.85 224.65c-.18 1.24.3 2.32 1.06 2.43.76.11 1.52-.81 1.69-2.04.18-1.23-.3-2.32-1.06-2.43-.76-.1-1.52.81-1.69 2.04z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1916)">
+            <path
+              fill="red"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M871.9 217.18c-.18 1.23.3 2.32 1.06 2.43.76.1 1.52-.81 1.69-2.04.18-1.24-.3-2.32-1.06-2.43-.76-.11-1.52.81-1.69 2.04z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1926)">
+            <path
+              fill="none"
+              stroke="#c00000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.25"
+              d="M871.9 217.18c-.18 1.23.3 2.32 1.06 2.43.76.1 1.52-.81 1.69-2.04.18-1.24-.3-2.32-1.06-2.43-.76-.11-1.52.81-1.69 2.04z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1936)">
+            <path
+              fill="red"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M858.16 232.76c.17 1.24.93 2.15 1.69 2.04.76-.1 1.24-1.19 1.06-2.42-.17-1.24-.93-2.15-1.69-2.04-.76.1-1.24 1.19-1.06 2.42z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1946)">
+            <path
+              fill="none"
+              stroke="#c00000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.25"
+              d="M858.16 232.76c.17 1.24.93 2.15 1.69 2.04.76-.1 1.24-1.19 1.06-2.42-.17-1.24-.93-2.15-1.69-2.04-.76.1-1.24 1.19-1.06 2.42z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1956)">
+            <path
+              fill="red"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M857.11 225.29c.17 1.23.93 2.15 1.69 2.04.76-.11 1.24-1.19 1.06-2.43-.17-1.23-.93-2.14-1.69-2.04-.76.11-1.24 1.2-1.06 2.43z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1966)">
+            <path
+              fill="none"
+              stroke="#c00000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.25"
+              d="M857.11 225.29c.17 1.23.93 2.15 1.69 2.04.76-.11 1.24-1.19 1.06-2.43-.17-1.23-.93-2.14-1.69-2.04-.76.11-1.24 1.2-1.06 2.43z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1976)">
+            <path
+              fill="red"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M856.06 217.82c.17 1.23.93 2.14 1.69 2.04.76-.11 1.24-1.2 1.06-2.43-.17-1.24-.93-2.15-1.69-2.04-.76.11-1.24 1.19-1.06 2.43z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1986)">
+            <path
+              fill="none"
+              stroke="#c00000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="0.25"
+              d="M856.06 217.82c.17 1.23.93 2.14 1.69 2.04.76-.11 1.24-1.2 1.06-2.43-.17-1.24-.93-2.15-1.69-2.04-.76.11-1.24 1.19-1.06 2.43z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath1996)">
+            <path
+              fill="url(#linearGradient2012)"
+              fillOpacity="1"
+              fillRule="evenodd"
+              stroke="none"
+              d="M714.3 133.26v81.48c0 10.67 13.3 19.32 29.7 19.32s29.7-8.65 29.7-19.32v-81.48c0-10.67-13.3-19.32-29.7-19.32s-29.7 8.65-29.7 19.32z"
+            />
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath2022)">
+            <path
+              fill="none"
+              stroke="#000"
+              strokeDasharray="none"
+              strokeLinecap="butt"
+              strokeLinejoin="miter"
+              strokeMiterlimit="10"
+              strokeOpacity="1"
+              strokeWidth="2.28"
+              d="M714.3 133.26v81.48c0 10.67 13.3 19.32 29.7 19.32s29.7-8.65 29.7-19.32v-81.48c0-10.67-13.3-19.32-29.7-19.32s-29.7 8.65-29.7 19.32z"
+            />
+          </g>
+        </g>
+        <path
+          fill="#fff"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M719.76 130.68h48.12v12.48h-48.12z"
+        />
+        <path
+          fill="none"
+          stroke="#2f528f"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M719.76 130.68h48.12v12.48h-48.12z"
+        />
+        <g>
+          <g clipPath="url(#clipPath2036)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 731.14 133.8)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                {apiValues?.[keys?.[5.1]] &&
+                  `${roundToOneDecimalPlace(apiValues?.[keys?.[5.1]])} °C`}
+              </tspan>
+            </text>
+          </g>
+        </g>
+        {/* <g>
+          <g clipPath="url(#clipPath2048)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 748.9 133.8)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                °
+              </tspan>
+            </text>
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath2060)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 751.9 133.8)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                C
+              </tspan>
+            </text>
+          </g>
+        </g> */}
+        <path
+          fill="#fff"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M719.76 203.76h48.12v12.6h-48.12z"
+        />
+        <path
+          fill="none"
+          stroke="#2f528f"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M719.76 203.76h48.12v12.6h-48.12z"
+        />
+        <g>
+          <g clipPath="url(#clipPath2076)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 731.14 206.98)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                {apiValues?.[keys?.[5.2]] &&
+                  `${roundToOneDecimalPlace(apiValues?.[keys?.[5.2]])} °C`}
+              </tspan>
+            </text>
+          </g>
+        </g>
+        {/* <g>
+          <g clipPath="url(#clipPath2088)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 748.9 206.98)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                °
+              </tspan>
+            </text>
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath2100)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 751.9 206.98)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                C
+              </tspan>
+            </text>
+          </g>
+        </g> */}
+        <path
+          fill="none"
+          stroke="#000"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.48"
+          d="M536.4 179.29l-.12 12.71"
+        />
+        <path
+          fill="#fff"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M492 192h48.12v12.6H492z"
+        />
+        <path
+          fill="none"
+          stroke="#2f528f"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M492 192h48.12v12.6H492z"
+        />
+        <g>
+          <g clipPath="url(#clipPath2118)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 503.3 195.24)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                {apiValues?.[keys?.[4.1]] &&
+                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
+              </tspan>
+            </text>
+          </g>
+        </g>
+        {/* <g>
+          <g clipPath="url(#clipPath2130)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 521.06 195.24)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                °
+              </tspan>
+            </text>
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath2142)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 524.06 195.24)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                C
               </tspan>
             </text>
           </g>
