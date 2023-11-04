@@ -1228,7 +1228,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         <g>
           <g clipPath="url(#clipPath282)">
             <path
-              fill="#fff"
+              fill={apiValues?.Enable_pump >= 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -1240,7 +1240,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           <g clipPath="url(#clipPath292)">
             <path
               fill="none"
-              stroke="#000"
+              stroke={apiValues?.Enable_pump >= 1 ? '#36B37E' : '#000'}
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"
@@ -2777,13 +2777,15 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         />
         <path
           fill="none"
-          stroke="#000"
+          stroke={
+            apiValues?.Enable_WP == 1 ? '#36B37E' : apiValues?.Enable_WP == 0 ? 'red' : '#000'
+          }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth="0.96"
+          strokeWidth={apiValues?.Enable_WP == 1 || apiValues?.Enable_WP == 0 ? '3' : '0.96'}
           d="M603.24 114h75.72v73.32h-75.72z"
         />
         <path
@@ -3046,14 +3048,13 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path
-          fill="none"
-          stroke="#afabab"
+          fill={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#afabab'}
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth="0.96"
+          strokeWidth={apiValues?.SV_pump_on == 1 ? '2' : '0.96'}
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path
