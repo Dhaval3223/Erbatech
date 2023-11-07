@@ -122,7 +122,7 @@ function AlarmAccess({
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
 
   useEffect(() => {
-    dispatch(slice.actions.startLoading());
+    dispatch(slice.actions.start2Loading());
     dispatch(
       getAlarmData2({
         userId: currentSelectedUser,
