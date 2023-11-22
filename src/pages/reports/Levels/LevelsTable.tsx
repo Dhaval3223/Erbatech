@@ -10,7 +10,7 @@ import TableComponent from '../TableComponent';
 import { slice } from '../slice';
 
 const TABLE_HEAD = [
-    { id: 'p_buffer_tank', label: 'p_buffer_tank', align: 'left' },
+  { id: 'p_buffer_tank', label: 'p_buffer_tank', align: 'left' },
   { id: 'p_roof', label: 'p_roof', align: 'left' },
 ];
 
@@ -57,10 +57,7 @@ export default function LevelsTable() {
       ]);
 
       // Add the header row
-      const csvDataArray = [
-        ['p_buffer_tank', 'p_roof'],
-        ...flattenedData,
-      ];
+      const csvDataArray = [['p_buffer_tank', 'p_roof'], ...flattenedData];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
@@ -82,9 +79,7 @@ export default function LevelsTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

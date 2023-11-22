@@ -10,7 +10,7 @@ import TableComponent from '../TableComponent';
 import { slice } from '../slice';
 
 const TABLE_HEAD = [
-    { id: 'Time', label: 'Time', align: 'left' },
+  { id: 'Time', label: 'Time', align: 'left' },
   { id: 'Irradiation', label: 'irradiation', align: 'left' },
   { id: 'Wind_speed', label: 'Wind_speed', align: 'left' },
   { id: 'T_outside', label: 'T_outside', align: 'left' },
@@ -55,6 +55,10 @@ export default function InspectTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
+  // useEffect(() => {
+  //   setCSVdata(csvData);
+  // }, [csvData]);
+
   useEffect(() => {
     if (isDownloadCSVSuccess) {
       const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
@@ -65,10 +69,7 @@ export default function InspectTable() {
       ]);
 
       // Add the header row
-      const csvDataArray = [
-        ['Time', 'Irradiation', 'Wind speed', 'T outside'],
-        ...flattenedData,
-      ];
+      const csvDataArray = [['Time', 'Irradiation', 'Wind speed', 'T outside'], ...flattenedData];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
@@ -90,9 +91,7 @@ export default function InspectTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

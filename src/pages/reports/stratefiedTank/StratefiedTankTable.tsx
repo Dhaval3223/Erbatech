@@ -83,9 +83,7 @@ export default function SvHeatTransferTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

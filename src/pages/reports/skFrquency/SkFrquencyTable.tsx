@@ -69,7 +69,10 @@ export default function SkFrquencyTable() {
       ]);
 
       // Add the header row
-      const csvDataArray = [['Time', 'f pump', 'f cal full', 'f cal overflow', 'p roof'], ...flattenedData];
+      const csvDataArray = [
+        ['Time', 'f pump', 'f cal full', 'f cal overflow', 'p roof'],
+        ...flattenedData,
+      ];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
@@ -91,9 +94,7 @@ export default function SkFrquencyTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}
