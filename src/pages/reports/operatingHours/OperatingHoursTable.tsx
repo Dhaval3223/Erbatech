@@ -14,8 +14,16 @@ const TABLE_HEAD = [
   { id: 'WP_in_operation', label: 'WP_in_operation', align: 'left' },
   { id: 'LK_in_operation', label: 'LK_in_operation', align: 'left' },
   { id: 'ZH_in_operation', label: 'ZH_in_operation', align: 'left' },
-  { id: 'Operating_time_SV_heat_transfer', label: 'Operating_time_SV_heat_transfer', align: 'left' },
-  { id: 'Operating_time_SV_he_protection', label: 'Operating_time_SV_he_protection', align: 'left' },
+  {
+    id: 'Operating_time_SV_heat_transfer',
+    label: 'Operating_time_SV_heat_transfer',
+    align: 'left',
+  },
+  {
+    id: 'Operating_time_SV_he_protection',
+    label: 'Operating_time_SV_he_protection',
+    align: 'left',
+  },
   { id: 'Operating_time_WV', label: 'Operating_time_WV', align: 'left' },
 ];
 
@@ -77,7 +85,18 @@ export default function OperatingHoursTable() {
       ]);
 
       // Add the header row
-      const csvDataArray = [['Time', 'WP in operation', 'LK in operation', 'ZH in operation', 'Operating time SV heat transfer', 'Operating time SV he protection', 'Operating time WV'], ...flattenedData];
+      const csvDataArray = [
+        [
+          'Time',
+          'WP in operation',
+          'LK in operation',
+          'ZH in operation',
+          'Operating time SV heat transfer',
+          'Operating time SV he protection',
+          'Operating time WV',
+        ],
+        ...flattenedData,
+      ];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
@@ -99,9 +118,7 @@ export default function OperatingHoursTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

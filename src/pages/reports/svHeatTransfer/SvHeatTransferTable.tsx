@@ -14,8 +14,8 @@ const TABLE_HEAD = [
   { id: 'T_backfeed_prim_SV', label: 'T_backfeed_prim_SV', align: 'left' },
   { id: 'T_backfeed_sec_SV', label: 'T_backfeed_sec_SV', align: 'left' },
   { id: 'T_tank', label: 'T_tank', align: 'left' },
-  {id: 'T_tank_2', label: 'T_tank_2', align:'left'},
-  {id: 'f_pump', label: 'f_pump', align:'left'},
+  { id: 'T_tank_2', label: 'T_tank_2', align: 'left' },
+  { id: 'f_pump', label: 'f_pump', align: 'left' },
 ];
 
 export default function SvHeatTransferTable() {
@@ -95,9 +95,7 @@ export default function SvHeatTransferTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

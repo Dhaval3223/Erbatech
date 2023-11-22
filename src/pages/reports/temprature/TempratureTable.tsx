@@ -77,7 +77,10 @@ export default function TempratureTable() {
       ]);
 
       // Add the header row
-      const csvDataArray = [['Time', 'T outside', 'T tank', 'T coll surface', 'T coll backfeed'], ...flattenedData];
+      const csvDataArray = [
+        ['Time', 'T outside', 'T tank', 'T coll surface', 'T coll backfeed'],
+        ...flattenedData,
+      ];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
@@ -99,9 +102,7 @@ export default function TempratureTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {isDownloadCSVSuccess && csvData?.length > 0 && (
-        <CSVDownload data={csvData} target="_blank" />
-      )}
+      {csvData && <CSVDownload data={csvData} target="_blank" />}
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}
