@@ -78,7 +78,15 @@ export default function TempratureTable() {
 
       // Add the header row
       const csvDataArray = [
-        ['Time', 'T outside', 'T tank', 'T coll surface', 'T coll backfeed'],
+        [
+          'Time',
+          'T outside',
+          'T tank',
+          'T tank 2',
+          'T coll surface',
+          'T coll backfeed',
+          'T coll infeed',
+        ],
         ...flattenedData,
       ];
 
