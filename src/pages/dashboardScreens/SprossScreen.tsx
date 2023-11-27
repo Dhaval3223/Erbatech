@@ -19,7 +19,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
   console.log('sensorData', reportsData?.rows?.[0]?.TransactionData?.[0]);
 
   const apiValues = reportsData?.rows?.[0]?.TransactionData?.[0];
-  console.log('sensorData', apiValues?.[keys?.[2.3]]);
+  console.log('sensorData', apiValues);
 
   return (
     <svg
@@ -2809,8 +2809,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {/* {apiValues?.[keys?.[4.15]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.15]])} kWh`} */}
+                {apiValues?.SV_heat_tot && `${roundToOneDecimalPlace(apiValues?.SV_heat_tot)} kWh`}
               </tspan>
             </text>
           </g>
@@ -3644,8 +3643,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[1.5]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[1.5]])} cm`}
+                {apiValues?.Level_tank && `${roundToOneDecimalPlace(apiValues?.Level_tank)} cm`}
               </tspan>
             </text>
           </g>
@@ -3683,7 +3681,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {/* bako */}
+                {apiValues?.SV_flow && `${roundToOneDecimalPlace(apiValues?.SV_flow)} m³/h`}
               </tspan>
             </text>
           </g>
@@ -4994,8 +4992,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[4.1]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
+                {apiValues?.SV_T_infeed && `${roundToOneDecimalPlace(apiValues?.SV_T_infeed)} °C`}
               </tspan>
             </text>
           </g>
