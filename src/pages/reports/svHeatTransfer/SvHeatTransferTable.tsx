@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { Skeleton } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { CSVDownload } from 'react-csv';
+import { CSVDownload, CSVLink } from 'react-csv';
 import { useSnackbar } from 'src/components/snackbar/index';
 
 import TableComponent from '../TableComponent';
@@ -32,9 +32,15 @@ export default function SvHeatTransferTable() {
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const csvLinkRef = useRef<CSVLink & HTMLAnchorElement & { link: HTMLAnchorElement }>(null);
+
+  const [csvData, setCSVdata] = useState<any>([]);
+
   const [rows, setRows] = useState<any>([]);
 
-  const [csvData, setCSVdata] = useState<any>();
+  useEffect(() => {
+    setCSVdata(csvData);
+  }, [csvData]);
 
   useEffect(() => {
     if (!isGetReportLoading) {
@@ -73,10 +79,16 @@ export default function SvHeatTransferTable() {
       ]);
 
       // Add the header row
-      const csvDataArray = [['Time', 'T backfeed prim SV', 'T backfeed sec SV'], ...flattenedData];
+      const csvDataArray = [
+        ['Time', 'T backfeed prim SV', 'T backfeed sec SV', 'T tank', 'T tank 2', 'f pump'],
+        ...flattenedData,
+      ];
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
+
+      csvLinkRef?.current?.link.click();
+
       dispatch(slice.actions.clearGetReportErrState());
     }
 
@@ -93,9 +105,15 @@ export default function SvHeatTransferTable() {
   return (
     <>
       <Helmet>
-        <title> Yields table | Soblue</title>
+        <title> SV heat transfer table | Soblue</title>
       </Helmet>
-      {csvData && <CSVDownload data={csvData} target="_blank" />}
+      <CSVLink
+        data={csvData}
+        filename="svheattransfer.csv"
+        className="hidden"
+        ref={csvLinkRef}
+        target="_blank"
+      />
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}
