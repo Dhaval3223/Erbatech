@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { Skeleton } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { CSVDownload } from 'react-csv';
+import { CSVDownload, CSVLink } from 'react-csv';
 import { useSnackbar } from 'src/components/snackbar/index';
 
 import TableComponent from '../TableComponent';
@@ -28,9 +28,11 @@ export default function LevelsTable() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [rows, setRows] = useState<any>([]);
+  const csvLinkRef = useRef<CSVLink & HTMLAnchorElement & { link: HTMLAnchorElement }>(null);
 
-  const [csvData, setCSVdata] = useState<any>();
+  const [csvData, setCSVdata] = useState<any>([]);
+
+  const [rows, setRows] = useState<any>([]);
 
   useEffect(() => {
     if (!isGetReportLoading) {
@@ -61,6 +63,7 @@ export default function LevelsTable() {
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
+      csvLinkRef?.current?.link.click();
       dispatch(slice.actions.clearGetReportErrState());
     }
 
@@ -79,7 +82,13 @@ export default function LevelsTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {csvData && <CSVDownload data={csvData} target="_blank" />}
+      <CSVLink
+        data={csvData}
+        filename="levels.csv"
+        className="hidden"
+        ref={csvLinkRef}
+        target="_blank"
+      />
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}

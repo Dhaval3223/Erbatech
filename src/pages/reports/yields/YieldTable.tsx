@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'src/redux/store';
 import { Skeleton } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import { CSVDownload } from 'react-csv';
+import { CSVDownload, CSVLink } from 'react-csv';
 import { useSnackbar } from 'src/components/snackbar/index';
 
 import TableComponent from '../TableComponent';
@@ -31,9 +31,11 @@ export default function YieldTable() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const [rows, setRows] = useState<any>([]);
+  const csvLinkRef = useRef<CSVLink & HTMLAnchorElement & { link: HTMLAnchorElement }>(null);
 
-  const [csvData, setCSVdata] = useState<any>();
+  const [csvData, setCSVdata] = useState<any>([]);
+
+  const [rows, setRows] = useState<any>([]);
 
   useEffect(() => {
     if (!isGetReportLoading) {
@@ -68,6 +70,8 @@ export default function YieldTable() {
         item?.TransactionData[0]?.PVA_yield_tot,
       ]);
 
+      console.log('flattenedData', flattenedData);
+
       // Add the header row
       const csvDataArray = [
         ['Time', 'SK heat', 'PVA yield', 'SK heat tot', 'PVA yield tot'],
@@ -76,6 +80,9 @@ export default function YieldTable() {
 
       // Set the CSV data when the component mounts
       setCSVdata(csvDataArray);
+
+      csvLinkRef?.current?.link.click();
+
       dispatch(slice.actions.clearGetReportErrState());
     }
 
@@ -94,7 +101,13 @@ export default function YieldTable() {
       <Helmet>
         <title> Yields table | Soblue</title>
       </Helmet>
-      {csvData && <CSVDownload data={csvData} target="_blank" />}
+      <CSVLink
+        data={csvData}
+        filename="yeild.csv"
+        className="hidden"
+        ref={csvLinkRef}
+        target="_blank"
+      />
       <TableComponent
         columns={TABLE_HEAD}
         rowCount={reportsData?.count}
