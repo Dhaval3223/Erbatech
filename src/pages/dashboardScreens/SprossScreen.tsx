@@ -1319,8 +1319,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[2.1]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[2.1]])} %`}
+                {apiValues?.f_pump && `${roundToOneDecimalPlace(apiValues?.f_pump)} %`}
               </tspan>
             </text>
           </g>
@@ -1358,7 +1357,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[2.2]] && `${Math.round(apiValues?.[keys?.[2.2]])} hPa`}
+                {apiValues?.p_pump && `${Math.round(apiValues?.p_pump)} hPa`}
               </tspan>
             </text>
           </g>

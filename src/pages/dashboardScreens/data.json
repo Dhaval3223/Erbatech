@@ -17,7 +17,7 @@
   "3.1": "T_coll_infeed",
   "3.2": "T_coll_backfeed",
   "3.3": "SK_heat",
-  "3.4": "SK_heat",
+  "3.4": "SK_flow",
   "1.5": "p_buffer_tank_2",
   "1.4": "T_tank_2",
   "1.6": "Level_tank_min_2",
