@@ -71,6 +71,8 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
 
   const { user } = useAuthContext();
 
+  const { users } = useSelector((state) => state.user);
+
   const [currentSelectedUser, setCurrentSelectedUser] = useState<any>(user?.UserId);
 
   const [dateRange, setDateRange] = useState<any>([dayjs().startOf('day'), dayjs()]);
@@ -94,7 +96,8 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     dispatch(slice.actions.startGetReportsLoading());
     dispatch(
       getAllReportsData({
-        topicName: tableType,
+        topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          ?.UserTopicName?.send,
         page: page + 1,
         limit: rowsPerPage,
         startDate: dateRange[0] ? dateRange[0] : '',
@@ -106,7 +109,8 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     const intervalId = setInterval(() => {
       dispatch(
         getAllReportsData({
-          topicName: tableType,
+          topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+            ?.UserTopicName?.send,
           page: page + 1,
           limit: rowsPerPage,
           startDate: dateRange[0] ? dateRange[0] : '',
@@ -203,7 +207,9 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
                     endDate: dateRange[1] ? dateRange[1] : '',
                     type: 'all',
                     userId: currentSelectedUser,
-                    topicName: 'topic_2',
+                    topicName: users?.rows?.find(
+                      (item: any) => item?.UserId === currentSelectedUser
+                    )?.UserTopicName?.send,
                   })
                 )
               }

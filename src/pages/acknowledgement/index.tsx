@@ -100,6 +100,8 @@ export default function UserListPage() {
 
   const { themeStretch } = useSettingsContext();
 
+  const { users } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
 
   const { acknowledgementData, isGetAcknowledgementLoading } = useSelector(
@@ -129,7 +131,8 @@ export default function UserListPage() {
   useEffect(() => {
     dispatch(
       getAcknowledgementAPI({
-        topic: 'topic_2',
+        topic: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)?.UserTopicName
+          ?.send,
         page: page + 1,
         limit: rowsPerPage,
         userId: currentSelectedUser,
@@ -220,7 +223,8 @@ export default function UserListPage() {
   const handleAPIs = async () => {
     await dispatch(
       checkAlermStatusApi({
-        topic: 'topic_2',
+        topic: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)?.UserTopicName
+          ?.send,
         userId: currentSelectedUser,
       })
     );
