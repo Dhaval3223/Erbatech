@@ -112,6 +112,8 @@ function SensorVariableAccess({
   const { themeStretch } = useSettingsContext();
 
   const { user } = useAuthContext();
+  const { users } = useSelector((state) => state.user);
+
   console.log('user', user);
 
   const [tableData, setTableData] = useState(_userListData);
@@ -145,7 +147,8 @@ function SensorVariableAccess({
     );
     dispatch(
       getAllReportsData({
-        topicName: 'topic_2',
+        topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          ?.UserTopicName?.send,
         page: 1,
         limit: 1,
         userId: currentSelectedUser,
@@ -166,7 +169,8 @@ function SensorVariableAccess({
     }, 60000);
     dispatch(
       getAllReportsData({
-        topicName: 'topic_2',
+        topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          ?.UserTopicName?.send,
         page: 1,
         limit: 1,
         userId: currentSelectedUser,
@@ -182,14 +186,15 @@ function SensorVariableAccess({
 
   useEffect(() => {
     setPage(0);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [SensorVariableType]);
 
   // useEffect(() => {
   //   dispatch(slice.actions.startGetReportsLoading());
   //   dispatch(
   //     getAllReportsData({
-  //       topicName: 'topic_2',
+  //       topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          // ?.UserTopicName?.send,
   //       page: 1,
   //       limit: 1,
   //       userId: currentSelectedUser,
@@ -199,7 +204,8 @@ function SensorVariableAccess({
   //   const intervalId = setInterval(() => {
   //     dispatch(
   //       getAllReportsData({
-  //         topicName: 'topic_2',
+  //         topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          // ?.UserTopicName?.send,
   //         page: 1,
   //         limit: 1,
   //         userId: currentSelectedUser,

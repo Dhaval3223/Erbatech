@@ -7,7 +7,7 @@ import { GET_REPORT } from './action_types';
 // ----------------------------------------------------------------------
 
 export function getAllReportsData(params: {
-  topicName: string;
+  topicName: any;
   page: number;
   limit: number;
   userId?: number;
