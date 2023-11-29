@@ -3449,8 +3449,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0 4.5630002 9.1260004 13.689 15.48 19.313999" y="0">
-                {apiValues?.[keys?.[1.5]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[1.5]])} cm`}
+                {apiValues?.Level_tank && `${roundToOneDecimalPlace(apiValues?.Level_tank)} cm`}
               </tspan>
             </text>
           </g>
@@ -4340,8 +4339,8 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.T_coll_surface &&
-                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface)} °C`}
+                {apiValues?.T_coll_surface_1 &&
+                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface_1)} °C`}
               </tspan>
             </text>
           </g>
