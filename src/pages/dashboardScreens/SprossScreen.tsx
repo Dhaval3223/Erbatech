@@ -2473,8 +2473,8 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.T_coll_surface &&
-                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface)} °C`}
+                {apiValues?.T_coll_surface_1 &&
+                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface_1)} °C`}
               </tspan>
             </text>
           </g>

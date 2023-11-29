@@ -23,7 +23,7 @@
   "1.6": "Level_tank_min_2",
   "2.2": "p_pump",
   "1.1": "T_tank",
-  "6.1": "t_infeed_prim_wv",
+  "6.1": "T_infeed_prim_WV",
   "6.3": "WV_heat",
   "6.2": "T_backfeed_prim_WV",
   "4.1": "t_infeed_prim_sv",
