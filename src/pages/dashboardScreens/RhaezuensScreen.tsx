@@ -541,10 +541,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               transform="matrix(1 0 0 -1 46.68 500.9)"
               writingMode="lr-tb"
             >
-              <tspan
-                x="0 16.224001 29.040001 41.112 49.200001 60.84 69.167999 75 87.888 99.264 104.736 116.088 124.176 135.81599 144.144 156.936"
-                y="0"
-              >
+              <tspan x="0" y="0">
                 Operating Status
               </tspan>
             </text>
@@ -2209,8 +2206,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[6.1]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[6.1]])} °C`}
+                {apiValues?.WV_T_infeed && `${roundToOneDecimalPlace(apiValues?.WV_T_infeed)} °C`}
               </tspan>
             </text>
           </g>
@@ -2935,7 +2931,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               transform="matrix(1 0 0 -1 508.44 252.48)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.48" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[6.3]] && `${Math.round(apiValues?.[keys?.[6.3]])} W`}
               </tspan>
             </text>
@@ -3341,8 +3337,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[1.4]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[1.4]])} °C`}
+                {apiValues?.T_tank && `${roundToOneDecimalPlace(apiValues?.T_tank)} °C`}
               </tspan>
             </text>
           </g>
@@ -4339,8 +4334,8 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.T_coll_surface_1 &&
-                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface_1)} °C`}
+                {apiValues?.T_coll_surface &&
+                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface)} °C`}
               </tspan>
             </text>
           </g>

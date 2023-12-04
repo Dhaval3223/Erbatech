@@ -2473,8 +2473,8 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.T_coll_surface_1 &&
-                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface_1)} °C`}
+                {apiValues?.T_coll_surface &&
+                  `${roundToOneDecimalPlace(apiValues?.T_coll_surface)} °C`}
               </tspan>
             </text>
           </g>
@@ -3116,13 +3116,13 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         />
         <path
           fill="none"
-          stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#afabab'}
+          stroke={apiValues?.Flow_SV == 1 ? '#36B37E' : '#afabab'}
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth={apiValues?.SV_pump_on == 1 ? '2' : '0.96'}
+          strokeWidth={apiValues?.Flow_SV == 1 ? '2' : '0.96'}
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path
@@ -3161,7 +3161,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
         <g>
           <g clipPath="url(#clipPath1160)">
             <path
-              fill={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#fff'}
+              fill={apiValues?.Flow_SV == 1 ? '#36B37E' : '#fff'}
               fillOpacity="1"
               fillRule="evenodd"
               stroke="none"
@@ -3173,7 +3173,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
           <g clipPath="url(#clipPath1170)">
             <path
               fill="none"
-              stroke={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#000'}
+              stroke={apiValues?.Flow_SV == 1 ? '#36B37E' : '#000'}
               strokeDasharray="none"
               strokeLinecap="butt"
               strokeLinejoin="miter"

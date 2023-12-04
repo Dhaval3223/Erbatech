@@ -1842,7 +1842,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
             d="M86.28 437.52h119.17"
           />
         </g>
-        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] >= 1 && (
+        {apiValues?.Level_tank_min && apiValues?.Level_tank_min >= 1 && (
           <>
             <path
               fill="none"
@@ -3046,13 +3046,13 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path
-          fill={apiValues?.SV_pump_on == 1 ? '#36B37E' : '#afabab'}
+          fill={apiValues?.Flow_SV == 1 ? '#36B37E' : '#afabab'}
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth={apiValues?.SV_pump_on == 1 ? '2' : '0.96'}
+          strokeWidth={apiValues?.Flow_SV == 1 ? '2' : '0.96'}
           d="M634.2 126.42c0 3.61 2.5 6.54 5.58 6.54s5.58-2.93 5.58-6.54-2.5-6.54-5.58-6.54-5.58 2.93-5.58 6.54z"
         />
         <path

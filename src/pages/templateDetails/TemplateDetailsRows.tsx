@@ -1,26 +1,11 @@
 import { useState } from 'react';
 // @mui
-import {
-  Stack,
-  Avatar,
-  Button,
-  Checkbox,
-  TableRow,
-  MenuItem,
-  TableCell,
-  IconButton,
-  Typography,
-  Dialog,
-  Box,
-} from '@mui/material';
-// @types
-import { IUserAccountGeneral } from 'src/@types/user';
+import { TableRow, TableCell, Typography, Dialog, Box } from '@mui/material';
+import moment from 'moment';
+
 // components
 import { useAuthContext } from 'src/auth/useAuthContext';
 import AuthNewPasswordForm from 'src/sections/auth/AuthNewPasswordForm';
-import Iconify from '../../components/iconify';
-import MenuPopover from '../../components/menu-popover';
-import ConfirmDialog from '../../components/confirm-dialog';
 
 // ----------------------------------------------------------------------
 
@@ -46,7 +31,7 @@ export default function TemplateDetailsRows({
   isUpdateRights,
 }: Props) {
   console.log(user);
-  const { FirstName, LastName, Role } = row || {};
+  const { FirstName, LastName, Role, createdAt } = row || {};
 
   const { isSuperAdmin } = useAuthContext();
   console.log('isSuperAdmin', isSuperAdmin);
@@ -86,7 +71,7 @@ export default function TemplateDetailsRows({
     <>
       <TableRow hover selected={selected}>
         <TableCell>{`${FirstName} ${LastName}`}</TableCell>
-        <TableCell>-</TableCell>
+        <TableCell>{moment(createdAt).format('DD-MM-YYYY')}</TableCell>
       </TableRow>
 
       <Dialog
