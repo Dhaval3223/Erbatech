@@ -2284,8 +2284,8 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0 4.5630002 6.8309999 11.394 13.203" y="0">
-                {apiValues?.[keys?.[4.5]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.5]])} %`}
+                {apiValues?.Position_SV_mixing_valve_HMI &&
+                  `${roundToOneDecimalPlace(apiValues?.Position_SV_mixing_valve_HMI)} %`}
               </tspan>
             </text>
           </g>
@@ -2989,7 +2989,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
             d="M86.28 437.52h119.17"
           />
         </g>
-        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] >= 1 && (
+        {apiValues?.Level_tank_min && apiValues?.Level_tank_min >= 1 && (
           <>
             <path
               fill="none"
@@ -3066,6 +3066,17 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
           strokeOpacity="1"
           strokeWidth="2.28"
           d="M335.34 360.78V218.46"
+        />
+        <path
+          fill="none"
+          stroke="red"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="2.28"
+          d="M274.62 218.46h60.86"
         />
         <g>
           <g clipPath="url(#clipPath1170)">
@@ -3581,8 +3592,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[4.1]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
+                {apiValues?.SV_T_infeed && `${roundToOneDecimalPlace(apiValues?.SV_T_infeed)} °C`}
               </tspan>
             </text>
           </g>
@@ -4451,6 +4461,104 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
             </foreignObject>
           </g>
         )} */}
+        <g>
+          <g clipPath="url(#clipPath3728)">
+            <text
+              fill="#000"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 401.83 311.04)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0" y="0">
+                Heat yield today
+              </tspan>
+            </text>
+          </g>
+        </g>
+        {/* <g>
+          <g clipPath="url(#clipPath3740)">
+            <text
+              fill="#000"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 421.15 311.04)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0 4.0770001 6.1199999 10.557 12.6" y="0">
+                yield
+              </tspan>
+            </text>
+          </g>
+        </g>
+        <g>
+          <g clipPath="url(#clipPath3752)">
+            <text
+              fill="#000"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 440.83 311.04)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0 3.0150001 7.7940001 12.474 16.785" y="0">
+                today
+              </tspan>
+            </text>
+          </g>
+        </g> */}
+        <path
+          fill="#fff"
+          fillOpacity="1"
+          fillRule="evenodd"
+          stroke="none"
+          d="M483 307.2h56.76v12.6H483z"
+        />
+        <path
+          fill="none"
+          stroke="#2f528f"
+          strokeDasharray="none"
+          strokeLinecap="butt"
+          strokeLinejoin="miter"
+          strokeMiterlimit="10"
+          strokeOpacity="1"
+          strokeWidth="0.96"
+          d="M483 307.2h56.76v12.6H483z"
+        />
+        <g>
+          <g clipPath="url(#clipPath3768)">
+            <text
+              fill="#203864"
+              fillOpacity="1"
+              fillRule="nonzero"
+              stroke="none"
+              fontFamily="Calibri"
+              fontSize="9"
+              fontVariant="normal"
+              fontWeight="normal"
+              transform="matrix(1 0 0 -1 495.31 310.44)"
+              writingMode="lr-tb"
+            >
+              <tspan x="0 4.5630002 9.1260004 13.689 15.48 19.575001 27.584999" y="0">
+                {apiValues?.SV_heat_tot && `${roundToOneDecimalPlace(apiValues?.SV_heat_tot)} kWh`}
+              </tspan>
+            </text>
+          </g>
+        </g>
       </g>
     </svg>
   );
