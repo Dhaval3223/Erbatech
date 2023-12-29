@@ -1,5 +1,8 @@
-import { TableRow, TableCell, TextField } from '@mui/material';
+import { TableRow, TableCell, TextField, IconButton, MenuItem, Button } from '@mui/material';
 import { useState } from 'react';
+import ConfirmDialog from 'src/components/confirm-dialog';
+import Iconify from 'src/components/iconify';
+import MenuPopover from 'src/components/menu-popover';
 
 // ----------------------------------------------------------------------
 
@@ -7,9 +10,9 @@ type Props = {
   row: any;
   selected: boolean;
   user?: boolean;
-  onEditRow: VoidFunction;
+  onEditRow: any;
   onSelectRow?: VoidFunction;
-  onDeleteRow?: VoidFunction;
+  onDeleteRow: VoidFunction;
   isDeleteRights: boolean;
   isUpdateRights: boolean;
   editingId: any;
@@ -36,7 +39,28 @@ export default function SensorCustomSettingsTableRows({
   handleOnChangeUpdate,
   updatedData,
 }: Props) {
+
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
+
+  const handleOpenConfirm = () => {
+    setOpenConfirm(true);
+  };
+
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
+
+  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
+    setOpenPopover(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setOpenPopover(null);
+  };
+
   return (
+    <>    
     <TableRow hover selected={selected}>
       {/* <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorCustomSettingDataType ? row?.SensorCustomSettingDataType : '-'}
@@ -80,6 +104,65 @@ export default function SensorCustomSettingsTableRows({
       <TableCell align="left" sx={{ width: '25%' }}>
         {row?.SensorCustomSettingDescription}
       </TableCell>
+      <TableCell>
+          {isDeleteRights === false && isUpdateRights === false ? (
+            ''
+          ) : (
+            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          )}
+        </TableCell>
     </TableRow>
+    <MenuPopover
+        open={openPopover}
+        onClose={handleClosePopover}
+        arrow="right-top"
+        sx={{ width: 140 }}
+      >
+        {isDeleteRights && (
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirm();
+              handleClosePopover();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="eva:trash-2-outline" />
+            Delete
+          </MenuItem>
+        )}
+
+        {isUpdateRights && (
+          <MenuItem
+            onClick={() => {
+              onEditRow(index,row);
+              handleClosePopover();
+            }}
+          >
+            <Iconify icon="eva:edit-fill" />
+            Edit
+          </MenuItem>
+        )}
+      </MenuPopover>
+      <ConfirmDialog
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              onDeleteRow();
+              handleCloseConfirm();
+            }}
+          >
+            Delete
+          </Button>
+        }
+      />
+    </>
   );
 }

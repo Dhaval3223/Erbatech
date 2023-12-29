@@ -44,7 +44,7 @@ export default function SensorTableToolbar({
   currentSelectedUser,
   setCurrentSelectedUser,
 }: Props) {
-  console.log(isCreateRights, 'isCreateRights');
+  console.log(isCreateRights,isCreateButton, 'isCreateRights');
   const { user } = useAuthContext();
 
   return (
@@ -77,7 +77,6 @@ export default function SensorTableToolbar({
             ),
           }}
         />
-
         {isFiltered && (
           <Button
             color="error"
@@ -88,17 +87,14 @@ export default function SensorTableToolbar({
             Clear
           </Button>
         )}
-        {isCreateButton && isCreateRights && (
-          <Button
-            variant="contained"
-            sx={{ flexShrink: 0, ml: '20px' }}
-            onClick={handleCreateClick}
-            // startIcon={<Iconify icon="eva:trash-2-outline" />}
-          >
-            {createButtonLable}
-          </Button>
-        )}
+       
       </Stack>
+      <Stack
+        direction={{
+          xs: 'column',
+          sm: 'row',
+        }}
+      >
       {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
         <Typography variant="body2" paragraph>
           {`Last data loaded time: ${lastLoadingTime}`}
@@ -110,6 +106,17 @@ export default function SensorTableToolbar({
           setCurrentSelectedUser={setCurrentSelectedUser}
         />
       )}
+       {isCreateButton && isCreateRights && (
+          <Button
+            variant="contained"
+            sx={{ flexShrink: 0, ml: '20px' }}
+            onClick={handleCreateClick}
+            // startIcon={<Iconify icon="eva:trash-2-outline" />}
+          >
+            <Iconify icon="eva:plus-fill" />
+          </Button>
+        )}
+        </Stack>
     </Stack>
   );
 }
