@@ -75,6 +75,7 @@ const YieldsReport: React.FC = () => {
 
   const [selectDays, setSelectedDays] = useState<string>('1_hour');
   const { user } = useAuthContext();
+  const { users } = useSelector((state) => state.user);
   const [currentSelectedUser, setCurrentSelectedUser] = useState<any>(user?.UserId);
   const [dateRange, setDateRange] = useState<any>({
     start_date: moment().subtract(1, 'hour'),
@@ -120,7 +121,8 @@ const YieldsReport: React.FC = () => {
     if (dateRange?.start_date !== '' && dateRange?.end_date !== '') {
       dispatch(
         getAllReportsData({
-          topicName: 'topic_2',
+          topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+            ?.UserTopicName?.send,
           page: 1,
           limit: 10,
           type: 'all',
@@ -132,13 +134,15 @@ const YieldsReport: React.FC = () => {
     } else {
       dispatch(
         getAllReportsData({
-          topicName: 'topic_2',
+          topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+            ?.UserTopicName?.send,
           page: 1,
           limit: 10,
           userId: currentSelectedUser,
         })
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, dateRange, currentSelectedUser]);
 
   /*   useEffect(() => {
@@ -173,7 +177,8 @@ const YieldsReport: React.FC = () => {
   const updateData = () => {
     dispatch(
       getAllReportsData({
-        topicName: 'topic_2',
+        topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          ?.UserTopicName?.send,
         page: 1,
         limit: 10,
         startDate: dateRange?.start_date ? dateRange?.start_date : '',

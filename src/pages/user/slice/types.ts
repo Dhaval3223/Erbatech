@@ -21,6 +21,7 @@ export interface IUserState {
       Mobile: string;
       UserRoleId: string;
       UserStatus: boolean;
+      UserTopicName?: any;
     }[];
   };
   createUserMsg: string;

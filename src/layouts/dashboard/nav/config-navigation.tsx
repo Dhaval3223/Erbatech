@@ -294,7 +294,7 @@ const navConfig = [
         title: 'Reports',
         path: PATH_DASHBOARD.general.reports,
         icon: ICONS.analytics,
-        code: 'PG008',
+        code: 'PG012',
         children: [
           {
             title: 'Yields',
