@@ -49,6 +49,7 @@ const TABLE_HEAD = [
   { id: 'unit', label: 'Unit', align: 'left' },
   { id: 'range', label: 'Range', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
+  { id: 'Action', label: 'Action', align: 'left' },
   // { id: 'action', label: 'Action', align: 'left' },
 ];
 
@@ -59,6 +60,7 @@ const SETTINGS_TABLE_HEAD = [
   { id: 'value', label: 'Value', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
   { id: 'location', label: 'Location', align: 'left' },
+  { id: 'Action', label: 'Action', align: 'left' },
 ];
 
 const ROWS = [
@@ -74,8 +76,8 @@ const ROWS = [
 
 interface ISensorVariableListing {
   isUpdateRights: boolean;
-  isDeleteRights?: boolean;
-  isCreateRights?: boolean;
+  isDeleteRights: boolean;
+  isCreateRights: boolean;
   SensorVariableType?: boolean;
 }
 
@@ -194,7 +196,7 @@ function SensorVariableAccess({
   //   dispatch(
   //     getAllReportsData({
   //       topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
-          // ?.UserTopicName?.send,
+  // ?.UserTopicName?.send,
   //       page: 1,
   //       limit: 1,
   //       userId: currentSelectedUser,
@@ -205,7 +207,7 @@ function SensorVariableAccess({
   //     dispatch(
   //       getAllReportsData({
   //         topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
-          // ?.UserTopicName?.send,
+  // ?.UserTopicName?.send,
   //         page: 1,
   //         limit: 1,
   //         userId: currentSelectedUser,
@@ -278,7 +280,8 @@ function SensorVariableAccess({
             onResetFilter={handleResetFilter}
             // createButtonLable="+"
             handleCreateClick={handleOpenDrawer}
-            // isCreateButton
+            isCreateButton
+            isCreateRights={isCreateRights}
             lastUpdateStatus
             lastLoadingTime={lastLoadingTime}
             setCurrentSelectedUser={setCurrentSelectedUser}
@@ -315,13 +318,13 @@ function SensorVariableAccess({
                   headLabel={SensorVariableType ? TABLE_HEAD : SETTINGS_TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                  // onSort={onSort}
-                  /*  onSelectAllRows={(checked) =>
-                    onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
-                  } */
+                // onSort={onSort}
+                /*  onSelectAllRows={(checked) =>
+                  onSelectAllRows(
+                    checked,
+                    tableData.map((row) => row.id)
+                  )
+                } */
                 />
                 <TableBody>
                   {isSensorLoading ? (
@@ -333,6 +336,8 @@ function SensorVariableAccess({
                         row={row}
                         selected={selected.includes(row.UserId)}
                         SensorVariableType={SensorVariableType}
+                        isDeleteRights={isDeleteRights}
+                        isUpdateRights={isUpdateRights}
                       />
                     ))
                   )}
@@ -376,10 +381,15 @@ export default function SensorVariable({
 
   console.log('accessControlCRUD', accessControlCRUD);
 
-  const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
+  const { isView, isUpdate, isCreate, isDelete } = accessControlCRUD[types.PG006] || {};
 
   return isView ? (
-    <SensorVariableAccess isUpdateRights={isUpdate} SensorVariableType={SensorVariableType} />
+    <SensorVariableAccess 
+      isUpdateRights={isUpdate} 
+      SensorVariableType={SensorVariableType} 
+      isCreateRights={isCreate} 
+      isDeleteRights={isDelete} 
+    />
   ) : (
     <Page403 />
   );

@@ -11,7 +11,9 @@ const initialState: ISensorState = {
   isDeleteSensorError: false,
   isSensorCreateLoading: false,
   isDeleteSensorSuccess: false,
-  sensorCreateData: {},
+  createSensorMsg: '',
+  isCreateSensorError: false,
+  isCreateSensorSuccess: false,
   deleteSensorMsg: '',
 };
 
@@ -46,16 +48,18 @@ const slice = createSlice({
       state.sensorUpdateData = action.payload;
     },
     getSensorCreatedRecords(state, action) {
-      state.isSensorUpdateLoading = false;
-      state.sensorCreateData = action.payload;
+      state.isSensorCreateLoading = false;
+      state.isCreateSensorSuccess = true;
+      state.createSensorMsg = 'Sensor created successfully'
     },
     resetSensorCreatedRecords(state) {
-      state.isSensorUpdateLoading = false;
-      state.sensorUpdateData = {};
+      state.isCreateSensorSuccess = false;
+      state.isCreateSensorError = false;
+      state.createSensorMsg= '';
     },
     hasCreateSensorDataError(state, action) {
-      state.isSensorUpdateLoading = false;
-      state.sensorCreateData = action.payload;
+      state.isSensorCreateLoading = false;
+      state.isCreateSensorError = true;
     },
     createHasError(state, action) {
       state.isSensorCreateLoading = false;

@@ -33,7 +33,7 @@ type Props = {
     id?: number;
 };
 
-export default function AddParamsSettingsModel({ isEdit = false, currentUser, onClose, id }: Props) {
+export default function AddSensorVariableModel({ isEdit = false, currentUser, onClose, id }: Props) {
     console.log("currentUser", currentUser)
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -42,21 +42,27 @@ export default function AddParamsSettingsModel({ isEdit = false, currentUser, on
     const { enqueueSnackbar } = useSnackbar();
 
     const NewUserSchema = Yup.object().shape({
-        SensorCustomSettingParameter: Yup.string().required('Variables is required'),
-        SensorCustomSettingValue: Yup.string().required('Value is required'),
-        SensorCustomSettingUnit: Yup.string().required('Unit is required'),
-        SensorCustomSettingRange: Yup.string().required('Range is required'),
-        SensorCustomSettingDescription: Yup.string().required('Description is required'),
+        SensorVariableName: Yup.string().required('Variables is required'),
+        SensorVariableValue: Yup.string().required('Value is required'),
+        SensorVariableUnit: Yup.string().required('Unit is required'),
+        SensorVariableRange: Yup.string().required('Range is required'),
+        SensorVariableDescription: Yup.string().required('Description is required'),
     });
 
     const defaultValues = useMemo(
-        () => ( {
-            SensorCustomSettingParameter: currentUser?.data?.SensorCustomSettingParameter ? currentUser?.data?.SensorCustomSettingParameter : '',
-            SensorCustomSettingValue: currentUser?.data?.SensorCustomSettingValue ? currentUser?.data?.SensorCustomSettingValue : '',
-            SensorCustomSettingUnit: currentUser?.data?.SensorCustomSettingUnit ? currentUser?.data?.SensorCustomSettingUnit : '',
-            SensorCustomSettingRange: currentUser?.data?.SensorCustomSettingRange ? currentUser?.data?.SensorCustomSettingRange : '',
-            SensorCustomSettingDescription: currentUser?.data?.SensorCustomSettingDescription ? currentUser?.data?.SensorCustomSettingDescription : '',
-        } ),
+        () => (isEdit ? {
+            SensorVariableName: currentUser?.data?.SensorCustomSettingParameter,
+            SensorVariableValue: currentUser?.data?.SensorCustomSettingValue,
+            SensorVariableUnit: currentUser?.data?.SensorCustomSettingUnit,
+            SensorVariableRange: currentUser?.data?.SensorCustomSettingRange,
+            SensorVariableDescription: currentUser?.data?.SensorCustomSettingDescription,
+        } : {
+            SensorVariableName: '',
+            SensorVariableValue: '',
+            SensorVariableUnit: '',
+            SensorVariableRange: '',
+            SensorVariableDescription: '',
+        }),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [currentUser]
     );
@@ -100,15 +106,16 @@ export default function AddParamsSettingsModel({ isEdit = false, currentUser, on
         try {
             await new Promise((resolve) => setTimeout(resolve, 500));
             reset();
+            enqueueSnackbar(!isEdit ? 'Sensor Created successfully!' : 'Updated successfully!');
             onClose();
             navigate(PATH_DASHBOARD.general.sensorCustomSetting);
             reset(defaultValues);
             if (isEdit === false) {
                 dispatch(
                     createSensorByID({
-                        userId: String(id),
+                        userId: user?.UserId,
                         sensorType: 'custom-setting',
-                        data: { ...data, SensorVariableMasterId: null, SensorVariableDataType: 'int' },
+                        data: { ...data, SensorVariableMasterId: '1', SensorVariableDataType: 'int' },
                     })
                 );
             } else {
@@ -149,11 +156,11 @@ export default function AddParamsSettingsModel({ isEdit = false, currentUser, on
                         sm: 'repeat(2, 1fr)',
                     }}
                 >
-                    <RHFTextField name="SensorCustomSettingParameter" label="Add variables" />
-                    <RHFTextField name="SensorCustomSettingValue" label="Add value" />
-                    <RHFTextField name="SensorCustomSettingUnit" label="Add unit" />
-                    <RHFTextField name="SensorCustomSettingRange" label="Add Range" />
-                    <RHFTextField name="SensorCustomSettingDescription" label="Add description" />
+                    <RHFTextField name="SensorVariableName" label="Add variables" />
+                    <RHFTextField name="SensorVariableValue" label="Add value" />
+                    <RHFTextField name="SensorVariableUnit" label="Add unit" />
+                    <RHFTextField name="SensorVariableRange" label="Add Range" />
+                    <RHFTextField name="SensorVariableDescription" label="Add description" />
                 </Box>
 
                 <Stack
@@ -174,11 +181,11 @@ export default function AddParamsSettingsModel({ isEdit = false, currentUser, on
                             type="reset"
                             onClick={() =>
                                 reset({
-                                    SensorCustomSettingParameter: '',
-                                    SensorCustomSettingValue: '',
-                                    SensorCustomSettingUnit: '',
-                                    SensorCustomSettingRange: '',
-                                    SensorCustomSettingDescription: '',
+                                    SensorVariableName: '',
+                                    SensorVariableValue: '',
+                                    SensorVariableUnit: '',
+                                    SensorVariableRange: '',
+                                    SensorVariableDescription: '',
                                 })
                             }
                         >

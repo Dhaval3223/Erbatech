@@ -99,7 +99,7 @@ function SensorCustomSettingAccess({
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { isSensorLoading, sensorData, sensorUpdateData, isDeleteSensorError, isDeleteSensorSuccess, deleteSensorMsg } = useSelector((state) => state.sensor);
+  const { isSensorLoading, sensorData, sensorUpdateData, isDeleteSensorError, isDeleteSensorSuccess, deleteSensorMsg, isCreateSensorSuccess, isCreateSensorError, createSensorMsg } = useSelector((state) => state.sensor);
 
   const { themeStretch } = useSettingsContext();
 
@@ -283,7 +283,7 @@ function SensorCustomSettingAccess({
   };
 
   const handleEditClick = (id: number, row: any) => {
-    setEditingId(id);
+    // setEditingId(id);
     setEditOpenDrawer(true);
     setEditIndex(id);
     setUpdateData({
@@ -345,6 +345,32 @@ function SensorCustomSettingAccess({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDeleteSensorSuccess, isDeleteSensorError]);
+
+  useEffect(() => {
+    if (isCreateSensorSuccess) {
+      enqueueSnackbar(createSensorMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetSensorCreatedRecords());
+      dispatch(
+        getSensorDataByID({
+          userId: currentSelectedUser,
+          sensorType: 'custom-setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    if (isCreateSensorError) {
+      enqueueSnackbar(createSensorMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetSensorCreatedRecords());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreateSensorSuccess, isCreateSensorError]);
 
   return (
     <>
@@ -440,7 +466,7 @@ function SensorCustomSettingAccess({
                           // aria-labelledby="parent-modal-title"
                           // aria-describedby="parent-modal-description"
                           >
-                            <AddParamsSettingsModel onClose={handleEditCloseDrawer} currentUser={updateData} id={index} isEdit />
+                            <AddParamsSettingsModel onClose={handleEditCloseDrawer} currentUser={updateData} id={rowsPerPage * page + (index + 1)} isEdit />
                           </Dialog>
                         }
                       </>
@@ -481,7 +507,7 @@ function SensorCustomSettingAccess({
         // aria-labelledby="parent-modal-title"
         // aria-describedby="parent-modal-description"
         >
-          <AddParamsSettingsModel onClose={handleCloseDrawer} />
+          <AddParamsSettingsModel onClose={handleCloseDrawer} id={currentSelectedUser} />
         </Dialog>
       )}
     </>
