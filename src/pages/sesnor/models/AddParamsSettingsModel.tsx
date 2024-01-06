@@ -17,7 +17,6 @@ import { useSnackbar } from 'src/components/snackbar';
 import FormProvider, { RHFTextField, } from 'src/components/hook-form';
 import { useDispatch } from 'src/redux/store';
 import { useAuthContext } from 'src/auth/useAuthContext';
-import { getAllRoles } from 'src/pages/Roles/slice/action';
 import { createSensorByID, updateSensorByID } from '../slice/action';
 
 // ----------------------------------------------------------------------
@@ -60,17 +59,6 @@ export default function AddParamsSettingsModel({ isEdit = false, currentUser, on
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [currentUser]
     );
-
-    useEffect(() => {
-        dispatch(
-            getAllRoles({
-                searchValue: '',
-                type: 'all',
-                page: '1',
-                limit: '10',
-            })
-        );
-    }, [dispatch]);
 
     const methods = useForm({
         resolver: yupResolver(NewUserSchema),

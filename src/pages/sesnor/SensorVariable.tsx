@@ -14,10 +14,12 @@ import {
   IconButton,
   TableContainer,
   Typography,
+  Dialog,
 } from '@mui/material';
 // routes
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
+import { useSnackbar } from 'notistack';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
 // _mock_
@@ -36,11 +38,12 @@ import {
 } from '../../components/table';
 // sections
 import SensorVariableTableRow from './SensorVariableTableRow';
-import { getSensorDataByID } from './slice/action';
+import { deleteSensorById, getSensorDataByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 import { getAllReportsData } from '../reports/slice/action';
+import AddSensorVariableModel from './models/AddSensorVariableModel';
 
 const TABLE_HEAD = [
   // { id: 'data_types', label: 'Data Types', align: 'left' },
@@ -107,7 +110,8 @@ function SensorVariableAccess({
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData } = useSelector((state) => state?.sensor);
+  const { isSensorLoading, sensorData, createSensorMsg, deleteSensorMsg, isCreateSensorError, isCreateSensorSuccess,isDeleteSensorError,isDeleteSensorSuccess,isSensorCreateLoading, error, isSensorUpdateLoading, sensorUpdateData } = useSelector((state) => state?.sensor);
+  const { enqueueSnackbar } = useSnackbar();
 
   console.log('sensorData', sensorData);
 
@@ -131,10 +135,15 @@ function SensorVariableAccess({
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
+  const [openVariableDrawer, setOpenVariableDrawer] = useState(false);
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
+  const [updateData, setUpdateData] = useState({
+  });
+  const [editOpenDrawer, setEditOpenDrawer] = useState(false);
+  const [editIndex, setEditIndex] = useState(-1);
 
   useEffect(() => {
     dispatch(slice.actions.startLoading());
@@ -262,6 +271,95 @@ function SensorVariableAccess({
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
   };
+
+  const handleCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setOpenDrawer(false);
+  };
+
+  const handleEditClick = (id: number, row: any) => {
+    // setEditingId(id);
+    setEditOpenDrawer(true);
+    setEditIndex(id);
+    setUpdateData({
+      userId: currentSelectedUser,
+      index: rowsPerPage * page + (id + 1),
+      sensorType: 'custom-setting',
+      data: { ...row },
+    });
+  };
+
+  const handleEditCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setEditOpenDrawer(false);
+    setEditIndex(-1);
+  };
+
+  const handleDeleteRow = (data: any, index: number) => {
+    console.log("sensorData", sensorData)
+    dispatch(deleteSensorById({
+      index: String(index),
+      sensorType: SensorVariableType ? 'variable' : 'setting',
+      userId: sensorData?.UserId
+    }));
+  };
+
+  useEffect(() => {
+    if (isDeleteSensorSuccess) {
+      enqueueSnackbar(deleteSensorMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetDeleteSensorEventError());
+      dispatch(
+        getSensorDataByID({
+          userId: currentSelectedUser,
+          sensorType: SensorVariableType ? 'variable' : 'setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    if (isDeleteSensorError) {
+      enqueueSnackbar(deleteSensorMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetDeleteSensorEventError());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleteSensorSuccess, isDeleteSensorError]);
+
+  useEffect(() => {
+    if (isCreateSensorSuccess) {
+      enqueueSnackbar(createSensorMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetSensorCreatedRecords());
+      dispatch(
+        getSensorDataByID({
+          userId: currentSelectedUser,
+          sensorType:SensorVariableType ? 'variable' : 'setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    if (isCreateSensorError) {
+      enqueueSnackbar(createSensorMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetSensorCreatedRecords());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreateSensorSuccess, isCreateSensorError]);
+
   return (
     <>
       <Helmet>
@@ -331,6 +429,7 @@ function SensorVariableAccess({
                     <TableSkeleton colums={6} />
                   ) : (
                     sensorData?.rows?.map((row: any, index: any) => (
+                      <>
                       <SensorVariableTableRow
                         key={row.UserId}
                         row={row}
@@ -338,7 +437,22 @@ function SensorVariableAccess({
                         SensorVariableType={SensorVariableType}
                         isDeleteRights={isDeleteRights}
                         isUpdateRights={isUpdateRights}
+                        onEditRow={handleEditClick}
+                        onDeleteRow={() => handleDeleteRow(row.UserId, index)}
+                        index={index}
                       />
+                      {
+                          (index === editIndex && editOpenDrawer) &&
+                          <Dialog
+                            open={editOpenDrawer}
+                            onClose={handleEditCloseDrawer}
+                          // aria-labelledby="parent-modal-title"
+                          // aria-describedby="parent-modal-description"
+                          >
+                            <AddSensorVariableModel onClose={handleEditCloseDrawer} currentUser={updateData} id={rowsPerPage * page + (index + 1)} isEdit />
+                          </Dialog>
+                        }
+                      </>
                     ))
                   )}
                   {/* <TableEmptyRows
@@ -368,6 +482,16 @@ function SensorVariableAccess({
           </Typography>
         )}
       </Container>
+      {openDrawer && (
+        <Dialog
+          open={openDrawer}
+          onClose={handleCloseDrawer}
+        // aria-labelledby="parent-modal-title"
+        // aria-describedby="parent-modal-description"
+        >
+          <AddSensorVariableModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+        </Dialog>
+      )}
     </>
   );
 }

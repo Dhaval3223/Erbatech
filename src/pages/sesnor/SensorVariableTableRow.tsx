@@ -1,8 +1,10 @@
 import { useState } from 'react';
 // @mui
-import { TableRow, TableCell, IconButton } from '@mui/material';
+import { TableRow, TableCell, IconButton, MenuItem, Button } from '@mui/material';
 import { useSelector } from 'src/redux/store';
 import Iconify from 'src/components/iconify';
+import MenuPopover from 'src/components/menu-popover';
+import ConfirmDialog from 'src/components/confirm-dialog';
 
 // @types
 // ----------------------------------------------------------------------
@@ -14,23 +16,39 @@ type Props = {
   SensorVariableType?: boolean;
   isDeleteRights: boolean;
   isUpdateRights: boolean;
+  onEditRow: any;
+  index: number;
+  onDeleteRow: VoidFunction;
 };
 
-export default function SensorVariableTableRow({ row, selected, user, SensorVariableType, isDeleteRights, isUpdateRights }: Props) {
+export default function SensorVariableTableRow({ row, selected, user, SensorVariableType, isDeleteRights, isUpdateRights, onEditRow,index, onDeleteRow }: Props) {
   console.log(user);
 
   const { reportsData } = useSelector((state) => state.report);
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
-  // const { user } = useAuthContext();
+  const handleOpenConfirm = () => {
+    setOpenConfirm(true);
+  };
 
-  const apiValues: any = reportsData?.rows?.[0]?.TransactionData?.[0];
-  console.log('sensorData', apiValues?.[row?.SensorVariableName]);
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false);
+  };
 
   const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
     setOpenPopover(event.currentTarget);
   };
+
+  const handleClosePopover = () => {
+    setOpenPopover(null);
+  };
+
+
+  // const { user } = useAuthContext();
+
+  const apiValues: any = reportsData?.rows?.[0]?.TransactionData?.[0];
+  console.log('sensorData', apiValues?.[row?.SensorVariableName]);
 
   return SensorVariableType ? (
     <TableRow hover selected={selected}>
@@ -54,6 +72,7 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
       </TableCell>
     </TableRow>
   ) : (
+    <>
     <TableRow hover selected={selected}>
       {/* <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorSettingDataType ? row?.SensorSettingDataType : '-'}
@@ -83,5 +102,55 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
           )}
         </TableCell>
     </TableRow>
+    <MenuPopover
+    open={openPopover}
+    onClose={handleClosePopover}
+    arrow="right-top"
+    sx={{ width: 140 }}
+  >
+    {isDeleteRights && (
+      <MenuItem
+        onClick={() => {
+          handleOpenConfirm();
+          handleClosePopover();
+        }}
+        sx={{ color: 'error.main' }}
+      >
+        <Iconify icon="eva:trash-2-outline" />
+        Delete
+      </MenuItem>
+    )}
+
+    {isUpdateRights && (
+      <MenuItem
+        onClick={() => {
+          onEditRow(index,row);
+          handleClosePopover();
+        }}
+      >
+        <Iconify icon="eva:edit-fill" />
+        Edit
+      </MenuItem>
+    )}
+  </MenuPopover>
+  <ConfirmDialog
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              onDeleteRow();
+              handleCloseConfirm();
+            }}
+          >
+            Delete
+          </Button>
+        }
+      />
+  </>
   );
 }

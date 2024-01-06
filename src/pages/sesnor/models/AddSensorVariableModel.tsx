@@ -17,7 +17,6 @@ import { useSnackbar } from 'src/components/snackbar';
 import FormProvider, { RHFTextField, } from 'src/components/hook-form';
 import { useDispatch } from 'src/redux/store';
 import { useAuthContext } from 'src/auth/useAuthContext';
-import { getAllRoles } from 'src/pages/Roles/slice/action';
 import { createSensorByID, updateSensorByID } from '../slice/action';
 
 // ----------------------------------------------------------------------
@@ -42,41 +41,24 @@ export default function AddSensorVariableModel({ isEdit = false, currentUser, on
     const { enqueueSnackbar } = useSnackbar();
 
     const NewUserSchema = Yup.object().shape({
-        SensorVariableName: Yup.string().required('Variables is required'),
-        SensorVariableValue: Yup.string().required('Value is required'),
-        SensorVariableUnit: Yup.string().required('Unit is required'),
-        SensorVariableRange: Yup.string().required('Range is required'),
-        SensorVariableDescription: Yup.string().required('Description is required'),
+        SensorSettingGroup: Yup.string().required('Variables is required'),
+        SensorSettingIdentifier: Yup.string().required('Value is required'),
+        SensorSettingValue: Yup.string().required('Unit is required'),
+        SensorSettingDescription: Yup.string().required('Range is required'),
+        SensorSettingLocation: Yup.string().required('Description is required'),
     });
 
     const defaultValues = useMemo(
-        () => (isEdit ? {
-            SensorVariableName: currentUser?.data?.SensorCustomSettingParameter,
-            SensorVariableValue: currentUser?.data?.SensorCustomSettingValue,
-            SensorVariableUnit: currentUser?.data?.SensorCustomSettingUnit,
-            SensorVariableRange: currentUser?.data?.SensorCustomSettingRange,
-            SensorVariableDescription: currentUser?.data?.SensorCustomSettingDescription,
-        } : {
-            SensorVariableName: '',
-            SensorVariableValue: '',
-            SensorVariableUnit: '',
-            SensorVariableRange: '',
-            SensorVariableDescription: '',
-        }),
+        () => ( {
+            SensorSettingGroup: currentUser?.data?.SensorSettingGroup ? currentUser?.data?.SensorSettingGroup : '',
+            SensorSettingIdentifier: currentUser?.data?.SensorSettingIdentifier ? currentUser?.data?.SensorSettingIdentifier : '',
+            SensorSettingValue: currentUser?.data?.SensorSettingValue ? currentUser?.data?.SensorSettingValue : '',
+            SensorSettingDescription: currentUser?.data?.SensorSettingDescription ? currentUser?.data?.SensorSettingDescription : '',
+            SensorSettingLocation: currentUser?.data?.SensorSettingLocation ? currentUser?.data?.SensorSettingLocation : '',
+        } ),
         // eslint-disable-next-line react-hooks/exhaustive-deps
         [currentUser]
     );
-
-    useEffect(() => {
-        dispatch(
-            getAllRoles({
-                searchValue: '',
-                type: 'all',
-                page: '1',
-                limit: '10',
-            })
-        );
-    }, [dispatch]);
 
     const methods = useForm({
         resolver: yupResolver(NewUserSchema),
@@ -106,32 +88,31 @@ export default function AddSensorVariableModel({ isEdit = false, currentUser, on
         try {
             await new Promise((resolve) => setTimeout(resolve, 500));
             reset();
-            enqueueSnackbar(!isEdit ? 'Sensor Created successfully!' : 'Updated successfully!');
             onClose();
-            navigate(PATH_DASHBOARD.general.sensorCustomSetting);
+            navigate(PATH_DASHBOARD.general.sensorSetting);
             reset(defaultValues);
             if (isEdit === false) {
                 dispatch(
                     createSensorByID({
-                        userId: user?.UserId,
-                        sensorType: 'custom-setting',
-                        data: { ...data, SensorVariableMasterId: '1', SensorVariableDataType: 'int' },
+                        userId: String(id),
+                        sensorType: 'setting',
+                        data: { ...data, SensorSettingMasterId: null, SensorSettingDataType: 'int' },
                     })
                 );
             } else {
                 dispatch(
                     updateSensorByID({
                         data: {
-                            SensorCustomSettingParameter: data?.SensorVariableName,
-                            SensorCustomSettingValue: data?.SensorVariableValue,
-                            SensorCustomSettingUnit: data?.SensorVariableUnit,
-                            SensorCustomSettingRange: data?.SensorVariableRange,
-                            SensorCustomSettingDescription: data?.SensorVariableDescription,
-                            SensorCustomSettingMasterId: currentUser?.data?.SensorCustomSettingMasterId,
-                            SensorCustomSettingDataType: currentUser?.data?.SensorCustomSettingDataType,
+                            SensorSettingGroup: data?.SensorSettingGroup,
+                            SensorSettingIdentifier: data?.SensorSettingIdentifier,
+                            SensorSettingValue: data?.SensorSettingValue,
+                            SensorSettingDescription: data?.SensorSettingDescription,
+                            SensorSettingLocation: data?.SensorSettingLocation,
+                            SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
+                            SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
                         },
-                        index:id,
-                        sensorType:'custom-setting',
+                        index:String(id),
+                        sensorType:'setting',
                         userId: currentUser?.userId,
                     })
                 );
@@ -145,7 +126,7 @@ export default function AddSensorVariableModel({ isEdit = false, currentUser, on
         <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
             <Card sx={{ p: 3 }}>
                 <Typography variant="h4" sx={{ mb: 3 }} textAlign="center">
-                    Add parameter settings
+                    Add sensor variable
                 </Typography>
                 <Box
                     rowGap={3}
@@ -156,11 +137,11 @@ export default function AddSensorVariableModel({ isEdit = false, currentUser, on
                         sm: 'repeat(2, 1fr)',
                     }}
                 >
-                    <RHFTextField name="SensorVariableName" label="Add variables" />
-                    <RHFTextField name="SensorVariableValue" label="Add value" />
-                    <RHFTextField name="SensorVariableUnit" label="Add unit" />
-                    <RHFTextField name="SensorVariableRange" label="Add Range" />
-                    <RHFTextField name="SensorVariableDescription" label="Add description" />
+                    <RHFTextField name="SensorSettingGroup" label="Add Group" />
+                    <RHFTextField name="SensorSettingIdentifier" label="Add identifier" />
+                    <RHFTextField name="SensorSettingValue" label="Add value" />
+                    <RHFTextField name="SensorSettingDescription" label="Add description" />
+                    <RHFTextField name="SensorSettingLocation" label="Add location" />
                 </Box>
 
                 <Stack
@@ -181,11 +162,11 @@ export default function AddSensorVariableModel({ isEdit = false, currentUser, on
                             type="reset"
                             onClick={() =>
                                 reset({
-                                    SensorVariableName: '',
-                                    SensorVariableValue: '',
-                                    SensorVariableUnit: '',
-                                    SensorVariableRange: '',
-                                    SensorVariableDescription: '',
+                                    SensorSettingGroup: '',
+                                    SensorSettingIdentifier: '',
+                                    SensorSettingValue: '',
+                                    SensorSettingDescription: '',
+                                    SensorSettingLocation: '',
                                 })
                             }
                         >
