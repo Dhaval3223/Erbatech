@@ -32,6 +32,17 @@ export const PATH_PAGE = {
   page404: '/404',
   page500: '/500',
   components: '/components',
+  // comingSoon: '/coming-soon',
+  // maintenance: '/maintenance',
+  // pricing: '/pricing',
+  // payment: '/payment',
+  // about: '/about-us',
+  // contact: '/contact-us',
+  // faqs: '/faqs',
+  // page403: '/403',
+  // page404: '/404',
+  // page500: '/500',
+  // components: '/components',
 };
 
 export const PATH_DASHBOARD = {
