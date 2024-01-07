@@ -274,9 +274,10 @@ function SensorVariableAccess({
   };
 
   const handleDeleteRow = (data: any, index: number) => {
+    console.log(data, 'handleDeleteRow');
     dispatch(
       deleteSensorById({
-        index: String(index),
+        index: data?.SensorId,
         sensorType: SensorVariableType ? 'variable' : 'setting',
         userId: sensorData?.UserId,
       })
@@ -413,7 +414,7 @@ function SensorVariableAccess({
                           isDeleteRights={isDeleteRights}
                           isUpdateRights={isUpdateRights}
                           onEditRow={handleEditClick}
-                          onDeleteRow={() => handleDeleteRow(row.UserId, index)}
+                          onDeleteRow={() => handleDeleteRow(row, index)}
                           index={index}
                         />
                         {index === editIndex && editOpenDrawer && (

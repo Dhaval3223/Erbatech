@@ -327,7 +327,7 @@ function SensorCustomSettingAccess({
     console.log('sensorData', sensorData);
     dispatch(
       deleteSensorById({
-        index: String(index),
+        index: data?.SensorId,
         sensorType: 'custom-setting',
         userId: sensorData?.UserId,
       })
@@ -462,7 +462,7 @@ function SensorCustomSettingAccess({
                           selected={selected.includes(row.UserId)}
                           onSelectRow={() => onSelectRow(row.UserId)}
                           onEditRow={handleEditClick}
-                          onDeleteRow={() => handleDeleteRow(row.UserId, index)}
+                          onDeleteRow={() => handleDeleteRow(row, index)}
                           isDeleteRights={isDeleteRights}
                           isUpdateRights={isUpdateRights}
                           editingId={editingId}
