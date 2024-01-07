@@ -39,7 +39,6 @@ export default function SensorCustomSettingsTableRows({
   handleOnChangeUpdate,
   updatedData,
 }: Props) {
-
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -60,51 +59,51 @@ export default function SensorCustomSettingsTableRows({
   };
 
   return (
-    <>    
-    <TableRow hover selected={selected}>
-      {/* <TableCell align="left" sx={{ width: '15%' }}>
+    <>
+      <TableRow hover selected={selected}>
+        {/* <TableCell align="left" sx={{ width: '15%' }}>
         {row?.SensorCustomSettingDataType ? row?.SensorCustomSettingDataType : '-'}
       </TableCell> */}
 
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorCustomSettingParameter}
-      </TableCell>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorCustomSettingParameter}
+        </TableCell>
 
-      <TableCell
-        align="left"
-        sx={{ width: '15%', color:'green' }}
-        onDoubleClick={() => handleCellDoubleClick(index, row)}
-      >
-        {editingId === index ? (
-          <TextField
-            // value={row.name}
-            // type="number"
-            variant="standard"
-            // onKeyDown={event => {
-            //   if (event.key === 'Enter') handleOnChangeUpdate();
-            // }}
-            value={updatedData?.data?.SensorCustomSettingValue}
-            defaultValue={row?.SensorCustomSettingValue}
-            onChange={handleOnChangeUpdate}
-            onBlur={handleBlur}
-          />
-        ) : (
-          row?.SensorCustomSettingValue || '-'
-        )}
-      </TableCell>
+        <TableCell
+          align="left"
+          sx={{ width: '15%', color: 'green' }}
+          onDoubleClick={() => handleCellDoubleClick(index, row)}
+        >
+          {editingId === index ? (
+            <TextField
+              // value={row.name}
+              // type="number"
+              variant="standard"
+              // onKeyDown={event => {
+              //   if (event.key === 'Enter') handleOnChangeUpdate();
+              // }}
+              value={updatedData?.data?.SensorCustomSettingValue}
+              defaultValue={row?.SensorCustomSettingValue}
+              onChange={handleOnChangeUpdate}
+              onBlur={handleBlur}
+            />
+          ) : (
+            row?.SensorCustomSettingValue || '-'
+          )}
+        </TableCell>
 
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorCustomSettingUnit}
-      </TableCell>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorCustomSettingUnit}
+        </TableCell>
 
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorCustomSettingRange}
-      </TableCell>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorCustomSettingRange}
+        </TableCell>
 
-      <TableCell align="left" sx={{ width: '25%' }}>
-        {row?.SensorCustomSettingDescription}
-      </TableCell>
-      <TableCell>
+        <TableCell align="left" sx={{ width: '25%' }}>
+          {row?.SensorCustomSettingDescription}
+        </TableCell>
+        <TableCell>
           {isDeleteRights === false && isUpdateRights === false ? (
             ''
           ) : (
@@ -113,8 +112,8 @@ export default function SensorCustomSettingsTableRows({
             </IconButton>
           )}
         </TableCell>
-    </TableRow>
-    <MenuPopover
+      </TableRow>
+      <MenuPopover
         open={openPopover}
         onClose={handleClosePopover}
         arrow="right-top"
@@ -136,7 +135,7 @@ export default function SensorCustomSettingsTableRows({
         {isUpdateRights && (
           <MenuItem
             onClick={() => {
-              onEditRow(index,row);
+              onEditRow(index, row);
               handleClosePopover();
             }}
           >

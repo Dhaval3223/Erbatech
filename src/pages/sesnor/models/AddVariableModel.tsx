@@ -32,12 +32,7 @@ type Props = {
   id?: number;
 };
 
-export default function AddSensorVariableModel({
-  isEdit = false,
-  currentUser,
-  onClose,
-  id,
-}: Props) {
+export default function AddVariableModel({ isEdit = false, currentUser, onClose, id }: Props) {
   console.log('currentUser', currentUser);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,29 +41,29 @@ export default function AddSensorVariableModel({
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    SensorSettingGroup: Yup.string().required('Variables is required'),
-    SensorSettingIdentifier: Yup.string().required('Value is required'),
-    SensorSettingValue: Yup.string().required('Unit is required'),
-    SensorSettingDescription: Yup.string().required('Range is required'),
-    SensorSettingLocation: Yup.string().required('Description is required'),
+    SensorVariableName: Yup.string().required('Variables is required'),
+    SensorVariableValue: Yup.string().required('Value is required'),
+    SensorVariableDataType: Yup.string().required('Unit is required'),
+    SensorVariableRange: Yup.string().required('Range is required'),
+    SensorVariableDescription: Yup.string().required('Description is required'),
   });
 
   const defaultValues = useMemo(
     () => ({
-      SensorSettingGroup: currentUser?.data?.SensorSettingGroup
-        ? currentUser?.data?.SensorSettingGroup
+      SensorVariableName: currentUser?.data?.SensorVariableName
+        ? currentUser?.data?.SensorVariableName
         : '',
-      SensorSettingIdentifier: currentUser?.data?.SensorSettingIdentifier
-        ? currentUser?.data?.SensorSettingIdentifier
+      SensorVariableValue: currentUser?.data?.SensorVariableValue
+        ? currentUser?.data?.SensorVariableValue
         : '',
-      SensorSettingValue: currentUser?.data?.SensorSettingValue
-        ? currentUser?.data?.SensorSettingValue
+      SensorVariableDataType: currentUser?.data?.SensorVariableDataType
+        ? currentUser?.data?.SensorVariableDataType
         : '',
-      SensorSettingDescription: currentUser?.data?.SensorSettingDescription
-        ? currentUser?.data?.SensorSettingDescription
+      SensorVariableRange: currentUser?.data?.SensorVariableRange
+        ? currentUser?.data?.SensorVariableRange
         : '',
-      SensorSettingLocation: currentUser?.data?.SensorSettingLocation
-        ? currentUser?.data?.SensorSettingLocation
+      SensorVariableDescription: currentUser?.data?.SensorVariableDescription
+        ? currentUser?.data?.SensorVariableDescription
         : '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -101,7 +96,7 @@ export default function AddSensorVariableModel({
 
   const onSubmit = async (data: any) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      //   await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       onClose();
       navigate(PATH_DASHBOARD.general.sensorSetting);
@@ -110,7 +105,7 @@ export default function AddSensorVariableModel({
         dispatch(
           createSensorByID({
             userId: String(id),
-            sensorType: 'setting',
+            sensorType: 'variable',
             data: { ...data, SensorSettingMasterId: null, SensorSettingDataType: 'int' },
           })
         );
@@ -118,22 +113,22 @@ export default function AddSensorVariableModel({
         dispatch(
           updateSensorByID({
             data: {
-              SensorSettingGroup: data?.SensorSettingGroup,
-              SensorSettingIdentifier: data?.SensorSettingIdentifier,
-              SensorSettingValue: data?.SensorSettingValue,
-              SensorSettingDescription: data?.SensorSettingDescription,
-              SensorSettingLocation: data?.SensorSettingLocation,
+              SensorVariableName: data?.SensorVariableName,
+              SensorVariableValue: data?.SensorVariableValue,
+              SensorVariableDataType: data?.SensorVariableDataType,
+              SensorVariableRange: data?.SensorVariableRange,
+              SensorVariableDescription: data?.SensorVariableDescription,
               SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
               SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
             },
             index: String(id),
-            sensorType: 'setting',
+            sensorType: 'variable',
             userId: currentUser?.userId,
           })
         );
       }
     } catch (error) {
-      console.error('error', error);
+      console.error('error', error?.response);
     }
   };
 
@@ -141,7 +136,7 @@ export default function AddSensorVariableModel({
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
         <Typography variant="h4" sx={{ mb: 3 }} textAlign="center">
-          Add sensor variable
+          Add variable
         </Typography>
         <Box
           rowGap={3}
@@ -152,11 +147,16 @@ export default function AddSensorVariableModel({
             sm: 'repeat(2, 1fr)',
           }}
         >
-          <RHFTextField name="SensorSettingGroup" label="Add Group" />
-          <RHFTextField name="SensorSettingIdentifier" label="Add identifier" />
-          <RHFTextField name="SensorSettingValue" label="Add value" />
-          <RHFTextField name="SensorSettingDescription" label="Add description" />
-          <RHFTextField name="SensorSettingLocation" label="Add location" />
+          <RHFTextField name="SensorVariableName" label="Add Variable" />
+          <RHFTextField name="SensorVariableValue" label="Add Value" />
+          <RHFTextField name="SensorVariableDataType" label="Add Unit" />
+          <RHFTextField name="SensorVariableRange" label="Add Range" />
+          <RHFTextField
+            // gridColumn={{ sm: 'span 2' }}
+            sx={{ gridColumn: 'span 2' }}
+            name="SensorVariableDescription"
+            label="Add Description"
+          />
         </Box>
 
         <Stack
@@ -177,11 +177,11 @@ export default function AddSensorVariableModel({
               type="reset"
               onClick={() =>
                 reset({
-                  SensorSettingGroup: '',
-                  SensorSettingIdentifier: '',
-                  SensorSettingValue: '',
-                  SensorSettingDescription: '',
-                  SensorSettingLocation: '',
+                  SensorVariableName: '',
+                  SensorVariableValue: '',
+                  SensorVariableDataType: '',
+                  SensorVariableRange: '',
+                  SensorVariableDescription: '',
                 })
               }
             >

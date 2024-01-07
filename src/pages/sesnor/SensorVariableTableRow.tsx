@@ -21,11 +21,21 @@ type Props = {
   onDeleteRow: VoidFunction;
 };
 
-export default function SensorVariableTableRow({ row, selected, user, SensorVariableType, isDeleteRights, isUpdateRights, onEditRow,index, onDeleteRow }: Props) {
-  console.log(user);
-
+export default function SensorVariableTableRow({
+  row,
+  selected,
+  user,
+  SensorVariableType,
+  isDeleteRights,
+  isUpdateRights,
+  onEditRow,
+  index,
+  onDeleteRow,
+}: Props) {
   const { reportsData } = useSelector((state) => state.report);
+
   const [openConfirm, setOpenConfirm] = useState(false);
+
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
   const handleOpenConfirm = () => {
@@ -44,55 +54,25 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
     setOpenPopover(null);
   };
 
-
-  // const { user } = useAuthContext();
-
-  const apiValues: any = reportsData?.rows?.[0]?.TransactionData?.[0];
-  console.log('sensorData', apiValues?.[row?.SensorVariableName]);
-
   return SensorVariableType ? (
-    <TableRow hover selected={selected}>
-      {/* <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorVariableDataType ? row?.SensorVariableDataType : '-'}
-      </TableCell> */}
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorVariableName}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
-        {row?.SensorVariableValue ? row?.SensorVariableValue : '-'}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorVariableUnit}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorVariableRange}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '25%' }}>
-        {row?.SensorVariableDescription}
-      </TableCell>
-    </TableRow>
-  ) : (
     <>
-    <TableRow hover selected={selected}>
-      {/* <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorSettingDataType ? row?.SensorSettingDataType : '-'}
-      </TableCell> */}
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorSettingGroup}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '15%' }}>
-        {row?.SensorSettingIdentifier}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
-        {row?.SensorSettingValue ? row?.SensorSettingValue : '-'}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '20%' }}>
-        {row?.SensorSettingDescription}
-      </TableCell>
-      <TableCell align="left" sx={{ width: '20%' }}>
-        {row?.SensorSettingLocation}
-      </TableCell>
-      <TableCell>
+      <TableRow hover selected={selected}>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorVariableName}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
+          {row?.SensorVariableValue ? row?.SensorVariableValue : '-'}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorVariableUnit}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorVariableRange}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '25%' }}>
+          {row?.SensorVariableDescription}
+        </TableCell>
+        <TableCell>
           {isDeleteRights === false && isUpdateRights === false ? (
             ''
           ) : (
@@ -101,39 +81,39 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
             </IconButton>
           )}
         </TableCell>
-    </TableRow>
-    <MenuPopover
-    open={openPopover}
-    onClose={handleClosePopover}
-    arrow="right-top"
-    sx={{ width: 140 }}
-  >
-    {isDeleteRights && (
-      <MenuItem
-        onClick={() => {
-          handleOpenConfirm();
-          handleClosePopover();
-        }}
-        sx={{ color: 'error.main' }}
+      </TableRow>
+      <MenuPopover
+        open={openPopover}
+        onClose={handleClosePopover}
+        arrow="right-top"
+        sx={{ width: 140 }}
       >
-        <Iconify icon="eva:trash-2-outline" />
-        Delete
-      </MenuItem>
-    )}
+        {isDeleteRights && (
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirm();
+              handleClosePopover();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="eva:trash-2-outline" />
+            Delete
+          </MenuItem>
+        )}
 
-    {isUpdateRights && (
-      <MenuItem
-        onClick={() => {
-          onEditRow(index,row);
-          handleClosePopover();
-        }}
-      >
-        <Iconify icon="eva:edit-fill" />
-        Edit
-      </MenuItem>
-    )}
-  </MenuPopover>
-  <ConfirmDialog
+        {isUpdateRights && (
+          <MenuItem
+            onClick={() => {
+              onEditRow(index, row);
+              handleClosePopover();
+            }}
+          >
+            <Iconify icon="eva:edit-fill" />
+            Edit
+          </MenuItem>
+        )}
+      </MenuPopover>
+      <ConfirmDialog
         open={openConfirm}
         onClose={handleCloseConfirm}
         title="Delete"
@@ -151,6 +131,84 @@ export default function SensorVariableTableRow({ row, selected, user, SensorVari
           </Button>
         }
       />
-  </>
+    </>
+  ) : (
+    <>
+      <TableRow hover selected={selected}>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorSettingGroup}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorSettingIdentifier}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '15%', color: 'red' }}>
+          {row?.SensorSettingValue ? row?.SensorSettingValue : '-'}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '20%' }}>
+          {row?.SensorSettingDescription}
+        </TableCell>
+        <TableCell align="left" sx={{ width: '20%' }}>
+          {row?.SensorSettingLocation}
+        </TableCell>
+        <TableCell>
+          {isDeleteRights === false && isUpdateRights === false ? (
+            ''
+          ) : (
+            <IconButton color={openPopover ? 'inherit' : 'default'} onClick={handleOpenPopover}>
+              <Iconify icon="eva:more-vertical-fill" />
+            </IconButton>
+          )}
+        </TableCell>
+      </TableRow>
+      <MenuPopover
+        open={openPopover}
+        onClose={handleClosePopover}
+        arrow="right-top"
+        sx={{ width: 140 }}
+      >
+        {isDeleteRights && (
+          <MenuItem
+            onClick={() => {
+              handleOpenConfirm();
+              handleClosePopover();
+            }}
+            sx={{ color: 'error.main' }}
+          >
+            <Iconify icon="eva:trash-2-outline" />
+            Delete
+          </MenuItem>
+        )}
+
+        {isUpdateRights && (
+          <MenuItem
+            onClick={() => {
+              onEditRow(index, row);
+              handleClosePopover();
+            }}
+          >
+            <Iconify icon="eva:edit-fill" />
+            Edit
+          </MenuItem>
+        )}
+      </MenuPopover>
+      <ConfirmDialog
+        open={openConfirm}
+        onClose={handleCloseConfirm}
+        title="Delete"
+        content="Are you sure want to delete?"
+        action={
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              onDeleteRow();
+              handleCloseConfirm();
+            }}
+          >
+            Delete
+          </Button>
+        }
+      />
+    </>
   );
 }

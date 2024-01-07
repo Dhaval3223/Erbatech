@@ -99,7 +99,17 @@ function SensorCustomSettingAccess({
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { isSensorLoading, sensorData, sensorUpdateData, isDeleteSensorError, isDeleteSensorSuccess, deleteSensorMsg, isCreateSensorSuccess, isCreateSensorError, createSensorMsg } = useSelector((state) => state.sensor);
+  const {
+    isSensorLoading,
+    sensorData,
+    sensorUpdateData,
+    isDeleteSensorError,
+    isDeleteSensorSuccess,
+    deleteSensorMsg,
+    isCreateSensorSuccess,
+    isCreateSensorError,
+    createSensorMsg,
+  } = useSelector((state) => state.sensor);
 
   const { themeStretch } = useSettingsContext();
 
@@ -312,12 +322,14 @@ function SensorCustomSettingAccess({
   };
 
   const handleDeleteRow = (data: any, index: number) => {
-    console.log("sensorData", sensorData)
-    dispatch(deleteSensorById({
-      index: String(index),
-      sensorType: 'custom-setting',
-      userId: sensorData?.UserId
-    }));
+    console.log('sensorData', sensorData);
+    dispatch(
+      deleteSensorById({
+        index: String(index),
+        sensorType: 'custom-setting',
+        userId: sensorData?.UserId,
+      })
+    );
   };
 
   useEffect(() => {
@@ -428,8 +440,8 @@ function SensorCustomSettingAccess({
                   headLabel={TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                // onSort={onSort}
-                /*  onSelectAllRows={(checked) =>
+                  // onSort={onSort}
+                  /*  onSelectAllRows={(checked) =>
                   onSelectAllRows(
                     checked,
                     tableData.map((row) => row.id)
@@ -458,17 +470,21 @@ function SensorCustomSettingAccess({
                           handleOnChangeUpdate={handleOnChangeUpdate}
                           updatedData={updateData}
                         />
-                        {
-                          (index === editIndex && editOpenDrawer) &&
+                        {index === editIndex && editOpenDrawer && (
                           <Dialog
                             open={editOpenDrawer}
                             onClose={handleEditCloseDrawer}
-                          // aria-labelledby="parent-modal-title"
-                          // aria-describedby="parent-modal-description"
+                            // aria-labelledby="parent-modal-title"
+                            // aria-describedby="parent-modal-description"
                           >
-                            <AddParamsSettingsModel onClose={handleEditCloseDrawer} currentUser={updateData} id={rowsPerPage * page + (index + 1)} isEdit />
+                            <AddParamsSettingsModel
+                              onClose={handleEditCloseDrawer}
+                              currentUser={updateData}
+                              id={rowsPerPage * page + (index + 1)}
+                              isEdit
+                            />
                           </Dialog>
-                        }
+                        )}
                       </>
                     ))
                   )}
@@ -504,8 +520,8 @@ function SensorCustomSettingAccess({
         <Dialog
           open={openDrawer}
           onClose={handleCloseDrawer}
-        // aria-labelledby="parent-modal-title"
-        // aria-describedby="parent-modal-description"
+          // aria-labelledby="parent-modal-title"
+          // aria-describedby="parent-modal-description"
         >
           <AddParamsSettingsModel onClose={handleCloseDrawer} id={currentSelectedUser} />
         </Dialog>

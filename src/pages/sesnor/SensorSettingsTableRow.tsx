@@ -1,7 +1,4 @@
-import {
-  TableRow,
-  TableCell,
-} from '@mui/material';
+import { TableRow, TableCell } from '@mui/material';
 
 type Props = {
   row: any;

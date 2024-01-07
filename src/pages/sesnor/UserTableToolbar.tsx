@@ -44,7 +44,7 @@ export default function SensorTableToolbar({
   currentSelectedUser,
   setCurrentSelectedUser,
 }: Props) {
-  console.log(isCreateRights,isCreateButton, 'isCreateRights');
+  console.log(isCreateRights, isCreateButton, 'isCreateRights');
   const { user } = useAuthContext();
 
   return (
@@ -87,7 +87,6 @@ export default function SensorTableToolbar({
             Clear
           </Button>
         )}
-       
       </Stack>
       <Stack
         direction={{
@@ -95,20 +94,20 @@ export default function SensorTableToolbar({
           sm: 'row',
         }}
       >
-      {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
-        <Typography variant="body2" paragraph>
-          {`Last data loaded time: ${lastLoadingTime}`}
-        </Typography>
-      ) : (
-        <UsersDropDown
-          onChange={onUserChange}
-          currentSelectedUser={currentSelectedUser}
-          setCurrentSelectedUser={setCurrentSelectedUser}
-        />
-      )}
-       {isCreateButton && isCreateRights && (
+        {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
+          <Typography variant="body2" paragraph>
+            {`Last data loaded time: ${lastLoadingTime}`}
+          </Typography>
+        ) : (
+          <UsersDropDown
+            onChange={onUserChange}
+            currentSelectedUser={currentSelectedUser}
+            setCurrentSelectedUser={setCurrentSelectedUser}
+          />
+        )}
+        {isCreateButton && isCreateRights && (
           <Button
-            variant="contained"
+            // variant="contained"
             sx={{ flexShrink: 0, ml: '20px' }}
             onClick={handleCreateClick}
             // startIcon={<Iconify icon="eva:trash-2-outline" />}
@@ -116,7 +115,7 @@ export default function SensorTableToolbar({
             <Iconify icon="eva:plus-fill" />
           </Button>
         )}
-        </Stack>
+      </Stack>
     </Stack>
   );
 }

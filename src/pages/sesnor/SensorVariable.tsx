@@ -44,37 +44,24 @@ import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
 import { getAllReportsData } from '../reports/slice/action';
 import AddSensorVariableModel from './models/AddSensorVariableModel';
+import AddVariableModel from './models/AddVariableModel';
 
 const TABLE_HEAD = [
-  // { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'variable', label: 'Variable', align: 'left' },
   { id: 'value', label: 'Value', align: 'left' },
   { id: 'unit', label: 'Unit', align: 'left' },
   { id: 'range', label: 'Range', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
   { id: 'Action', label: 'Action', align: 'left' },
-  // { id: 'action', label: 'Action', align: 'left' },
 ];
 
 const SETTINGS_TABLE_HEAD = [
-  // { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'group', label: 'Group', align: 'left' },
   { id: 'identifier', label: 'Identifier', align: 'left' },
   { id: 'value', label: 'Value', align: 'left' },
   { id: 'description', label: 'Description', align: 'left' },
   { id: 'location', label: 'Location', align: 'left' },
   { id: 'Action', label: 'Action', align: 'left' },
-];
-
-const ROWS = [
-  {
-    id: 1,
-    variables: 'Cycles counts',
-    unit: 'INT',
-    range: '0-9999',
-    description: 'Cycle Counter',
-    value: '1191',
-  },
 ];
 
 interface ISensorVariableListing {
@@ -110,14 +97,29 @@ function SensorVariableAccess({
 
   const dispatch = useDispatch();
 
-  const { isSensorLoading, sensorData, createSensorMsg, deleteSensorMsg, isCreateSensorError, isCreateSensorSuccess,isDeleteSensorError,isDeleteSensorSuccess,isSensorCreateLoading, error, isSensorUpdateLoading, sensorUpdateData } = useSelector((state) => state?.sensor);
   const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    isSensorLoading,
+    sensorData,
+    createSensorMsg,
+    deleteSensorMsg,
+    isCreateSensorError,
+    isCreateSensorSuccess,
+    isDeleteSensorError,
+    isDeleteSensorSuccess,
+    isSensorCreateLoading,
+    error,
+    isSensorUpdateLoading,
+    sensorUpdateData,
+  } = useSelector((state) => state?.sensor);
 
   console.log('sensorData', sensorData);
 
   const { themeStretch } = useSettingsContext();
 
   const { user } = useAuthContext();
+
   const { users } = useSelector((state) => state.user);
 
   console.log('user', user);
@@ -135,18 +137,20 @@ function SensorVariableAccess({
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
-  const [openVariableDrawer, setOpenVariableDrawer] = useState(false);
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
   const [lastLoadingTime, setLastLoadingTime] = useState(moment().format('YYYY-MM-DD HH:mm:ss'));
-  const [updateData, setUpdateData] = useState({
-  });
+
+  const [updateData, setUpdateData] = useState({});
+
   const [editOpenDrawer, setEditOpenDrawer] = useState(false);
+
   const [editIndex, setEditIndex] = useState(-1);
 
   useEffect(() => {
     dispatch(slice.actions.startLoading());
+
     dispatch(
       getSensorDataByID({
         userId: currentSelectedUser,
@@ -156,6 +160,7 @@ function SensorVariableAccess({
         limit: String(rowsPerPage),
       })
     );
+
     dispatch(
       getAllReportsData({
         topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
@@ -178,6 +183,7 @@ function SensorVariableAccess({
       );
       // Update last call time during each interval
     }, 60000);
+
     dispatch(
       getAllReportsData({
         topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
@@ -187,6 +193,7 @@ function SensorVariableAccess({
         userId: currentSelectedUser,
       })
     );
+
     setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
 
     // Clear the interval when the component unmounts
@@ -199,40 +206,6 @@ function SensorVariableAccess({
     setPage(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [SensorVariableType]);
-
-  // useEffect(() => {
-  //   dispatch(slice.actions.startGetReportsLoading());
-  //   dispatch(
-  //     getAllReportsData({
-  //       topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
-  // ?.UserTopicName?.send,
-  //       page: 1,
-  //       limit: 1,
-  //       userId: currentSelectedUser,
-  //     })
-  //   );
-
-  //   const intervalId = setInterval(() => {
-  //     dispatch(
-  //       getAllReportsData({
-  //         topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
-  // ?.UserTopicName?.send,
-  //         page: 1,
-  //         limit: 1,
-  //         userId: currentSelectedUser,
-  //       })
-  //     );
-  //     setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
-  //     // Update last call time during each interval
-  //   }, 60000);
-
-  //   setLastLoadingTime(moment().format('YYYY-MM-DD HH:mm:ss'));
-
-  //   // Clear the interval when the component unmounts
-  //   return () => clearInterval(intervalId);
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentSelectedUser]);
 
   const dataFiltered = applyFilter({
     inputData: tableData,
@@ -280,7 +253,6 @@ function SensorVariableAccess({
   };
 
   const handleEditClick = (id: number, row: any) => {
-    // setEditingId(id);
     setEditOpenDrawer(true);
     setEditIndex(id);
     setUpdateData({
@@ -300,12 +272,13 @@ function SensorVariableAccess({
   };
 
   const handleDeleteRow = (data: any, index: number) => {
-    console.log("sensorData", sensorData)
-    dispatch(deleteSensorById({
-      index: String(index),
-      sensorType: SensorVariableType ? 'variable' : 'setting',
-      userId: sensorData?.UserId
-    }));
+    dispatch(
+      deleteSensorById({
+        index: String(index),
+        sensorType: SensorVariableType ? 'variable' : 'setting',
+        userId: sensorData?.UserId,
+      })
+    );
   };
 
   useEffect(() => {
@@ -343,7 +316,7 @@ function SensorVariableAccess({
       dispatch(
         getSensorDataByID({
           userId: currentSelectedUser,
-          sensorType:SensorVariableType ? 'variable' : 'setting',
+          sensorType: SensorVariableType ? 'variable' : 'setting',
           searchValue: filterName,
           page: String(page + 1),
           limit: String(rowsPerPage),
@@ -416,8 +389,8 @@ function SensorVariableAccess({
                   headLabel={SensorVariableType ? TABLE_HEAD : SETTINGS_TABLE_HEAD}
                   rowCount={dataFiltered.length}
                   numSelected={selected.length}
-                // onSort={onSort}
-                /*  onSelectAllRows={(checked) =>
+                  // onSort={onSort}
+                  /*  onSelectAllRows={(checked) =>
                   onSelectAllRows(
                     checked,
                     tableData.map((row) => row.id)
@@ -430,28 +403,41 @@ function SensorVariableAccess({
                   ) : (
                     sensorData?.rows?.map((row: any, index: any) => (
                       <>
-                      <SensorVariableTableRow
-                        key={row.UserId}
-                        row={row}
-                        selected={selected.includes(row.UserId)}
-                        SensorVariableType={SensorVariableType}
-                        isDeleteRights={isDeleteRights}
-                        isUpdateRights={isUpdateRights}
-                        onEditRow={handleEditClick}
-                        onDeleteRow={() => handleDeleteRow(row.UserId, index)}
-                        index={index}
-                      />
-                      {
-                          (index === editIndex && editOpenDrawer) &&
+                        <SensorVariableTableRow
+                          key={row.UserId}
+                          row={row}
+                          selected={selected.includes(row.UserId)}
+                          SensorVariableType={SensorVariableType}
+                          isDeleteRights={isDeleteRights}
+                          isUpdateRights={isUpdateRights}
+                          onEditRow={handleEditClick}
+                          onDeleteRow={() => handleDeleteRow(row.UserId, index)}
+                          index={index}
+                        />
+                        {index === editIndex && editOpenDrawer && (
                           <Dialog
                             open={editOpenDrawer}
                             onClose={handleEditCloseDrawer}
-                          // aria-labelledby="parent-modal-title"
-                          // aria-describedby="parent-modal-description"
+                            // aria-labelledby="parent-modal-title"
+                            // aria-describedby="parent-modal-description"
                           >
-                            <AddSensorVariableModel onClose={handleEditCloseDrawer} currentUser={updateData} id={rowsPerPage * page + (index + 1)} isEdit />
+                            {SensorVariableType ? (
+                              <AddVariableModel
+                                onClose={handleEditCloseDrawer}
+                                currentUser={updateData}
+                                id={rowsPerPage * page + (index + 1)}
+                                isEdit
+                              />
+                            ) : (
+                              <AddSensorVariableModel
+                                onClose={handleEditCloseDrawer}
+                                currentUser={updateData}
+                                id={rowsPerPage * page + (index + 1)}
+                                isEdit
+                              />
+                            )}
                           </Dialog>
-                        }
+                        )}
                       </>
                     ))
                   )}
@@ -486,10 +472,14 @@ function SensorVariableAccess({
         <Dialog
           open={openDrawer}
           onClose={handleCloseDrawer}
-        // aria-labelledby="parent-modal-title"
-        // aria-describedby="parent-modal-description"
+          // aria-labelledby="parent-modal-title"
+          // aria-describedby="parent-modal-description"
         >
-          <AddSensorVariableModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+          {SensorVariableType ? (
+            <AddVariableModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+          ) : (
+            <AddSensorVariableModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+          )}
         </Dialog>
       )}
     </>
@@ -508,11 +498,11 @@ export default function SensorVariable({
   const { isView, isUpdate, isCreate, isDelete } = accessControlCRUD[types.PG006] || {};
 
   return isView ? (
-    <SensorVariableAccess 
-      isUpdateRights={isUpdate} 
-      SensorVariableType={SensorVariableType} 
-      isCreateRights={isCreate} 
-      isDeleteRights={isDelete} 
+    <SensorVariableAccess
+      isUpdateRights={isUpdate}
+      SensorVariableType={SensorVariableType}
+      isCreateRights={isCreate}
+      isDeleteRights={isDelete}
     />
   ) : (
     <Page403 />
