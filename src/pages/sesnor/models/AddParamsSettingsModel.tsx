@@ -30,6 +30,7 @@ type Props = {
   currentUser?: any;
   onClose?: any;
   id?: number;
+  setRefresh: any;
 };
 
 export default function AddParamsSettingsModel({
@@ -37,6 +38,7 @@ export default function AddParamsSettingsModel({
   currentUser,
   onClose,
   id,
+  setRefresh,
 }: Props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -100,10 +102,10 @@ export default function AddParamsSettingsModel({
 
   const onSubmit = async (data: any) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
       onClose();
-      navigate(PATH_DASHBOARD.general.sensorCustomSetting);
+      // navigate(PATH_DASHBOARD.general.sensorCustomSetting);
       reset(defaultValues);
       if (isEdit === false) {
         dispatch(
@@ -131,8 +133,10 @@ export default function AddParamsSettingsModel({
           })
         );
       }
+      setRefresh((refresh: boolean) => !refresh);
     } catch (error) {
       console.error('error', error);
+      enqueueSnackbar(error?.message || 'Something went wrong!', { variant: 'error' });
     }
   };
 

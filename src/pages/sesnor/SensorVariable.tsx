@@ -148,6 +148,8 @@ function SensorVariableAccess({
 
   const [editIndex, setEditIndex] = useState(-1);
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     dispatch(slice.actions.startLoading());
 
@@ -200,7 +202,7 @@ function SensorVariableAccess({
     return () => clearInterval(intervalId);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, page, SensorVariableType, rowsPerPage, filterName, currentSelectedUser]);
+  }, [dispatch, page, SensorVariableType, rowsPerPage, filterName, currentSelectedUser, refresh]);
 
   useEffect(() => {
     setPage(0);
@@ -426,6 +428,7 @@ function SensorVariableAccess({
                                 onClose={handleEditCloseDrawer}
                                 currentUser={updateData}
                                 id={rowsPerPage * page + (index + 1)}
+                                setRefresh={setRefresh}
                                 isEdit
                               />
                             ) : (
@@ -433,6 +436,7 @@ function SensorVariableAccess({
                                 onClose={handleEditCloseDrawer}
                                 currentUser={updateData}
                                 id={rowsPerPage * page + (index + 1)}
+                                setRefresh={setRefresh}
                                 isEdit
                               />
                             )}
@@ -476,9 +480,17 @@ function SensorVariableAccess({
           // aria-describedby="parent-modal-description"
         >
           {SensorVariableType ? (
-            <AddVariableModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+            <AddVariableModel
+              setRefresh={setRefresh}
+              onClose={handleCloseDrawer}
+              id={currentSelectedUser}
+            />
           ) : (
-            <AddSensorVariableModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+            <AddSensorVariableModel
+              setRefresh={setRefresh}
+              onClose={handleCloseDrawer}
+              id={currentSelectedUser}
+            />
           )}
         </Dialog>
       )}

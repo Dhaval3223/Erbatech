@@ -135,6 +135,8 @@ function SensorCustomSettingAccess({
 
   const [editingId, setEditingId] = useState(-1);
 
+  const [refresh, setRefresh] = useState(false);
+
   const [updateData, setUpdateData] = useState({
     userId: '',
     index: 1,
@@ -195,7 +197,7 @@ function SensorCustomSettingAccess({
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, filterName, rowsPerPage, page, currentSelectedUser]);
+  }, [dispatch, filterName, rowsPerPage, page, currentSelectedUser, refresh]);
 
   useEffect(() => {
     if (sensorUpdateData?.success) {
@@ -482,6 +484,7 @@ function SensorCustomSettingAccess({
                               currentUser={updateData}
                               id={rowsPerPage * page + (index + 1)}
                               isEdit
+                              setRefresh={setRefresh}
                             />
                           </Dialog>
                         )}
@@ -523,7 +526,11 @@ function SensorCustomSettingAccess({
           // aria-labelledby="parent-modal-title"
           // aria-describedby="parent-modal-description"
         >
-          <AddParamsSettingsModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+          <AddParamsSettingsModel
+            setRefresh={setRefresh}
+            onClose={handleCloseDrawer}
+            id={currentSelectedUser}
+          />
         </Dialog>
       )}
     </>

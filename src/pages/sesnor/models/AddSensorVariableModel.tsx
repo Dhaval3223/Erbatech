@@ -30,6 +30,7 @@ type Props = {
   currentUser?: any;
   onClose?: any;
   id?: number;
+  setRefresh: any;
 };
 
 export default function AddSensorVariableModel({
@@ -37,6 +38,7 @@ export default function AddSensorVariableModel({
   currentUser,
   onClose,
   id,
+  setRefresh,
 }: Props) {
   console.log('currentUser', currentUser);
   const navigate = useNavigate();
@@ -101,10 +103,10 @@ export default function AddSensorVariableModel({
 
   const onSubmit = async (data: any) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      // await new Promise((resolve, reject) => setTimeout(reject, 500));
       reset();
       onClose();
-      navigate(PATH_DASHBOARD.general.sensorSetting);
+      // navigate(PATH_DASHBOARD.general.sensorSetting);
       reset(defaultValues);
       if (isEdit === false) {
         dispatch(
@@ -132,8 +134,10 @@ export default function AddSensorVariableModel({
           })
         );
       }
+      setRefresh((refresh: boolean) => !refresh);
     } catch (error) {
       console.error('error', error);
+      enqueueSnackbar(error?.message || 'Something went wrong!', { variant: 'error' });
     }
   };
 
