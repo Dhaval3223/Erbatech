@@ -58,7 +58,7 @@ import { slice } from '.';
 
   export function deleteSensorById(data: {
     userId: string;
-    index: string;
+    sensorId: string;
     sensorType: string;
   }){
     return async (dispatch: Dispatch) => {

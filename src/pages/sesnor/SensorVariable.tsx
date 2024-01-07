@@ -114,15 +114,11 @@ function SensorVariableAccess({
     sensorUpdateData,
   } = useSelector((state) => state?.sensor);
 
-  console.log('sensorData', sensorData);
-
   const { themeStretch } = useSettingsContext();
 
   const { user } = useAuthContext();
 
   const { users } = useSelector((state) => state.user);
-
-  console.log('user', user);
 
   const [tableData, setTableData] = useState(_userListData);
 
@@ -277,7 +273,7 @@ function SensorVariableAccess({
     console.log(data, 'handleDeleteRow');
     dispatch(
       deleteSensorById({
-        index: data?.SensorId,
+        sensorId: data?.SensorId,
         sensorType: SensorVariableType ? 'variable' : 'setting',
         userId: sensorData?.UserId,
       })

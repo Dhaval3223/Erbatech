@@ -327,7 +327,7 @@ function SensorCustomSettingAccess({
     console.log('sensorData', sensorData);
     dispatch(
       deleteSensorById({
-        index: data?.SensorId,
+        sensorId: data?.SensorId,
         sensorType: 'custom-setting',
         userId: sensorData?.UserId,
       })

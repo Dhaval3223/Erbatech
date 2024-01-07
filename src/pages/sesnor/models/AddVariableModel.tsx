@@ -102,6 +102,7 @@ export default function AddVariableModel({
   }, [isEdit, currentUser]);
 
   const onSubmit = async (data: any) => {
+    console.log('isEdit', isEdit, currentUser);
     try {
       //   await new Promise((resolve) => setTimeout(resolve, 500));
       reset();
@@ -113,7 +114,7 @@ export default function AddVariableModel({
           createSensorByID({
             userId: String(id),
             sensorType: 'variable',
-            data: { ...data, SensorSettingMasterId: null, SensorSettingDataType: 'int' },
+            data: { ...data },
           })
         );
       } else {
@@ -127,8 +128,9 @@ export default function AddVariableModel({
               SensorVariableDescription: data?.SensorVariableDescription,
               SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
               SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
+              SensorId: currentUser?.data?.SensorId,
             },
-            index: String(id),
+            sensorId: currentUser?.data?.SensorId,
             sensorType: 'variable',
             userId: currentUser?.userId,
           })

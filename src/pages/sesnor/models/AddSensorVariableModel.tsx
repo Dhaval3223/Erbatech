@@ -113,7 +113,7 @@ export default function AddSensorVariableModel({
           createSensorByID({
             userId: String(id),
             sensorType: 'setting',
-            data: { ...data, SensorSettingMasterId: null, SensorSettingDataType: 'int' },
+            data: { ...data },
           })
         );
       } else {
@@ -127,8 +127,9 @@ export default function AddSensorVariableModel({
               SensorSettingLocation: data?.SensorSettingLocation,
               SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
               SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
+              SensorId: currentUser?.data?.SensorId,
             },
-            index: String(id),
+            sensorId: currentUser?.data?.SensorId,
             sensorType: 'setting',
             userId: currentUser?.userId,
           })

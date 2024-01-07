@@ -112,7 +112,7 @@ export default function AddParamsSettingsModel({
           createSensorByID({
             userId: String(id),
             sensorType: 'custom-setting',
-            data: { ...data, SensorVariableMasterId: null, SensorVariableDataType: 'int' },
+            data: { ...data },
           })
         );
       } else {
@@ -126,13 +126,15 @@ export default function AddParamsSettingsModel({
               SensorCustomSettingDescription: data?.SensorVariableDescription,
               SensorCustomSettingMasterId: currentUser?.data?.SensorCustomSettingMasterId,
               SensorCustomSettingDataType: currentUser?.data?.SensorCustomSettingDataType,
+              SensorId: currentUser?.data?.SensorId,
             },
-            index: id,
+            sensorId: currentUser?.data?.SensorId,
             sensorType: 'custom-setting',
             userId: currentUser?.userId,
           })
         );
       }
+      // enqueueSnackbar('Updated sucessfully!!');
       setRefresh((refresh: boolean) => !refresh);
     } catch (error) {
       console.error('error', error);
