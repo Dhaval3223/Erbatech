@@ -15,6 +15,7 @@ import {
   IconButton,
   TableContainer,
   Typography,
+  Dialog,
 } from '@mui/material';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
@@ -37,10 +38,11 @@ import {
 } from '../../components/table';
 // sections
 import SensorCustomSettingsTableRows from './SensorCustomSettingsTableRows';
-import { getSensorDataByID, updateSensorByID } from './slice/action';
+import { deleteSensorById, getSensorDataByID, updateSensorByID } from './slice/action';
 import Page403 from '../Page403';
 import UserTableToolbar from './UserTableToolbar';
 import { slice } from './slice';
+import AddParamsSettingsModel from './models/AddParamsSettingsModel';
 
 const TABLE_HEAD = [
   // { id: 'data_types', label: 'Data Types', align: 'left' },
@@ -49,6 +51,7 @@ const TABLE_HEAD = [
   { id: 'Unit', label: 'Unit', align: 'left' },
   { id: 'Range', label: 'Range', align: 'left' },
   { id: 'Description', label: 'Description', align: 'left' },
+  { id: 'Action', label: 'Action', align: 'left' },
 ];
 
 const ROWS = [
@@ -96,7 +99,17 @@ function SensorCustomSettingAccess({
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const { isSensorLoading, sensorData, sensorUpdateData } = useSelector((state) => state.sensor);
+  const {
+    isSensorLoading,
+    sensorData,
+    sensorUpdateData,
+    isDeleteSensorError,
+    isDeleteSensorSuccess,
+    deleteSensorMsg,
+    isCreateSensorSuccess,
+    isCreateSensorError,
+    createSensorMsg,
+  } = useSelector((state) => state.sensor);
 
   const { themeStretch } = useSettingsContext();
 
@@ -109,14 +122,14 @@ function SensorCustomSettingAccess({
   const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
 
   const [isEdit, setIsEdit] = useState(false);
+  const [editIndex, setEditIndex] = useState(-1);
 
   const [filterRole, setFilterRole] = useState('all');
 
   const [filterStatus, setFilterStatus] = useState('all');
 
   const [openDrawer, setOpenDrawer] = useState(false);
-
-  const [EditopenDrawer, setEditOpenDrawer] = useState(false);
+  const [editOpenDrawer, setEditOpenDrawer] = useState(false);
 
   const [openConfirm, setOpenConfirm] = useState(false);
 
@@ -231,8 +244,6 @@ function SensorCustomSettingAccess({
     setFilterRole(event.target.value);
   };
 
-  const handleDeleteRow = (id: string) => {};
-
   const handleDeleteRows = (selectedRows: string[]) => {
     const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
   };
@@ -252,6 +263,21 @@ function SensorCustomSettingAccess({
     setOpenDrawer(true);
   };
 
+  const handleCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setOpenDrawer(false);
+  };
+
+  const handleEditCloseDrawer = (event: any, reason: any) => {
+    if (reason && reason === 'backdropClick') {
+      return;
+    }
+    setEditOpenDrawer(false);
+    setEditIndex(-1);
+  };
+
   const handleOpenConfirm = () => {
     setOpenConfirm(true);
   };
@@ -266,6 +292,17 @@ function SensorCustomSettingAccess({
     });
   };
 
+  const handleEditClick = (id: number, row: any) => {
+    // setEditingId(id);
+    setEditOpenDrawer(true);
+    setEditIndex(id);
+    setUpdateData({
+      userId: currentSelectedUser,
+      index: rowsPerPage * page + (id + 1),
+      sensorType: 'custom-setting',
+      data: { ...row },
+    });
+  };
   const handleOnChangeUpdate = (e: any) => {
     if (e.target.value?.length > 10) return;
     setUpdateData({
@@ -284,6 +321,69 @@ function SensorCustomSettingAccess({
     dispatch(updateSensorByID({ ...updateData }));
   };
 
+  const handleDeleteRow = (data: any, index: number) => {
+    console.log('sensorData', sensorData);
+    dispatch(
+      deleteSensorById({
+        index: String(index),
+        sensorType: 'custom-setting',
+        userId: sensorData?.UserId,
+      })
+    );
+  };
+
+  useEffect(() => {
+    if (isDeleteSensorSuccess) {
+      enqueueSnackbar(deleteSensorMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetDeleteSensorEventError());
+      dispatch(
+        getSensorDataByID({
+          userId: currentSelectedUser,
+          sensorType: 'custom-setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    if (isDeleteSensorError) {
+      enqueueSnackbar(deleteSensorMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetDeleteSensorEventError());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDeleteSensorSuccess, isDeleteSensorError]);
+
+  useEffect(() => {
+    if (isCreateSensorSuccess) {
+      enqueueSnackbar(createSensorMsg, {
+        variant: 'success',
+      });
+      dispatch(slice.actions.resetSensorCreatedRecords());
+      dispatch(
+        getSensorDataByID({
+          userId: currentSelectedUser,
+          sensorType: 'custom-setting',
+          searchValue: filterName,
+          page: String(page + 1),
+          limit: String(rowsPerPage),
+        })
+      );
+    }
+    if (isCreateSensorError) {
+      enqueueSnackbar(createSensorMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.resetSensorCreatedRecords());
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isCreateSensorSuccess, isCreateSensorError]);
+
   return (
     <>
       <Helmet>
@@ -300,9 +400,9 @@ function SensorCustomSettingAccess({
             onFilterName={handleFilterName}
             onFilterRole={handleFilterRole}
             onResetFilter={handleResetFilter}
-            createButtonLable="+"
+            // createButtonLable="+"
             handleCreateClick={handleOpenDrawer}
-            // isCreateButton
+            isCreateButton
             isCreateRights={isCreateRights}
             lastLoadingTime={lastLoadingTime}
             lastUpdateStatus
@@ -342,33 +442,50 @@ function SensorCustomSettingAccess({
                   numSelected={selected.length}
                   // onSort={onSort}
                   /*  onSelectAllRows={(checked) =>
-                    onSelectAllRows(
-                      checked,
-                      tableData.map((row) => row.id)
-                    )
-                  } */
+                  onSelectAllRows(
+                    checked,
+                    tableData.map((row) => row.id)
+                  )
+                } */
                 />
                 <TableBody>
                   {isSensorLoading ? (
                     <TableSkeleton colums={6} />
                   ) : (
                     sensorData?.rows?.map((row: any, index: number) => (
-                      <SensorCustomSettingsTableRows
-                        key={row.UserId}
-                        row={row}
-                        selected={selected.includes(row.UserId)}
-                        onSelectRow={() => onSelectRow(row.UserId)}
-                        onEditRow={() => handleEditRow(row.UserId)}
-                        onDeleteRow={() => handleDeleteRow(row.UserId)}
-                        isDeleteRights={isDeleteRights}
-                        isUpdateRights={isUpdateRights}
-                        editingId={editingId}
-                        handleBlur={handleBlurApiCall}
-                        handleCellDoubleClick={handleCellDoubleClick}
-                        index={index}
-                        handleOnChangeUpdate={handleOnChangeUpdate}
-                        updatedData={updateData}
-                      />
+                      <>
+                        <SensorCustomSettingsTableRows
+                          key={row.UserId}
+                          row={row}
+                          selected={selected.includes(row.UserId)}
+                          onSelectRow={() => onSelectRow(row.UserId)}
+                          onEditRow={handleEditClick}
+                          onDeleteRow={() => handleDeleteRow(row.UserId, index)}
+                          isDeleteRights={isDeleteRights}
+                          isUpdateRights={isUpdateRights}
+                          editingId={editingId}
+                          handleBlur={handleBlurApiCall}
+                          handleCellDoubleClick={handleCellDoubleClick}
+                          index={index}
+                          handleOnChangeUpdate={handleOnChangeUpdate}
+                          updatedData={updateData}
+                        />
+                        {index === editIndex && editOpenDrawer && (
+                          <Dialog
+                            open={editOpenDrawer}
+                            onClose={handleEditCloseDrawer}
+                            // aria-labelledby="parent-modal-title"
+                            // aria-describedby="parent-modal-description"
+                          >
+                            <AddParamsSettingsModel
+                              onClose={handleEditCloseDrawer}
+                              currentUser={updateData}
+                              id={rowsPerPage * page + (index + 1)}
+                              isEdit
+                            />
+                          </Dialog>
+                        )}
+                      </>
                     ))
                   )}
                   {/* <TableEmptyRows
@@ -399,6 +516,16 @@ function SensorCustomSettingAccess({
           </Typography>
         )}
       </Container>
+      {openDrawer && (
+        <Dialog
+          open={openDrawer}
+          onClose={handleCloseDrawer}
+          // aria-labelledby="parent-modal-title"
+          // aria-describedby="parent-modal-description"
+        >
+          <AddParamsSettingsModel onClose={handleCloseDrawer} id={currentSelectedUser} />
+        </Dialog>
+      )}
     </>
   );
 }

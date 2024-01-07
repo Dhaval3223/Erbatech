@@ -7,6 +7,14 @@ const initialState: ISensorState = {
   error: {},
   isSensorUpdateLoading: false,
   sensorUpdateData: {},
+  createSensorError: {},
+  isDeleteSensorError: false,
+  isSensorCreateLoading: false,
+  isDeleteSensorSuccess: false,
+  createSensorMsg: '',
+  isCreateSensorError: false,
+  isCreateSensorSuccess: false,
+  deleteSensorMsg: '',
 };
 
 const slice = createSlice({
@@ -38,6 +46,40 @@ const slice = createSlice({
     hasUpdateSensorDataError(state, action) {
       state.isSensorUpdateLoading = false;
       state.sensorUpdateData = action.payload;
+    },
+    getSensorCreatedRecords(state, action) {
+      state.isSensorCreateLoading = false;
+      state.isCreateSensorSuccess = true;
+      state.createSensorMsg = 'Sensor created successfully'
+    },
+    resetSensorCreatedRecords(state) {
+      state.isCreateSensorSuccess = false;
+      state.isCreateSensorError = false;
+      state.createSensorMsg= '';
+    },
+    hasCreateSensorDataError(state, action) {
+      state.isSensorCreateLoading = false;
+      state.isCreateSensorError = true;
+    },
+    createHasError(state, action) {
+      state.isSensorCreateLoading = false;
+      state.createSensorError = action.payload;
+    },
+    deleteSensorSuccess(state, action) {
+      state.isDeleteSensorSuccess = true;
+    },
+    deleteSensorEventSuccess(state, action) {
+      state.isDeleteSensorSuccess = true;
+      state.deleteSensorMsg = 'Sensor deleted successfully';
+    },
+    deleteSensorEventError(state, action) {
+      state.isDeleteSensorError = true;
+      state.deleteSensorMsg = 'OOPS!! failed to delete Sensor';
+    },
+    resetDeleteSensorEventError(state) {
+      state.isDeleteSensorError = false;
+      state.isDeleteSensorSuccess = false;
+      state.deleteSensorMsg = '';
     },
   },
 });
