@@ -50,7 +50,7 @@ export default function AddVariableModel({
   const NewUserSchema = Yup.object().shape({
     SensorVariableName: Yup.string().required('Variables is required'),
     SensorVariableValue: Yup.string().required('Value is required'),
-    SensorVariableDataType: Yup.string().required('Unit is required'),
+    SensorVariableUnit: Yup.string().required('Unit is required'),
     SensorVariableRange: Yup.string().required('Range is required'),
     SensorVariableDescription: Yup.string().required('Description is required'),
   });
@@ -63,8 +63,8 @@ export default function AddVariableModel({
       SensorVariableValue: currentUser?.data?.SensorVariableValue
         ? currentUser?.data?.SensorVariableValue
         : '',
-      SensorVariableDataType: currentUser?.data?.SensorVariableDataType
-        ? currentUser?.data?.SensorVariableDataType
+      SensorVariableUnit: currentUser?.data?.SensorVariableUnit
+        ? currentUser?.data?.SensorVariableUnit
         : '',
       SensorVariableRange: currentUser?.data?.SensorVariableRange
         ? currentUser?.data?.SensorVariableRange
@@ -123,7 +123,7 @@ export default function AddVariableModel({
             data: {
               SensorVariableName: data?.SensorVariableName,
               SensorVariableValue: data?.SensorVariableValue,
-              SensorVariableDataType: data?.SensorVariableDataType,
+              SensorVariableUnit: data?.SensorVariableUnit,
               SensorVariableRange: data?.SensorVariableRange,
               SensorVariableDescription: data?.SensorVariableDescription,
               SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
@@ -160,7 +160,7 @@ export default function AddVariableModel({
         >
           <RHFTextField name="SensorVariableName" label="Add Variable" />
           <RHFTextField name="SensorVariableValue" label="Add Value" />
-          <RHFTextField name="SensorVariableDataType" label="Add Unit" />
+          <RHFTextField name="SensorVariableUnit" label="Add Unit" />
           <RHFTextField name="SensorVariableRange" label="Add Range" />
           <RHFTextField
             // gridColumn={{ sm: 'span 2' }}
@@ -190,7 +190,7 @@ export default function AddVariableModel({
                 reset({
                   SensorVariableName: '',
                   SensorVariableValue: '',
-                  SensorVariableDataType: '',
+                  SensorVariableUnit: '',
                   SensorVariableRange: '',
                   SensorVariableDescription: '',
                 })
