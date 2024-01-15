@@ -53,6 +53,7 @@ export default function AddSensorVariableModel({
     SensorSettingValue: Yup.string().required('Unit is required'),
     SensorSettingDescription: Yup.string().required('Range is required'),
     SensorSettingLocation: Yup.string().required('Description is required'),
+    SensorSettingName: Yup.string().required('Type is required'),
   });
 
   const defaultValues = useMemo(
@@ -71,6 +72,9 @@ export default function AddSensorVariableModel({
         : '',
       SensorSettingLocation: currentUser?.data?.SensorSettingLocation
         ? currentUser?.data?.SensorSettingLocation
+        : '',
+      SensorSettingName: currentUser?.data?.SensorSettingName
+        ? currentUser?.data?.SensorSettingName
         : '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -126,6 +130,7 @@ export default function AddSensorVariableModel({
               SensorSettingDescription: data?.SensorSettingDescription,
               SensorSettingLocation: data?.SensorSettingLocation,
               SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
+              SensorSettingName: data?.SensorSettingName,
               SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
               SensorId: currentUser?.data?.SensorId,
             },
@@ -162,6 +167,7 @@ export default function AddSensorVariableModel({
           <RHFTextField name="SensorSettingValue" label="Add value" />
           <RHFTextField name="SensorSettingDescription" label="Add description" />
           <RHFTextField name="SensorSettingLocation" label="Add location" />
+          <RHFTextField name="SensorSettingName" label="Add type" />
         </Box>
 
         <Stack
@@ -187,6 +193,7 @@ export default function AddSensorVariableModel({
                   SensorSettingValue: '',
                   SensorSettingDescription: '',
                   SensorSettingLocation: '',
+                  SensorSettingName: '',
                 })
               }
             >

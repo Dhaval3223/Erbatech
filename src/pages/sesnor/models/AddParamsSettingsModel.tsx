@@ -52,6 +52,7 @@ export default function AddParamsSettingsModel({
     SensorCustomSettingUnit: Yup.string().required('Unit is required'),
     SensorCustomSettingRange: Yup.string().required('Range is required'),
     SensorCustomSettingDescription: Yup.string().required('Description is required'),
+    SensorCustomSettingDataType: Yup.string().required('Type is required'),
   });
 
   const defaultValues = useMemo(
@@ -70,6 +71,9 @@ export default function AddParamsSettingsModel({
         : '',
       SensorCustomSettingDescription: currentUser?.data?.SensorCustomSettingDescription
         ? currentUser?.data?.SensorCustomSettingDescription
+        : '',
+      SensorCustomSettingDataType: currentUser?.data?.SensorCustomSettingDataType
+        ? currentUser?.data?.SensorCustomSettingDataType
         : '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -118,16 +122,7 @@ export default function AddParamsSettingsModel({
       } else {
         dispatch(
           updateSensorByID({
-            data: {
-              SensorCustomSettingParameter: data?.SensorVariableName,
-              SensorCustomSettingValue: data?.SensorVariableValue,
-              SensorCustomSettingUnit: data?.SensorVariableUnit,
-              SensorCustomSettingRange: data?.SensorVariableRange,
-              SensorCustomSettingDescription: data?.SensorVariableDescription,
-              SensorCustomSettingMasterId: currentUser?.data?.SensorCustomSettingMasterId,
-              SensorCustomSettingDataType: currentUser?.data?.SensorCustomSettingDataType,
-              SensorId: currentUser?.data?.SensorId,
-            },
+            data: { ...data, sensorId: currentUser?.data?.SensorId },
             sensorId: currentUser?.data?.SensorId,
             sensorType: 'custom-setting',
             userId: currentUser?.userId,
@@ -162,9 +157,14 @@ export default function AddParamsSettingsModel({
           <RHFTextField name="SensorCustomSettingUnit" label="Add unit" />
           <RHFTextField name="SensorCustomSettingRange" label="Add Range" />
           <RHFTextField
-            sx={{ gridColumn: 'span 2' }}
+            // sx={{ gridColumn: 'span 2' }}
             name="SensorCustomSettingDescription"
             label="Add description"
+          />
+          <RHFTextField
+            // sx={{ gridColumn: 'span 2' }}
+            name="SensorCustomSettingDataType"
+            label="Add Type"
           />
         </Box>
 
@@ -191,6 +191,7 @@ export default function AddParamsSettingsModel({
                   SensorCustomSettingUnit: '',
                   SensorCustomSettingRange: '',
                   SensorCustomSettingDescription: '',
+                  SensorCustomSettingDataType: '',
                 })
               }
             >
