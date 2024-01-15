@@ -53,7 +53,8 @@ export default function AddSensorVariableModel({
     SensorSettingValue: Yup.string().required('Unit is required'),
     SensorSettingDescription: Yup.string().required('Range is required'),
     SensorSettingLocation: Yup.string().required('Description is required'),
-    SensorSettingName: Yup.string().required('Type is required'),
+    SensorSettingName: Yup.string().required('Name is required'),
+    SensorSettingDataType: Yup.string().required('Type is required'),
   });
 
   const defaultValues = useMemo(
@@ -75,6 +76,9 @@ export default function AddSensorVariableModel({
         : '',
       SensorSettingName: currentUser?.data?.SensorSettingName
         ? currentUser?.data?.SensorSettingName
+        : '',
+      SensorSettingDataType: currentUser?.data?.SensorSettingDataType
+        ? currentUser?.data?.SensorSettingDataType
         : '',
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -131,7 +135,8 @@ export default function AddSensorVariableModel({
               SensorSettingLocation: data?.SensorSettingLocation,
               SensorSettingMasterId: currentUser?.data?.SensorSettingMasterId,
               SensorSettingName: data?.SensorSettingName,
-              SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
+              SensorSettingDataType: data?.SensorSettingDataType,
+              // SensorSettingDataType: currentUser?.data?.SensorSettingDataType,
               SensorId: currentUser?.data?.SensorId,
             },
             sensorId: currentUser?.data?.SensorId,
@@ -167,7 +172,8 @@ export default function AddSensorVariableModel({
           <RHFTextField name="SensorSettingValue" label="Add value" />
           <RHFTextField name="SensorSettingDescription" label="Add description" />
           <RHFTextField name="SensorSettingLocation" label="Add location" />
-          <RHFTextField name="SensorSettingName" label="Add type" />
+          <RHFTextField name="SensorSettingName" label="Add name" />
+          <RHFTextField name="SensorSettingDataType" label="Add type" />
         </Box>
 
         <Stack
@@ -194,6 +200,7 @@ export default function AddSensorVariableModel({
                   SensorSettingDescription: '',
                   SensorSettingLocation: '',
                   SensorSettingName: '',
+                  SensorSettingDataType: '',
                 })
               }
             >
