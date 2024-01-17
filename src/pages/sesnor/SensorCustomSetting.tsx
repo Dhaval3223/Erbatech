@@ -139,8 +139,8 @@ function SensorCustomSettingAccess({
 
   const [updateData, setUpdateData] = useState({
     userId: '',
-    index: 1,
     sensorType: 'custom-setting',
+    sensorId: '',
     data: {
       SensorCustomSettingUnit: '',
       SensorCustomSettingRange: '',
@@ -285,12 +285,13 @@ function SensorCustomSettingAccess({
   };
 
   const handleCellDoubleClick = (id: number, row: any) => {
+    console.log('row', row);
     setEditingId(id);
     setUpdateData({
       userId: currentSelectedUser,
-      index: rowsPerPage * page + (id + 1),
       sensorType: 'custom-setting',
-      data: { ...row },
+      sensorId: row?.sensorId || row?.SensorId,
+      data: { ...row, userId: currentSelectedUser },
     });
   };
 
@@ -300,9 +301,9 @@ function SensorCustomSettingAccess({
     setEditIndex(id);
     setUpdateData({
       userId: currentSelectedUser,
-      index: rowsPerPage * page + (id + 1),
       sensorType: 'custom-setting',
-      data: { ...row },
+      sensorId: row?.SensorId || row?.sensorId,
+      data: { ...row, userId: currentSelectedUser },
     });
   };
   const handleOnChangeUpdate = (e: any) => {
