@@ -1334,7 +1334,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])}  hPa`}
+                {apiValues?.[keys?.[2.2]] && `${Math.round(apiValues?.[keys?.[2.2]])}  hPa`}
               </tspan>
             </text>
           </g>
@@ -1372,7 +1372,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[2.2]] && `${Math.round(apiValues?.[keys?.[2.2]])} hPa`}
+                {apiValues?.[keys?.[2.3]] && `${Math.round(apiValues?.[keys?.[2.3]])} hPa`}
               </tspan>
             </text>
           </g>
@@ -1842,7 +1842,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
             d="M86.28 437.52h119.17"
           />
         </g>
-        {apiValues?.Level_tank_min && apiValues?.Level_tank_min >= 1 && (
+        {apiValues?.Level_tank_min && apiValues?.Level_tank_min == 0 && (
           <>
             <path
               fill="none"
@@ -2267,8 +2267,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[1.4]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[1.4]])} °C`}
+                {apiValues?.T_tank_1 && `${roundToOneDecimalPlace(apiValues?.T_tank_1)} °C`}
               </tspan>
             </text>
           </g>
@@ -2776,14 +2775,14 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
         <path
           fill="none"
           stroke={
-            apiValues?.Enable_WP == 1 ? '#36B37E' : apiValues?.Enable_WP == 0 ? 'red' : '#000'
+            apiValues?.Enable_WP == 0 ? '#36B37E' : apiValues?.Enable_WP == 0 ? 'red' : '#000'
           }
           strokeDasharray="none"
           strokeLinecap="butt"
           strokeLinejoin="miter"
           strokeMiterlimit="10"
           strokeOpacity="1"
-          strokeWidth={apiValues?.Enable_WP == 1 || apiValues?.Enable_WP == 0 ? '3' : '0.96'}
+          strokeWidth={apiValues?.Enable_WP == 0 || apiValues?.Enable_WP == 0 ? '3' : '0.96'}
           d="M603.24 114h75.72v73.32h-75.72z"
         />
         <path
@@ -4784,7 +4783,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.SV_T_infeed && `${roundToOneDecimalPlace(apiValues?.SV_T_infeed)} °C`}
+                {apiValues?.T_tank_1 && `${roundToOneDecimalPlace(apiValues?.T_tank_1)} °C`}
               </tspan>
             </text>
           </g>
