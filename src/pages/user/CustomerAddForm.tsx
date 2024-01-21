@@ -71,18 +71,22 @@ export default function CustomerNewAdd({ isEdit = false, currentUser, user, onCl
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    FirstName: Yup.string().required('FirstName is required'),
-    LastName: Yup.string().required('LastName is required'),
+    FirstName: Yup.string().required('First Name is required').max(50, 'Maximum 50 character'),
+    LastName: Yup.string().required('Last Name is required').max(50, 'Maximum 50 character'),
     UserEmail: Yup.string()
       .required('Email is required')
+      .max(150, 'Maximum 150 character')
       .email('Email must be a valid email address'),
-    Mobile: Yup.string().required('Phone number is required'),
+    Mobile: Yup.string()
+      .required('Phone Number is required')
+      .max(13, 'Maximum 12 character')
+      .matches(/^[0-9]+$/, 'Must be only digits'),
     UserCountryId: Yup.string().required('Country is required'),
     UserStateId: Yup.string().required('State is required'),
     UserCity: Yup.string().required('City is required'),
     Address: Yup.string().required('Address is required'),
     UserLocation: Yup.string().required('Location is required'),
-    UserPassword: Yup.string().required('password is required'),
+    UserPassword: Yup.string().required('Password is required'),
     // UserTemplateId: Yup.string().required('Template is required'),
     // UserRoleId: Yup.string().required('Role is required'),
   });

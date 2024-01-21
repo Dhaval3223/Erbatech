@@ -263,7 +263,7 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
             sx={{
               position: 'relative',
               overflow: 'unset',
-              maxHeight: '350px',
+              // maxHeight: '350px',
               overflowY: 'scroll',
             }}
           >

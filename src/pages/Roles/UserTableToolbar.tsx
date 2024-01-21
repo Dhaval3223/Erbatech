@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 // @mui
-import { Stack, InputAdornment, TextField, MenuItem, Button } from '@mui/material';
+import { Stack, InputAdornment, TextField, MenuItem, Button, Typography, Box } from '@mui/material';
 // components
 import { IconButtonAnimate } from 'src/components/animate';
 import { LoadingButton } from '@mui/lab';
@@ -141,18 +141,25 @@ export default function UserTableToolbar({
             sm: 'row',
           }}
         >
-          <TextField
-            fullWidth
-            name="Role"
-            error={roleError}
-            label="Create New Role"
-            sx={{
-              maxWidth: { sm: 240 },
-              textTransform: 'capitalize',
-            }}
-            value={role.RoleName}
-            onChange={(e) => handleRoles(e)}
-          />
+          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <TextField
+              fullWidth
+              name="Role"
+              error={roleError}
+              label="Create New Role"
+              sx={{
+                maxWidth: { sm: 240 },
+                textTransform: 'capitalize',
+              }}
+              value={role.RoleName}
+              onChange={(e) => handleRoles(e)}
+            />
+            {role.RoleName?.length > 50 && (
+              <Typography sx={{ fontSize: '0.8rem', color: 'red' }}>
+                Role should be max 50 charater
+              </Typography>
+            )}
+          </Box>
           <LoadingButton
             // fullWidth
             type="submit"

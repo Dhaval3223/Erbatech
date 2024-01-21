@@ -62,8 +62,8 @@ interface IAlarmListing {
   isDeleteRights?: boolean;
   isCreateRights?: boolean;
   refreshAPI?: boolean;
-  setCurrentSelectedUser?: any; 
-  currentSelectedUser?:any;
+  setCurrentSelectedUser?: any;
+  currentSelectedUser?: any;
 }
 
 // ----------------------------------------------------------------------
@@ -73,8 +73,8 @@ function AlarmAccess({
   isDeleteRights,
   isCreateRights,
   refreshAPI,
-  setCurrentSelectedUser, 
-  currentSelectedUser
+  setCurrentSelectedUser,
+  currentSelectedUser,
 }: IAlarmListing) {
   const {
     dense,
@@ -94,10 +94,7 @@ function AlarmAccess({
 
   const dispatch = useDispatch();
 
-  const {
-    alarmData2Loading,
-    alarmData2,
-  } = useSelector((state) => state?.alarm);
+  const { alarmData2Loading, alarmData2 } = useSelector((state) => state?.alarm);
 
   const { themeStretch } = useSettingsContext();
 
@@ -180,7 +177,7 @@ function AlarmAccess({
             sx={{
               position: 'relative',
               overflow: 'unset',
-              maxHeight: '350px',
+              // maxHeight: '350px',
               overflowY: 'scroll',
             }}
           >
@@ -232,7 +229,7 @@ function AlarmAccess({
                       />
                     ))
                   )}
-                 
+
                   {!alarmData2Loading && <TableNoData isNotFound={alarmData2?.count === 0} />}
                 </TableBody>
               </Table>
@@ -250,7 +247,6 @@ function AlarmAccess({
             onChangeDense={onChangeDense}
           />
         </Card>
-      
       </Container>
     </>
   );
@@ -262,8 +258,12 @@ export default function Alarm(props: any) {
   const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
 
   return isView ? (
-    <AlarmAccess isUpdateRights={isUpdate} refreshAPI={props?.refreshAPI}  setCurrentSelectedUser={props?.setCurrentSelectedUser}
-    currentSelectedUser={props?.currentSelectedUser}/>
+    <AlarmAccess
+      isUpdateRights={isUpdate}
+      refreshAPI={props?.refreshAPI}
+      setCurrentSelectedUser={props?.setCurrentSelectedUser}
+      currentSelectedUser={props?.currentSelectedUser}
+    />
   ) : (
     <Page403 />
   );
