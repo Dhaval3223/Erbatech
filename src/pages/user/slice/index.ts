@@ -104,12 +104,18 @@ const slice = createSlice({
       state.updateUserMsg = 'Something went wrong';
     },
     deleteUser(state, action) {
+      console.log(action);
       state.deleteUserSuccess = true;
-      state.deleteUserMsg = action.payload.data.message;
+      state.deleteUserMsg = action?.payload?.message || 'Deleted user successfully';
     },
     deleteUserError(state, action) {
       state.deleteUserError = true;
       state.deleteUserMsg = action.payload.data.message;
+    },
+    resetDeleteUser(state) {
+      state.deleteUserSuccess = false;
+      state.deleteUserError = false;
+      state.deleteUserMsg = '';
     },
     deletTemplateById(state, action) {
       state.deleteTemplateSuccess = true;

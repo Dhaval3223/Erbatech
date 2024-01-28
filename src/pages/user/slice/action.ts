@@ -2,6 +2,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 // utils
 import axios from 'src/utils/axiosInstance';
 
+import { useSnackbar } from 'notistack';
 import {
   CREATE_USER,
   DELETE_USER,
