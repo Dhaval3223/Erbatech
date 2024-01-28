@@ -28,7 +28,6 @@ const Dashboard = () => {
   const { users } = useSelector((state) => state.user);
 
   const { viewUserData } = useSelector((state) => state.user);
-  console.log('viewUserData', viewUserData);
 
   const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
 

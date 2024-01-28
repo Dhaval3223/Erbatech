@@ -4404,7 +4404,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
           strokeWidth="2.28"
           d="M179.59 238.02h90.58c11.87 0 21.49-27.1 21.49-60.54s-9.62-60.54-21.49-60.54h-90.58c-11.87 0-21.49 27.1-21.49 60.54s9.62 60.54 21.49 60.54z"
         />
-        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] >= 1 && (
+        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] == 0 && (
           <>
             <path
               fill="none"

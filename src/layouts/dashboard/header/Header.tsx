@@ -2,6 +2,7 @@
 import { useTheme } from '@mui/material/styles';
 import { Stack, AppBar, Toolbar, IconButton } from '@mui/material';
 // utils
+import SettingsDrawer from 'src/components/settings/drawer/SettingsDrawer';
 import { bgBlur } from '../../../utils/cssStyles';
 // hooks
 import useOffSetTop from '../../../hooks/useOffSetTop';
@@ -59,6 +60,7 @@ export default function Header({ onOpenNav }: Props) {
       >
         <LanguagePopover />
 
+        <SettingsDrawer />
         {/* <NotificationsPopover />
 
         <ContactsPopover /> */}

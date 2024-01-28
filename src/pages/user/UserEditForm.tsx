@@ -58,13 +58,24 @@ export default function UserEditForm({
   const { enqueueSnackbar } = useSnackbar();
 
   const NewUserSchema = Yup.object().shape({
-    FirstName: Yup.string().required('FirstName is required'),
-    LastName: Yup.string().required('LastName is required'),
+    FirstName: Yup.string()
+      .required('First Name is required')
+      .max(50, 'Maximum 50 character allowed'),
+    LastName: Yup.string()
+      .required('Last Name is required')
+      .max(50, 'Maximum 50 characte allowedr'),
     UserEmail: Yup.string()
       .required('Email is required')
-      .email('Email must be a valid email address'),
-    Mobile: Yup.string().required('Phone number is required'),
-    UserPassword: Yup.string().required('password is required'),
+      .email('Email must be a valid email address')
+      .max(150, 'Maximum 150 character allowed'),
+    Mobile: Yup.string()
+      .matches(/^[0-9]+$/, 'Must be only digits')
+      .required('Phone Number is required')
+      .max(12),
+    UserPassword: Yup.string()
+      .required('Password is required')
+      .min(6, 'Minimum 6 characters allowed')
+      .max(16, 'Maximum 16 characters allowed'),
     UserRoleId: Yup.string().required('Role is required'),
   });
 
@@ -141,7 +152,9 @@ export default function UserEditForm({
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Card sx={{ p: 3 }}>
-        <Typography variant='h4' sx={{ mb: 3 }} textAlign="center">Edit User</Typography>
+        <Typography variant="h4" sx={{ mb: 3 }} textAlign="center">
+          Edit User
+        </Typography>
         <Box
           rowGap={3}
           columnGap={2}

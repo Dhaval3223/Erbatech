@@ -62,6 +62,7 @@ export default function UserTableRow({
   };
 
   const handleCloseConfirm = () => {
+    console.log('handleCloseConfirm');
     setOpenConfirm(false);
   };
 

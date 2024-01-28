@@ -2989,7 +2989,7 @@ export const RhaezuensScreen = ({ currentSelectedUser, setCurrentSelectedUser }:
             d="M86.28 437.52h119.17"
           />
         </g>
-        {apiValues?.Level_tank_min && apiValues?.Level_tank_min >= 1 && (
+        {apiValues?.Level_tank_min && apiValues?.Level_tank_min == 0 && (
           <>
             <path
               fill="none"
