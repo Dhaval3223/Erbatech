@@ -8,4 +8,9 @@ export interface IReportsSlice {
   isDownloadCSVError: boolean;
   downloadCSVData: any;
   downloadCSVMsg: string;
+  csvData: any;
+  isGenerateCsvLoading: any;
+  isGenerateCsvSuccess: any;
+  isGenerateCsvError: any;
+  generateCsvmsg: any;
 };

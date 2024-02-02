@@ -60,41 +60,41 @@ export default function YieldTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.SK_heat,
-        item?.TransactionData[0]?.PVA_yield,
-        item?.TransactionData[0]?.SK_heat_tot,
-        item?.TransactionData[0]?.PVA_yield_tot,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.Time,
+  //       item?.TransactionData[0]?.SK_heat,
+  //       item?.TransactionData[0]?.PVA_yield,
+  //       item?.TransactionData[0]?.SK_heat_tot,
+  //       item?.TransactionData[0]?.PVA_yield_tot,
+  //     ]);
 
-      console.log('flattenedData', flattenedData);
+  //     console.log('flattenedData', flattenedData);
 
-      // Add the header row
-      const csvDataArray = [
-        ['Time', 'SK heat', 'PVA yield', 'SK heat tot', 'PVA yield tot'],
-        ...flattenedData,
-      ];
+  //     // Add the header row
+  //     const csvDataArray = [
+  //       ['Time', 'SK heat', 'PVA yield', 'SK heat tot', 'PVA yield tot'],
+  //       ...flattenedData,
+  //     ];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
 
-      csvLinkRef?.current?.link.click();
+  //     csvLinkRef?.current?.link.click();
 
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>
@@ -113,6 +113,7 @@ export default function YieldTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="yeild"
       />
     </>
   );

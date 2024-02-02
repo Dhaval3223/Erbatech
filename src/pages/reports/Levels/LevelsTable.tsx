@@ -51,31 +51,31 @@ export default function LevelsTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.p_buffer_tank,
-        item?.TransactionData[0]?.p_roof,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.p_buffer_tank,
+  //       item?.TransactionData[0]?.p_roof,
+  //     ]);
 
-      // Add the header row
-      const csvDataArray = [['p_buffer_tank', 'p_roof'], ...flattenedData];
+  //     // Add the header row
+  //     const csvDataArray = [['p_buffer_tank', 'p_roof'], ...flattenedData];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
-      csvLinkRef?.current?.link.click();
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
+  //     csvLinkRef?.current?.link.click();
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>
@@ -94,6 +94,7 @@ export default function LevelsTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="levels"
       />
     </>
   );

@@ -31,17 +31,20 @@ import dayjs from 'dayjs';
 
 import UsersDropDown from 'src/components/all-users-dropdown';
 import { useAuthContext } from 'src/auth/useAuthContext';
-import { downLoadReportCSV, getAllReportsData } from './slice/action';
+import { useSnackbar } from 'src/components/snackbar/index';
+import { downLoadReportCSV, generateCSV, getAllReportsData } from './slice/action';
 import { slice } from './slice';
+import { downloadCSV } from './utils';
 
 type Props = {
   columns: any[];
   rowCount?: number;
   rows: any[];
   tableType?: string;
+  reportType: string;
 };
 
-function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) {
+function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportType }: Props) {
   const {
     dense,
     page,
@@ -61,7 +64,15 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     defaultRowsPerPage: 10,
   });
 
-  const { isDownloadCSVLoading, isDownloadCSVSuccess } = useSelector((state) => state.report);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    isDownloadCSVLoading,
+    isDownloadCSVSuccess,
+    isDownloadCSVError,
+    downloadCSVData,
+    downloadCSVMsg,
+  } = useSelector((state) => state.report);
 
   const dispatch = useDispatch();
 
@@ -89,8 +100,6 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
   //     setInitialValuesSet(true);
   //   }
   // }, [dateRange, initialValuesSet]);
-
-  console.log('dateRange', dateRange);
 
   useEffect(() => {
     dispatch(slice.actions.startGetReportsLoading());
@@ -135,9 +144,21 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
 
   const onResetFilter = () => setDateRange([]);
 
-  // useEffect(() => {
-  //   if (isDownloadCSVSuccess) setDateRange([]);
-  // }, [isDownloadCSVSuccess]);
+  useEffect(() => {
+    if (isDownloadCSVSuccess) {
+      downloadCSV(downloadCSVData, 'report.csv');
+      dispatch(slice.actions.clearGetReportErrState());
+    }
+
+    if (isDownloadCSVError) {
+      enqueueSnackbar(downloadCSVMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.clearGetReportErrState());
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -202,14 +223,23 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
               variant="contained"
               onClick={() =>
                 dispatch(
-                  downLoadReportCSV({
-                    startDate: dateRange[0] ? dateRange[0] : '',
-                    endDate: dateRange[1] ? dateRange[1] : '',
-                    type: 'all',
-                    userId: currentSelectedUser,
+                  // downLoadReportCSV({
+                  //   startDate: dateRange[0] ? dateRange[0] : '',
+                  //   endDate: dateRange[1] ? dateRange[1] : '',
+                  //   type: 'all',
+                  //   userId: currentSelectedUser,
+                  //   topicName: users?.rows?.find(
+                  //     (item: any) => item?.UserId === currentSelectedUser
+                  //   )?.UserTopicName?.send,
+                  // })
+                  generateCSV({
                     topicName: users?.rows?.find(
                       (item: any) => item?.UserId === currentSelectedUser
                     )?.UserTopicName?.send,
+                    startDate: dateRange[0] ? dateRange[0] : '',
+                    endDate: dateRange[1] ? dateRange[1] : '',
+                    userId: currentSelectedUser,
+                    reportType,
                   })
                 )
               }
