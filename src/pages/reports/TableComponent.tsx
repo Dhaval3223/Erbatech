@@ -31,8 +31,10 @@ import dayjs from 'dayjs';
 
 import UsersDropDown from 'src/components/all-users-dropdown';
 import { useAuthContext } from 'src/auth/useAuthContext';
+import { useSnackbar } from 'src/components/snackbar/index';
 import { downLoadReportCSV, generateCSV, getAllReportsData } from './slice/action';
 import { slice } from './slice';
+import { downloadCSV } from './utils';
 
 type Props = {
   columns: any[];
@@ -62,7 +64,15 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportTyp
     defaultRowsPerPage: 10,
   });
 
-  const { isGenerateCsvLoading, isDownloadCSVSuccess } = useSelector((state) => state.report);
+  const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    isDownloadCSVLoading,
+    isDownloadCSVSuccess,
+    isDownloadCSVError,
+    downloadCSVData,
+    downloadCSVMsg,
+  } = useSelector((state) => state.report);
 
   const dispatch = useDispatch();
 
@@ -134,9 +144,21 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportTyp
 
   const onResetFilter = () => setDateRange([]);
 
-  // useEffect(() => {
-  //   if (isDownloadCSVSuccess) setDateRange([]);
-  // }, [isDownloadCSVSuccess]);
+  useEffect(() => {
+    if (isDownloadCSVSuccess) {
+      downloadCSV(downloadCSVData, 'report.csv');
+      dispatch(slice.actions.clearGetReportErrState());
+    }
+
+    if (isDownloadCSVError) {
+      enqueueSnackbar(downloadCSVMsg, {
+        variant: 'error',
+      });
+      dispatch(slice.actions.clearGetReportErrState());
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <Container maxWidth={themeStretch ? false : 'lg'}>
@@ -221,7 +243,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportTyp
                   })
                 )
               }
-              loading={isGenerateCsvLoading}
+              loading={isDownloadCSVLoading}
               disabled={dateRange?.length === 0}
             >
               Download CSV

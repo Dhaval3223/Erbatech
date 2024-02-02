@@ -8,6 +8,7 @@ import { useSnackbar } from 'src/components/snackbar/index';
 
 import TableComponent from '../TableComponent';
 import { slice } from '../slice';
+import { downloadCSV } from '../utils';
 
 const TABLE_HEAD = [
   { id: 'Time', label: 'Time', align: 'left' },
@@ -59,32 +60,21 @@ export default function InspectTable() {
   //   setCSVdata(csvData);
   // }, [csvData]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.Irradiation,
-        item?.TransactionData[0]?.Wind_speed,
-        item?.TransactionData[0]?.T_outside,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     downloadCSV(downloadCSVData, 'weather.csv');
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-      // Add the header row
-      const csvDataArray = [['Time', 'Irradiation', 'Wind speed', 'T outside'], ...flattenedData];
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
-      dispatch(slice.actions.clearGetReportErrState());
-    }
-
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>

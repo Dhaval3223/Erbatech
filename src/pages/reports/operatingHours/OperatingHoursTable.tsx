@@ -74,47 +74,47 @@ export default function OperatingHoursTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.WP_in_operation,
-        item?.TransactionData[0]?.LK_in_operation,
-        item?.TransactionData[0]?.ZH_in_operation,
-        item?.TransactionData[0]?.Operating_time_SV_heat_transfer,
-        item?.TransactionData[0]?.Operating_time_SV_he_protection,
-        item?.TransactionData[0]?.Operating_time_WV,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.Time,
+  //       item?.TransactionData[0]?.WP_in_operation,
+  //       item?.TransactionData[0]?.LK_in_operation,
+  //       item?.TransactionData[0]?.ZH_in_operation,
+  //       item?.TransactionData[0]?.Operating_time_SV_heat_transfer,
+  //       item?.TransactionData[0]?.Operating_time_SV_he_protection,
+  //       item?.TransactionData[0]?.Operating_time_WV,
+  //     ]);
 
-      // Add the header row
-      const csvDataArray = [
-        [
-          'Time',
-          'WP in operation',
-          'LK in operation',
-          'ZH in operation',
-          'Operating time SV heat transfer',
-          'Operating time SV he protection',
-          'Operating time WV',
-        ],
-        ...flattenedData,
-      ];
+  //     // Add the header row
+  //     const csvDataArray = [
+  //       [
+  //         'Time',
+  //         'WP in operation',
+  //         'LK in operation',
+  //         'ZH in operation',
+  //         'Operating time SV heat transfer',
+  //         'Operating time SV he protection',
+  //         'Operating time WV',
+  //       ],
+  //       ...flattenedData,
+  //     ];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
-      csvLinkRef?.current?.link.click();
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
+  //     csvLinkRef?.current?.link.click();
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>

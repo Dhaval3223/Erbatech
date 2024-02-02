@@ -60,37 +60,37 @@ export default function SkFrquencyTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.f_pump,
-        item?.TransactionData[0]?.f_cal_full,
-        item?.TransactionData[0]?.f_cal_overflow,
-        item?.TransactionData[0]?.p_roof,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.Time,
+  //       item?.TransactionData[0]?.f_pump,
+  //       item?.TransactionData[0]?.f_cal_full,
+  //       item?.TransactionData[0]?.f_cal_overflow,
+  //       item?.TransactionData[0]?.p_roof,
+  //     ]);
 
-      // Add the header row
-      const csvDataArray = [
-        ['Time', 'f pump', 'f cal full', 'f cal overflow', 'p roof'],
-        ...flattenedData,
-      ];
+  //     // Add the header row
+  //     const csvDataArray = [
+  //       ['Time', 'f pump', 'f cal full', 'f cal overflow', 'p roof'],
+  //       ...flattenedData,
+  //     ];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
-      csvLinkRef?.current?.link.click();
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
+  //     csvLinkRef?.current?.link.click();
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>
