@@ -109,7 +109,7 @@ export default function SkFrquencyTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
-        reportType="skfrequency"
+        reportType="sk_frequency_and_pressure"
       />
     </>
   );

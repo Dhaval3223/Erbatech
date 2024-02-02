@@ -44,7 +44,7 @@ export function generateCSV(params: any) {
   return async (dispatch: Dispatch) => {
     dispatch(slice.actions.startGenerateCSVLoading());
     try {
-      const response = await axios.post(GENERATE_CSV, params);
+      const response = await axios.get(GENERATE_CSV, { params });
       dispatch(slice.actions.handleGenerateCsv(response.data));
     } catch (error) {
       dispatch(slice.actions.hasGenerateCsvError(error));
