@@ -3,7 +3,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import axios from 'src/utils/axiosInstance';
 
 import { slice } from '.';
-import { GET_REPORT } from './action_types';
+import { GENERATE_CSV, GET_REPORT } from './action_types';
 // ----------------------------------------------------------------------
 
 export function getAllReportsData(params: {
@@ -36,6 +36,18 @@ export function downLoadReportCSV(params: any) {
       dispatch(slice.actions.handleDownloadReportCSV(response.data));
     } catch (error) {
       dispatch(slice.actions.hasDownloadReportCSV(error));
+    }
+  };
+}
+
+export function generateCSV(params: any) {
+  return async (dispatch: Dispatch) => {
+    dispatch(slice.actions.startGenerateCSVLoading());
+    try {
+      const response = await axios.post(GENERATE_CSV, params);
+      dispatch(slice.actions.handleGenerateCsv(response.data));
+    } catch (error) {
+      dispatch(slice.actions.hasGenerateCsvError(error));
     }
   };
 }

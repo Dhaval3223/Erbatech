@@ -31,7 +31,7 @@ import dayjs from 'dayjs';
 
 import UsersDropDown from 'src/components/all-users-dropdown';
 import { useAuthContext } from 'src/auth/useAuthContext';
-import { downLoadReportCSV, getAllReportsData } from './slice/action';
+import { downLoadReportCSV, generateCSV, getAllReportsData } from './slice/action';
 import { slice } from './slice';
 
 type Props = {
@@ -39,9 +39,10 @@ type Props = {
   rowCount?: number;
   rows: any[];
   tableType?: string;
+  reportType: string;
 };
 
-function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) {
+function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportType }: Props) {
   const {
     dense,
     page,
@@ -61,7 +62,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
     defaultRowsPerPage: 10,
   });
 
-  const { isDownloadCSVLoading, isDownloadCSVSuccess } = useSelector((state) => state.report);
+  const { isGenerateCsvLoading, isDownloadCSVSuccess } = useSelector((state) => state.report);
 
   const dispatch = useDispatch();
 
@@ -89,8 +90,6 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
   //     setInitialValuesSet(true);
   //   }
   // }, [dateRange, initialValuesSet]);
-
-  console.log('dateRange', dateRange);
 
   useEffect(() => {
     dispatch(slice.actions.startGetReportsLoading());
@@ -202,18 +201,27 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '' }: Props) 
               variant="contained"
               onClick={() =>
                 dispatch(
-                  downLoadReportCSV({
-                    startDate: dateRange[0] ? dateRange[0] : '',
-                    endDate: dateRange[1] ? dateRange[1] : '',
-                    type: 'all',
-                    userId: currentSelectedUser,
+                  // downLoadReportCSV({
+                  //   startDate: dateRange[0] ? dateRange[0] : '',
+                  //   endDate: dateRange[1] ? dateRange[1] : '',
+                  //   type: 'all',
+                  //   userId: currentSelectedUser,
+                  //   topicName: users?.rows?.find(
+                  //     (item: any) => item?.UserId === currentSelectedUser
+                  //   )?.UserTopicName?.send,
+                  // })
+                  generateCSV({
                     topicName: users?.rows?.find(
                       (item: any) => item?.UserId === currentSelectedUser
                     )?.UserTopicName?.send,
+                    startDate: dateRange[0] ? dateRange[0] : '',
+                    endDate: dateRange[1] ? dateRange[1] : '',
+                    userId: currentSelectedUser,
+                    reportType,
                   })
                 )
               }
-              loading={isDownloadCSVLoading}
+              loading={isGenerateCsvLoading}
               disabled={dateRange?.length === 0}
             >
               Download CSV

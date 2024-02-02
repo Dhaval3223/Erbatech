@@ -113,6 +113,7 @@ export default function YieldTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="yeild"
       />
     </>
   );

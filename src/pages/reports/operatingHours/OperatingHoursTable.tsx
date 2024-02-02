@@ -133,6 +133,7 @@ export default function OperatingHoursTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="operatingHours"
       />
     </>
   );

@@ -119,6 +119,7 @@ export default function SvHeatTransferTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="svHeatTransfer"
       />
     </>
   );

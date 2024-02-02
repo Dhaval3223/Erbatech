@@ -94,6 +94,7 @@ export default function LevelsTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="levels"
       />
     </>
   );

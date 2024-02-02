@@ -97,6 +97,7 @@ export default function InspectTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="weather"
       />
     </>
   );
