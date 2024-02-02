@@ -3094,8 +3094,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {/* {apiValues?.[keys?.[4.15]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.15]])} kWh`} */}
+                {apiValues?.SV_heat_tot && `${roundToOneDecimalPlace(apiValues?.SV_heat_tot)} kWh`}
               </tspan>
             </text>
           </g>
@@ -3716,8 +3715,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.[keys?.[4.1]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[4.1]])} °C`}
+                {apiValues?.SV_T_infeed && `${roundToOneDecimalPlace(apiValues?.SV_T_infeed)} °C`}
               </tspan>
             </text>
           </g>
@@ -4406,7 +4404,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
           strokeWidth="2.28"
           d="M179.59 238.02h90.58c11.87 0 21.49-27.1 21.49-60.54s-9.62-60.54-21.49-60.54h-90.58c-11.87 0-21.49 27.1-21.49 60.54s9.62 60.54 21.49 60.54z"
         />
-        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] >= 1 && (
+        {apiValues?.[keys?.[1.6]] && apiValues?.[keys?.[1.6]] == 0 && (
           <>
             <path
               fill="none"
@@ -4603,8 +4601,7 @@ export const PfisterScreen = ({ currentSelectedUser, setCurrentSelectedUser }: a
               writingMode="lr-tb"
             >
               <tspan x="0 4.5630002 9.1260004 13.689 15.48 19.313999" y="0">
-                {apiValues?.[keys?.[1.5]] &&
-                  `${roundToOneDecimalPlace(apiValues?.[keys?.[1.5]])} cm`}
+                {apiValues?.Level_tank && `${roundToOneDecimalPlace(apiValues?.Level_tank)} cm`}
               </tspan>
             </text>
           </g>

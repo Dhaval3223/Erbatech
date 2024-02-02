@@ -54,32 +54,32 @@ export default function SvHeatTransferTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.T_top_strat_tank,
-        item?.TransactionData[0]?.T_bottom_strat_tank,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.Time,
+  //       item?.TransactionData[0]?.T_top_strat_tank,
+  //       item?.TransactionData[0]?.T_bottom_strat_tank,
+  //     ]);
 
-      // Add the header row
-      const csvDataArray = [['Time', 'T top strat tank', 'T bottom strat tank'], ...flattenedData];
+  //     // Add the header row
+  //     const csvDataArray = [['Time', 'T top strat tank', 'T bottom strat tank'], ...flattenedData];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
-      csvLinkRef?.current?.link.click();
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
+  //     csvLinkRef?.current?.link.click();
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>
@@ -98,6 +98,7 @@ export default function SvHeatTransferTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="stratefied_tank"
       />
     </>
   );

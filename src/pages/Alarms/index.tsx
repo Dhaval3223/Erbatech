@@ -91,6 +91,8 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
 
   const { enqueueSnackbar } = useSnackbar();
 
+  const { users } = useSelector((state) => state.user);
+
   const { isSensorLoading, sensorData } = useSelector((state) => state?.sensor);
 
   const {
@@ -148,7 +150,8 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
     if (alarmAcknowledgementData?.success === true) {
       dispatch(
         checkAlermStatusApi({
-          topic: 'topic_2',
+          topic: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+            ?.UserTopicName?.send,
           userId: currentSelectedUser,
         })
       );
@@ -169,7 +172,8 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
       dispatch(slice2.actions.resetCheckAlarm());
       // dispatch(
       //   checkAlermStatusApi({
-      //     topic: 'topic_2',
+      //     topic: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          // ?.UserTopicName?.send,
       //     userId: currentSelectedUser,
       //   })
       // );
@@ -259,7 +263,7 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
             sx={{
               position: 'relative',
               overflow: 'unset',
-              maxHeight: '350px',
+              // maxHeight: '350px',
               overflowY: 'scroll',
             }}
           >
@@ -340,7 +344,11 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
           </Typography>
         )} */}
       </Container>
-      <Table2 refreshAPI={refreshAPI} setCurrentSelectedUser={setCurrentSelectedUser} currentSelectedUser={currentSelectedUser}/>
+      <Table2
+        refreshAPI={refreshAPI}
+        setCurrentSelectedUser={setCurrentSelectedUser}
+        currentSelectedUser={currentSelectedUser}
+      />
     </>
   );
 }

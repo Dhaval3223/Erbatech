@@ -67,40 +67,40 @@ export default function SvHeatTransferTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.T_backfeed_prim_SV,
-        item?.TransactionData[0]?.T_backfeed_sec_SV,
-        item?.TransactionData[0]?.T_tank,
-        item?.TransactionData[0]?.T_tank_2,
-        item?.TransactionData[0]?.f_pump,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.Time,
+  //       item?.TransactionData[0]?.T_backfeed_prim_SV,
+  //       item?.TransactionData[0]?.T_backfeed_sec_SV,
+  //       item?.TransactionData[0]?.T_tank,
+  //       item?.TransactionData[0]?.T_tank_2,
+  //       item?.TransactionData[0]?.f_pump,
+  //     ]);
 
-      // Add the header row
-      const csvDataArray = [
-        ['Time', 'T backfeed prim SV', 'T backfeed sec SV', 'T tank', 'T tank 2', 'f pump'],
-        ...flattenedData,
-      ];
+  //     // Add the header row
+  //     const csvDataArray = [
+  //       ['Time', 'T backfeed prim SV', 'T backfeed sec SV', 'T tank', 'T tank 2', 'f pump'],
+  //       ...flattenedData,
+  //     ];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
 
-      csvLinkRef?.current?.link.click();
+  //     csvLinkRef?.current?.link.click();
 
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>
@@ -119,6 +119,7 @@ export default function SvHeatTransferTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="sv_heat_transfer"
       />
     </>
   );

@@ -66,47 +66,47 @@ export default function TempratureTable() {
     }
   }, [reportsData, isGetReportLoading]);
 
-  useEffect(() => {
-    if (isDownloadCSVSuccess) {
-      const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
-        item?.TransactionData[0]?.Time,
-        item?.TransactionData[0]?.T_outside,
-        item?.TransactionData[0]?.T_tank,
-        item?.TransactionData[0]?.T_tank_2,
-        item?.TransactionData[0]?.T_coll_surface,
-        item?.TransactionData[0]?.T_coll_backfeed,
-        item?.TransactionData[0]?.T_coll_infeed,
-      ]);
+  // useEffect(() => {
+  //   if (isDownloadCSVSuccess) {
+  //     const flattenedData = downloadCSVData?.data?.rows?.map((item: any) => [
+  //       item?.TransactionData[0]?.Time,
+  //       item?.TransactionData[0]?.T_outside,
+  //       item?.TransactionData[0]?.T_tank,
+  //       item?.TransactionData[0]?.T_tank_2,
+  //       item?.TransactionData[0]?.T_coll_surface,
+  //       item?.TransactionData[0]?.T_coll_backfeed,
+  //       item?.TransactionData[0]?.T_coll_infeed,
+  //     ]);
 
-      // Add the header row
-      const csvDataArray = [
-        [
-          'Time',
-          'T outside',
-          'T tank',
-          'T tank 2',
-          'T coll surface',
-          'T coll backfeed',
-          'T coll infeed',
-        ],
-        ...flattenedData,
-      ];
+  //     // Add the header row
+  //     const csvDataArray = [
+  //       [
+  //         'Time',
+  //         'T outside',
+  //         'T tank',
+  //         'T tank 2',
+  //         'T coll surface',
+  //         'T coll backfeed',
+  //         'T coll infeed',
+  //       ],
+  //       ...flattenedData,
+  //     ];
 
-      // Set the CSV data when the component mounts
-      setCSVdata(csvDataArray);
-      csvLinkRef?.current?.link.click();
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //     // Set the CSV data when the component mounts
+  //     setCSVdata(csvDataArray);
+  //     csvLinkRef?.current?.link.click();
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    if (isDownloadCSVError) {
-      enqueueSnackbar(downloadCSVMsg, {
-        variant: 'error',
-      });
-      dispatch(slice.actions.clearGetReportErrState());
-    }
+  //   if (isDownloadCSVError) {
+  //     enqueueSnackbar(downloadCSVMsg, {
+  //       variant: 'error',
+  //     });
+  //     dispatch(slice.actions.clearGetReportErrState());
+  //   }
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isDownloadCSVSuccess, isDownloadCSVError]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isDownloadCSVSuccess, isDownloadCSVError]);
 
   return (
     <>
@@ -125,6 +125,7 @@ export default function TempratureTable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
+        reportType="temperature"
       />
     </>
   );

@@ -4,7 +4,9 @@ import axios from 'src/utils/axiosInstance';
 
 import { 
 GET_SENSOR_BY_ID,
-UPDATE_SENSOR_BY_ID
+UPDATE_SENSOR_BY_ID,
+CREATE_SENSOR_BY_ID,
+DELETE_SENSOR_BY_ID
 } from './action_type';
 import { slice } from '.';
 
@@ -34,6 +36,38 @@ import { slice } from '.';
         dispatch(slice.actions.getSensorUpdatedRecords(response.data));
       } catch (error) {
         dispatch(slice.actions.hasUpdateSensorDataError(error));
+      }
+    };
+  }
+
+  export function createSensorByID(data: {
+    userId: string;
+    sensorType: string;
+    data: any;
+  }){
+    return async (dispatch: Dispatch) => {
+    // dispatch(slice.actions.startLoading());
+      try {
+        const response = await axios.post(CREATE_SENSOR_BY_ID, data);
+        dispatch(slice.actions.getSensorCreatedRecords(response.data));
+      } catch (error) {
+        dispatch(slice.actions.createHasError(error));
+      }
+    };
+  }
+
+  export function deleteSensorById(data: {
+    userId: string;
+    sensorId: string;
+    sensorType: string;
+  }){
+    return async (dispatch: Dispatch) => {
+    // dispatch(slice.actions.startLoading());
+      try {
+        const response = await axios.post(DELETE_SENSOR_BY_ID, data);
+        dispatch(slice.actions.deleteSensorEventSuccess(response.data));
+      } catch (error) {
+        dispatch(slice.actions.deleteSensorEventError(error));
       }
     };
   }

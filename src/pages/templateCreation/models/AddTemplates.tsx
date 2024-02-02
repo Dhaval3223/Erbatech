@@ -216,7 +216,13 @@ export default function TemplateAdds({
             >
               reset
             </LoadingButton>
-            <LoadingButton type="button" onClick={() => onClose()}>
+            <LoadingButton
+              type="button"
+              onClick={() => {
+                setHitApi((prev: boolean) => !prev);
+                onClose();
+              }}
+            >
               Cancel
             </LoadingButton>
           </Stack>

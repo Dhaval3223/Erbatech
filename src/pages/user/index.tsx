@@ -27,6 +27,7 @@ import {
 import MenuPopover from 'src/components/menu-popover/MenuPopover';
 import { useDispatch, useSelector } from 'src/redux/store';
 import TableSkeleton from 'src/components/table-skeleton';
+import { useSnackbar } from 'notistack';
 import { PATH_DASHBOARD } from '../../routes/paths';
 // @types
 import { IUserAccountGeneral } from '../../@types/user';
@@ -129,9 +130,19 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
 
   const dispatch = useDispatch();
 
-  const { users, isUserLoading, viewUserData, createUserSucess, updateUserSuccess } = useSelector(
-    (state) => state.user
-  );
+  const { enqueueSnackbar } = useSnackbar();
+
+  const {
+    users,
+    isUserLoading,
+    viewUserData,
+    createUserSucess,
+    createUserError,
+    updateUserSuccess,
+    updateUserError,
+    deleteUserSuccess,
+    deleteUserError,
+  } = useSelector((state) => state.user);
 
   const { themeStretch } = useSettingsContext();
 
@@ -150,6 +161,8 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
   const [openDrawer, setOpenDrawer] = useState(false);
 
   const [EditopenDrawer, setEditOpenDrawer] = useState(false);
+
+  const [refresh, setRefresh] = useState(false);
 
   const [openPopover, setOpenPopover] = useState<HTMLElement | null>(null);
 
@@ -195,11 +208,6 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
     setOpenConfirm(false);
   };
 
-  const handleFilterStatus = (event: React.SyntheticEvent<Element, Event>, newValue: string) => {
-    setPage(0);
-    setFilterStatus(newValue);
-  };
-
   const handleFilterName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPage(0);
     setFilterName(event.target.value);
@@ -212,50 +220,9 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
 
   const handleDeleteRow = (id: string) => {
     dispatch(deleteUserById(id));
-    dispatch(
-      getAllUsers({
-        searchValue: filterName,
-        userRoleId: '',
-        userType: user ? 'user' : 'customer',
-        limit: String(rowsPerPage),
-        page: String(page),
-      })
-    );
-    /* const deleteRow = tableData.filter((row) => row.id !== id);
-    setSelected([]);
-    setTableData(deleteRow);
-
-    if (page > 0) {
-      if (dataInPage.length < 2) {
-        setPage(page - 1);
-      }
-    } */
   };
 
-  const handleDeleteRows = (selectedRows: string[]) => {
-    const deleteRows = tableData.filter((row) => !selectedRows.includes(row.id));
-
-    /* setSelected([]);
-    setTableData(deleteRows);
-
-    if (page > 0) {
-      if (selectedRows.length === dataInPage.length) {
-        setPage(page - 1);
-      } else if (selectedRows.length === dataFiltered.length) {
-        setPage(0);
-      } else if (selectedRows.length > dataInPage.length) {
-        const newPage = Math.ceil((tableData.length - selectedRows.length) / rowsPerPage) - 1;
-        setPage(newPage);
-      }
-    } */
-  };
-
-  // useEffect(() => {
-  //   if(viewUserLoading === false) {
-  //     handleOpenDrawer();
-  //     setIsEdit(true);
-  //   }
-  // },[viewUserLoading, viewUserData])
+  const handleDeleteRows = (selectedRows: string[]) => {};
 
   const handleEditRow = (id: string) => {
     setEditOpenDrawer(true);
@@ -291,10 +258,6 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
     setOpenPopover(null);
   };
 
-  const handleOpenPopover = (event: React.MouseEvent<HTMLElement>) => {
-    setOpenPopover(event.currentTarget);
-  };
-
   useEffect(() => {
     if (createUserSucess) {
       dispatch(
@@ -320,8 +283,21 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
       );
       dispatch(slice.actions.resetUpdateUserState());
     }
+    if (deleteUserSuccess) {
+      enqueueSnackbar('Deleted successfully');
+      dispatch(
+        getAllUsers({
+          searchValue: filterName,
+          userType: user ? 'user' : 'customer',
+          userRoleId: '',
+          page: String(page),
+          limit: String(rowsPerPage),
+        })
+      );
+      dispatch(slice.actions.resetDeleteUser());
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [createUserSucess, updateUserSuccess]);
+  }, [createUserSucess, updateUserSuccess, deleteUserSuccess]);
 
   const handleUpdateSubmit = () => {
     dispatch(
@@ -334,6 +310,22 @@ function UserListing({ user, isUpdateRights, isDeleteRights, isCreateRights }: I
       })
     );
   };
+
+  useEffect(() => {
+    if (createUserError) {
+      enqueueSnackbar('Failed to create. Please try again later!!');
+      dispatch(slice.actions.resetCreateUserState());
+    }
+    if (updateUserError) {
+      enqueueSnackbar('Failed to update. Please try again later!!');
+      dispatch(slice.actions.resetUpdateUserState());
+    }
+    if (deleteUserError) {
+      enqueueSnackbar('Failed to delete. Please try again later!!');
+      dispatch(slice.actions.resetDeleteUser());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [createUserError, updateUserError, deleteUserError]);
 
   return (
     <>

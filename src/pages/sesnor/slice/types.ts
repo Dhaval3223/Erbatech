@@ -4,4 +4,12 @@ export interface ISensorState {
     error: any;
     isSensorUpdateLoading: boolean;
     sensorUpdateData: any;
+    isSensorCreateLoading: boolean;
+    isCreateSensorSuccess: boolean;
+    isCreateSensorError: boolean;
+    createSensorMsg: any;
+    createSensorError: any;
+    isDeleteSensorSuccess: boolean;
+    isDeleteSensorError: boolean;
+    deleteSensorMsg: any;
 }

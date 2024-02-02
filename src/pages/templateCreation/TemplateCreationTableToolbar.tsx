@@ -34,7 +34,7 @@ export default function UserTableToolbar({
   isCreateRights,
 }: Props) {
   const {translate} = useLocales();
-  console.log(isCreateRights, 'isCreateRights');
+
   return (
     <Stack
       spacing={2}

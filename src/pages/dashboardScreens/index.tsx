@@ -25,8 +25,9 @@ const Dashboard = () => {
 
   const { user } = useAuthContext();
 
+  const { users } = useSelector((state) => state.user);
+
   const { viewUserData } = useSelector((state) => state.user);
-  console.log('viewUserData', viewUserData);
 
   const [currentSelectedUser, setCurrentSelectedUser] = useState(user?.UserId);
 
@@ -36,7 +37,8 @@ const Dashboard = () => {
     dispatch(slice.actions.startGetReportsLoading());
     dispatch(
       getAllReportsData({
-        topicName: 'topic_2',
+        topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+          ?.UserTopicName?.send,
         page: 1,
         limit: 1,
         userId: currentSelectedUser,
@@ -48,7 +50,8 @@ const Dashboard = () => {
     const intervalId = setInterval(() => {
       dispatch(
         getAllReportsData({
-          topicName: 'topic_2',
+          topicName: users?.rows?.find((item: any) => item?.UserId === currentSelectedUser)
+            ?.UserTopicName?.send,
           page: 1,
           limit: 1,
           userId: currentSelectedUser,

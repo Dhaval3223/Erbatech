@@ -15,6 +15,11 @@ const initialState: IReportsSlice = {
   isDownloadCSVSuccess: false,
   isDownloadCSVError: false,
   downloadCSVMsg: '',
+  csvData: [],
+  isGenerateCsvLoading: false,
+  isGenerateCsvSuccess: false,
+  isGenerateCsvError: false,
+  generateCsvmsg: false,
 };
 
 const slice = createSlice({
@@ -80,10 +85,44 @@ const slice = createSlice({
         downloadCSVMsg: 'Something went wrong!!',
       };
     },
+    startGenerateCSVLoading(state) {
+      return {
+        ...state,
+        isGenerateCsvLoading: true,
+      };
+    },
+    handleGenerateCsv(state, action) {
+      return {
+        ...state,
+        csvData: [],
+        isGenerateCsvLoading: false,
+        isGenerateCsvSuccess: false,
+        isGenerateCsvError: false,
+        generateCsvmsg: false,
+      };
+    },
+    hasGenerateCsvError(state, action) {
+      return {
+        ...state,
+        csvData: [],
+        isGenerateCsvLoading: false,
+        isGenerateCsvError: false,
+        generateCsvmsg: false,
+      };
+    },
+    resetGenerateCsvStates(state) {
+      return {
+        ...state,
+        csvData: [],
+        isGenerateCsvLoading: false,
+        isGenerateCsvError: false,
+        generateCsvmsg: false,
+      };
+    },
     cleatDownloadReportCSVState(state) {
       return {
         ...state,
-        isDownloadCSVLoading: false,
+        isGenerateCsvLoading: false,
         downloadCSVData: [],
         isDownloadCSVSuccess: false,
         isDownloadCSVError: false,

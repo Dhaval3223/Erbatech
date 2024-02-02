@@ -357,7 +357,7 @@ export default function UserListPage() {
   };
 
   const handleCreateRoleAPI = () => {
-    if (role.RoleName === '') {
+    if (role.RoleName === '' || role.RoleName?.length > 50) {
       setRoleError(true);
       return;
     }
