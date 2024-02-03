@@ -50,7 +50,7 @@ export default function AddSensorVariableModel({
   const NewUserSchema = Yup.object().shape({
     SensorSettingGroup: Yup.string().required('Variables is required'),
     SensorSettingIdentifier: Yup.string().required('Value is required'),
-    SensorSettingValue: Yup.string().required('Unit is required'),
+    // SensorSettingValue: Yup.string().required('Unit is required'),
     SensorSettingDescription: Yup.string().required('Range is required'),
     SensorSettingLocation: Yup.string().required('Description is required'),
     SensorSettingName: Yup.string().required('Name is required'),
@@ -67,7 +67,7 @@ export default function AddSensorVariableModel({
         : '',
       SensorSettingValue: currentUser?.data?.SensorSettingValue
         ? currentUser?.data?.SensorSettingValue
-        : '',
+        : null,
       SensorSettingDescription: currentUser?.data?.SensorSettingDescription
         ? currentUser?.data?.SensorSettingDescription
         : '',
@@ -169,7 +169,7 @@ export default function AddSensorVariableModel({
         >
           <RHFTextField name="SensorSettingGroup" label="Add Group" />
           <RHFTextField name="SensorSettingIdentifier" label="Add identifier" />
-          <RHFTextField name="SensorSettingValue" label="Add value" />
+          {/* <RHFTextField name="SensorSettingValue" label="Add value" /> */}
           <RHFTextField name="SensorSettingDescription" label="Add description" />
           <RHFTextField name="SensorSettingLocation" label="Add location" />
           <RHFTextField name="SensorSettingName" label="Add name" />
@@ -196,7 +196,7 @@ export default function AddSensorVariableModel({
                 reset({
                   SensorSettingGroup: '',
                   SensorSettingIdentifier: '',
-                  SensorSettingValue: '',
+                  // SensorSettingValue: '',
                   SensorSettingDescription: '',
                   SensorSettingLocation: '',
                   SensorSettingName: '',

@@ -61,9 +61,9 @@ export default function AddVariableModel({
       SensorVariableName: currentUser?.data?.SensorVariableName
         ? currentUser?.data?.SensorVariableName
         : '',
-      // SensorVariableValue: currentUser?.data?.SensorVariableValue
-      //   ? currentUser?.data?.SensorVariableValue
-      //   : '',
+      SensorVariableValue: currentUser?.data?.SensorVariableValue
+        ? currentUser?.data?.SensorVariableValue
+        : null,
       SensorVariableUnit: currentUser?.data?.SensorVariableUnit
         ? currentUser?.data?.SensorVariableUnit
         : '',
@@ -126,7 +126,7 @@ export default function AddVariableModel({
           updateSensorByID({
             data: {
               SensorVariableName: data?.SensorVariableName,
-              // SensorVariableValue: data?.SensorVariableValue,
+              SensorVariableValue: data?.SensorVariableValue,
               SensorVariableUnit: data?.SensorVariableUnit,
               SensorVariableRange: data?.SensorVariableRange,
               SensorVariableDescription: data?.SensorVariableDescription,
