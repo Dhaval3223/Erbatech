@@ -1,9 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'src/redux/store';
-import UsersDropDown from 'src/components/all-users-dropdown';
-import { useAuthContext } from 'src/auth/useAuthContext';
 
 import keys from './data.json';
 
@@ -12,14 +10,9 @@ function roundToOneDecimalPlace(number: any) {
 }
 
 export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }: any) => {
-  const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
-
-  const { user } = useAuthContext();
-
-  console.log('sensorData', reportsData?.rows?.[0]?.TransactionData?.[0]);
+  const { reportsData } = useSelector((state) => state.report);
 
   const apiValues = reportsData?.rows?.[0]?.TransactionData?.[0];
-  console.log('sensorData', apiValues?.[keys?.[2.3]]);
 
   return (
     <svg
@@ -4223,7 +4216,7 @@ export const DegersheimScreen = ({ currentSelectedUser, setCurrentSelectedUser }
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
-                {apiValues?.SV_flow && `${roundToOneDecimalPlace(apiValues?.SV_flow)} °C`}
+                {apiValues?.SV_flow && `${roundToOneDecimalPlace(apiValues?.SV_flow)} m³/h`}
               </tspan>
             </text>
           </g>

@@ -1,9 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable eqeqeq */
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'src/redux/store';
-import UsersDropDown from 'src/components/all-users-dropdown';
-import { useAuthContext } from 'src/auth/useAuthContext';
 
 import keys from './data.json';
 
@@ -12,14 +10,9 @@ function roundToOneDecimalPlace(number: any) {
 }
 
 export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: any) => {
-  const { isGetReportLoading, reportsData } = useSelector((state) => state.report);
-
-  const { user } = useAuthContext();
-
-  console.log('sensorData', reportsData?.rows?.[0]?.TransactionData?.[0]);
+  const { reportsData } = useSelector((state) => state.report);
 
   const apiValues = reportsData?.rows?.[0]?.TransactionData?.[0];
-  console.log('sensorData', apiValues);
 
   return (
     <svg
@@ -1353,7 +1346,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               fontSize="9"
               fontVariant="normal"
               fontWeight="normal"
-              transform="matrix(1 0 0 -1 54.432 149.64)"
+              transform="matrix(1 0 0 -1 50.432 149.64)"
               writingMode="lr-tb"
             >
               <tspan x="0" y="0">
@@ -1432,7 +1425,7 @@ export const SprossScreen = ({ currentSelectedUser, setCurrentSelectedUser }: an
               transform="matrix(1 0 0 -1 269.71 311.88)"
               writingMode="lr-tb"
             >
-              <tspan x="0 4.5630002 6.8309999 11.394 15.957" y="0">
+              <tspan x="0" y="0">
                 {apiValues?.[keys?.[3.2]] &&
                   `${roundToOneDecimalPlace(apiValues?.[keys?.[3.2]])} °C`}
               </tspan>
