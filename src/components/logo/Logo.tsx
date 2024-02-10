@@ -33,7 +33,7 @@ const Logo = forwardRef<HTMLDivElement, LogoProps>(
     const logo = (
       <Box
         component="img"
-        src="/logo/LogoSoblue.jpg"
+        src="/logo/LogoSoblue-removebg-preview.png"
         alt="logo"
         sx={{
           width: 150,
