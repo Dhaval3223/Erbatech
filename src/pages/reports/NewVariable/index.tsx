@@ -147,7 +147,7 @@ export default function NewVariable() {
         rowCount={reportsData?.count}
         rows={rows}
         tableType="topic_2"
-        reportType="yields"
+        reportType="all_variables"
       />
     </>
   );

@@ -409,12 +409,12 @@ const navConfig = [
             ],
           },
           {
-            title: 'New Variables',
-            path: 'new-variable',
+            title: 'All Variables',
+            path: 'all-variable',
             children: [
               {
-                title: 'new variable table',
-                path: 'new-variable/table',
+                title: 'All variable table',
+                path: 'all-variable/table',
               },
             ],
           },
