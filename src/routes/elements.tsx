@@ -91,6 +91,7 @@ export const SensorCustomSetting = Loadable(
   lazy(() => import('../pages/sesnor/SensorCustomSetting'))
 );
 export const YieldTable = Loadable(lazy(() => import('../pages/reports/yields/YieldTable')));
+export const NewVariableTable = Loadable(lazy(() => import('../pages/reports/NewVariable')));
 export const YieldsReport = Loadable(lazy(() => import('../pages/reports/yields/YieldsReport')));
 export const Example = Loadable(lazy(() => import('../pages/reports/ScatterChart')));
 export const InspectTable = Loadable(
