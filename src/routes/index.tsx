@@ -159,6 +159,7 @@ import {
   TemplateDetails,
   TemplateCreation,
   Alarm,
+  NewVariableTable,
 } from './elements';
 
 // ----------------------------------------------------------------------
@@ -338,6 +339,10 @@ export default function Router() {
         {
           path: 'levels/table',
           element: <LevelsTable />,
+        },
+        {
+          path: 'new-variable/table',
+          element: <NewVariableTable />,
         },
         // { path: 'userList', element: <UserListingPage /> },
         // { path: 'profile', element: <UserProfilePage /> },
