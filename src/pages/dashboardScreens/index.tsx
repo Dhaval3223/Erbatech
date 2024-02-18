@@ -24,6 +24,7 @@ const Dashboard = () => {
   const { user } = useAuthContext();
 
   const { users } = useSelector((state) => state.user);
+  console.log('users', users);
 
   const { viewUserData } = useSelector((state) => state.user);
 
