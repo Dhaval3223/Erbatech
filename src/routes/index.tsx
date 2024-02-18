@@ -341,7 +341,7 @@ export default function Router() {
           element: <LevelsTable />,
         },
         {
-          path: 'new-variable/table',
+          path: 'all-variable/table',
           element: <NewVariableTable />,
         },
         // { path: 'userList', element: <UserListingPage /> },
