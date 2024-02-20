@@ -356,7 +356,7 @@ function AlarmAccess({ isUpdateRights, isDeleteRights, isCreateRights }: IAlarmL
 export default function Alarm() {
   const { accessControlCRUD } = useAuthContext();
 
-  const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
+  const { isView, isUpdate } = accessControlCRUD[types.PG015] || {};
 
   return isView ? <AlarmAccess isUpdateRights={isUpdate} /> : <Page403 />;
 }

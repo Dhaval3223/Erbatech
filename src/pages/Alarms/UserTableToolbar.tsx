@@ -99,16 +99,16 @@ export default function SensorTableToolbar({
           </Button>
         )}
       </Stack>
-      {lastUpdateStatus && user?.UserTypeCode === 'CU' ? (
-        <Typography variant="body2" paragraph>
-          {`Last data loaded time: ${lastLoadingTime}`}
-        </Typography>
-      ) : (
+      {user?.UserTypeCode === 'SA' ? (
         <UsersDropDown
           onChange={onUserChange}
           currentSelectedUser={currentSelectedUser}
           setCurrentSelectedUser={setCurrentSelectedUser}
         />
+      ) : (
+        <Typography variant="body2" paragraph>
+          {`Last data loaded time: ${lastLoadingTime}`}
+        </Typography>
       )}
     </Stack>
   );

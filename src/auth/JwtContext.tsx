@@ -133,8 +133,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
         const pathAfterLogIn = response?.data?.data.find((item: any) =>
           item?.RolePrivilege?.includes('V')
         );
-        // dispatch(slice.actions.getRolesSuccess(response.data));
-        console.log('convertArrayToObject', pathAfterLogIn);
 
         dispatch({
           type: Types.INITIAL,

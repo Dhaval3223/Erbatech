@@ -255,7 +255,7 @@ function AlarmAccess({
 export default function Alarm(props: any) {
   const { accessControlCRUD } = useAuthContext();
 
-  const { isView, isUpdate } = accessControlCRUD[types.PG006] || {};
+  const { isView, isUpdate } = accessControlCRUD[types.PG015] || {};
 
   return isView ? (
     <AlarmAccess

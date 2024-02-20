@@ -13,7 +13,7 @@ import NavList from './NavList';
 export default function NavSectionVertical({ data, sx, ...other }: NavSectionProps) {
   const { translate } = useLocales();
   const { accessControlCRUD } = useAuthContext();
-  console.log('datadatadata', data);
+  console.log('datadatadata', accessControlCRUD);
 
   return (
     <Stack sx={sx} {...other}>
