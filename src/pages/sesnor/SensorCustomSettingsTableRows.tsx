@@ -93,6 +93,10 @@ export default function SensorCustomSettingsTableRows({
         </TableCell>
 
         <TableCell align="left" sx={{ width: '15%' }}>
+          {row?.SensorCustomSettingCurrentValue}
+        </TableCell>
+
+        <TableCell align="left" sx={{ width: '15%' }}>
           {row?.SensorCustomSettingUnit}
         </TableCell>
 

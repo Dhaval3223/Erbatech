@@ -48,6 +48,7 @@ const TABLE_HEAD = [
   // { id: 'data_types', label: 'Data Types', align: 'left' },
   { id: 'variables', label: 'Variables', align: 'left' },
   { id: 'Value', label: 'Value', align: 'left' },
+  { id: 'Current value', label: 'Current value', align: 'left' },
   { id: 'Unit', label: 'Unit', align: 'left' },
   { id: 'Range', label: 'Range', align: 'left' },
   { id: 'Description', label: 'Description', align: 'left' },
