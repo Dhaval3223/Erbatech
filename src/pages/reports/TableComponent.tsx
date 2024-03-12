@@ -32,6 +32,7 @@ import dayjs from 'dayjs';
 import UsersDropDown from 'src/components/all-users-dropdown';
 import { useAuthContext } from 'src/auth/useAuthContext';
 import { useSnackbar } from 'src/components/snackbar/index';
+import localStorageAvailable from 'src/utils/localStorageAvailable';
 import { downLoadReportCSV, generateCSV, getAllReportsData } from './slice/action';
 import { slice } from './slice';
 import { downloadCSV } from './utils';
@@ -63,6 +64,8 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportTyp
   } = useTable({
     defaultRowsPerPage: 10,
   });
+  const storageAvailable = localStorageAvailable();
+  const userLocalStorage: any = storageAvailable ? JSON.parse(localStorage.getItem('user') || '{}') : '';
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -235,7 +238,7 @@ function TableComponent({ columns, rowCount = 0, rows, tableType = '', reportTyp
                   generateCSV({
                     topicName: users?.rows?.find(
                       (item: any) => item?.UserId === currentSelectedUser
-                    )?.UserTopicName?.send,
+                    )?.UserTopicName?.send || user?.UserTopicName?.send,
                     startDate: dateRange[0] ? dateRange[0] : '',
                     endDate: dateRange[1] ? dateRange[1] : '',
                     userId: currentSelectedUser,
